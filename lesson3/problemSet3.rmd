@@ -50,6 +50,8 @@ ggplot(aes(x = price), data = diamonds) +
   xlab('Log10(price)')
   
 ```
+The data appears to be bimodal.
+
 ##Descriptive Statistics of Price##
 ```{r}
 summary(diamonds$price)
@@ -75,7 +77,59 @@ How many diamonds at least 15,000 USD?
 nrow(subset(diamonds, diamonds$price >= 15000))
 ```
 
+##Eplore the largest Price Bin##
 
+```{r}
+ggplot(aes(x = price), data = diamonds) + 
+  geom_histogram(binwidth = 200,  color = 'black',fill = '#F79420') +
+  scale_x_continuous(limits = c(250, 1000), breaks = seq(250, 1000, 200))
 
+```
 
+```{r}
+ggplot(aes(x = price), data = diamonds) + 
+  geom_histogram(binwidth = 100,  color = 'black',fill = '#F79420') +
+  scale_x_continuous(limits = c(250, 1000), breaks = seq(250, 1000, 50))
+```
+
+```{r}
+ggplot(aes(x = price), data = diamonds) + 
+  geom_histogram(binwidth = 25,  color = 'black',fill = '#F79420') +
+  scale_x_continuous(limits = c(500, 1000), breaks = seq(500, 1000, 25))
+```
+The last one is too granular.  600 to 800 USD seems to be the sweet spot for low end diamond prices.
+
+**Insight provide from the class:**
+
+>There are no diamonds that cost $1500.
+>For diamonds that cost less than $2,000, the most common price of a diamond is >around $700 with the mode being $605 (binwidth = 1). 
+
+I would like to explore this.
+
+```{r}
+ggplot(aes(x = price), data = diamonds) + 
+  geom_histogram(binwidth = 1,  color = 'black',fill = '#F79420') +
+  scale_x_continuous(limits = c(600, 850), breaks = seq(600, 850, 10))
+```
+```{r}
+ggplot(aes(x = price), data = diamonds) + 
+  geom_histogram(binwidth = 1,  color = 'black',fill = '#F79420') +
+  scale_x_continuous(limits = c(600, 610), breaks = seq(600, 610, 1))
+```
+yup, 605.
+
+```
+```{r}
+ggplot(aes(x = price), data = diamonds) + 
+  geom_histogram(binwidth = 100,  color = 'black',fill = '#F79420') +
+  scale_x_continuous(limits = c(1000, 2000), breaks = seq(1000, 2000, 100))
+```
+There has to be a better way to find disconinuities, but I'll keep zooming for now.
+
+```{r}
+ggplot(aes(x = price), data = diamonds) + 
+  geom_histogram(binwidth = 10,  color = 'black',fill = '#F79420') +
+  scale_x_continuous(limits = c(1400, 1600), breaks = seq(1400, 1600, 10))
+```
+Yeah, there is a large discontinuity.
 
