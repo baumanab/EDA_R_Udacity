@@ -285,7 +285,11 @@ names(pf)
 **Looks like friendships initiated is the way to go**
 
 ```{r}
-
+qplot(x = gender, y = friendships_initiated,data = subset(pf,!is.na(gender)),geom = 'boxplot') +
+  coord_cartesian(ylim = c(0,150))
 ```
-
+```{r}
+by(pf$friendships_initiated,pf$gender,summary)
+```
+**And the females have it ladies and gentlemen!**
 
