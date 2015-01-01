@@ -13,7 +13,7 @@ We need to perform some analysis on the ggplot2 diamonds data set to answer some
 - How many ordered factors are in the data set?
 - What letter represents the best diamond color?
 
-##Load the data##
+##Load and Examine the data##
 
 ```{r}
 library(ggplot2)
@@ -30,5 +30,52 @@ Which is best, let's look at the included documentation.
 ```{r}
 ?diamonds
 ```
-colour. diamond colour, from J (worst) to D (best).  So, D is the best.
+>colour. diamond colour, from J (worst) to D (best).  So, D is the best.
+
+##Create a Histogram of Diamond Prices##
+
+```{r}
+library(ggthemes)
+```
+```{r}
+ggplot(aes(x = price), data = diamonds) + 
+  geom_histogram(binwidth = 100,  color = 'black',fill = '#F79420')
+```
+Data is long-tailed, transforming onto log scale
+
+```{r}
+ggplot(aes(x = price), data = diamonds) + 
+  geom_histogram(binwidth = .05,  color = 'black',fill = '#F79420') + 
+  scale_x_log10()+
+  xlab('Log10(price)')
+  
+```
+##Descriptive Statistics of Price##
+```{r}
+summary(diamonds$price)
+```
+##Diamond Counts#
+
+How many diamonds cost less than 500 USD?
+
+```{r}
+nrow(subset(diamonds, diamonds$price < 500))
+```
+
+
+
+How many diamonds cost less than 250 USD?
+```{r}
+nrow(subset(diamonds, diamonds$price < 250))
+```
+
+How many diamonds at least 15,000 USD?
+
+```{r}
+nrow(subset(diamonds, diamonds$price >= 15000))
+```
+
+
+
+
 
