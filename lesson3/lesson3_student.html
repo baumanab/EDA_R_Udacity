@@ -380,6 +380,37 @@ sum(subset(pf$www_likes, pf$gender == 'male'))</code></pre>
 <p><strong>And the females have it ladies and gentlemen!</strong></p>
 </div>
 </div>
+<div id="what-percent-of-users-check-in-using-mobile-binary-analysis" class="section level2">
+<h2>What percent of users check in using mobile (binary analysis)?</h2>
+<pre class="r"><code>summary(pf$mobile_likes)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     0.0     0.0     4.0   106.1    46.0 25110.0</code></pre>
+<p><strong>wow, a lot of zeros</strong></p>
+<pre class="r"><code>summary(pf$mobile_likes &gt; 0)</code></pre>
+<pre><code>##    Mode   FALSE    TRUE    NA's 
+## logical   35056   63947       0</code></pre>
+<p><strong>much better</strong></p>
+<pre class="r"><code>#assign new column to NA
+pf$mobile_check_in &lt;- NA
+#use if else statement to alter values base on mobile likes, if they did a mobile like, they use mobile, if not, probably not.  So if mobile likes are gt 0, then assing one, else assign o.  This is just like excel syntax FYI.
+pf$mobile_check_in &lt;-ifelse(pf$mobile_likes &gt; 0,1,0)
+#set factor levels
+pf$mobile_check_in &lt;- factor(pf$mobile_check_in)
+#summarize the data
+summary(pf$mobile_check_in)</code></pre>
+<pre><code>##     0     1 
+## 35056 63947</code></pre>
+<div id="now-how-about-that" class="section level4">
+<h4>Now how about that %</h4>
+<pre class="r"><code>#divide the summarry by the length of the vector then multiply by 100
+summary(pf$mobile_check_in)/length(pf$mobile_check_in) *100</code></pre>
+<pre><code>##        0        1 
+## 35.40903 64.59097</code></pre>
+<p><strong>I could have answere this more specfically for the True (value = 1) case</strong></p>
+<pre class="r"><code>sum(pf$mobile_check_in == 1)/length(pf$mobile_check_in) *100</code></pre>
+<pre><code>## [1] 64.59097</code></pre>
+</div>
+</div>
 
 
 </div>
