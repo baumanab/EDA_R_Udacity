@@ -1,0 +1,34 @@
+---
+title: "problemSet3"
+output: html_document
+---
+
+#GGPlot2 Diamonds Data Set##
+
+We need to perform some analysis on the ggplot2 diamonds data set to answer some questions.
+
+**Questions:**
+- How many observations are in the data set?
+- How many variables are in the data set?
+- How many ordered factors are in the data set?
+- What letter represents the best diamond color?
+
+##Load the data##
+
+```{r}
+library(ggplot2)
+data(diamonds)
+summary(diamonds)
+```
+There are 53940 observations and 10 variables.
+Ordered factors inculude: cut, color, and clarity
+
+color ranks include D, E, F, G, H, I, J
+
+Which is best, let's look at the included documentation.
+
+```{r}
+?diamonds
+```
+colour. diamond colour, from J (worst) to D (best).  So, D is the best.
+
