@@ -158,5 +158,20 @@ p3 = ggplot(aes(x = friend_count), data = pf) +
 # arrange plots in grid
 grid.arrange(p1, p2, p3, ncol=1)
 ```
+```{r}
+#Here is a better way of doing it
+p1 = ggplot(aes(x = friend_count), data = pf) + 
+  geom_histogram(fill = '#F79420')
+
+p2 = p1 + scale_x_log10() +
+  xlab('log10(friend_count)')
+  
+p3 = p1 +
+  scale_x_sqrt() +
+  xlab('sqrt(friend_count)')
+
+grid.arrange(p1,p2,p3,ncol=1)
+
+```
 
 
