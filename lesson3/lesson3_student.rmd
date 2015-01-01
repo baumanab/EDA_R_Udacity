@@ -222,3 +222,70 @@ by(pf$www_likes, pf$gender, sum)
 
 
 **look at the means, females have more likes**
+
+##Back to Friend Counts##
+
+**Adjust code to:**
+- focus on users in population sample who have friend counts between 0 and 1000.
+- going to try this with qplot and ggplot
+
+###basic qplot###
+
+```{r}
+qplot(x = gender, y = friend_count,data = subset(pf,!is.na(gender)),geom = 'boxplot')
+```
+###wow that is a lot of outliers (the dots)###
+
+**let's try to zoom in closer to the IQR**
+
+```{r}
+qplot(x = gender, y = friend_count,data = subset(pf,!is.na(gender)),geom = 'boxplot',ylim = c(0,1000))
+```
+**so it turns out that ylim removes data points, to get around this I will add a scale_y_continuous layer**
+
+```{r}
+qplot(x = gender, y = friend_count,data = subset(pf,!is.na(gender)),geom = 'boxplot') +
+  scale_y_continuous(limits = c(0,1000))
+```
+**ZOMG! this removes points too, one more time with coord_cartesian()**
+
+```{r}
+qplot(x = gender, y = friend_count,data = subset(pf,!is.na(gender)),geom = 'boxplot') +
+  coord_cartesian(ylim = c(0,1000))
+  
+```
+**ok good, that did not remove data, now to replicate in ggplot**
+**update decided to move on to other things and circle back**
+
+**median (black line) slightly higher for females, let's look more closely**
+
+```{r}
+qplot(x = gender, y = friend_count,data = subset(pf,!is.na(gender)),geom = 'boxplot') +
+  coord_cartesian(ylim = c(0,250))
+```
+**yeah, slightly higher**
+
+###Does this match our tables?###
+
+```{r}
+by(pf$friend_count,pf$gender,summary)
+```
+**yes it does!**
+####What have we observed?####
+- 25% of femaile users have > 244 friends vs. males where 25% have > 182
+- Median higer for females than males
+
+**So we know this now, but what we don't know is who actually initiated more friendships?  Who is more active in trying to obtain friends**
+
+**What do we have to choose from?**
+
+```{r}
+names(pf)
+```
+**Looks like friendships initiated is the way to go**
+
+```{r}
+
+```
+
+
