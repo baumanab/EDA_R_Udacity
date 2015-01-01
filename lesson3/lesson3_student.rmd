@@ -174,4 +174,51 @@ grid.arrange(p1,p2,p3,ncol=1)
 
 ```
 
+```{r}
+#Use a frequency polygon to determine which gender makes more likes on the www (www_likes)
 
+#we need to subset the data for not gender = na and add y ..etc to get proportion. The latter is because there are many more males than females in the data set.  We know from previous analysis that females tend to have more likes, where does the transitions occur?
+
+ggplot(aes(x = friend_count, y = ..count../sum(..count..)), data = subset(pf, !is.na(gender))) +
+  geom_freqpoly(aes(color = gender)) + 
+  scale_x_continuous(limits = c(0, 1000), breaks = seq(0, 1000, 50)) + 
+  xlab('Friend Count') + 
+  ylab('Percentage of users with that friend count')
+```
+```{r}
+#changing plot range
+
+ggplot(aes(x = friend_count, y = ..count../sum(..count..)), data = subset(pf, !is.na(gender))) +
+  geom_freqpoly(aes(color = gender)) + 
+  scale_x_continuous(limits = c(530, 600), breaks = seq(530, 600, 5)) + 
+  xlab('Friend Count') + 
+  ylab('Percentage of users with that friend count')
+
+```
+```{r}
+#I need to do some more work:  - www_likes is a count variable and should be plotted on a discrete scale  - www_like is long tail data which may benefit from a log tranformation
+
+ggplot(aes(x = www_likes), data = subset(pf, !is.na(gender))) + 
+  geom_freqpoly(aes(color = gender)) + 
+  scale_x_log10()
+```
+
+**test markdown outside r block:**
+```{r}
+#let's look at this numerically
+
+sum(subset(pf$www_likes, pf$gender == 'male'))
+
+```
+**compare means**
+```{r}
+by(pf$www_likes, pf$gender, summary)
+
+```
+**compare sum**
+```{r}
+by(pf$www_likes, pf$gender, sum)
+```
+
+
+**look at the means, females have more likes**
