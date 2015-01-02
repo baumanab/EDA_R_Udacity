@@ -250,7 +250,7 @@ ggplot(aes(x = price/carat), data = diamonds) +
 
 
 ```{r}
-ggplot(aes(x = price), data = diamonds) + 
+ggplot(aes(x = price/carat), data = diamonds) + 
   geom_histogram(binwidth = .05,  color = 'black',fill = '#F79420') + 
   scale_x_log10()+
   xlab('Log10(price/carat)') +
@@ -338,5 +338,41 @@ You can use the function IQR() to find the interquartile range. Pass it a subset
 For example... 
 IQR(subset(diamonds, price <1000)$price) 
 Remember subset returns a data frame so we need to use $price on the end to access that variable.
+
+
+##Investigate the price per carat of diamonds across the different colors of diamonds using boxplots.##
+
+```{r}
+qplot(x = color, y = price/carat,data = diamonds,geom = 'boxplot') +
+  coord_cartesian()
+
+qplot(x = color, y = price/carat,data = diamonds,geom = 'boxplot') +
+  coord_cartesian(ylim = c(250,7000))
+```
+
+##Investigate weight of diamonds (carat) with a frequency polygon##
+
+**how does binwidth affect the polygon?**
+
+```{r}
+ggplot(aes(x = carat), data = diamonds) + 
+  geom_freqpoly(binwidth = .5,color = 'red')+
+  scale_x_log10()
+
+ggplot(aes(x = carat), data = diamonds) + 
+  geom_freqpoly(binwidth = .05,color = 'red')+
+  scale_x_log10()
+
+ggplot(aes(x = carat), data = diamonds) + 
+  geom_freqpoly(binwidth = .01,color = 'red')+
+  scale_x_log10()
+```
+**What carat size(s) has a count > 2000?**
+
+```{r}
+#I have been using subset to do this, but instead used brackets as a select
+#statement here, much like I do in PANDAS.
+table(diamonds$carat)[table(diamonds$carat)>2000]
+```
 
 
