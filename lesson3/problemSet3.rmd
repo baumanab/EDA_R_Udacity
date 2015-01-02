@@ -257,3 +257,86 @@ ggplot(aes(x = price), data = diamonds) +
   facet_wrap(~cut,ncol = 1, scales = 'free')
 ```
 
+##Investigate the price of diamonds using box plots,numerical summaries, and one of the following categorical variables: cut, clarity, or color.##
+
+```{r}
+library(gridExtra) 
+```
+```{r}
+clarity = qplot(x = clarity, y = price,data = diamonds,geom = 'boxplot') +
+  coord_cartesian()
+  
+
+color = qplot(x = color, y = price,data = diamonds,geom = 'boxplot') +
+  coord_cartesian()
+
+cut = qplot(x = cut, y = price,data = diamonds,geom = 'boxplot') +
+  coord_cartesian()
+
+grid.arrange(clarity, color, cut, ncol = 1)
+```
+
+```{r}
+clarity = qplot(x = clarity, y = price,data = diamonds,geom = 'boxplot') +
+  coord_cartesian(ylim = c(250,7000))
+  
+
+color = qplot(x = color, y = price,data = diamonds,geom = 'boxplot') +
+  coord_cartesian(ylim = c(250,7000))
+
+cut = qplot(x = cut, y = price,data = diamonds,geom = 'boxplot') +
+  coord_cartesian(ylim = c(250,7000))
+
+grid.arrange(clarity, color, cut, ncol = 1)
+```
+```{r}
+by(diamonds$price,diamonds$cut, median)
+by(diamonds$price,diamonds$cut, max)
+by(diamonds$price,diamonds$cut, min)
+by(diamonds$price,diamonds$cut, mean)
+by(diamonds$price,diamonds$cut, median) - by(diamonds$price,diamonds$cut, mean)
+```
+
+
+I just find the trends in the medians interesting.  For cut, the medians are similiar except for ideal.  For color they tend to go up in a linear fashion to J (worst color rating), and for clarity they tend to go down.  What I see is that there are a variety of factors tha affect price. I think to really understand this we have to plot and view the data in other ways.
+
+
+##Numerical Analysis##
+
+-What is the price range for the middle 50% of diamonds with color D?
+
+```{r}
+by(diamonds$price,(diamonds$color == 'D'), summary)
+```
+
+
+
+-What is the price range for the middle 50% of diamonds with color J?
+
+```{r}
+by(diamonds$price,(diamonds$color == 'J'), summary)
+```
+
+
+-What is the IQR for diamonds wit the best color?
+
+```{r}
+by(diamonds$price,(diamonds$color == 'D'), IQR)
+```
+
+
+-What is the IQR for diamonds with the worst color?
+
+```{r}
+by(diamonds$price,(diamonds$color == 'J'), IQR)
+```
+
+Instructor Notes
+
+You can use the function IQR() to find the interquartile range. Pass it a subset of the diamonds data frame. 
+
+For example... 
+IQR(subset(diamonds, price <1000)$price) 
+Remember subset returns a data frame so we need to use $price on the end to access that variable.
+
+
