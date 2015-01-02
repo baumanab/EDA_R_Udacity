@@ -375,4 +375,3 @@ ggplot(aes(x = carat), data = diamonds) +
 table(diamonds$carat)[table(diamonds$carat)>2000]
 ```
 
-
