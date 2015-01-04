@@ -42,22 +42,89 @@ library(ggplot2)
 library(ggthemes)
 library(gridExtra)
 ```
+##Clean Data##
+Data was in wide format (each row is country each column is year) with missing values and less than intuitive columns names.  I cleaned this up using PANDAS in the followiing way.
+
+-Renamed first column country
+-Transposed data so that countries are in columns and year in row
+-replaced nan values with mean of each column (in this case country working hours)
+-Transposed back to original form
+-melted so that data is in long form (country, year, hours)  
 
 ##Read Data##
 
 ```{r}
 workhours <- read.csv('workingHours.csv')
 ```
-```{r}
-names(workhours)
-```
-##Rename first column##
+
+Would like to remove the column leftover from the index.  This could probably be done during read/write of the .csv, but I'll do it this way for now.
 
 ```{r}
-names(workhours)[1] <- 'country'
-names(workhours)
-```
-```{r}
-ggplot(aes(x =, data = workhours))
+workhours[1] <- NULL
+head(workhours)
 ```
 
+##Plotting Data##
+
+```{r}
+ggplot(aes(x = value), data = workhours) + 
+  geom_histogram(binwidth = .5,  color = 'black',fill = '#F79420') +
+  xlab('hours') +
+  scale_x_continuous(limits = c(25, 57), breaks = seq(25, 57, 1))
+
+ggplot(aes(x = value), data = workhours) + 
+  geom_histogram(binwidth = .005,  color = 'black',fill = '#F79420') + 
+  scale_x_log10()+
+  xlab('Log10(hours)')
+```
+
+
+It doesn't look like the log10 scale data is helping us at all.  This is not suprising from the original distribution.
+
+It does look like we have some points of discontinuity.  Let's zoom in on that.
+
+```{r}
+ggplot(aes(x = value), data = workhours) + 
+  geom_histogram(binwidth = .5,  color = 'black',fill = '#F79420') +
+  xlab('hours') +
+  scale_x_continuous(limits = c(40, 45), breaks = seq(40, 45, 1))
+
+```
+
+For the years measured no country worked 41.5 to 42.5 hours.  It looks like no country worked below 25.5 or above 56.5 hours or the years given.  The largest bin is 37.5 - 38 hours.  The bulk of the data lies between 31.5 and 40 hours.  This all makes sense given the traditional 40 hour work-week in many nations.
+
+
+```{r}
+ggplot(aes(x = value), data = workhours) + 
+  geom_histogram(binwidth = .5,  color = 'black',fill = '#F79420') +
+  xlab('hours') +
+  scale_x_continuous(limits = c(25, 57), breaks = seq(25, 57, 1)) +
+  facet_wrap(~country, ncol = 1, scales = 'free')
+```
+Wow that is a lot of countries and the figure is not looking so good.  What I'm really interested in is seeing what countries are over and under ranges 31.5 and 42 hours.  I'm going to subset the data and plot just those countries.
+
+##Subset Data##
+
+```{r}
+lower = subset(workhours,value < 31.5)
+upper = subset(workhours,value >42 )
+```
+
+```{r}
+summary(workhours)
+```
+
+I think I want to know who works 50 hours or more.
+
+```{r}
+over50 = subset(workhours,value >= 50)
+```
+```{r}
+ggplot(aes(x = value), data = over50) + 
+  geom_histogram(binwidth = .5,  color = 'black',fill = '#F79420') +
+  xlab('hours') +
+  scale_x_continuous(limits = c(48, 57), breaks = seq(48, 57, 1)) +
+  facet_wrap(~country, ncol = 1, scales = 'free')
+```
+
+Ah, now I see why so many observation, it is taking each row.  I need to work on this a bit.
