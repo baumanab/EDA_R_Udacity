@@ -104,3 +104,27 @@ df <- data.frame(days, mon, yday, count = 1)
 head(df)
 ```
 
+##Which Month Contains the Most Number of Birthdays?##
+
+```{r}
+ggplot(aes(x = mon), data = df) + 
+  geom_histogram(binwidth = 1,  color = 'black',fill = '#F79420') + 
+  scale_x_discrete(breaks = 1:12) +
+  xlab('Month') +
+  ylab('Count') +
+  ggtitle('Birthdays/Month')
+  
+```
+
+
+
+```{r}
+ggplot(aes(x = mon), data = df) + 
+  geom_histogram(binwidth = 1,  color = 'black',fill = '#F79420') + 
+  scale_x_discrete(breaks = 1:12)
+
+ggplot(aes(x = mon), data = df) + 
+  geom_histogram(binwidth = 1,  color = 'black',fill = '#F79420') + 
+  scale_x_discrete(breaks = 1:12) +
+  facet_wrap(~mon,ncol = 3)
+```
