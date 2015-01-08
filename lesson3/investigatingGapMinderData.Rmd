@@ -2,7 +2,10 @@
 title: "Exploring GapMinder Data"
 output: html_document
 ---
+
+```{r}
 setwd("~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson3")
+```
 
 #Investigating gapminder data#
 
@@ -212,12 +215,29 @@ ggplot(aes(x = value), data = subset(lowerandUS, year >2001) ) +
 **Now Let's Try Box Plots**
 
 ```{r}
-qplot(x = country, y = value,data = upperandUS,geom = 'boxplot') +
+upperandUSbox = qplot(x = country, y = value,data = upperandUS,geom = 'boxplot') +
   coord_cartesian(ylim=c(33,58))
 ```
 
 ```{r}
-qplot(x = country, y = value,data = lowerandUS,geom = 'boxplot') +
+lowerandUSbox = qplot(x = country, y = value,data = lowerandUS,geom = 'boxplot') +
   coord_cartesian(ylim=c(24,39))
+```
+```{r}
+all2007 = subset(workhours, year == 2007)
+
+qplot(x = country, y = value,data = subset(all2007, value <30),geom = 'boxplot') +
+  coord_cartesian(ylim=c(24,31))
+
+qplot(x = country, y = value,data = subset(all2007, value >30 & < 40),geom = 'boxplot') +
+  coord_cartesian(ylim=c(30,41))
+
+qplot(x = country, y = value,data = subset(all2007, value > 40),geom = 'boxplot') +
+  coord_cartesian(ylim=c(40,58))
+
+```
+
+```{r}
+grid.arrange(upperandUSbox,lowerandUSbox, ncol = 2)
 ```
 
