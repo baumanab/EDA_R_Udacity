@@ -71,8 +71,7 @@ library(lubridate)
 
 #Investigating the Distribution of Friend's Birth Months and Days#
 
- Which month contains the most number of birthdays?
-
+-Which month contains the most number of birthdays?
 -How many birthdays are in each month?
 -Which day of the year has the most number of birthdays?
 -Do you have at least 365 friends that have birthdays on everyday of the year?
@@ -113,18 +112,43 @@ ggplot(aes(x = mon), data = df) +
   xlab('Month') +
   ylab('Count') +
   ggtitle('Birthdays/Month')
-  
+
 ```
 
+It looks like February is the winner here.
 
+#How many birthdays are in each month#
 
 ```{r}
-ggplot(aes(x = mon), data = df) + 
-  geom_histogram(binwidth = 1,  color = 'black',fill = '#F79420') + 
-  scale_x_discrete(breaks = 1:12)
-
-ggplot(aes(x = mon), data = df) + 
-  geom_histogram(binwidth = 1,  color = 'black',fill = '#F79420') + 
-  scale_x_discrete(breaks = 1:12) +
-  facet_wrap(~mon,ncol = 3)
+by(df$count,df$mon,sum)
 ```
+
+#Which day of the year has the most number of birthdays#
+
+```{r}
+yday_sum = by(df$count,df$yday,sum)
+mostday = yday[max(yday_sum)]
+#convert into day/month format#
+format(strptime(mostday, format = '%j'),format = '%m-%d')
+```
+
+That would be day 295 or October 22nd.
+
+#Do I have at least 365 friends that have birthdays on everyday of the year?#
+
+```{r}
+min(yday_sum) >= 1
+```
+Yes, the above expression evaluates to true.
+
+#How many people share my birthday#
+
+```{r}
+#Convert m/d into j
+mybday = format(strptime('11-16', format = '%m-%d'), format = '%j')
+#How many birthdays on mybday (yday = 320)
+by(df$count,df$yday == 320,sum)
+```
+3 people share my birthday!  I don't like to share, give it back!
+
+
