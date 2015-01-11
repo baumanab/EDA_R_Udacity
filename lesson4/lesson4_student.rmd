@@ -1,5 +1,19 @@
 Lesson 4
 ========================================================
+```{r 'setwd'}
+setwd("~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson4")
+```
+###Load Library and Data Sets###
+
+```{r 'load libs,data'}
+library(ggplot2)
+library(gridextra)
+getwd()
+list.files()
+pf <- read.csv("~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson3/pseudo_facebook.tsv", sep = '\t')
+names(pf)
+#alternative way to read file read.delim('pseudo_facebook.tsv')
+```
 
 ***
 
@@ -12,13 +26,18 @@ Notes:
 Notes:
 
 ```{r Scatterplots}
+#qplot syntax
+qplot(age,friend_count,data =pf)
 
+#ggplot syntax
+ggplot(aes(x = age, y = friend_count), data = pf) + 
+  geom_point()
 ```
 
 ***
 
 #### What are some things that you notice right away?
-Response:
+Response:  Younger people seem to have more friends.  There are some people of advanced age with a lot of friends.  I'm guessing these are not their actual biological age.  
 
 ***
 
@@ -26,16 +45,33 @@ Response:
 Notes:
 
 ```{r ggplot Syntax}
+#qplot syntax
+qplot(age,friend_count,data =pf)
 
+#ggplot syntax
+ggplot(aes(x = age, y = friend_count), data = pf) + 
+  geom_point() +
+  xlim(13,90) #min facebook age to reasonable max age
+
+summary(pf$age)
 ```
 
 ***
 
 ### Overplotting
-Notes:
+Notes:  We have so many points that it is difficult to see how many points are plotted, especially in the under 30 region.  We can use a transparency layer (alpha) to help with this.
 
 ```{r Overplotting}
-
+ggplot(aes(x = age, y = friend_count), data = pf) + 
+  geom_point(alpha = 1/20) + #alpha layer takes 20 points to make a dot completely black
+  xlim(13,90) + #min facebook age to reasonable max age
+  
+#age is a continuous function but we have stacked columns (discrete), add jitter noise (dispersion) help us getter a better feel for the relationship between age and friend count.
+  
+ggplot(aes(x = age, y = friend_count), data = pf) + 
+  geom_jitter(alpha = 1/20) + #alpha layer takes 20 points to make one black dot
+  xlim(13,90)  #min facebook age to reasonable max age
+  
 ```
 
 #### What do you notice in the plot?
