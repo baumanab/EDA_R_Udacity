@@ -8,6 +8,7 @@ setwd("~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson4")
 ```{r 'load libs,data'}
 library(ggplot2)
 library(gridextra)
+library(dplyr)
 getwd()
 list.files()
 pf <- read.csv("~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson3/pseudo_facebook.tsv", sep = '\t')
@@ -83,43 +84,95 @@ Response:
 Notes:
 
 ```{r Coord_trans()}
-
+ggplot(aes(x = age, y = friend_count), data = pf) + 
+  geom_point() +
+  xlim(13,90) +
+  coord_trans(y = 'sqrt')
 ```
 
 #### Look up the documentation for coord_trans() and add a layer to the plot that transforms friend_count using the square root function. Create your plot!
 
 ```{r}
-
+ggplot(aes(x = age, y = friend_count), data = pf) + 
+  geom_point(alpha = 1/20) +
+  xlim(13,90) +
+  coord_trans(y = 'sqrt')
 ```
 
 #### What do you notice?
-
+I noticed that this is not a helpful transformation.
 ***
 
 ### Alpha and Jitter
 Notes:
 
 ```{r Alpha and Jitter}
+ggplot(aes(x = age, y = friendships_initiated), data = pf) + 
+  geom_point()
+
+ggplot(aes(x = age, y = friendships_initiated), data = pf) + 
+  geom_jitter(alpha = 1/20) + #jitter for dispersion appropropriate to continuous var of age
+  xlim(13,90)
+
+ggplot(aes(x = age, y = friendships_initiated), data = pf) + 
+  geom_point(alpha = 1/20) + #switch to geom point to avoid -/i numbers
+  xlim(13,90) +
+  coord_trans(y = 'sqrt')
+
+ggplot(aes(x = age, y = friendships_initiated), data = pf) + 
+  geom_point(alpha = 1/20, position = position_jitter(h = 0)) + #use position and limit to get jitter dispersion without -/i #s
+  xlim(13,90) +
+  coord_trans(y = 'sqrt')
+
+
+
 
 ```
 
 ***
 
 ### Overplotting and Domain Knowledge
-Notes:
+Notes:  Normalizing audience size to % simplified the data.
 
 ***
 
 ### Conditional Means
-Notes:
+Notes:  There are a lot of great links to dplyr infor as well as alternative functions to dplyr, such as split and lapply.
 
 ```{r Conditional Means}
+#group_by and some other agg functions using dplyr
+#buld the dataframe with a dplyr agg function
+age_groups <- group_by(pf,age)
+#build the table
+pf.fc_by_age <- summarise(age_groups, 
+                          friend_count_mean = mean(friend_count),
+                          friend_count_median = median(friend_count),
+                          n = n()) #count function
 
+pf.fc_by_age = arrange(pf.fc_by_age, age) #sort by age
+
+head(pf.fc_by_age)
+
+#an alternative way of creatig the same table by chaining functions onto dataset
+pf.fc_by_age <- pf %.%
+  group_by(age) %.%
+  summarise(friend_count_mean = mean(friend_count),
+            friend_count_median = median(friend_count),
+            n = n()) %.%
+  arrange(age)
+
+head(pf.fc_by_age,20)
+  
+  
+  
 ```
 
 Create your plot!
 
 ```{r Conditional Means Plot}
+ggplot(aes(x = age, y = friend_count_mean), data = pf.fc_by_age) + 
+  geom_line() +
+  xlim(13,90) 
 
 ```
 
@@ -129,7 +182,32 @@ Create your plot!
 Notes:
 
 ```{r Overlaying Summaries with Raw Data}
+ggplot(aes(x = age, y = friend_count), data = pf) +
+  coord_cartesian(xlim = c(13, 90)) +
+  geom_point(alpha = 1/20, position = position_jitter(h = 0),
+             color = 'orange') + #use position and limit to get jitter dispersion without -/i #s
+  coord_trans(y = 'sqrt') +
+  geom_line(stat = 'summary', fun.y = mean) +
+  geom_line(stat = 'summary', fun.y = quantile, probs = .1,
+            linetype = 2, color = 'blue') +
+  geom_line(stat = 'summary', fun.y = quantile, probs = .5,
+            color = 'blue') +
+  geom_line(stat = 'summary', fun.y = quantile, probs = .9,
+            linetype = 2, color = 'blue') 
 
+ggplot(aes(x= age, y= friend_count), data = pf) +
+  coord_cartesian(xlim = c(13, 31)) +
+  geom_point(alpha = 1/20, position = position_jitter(h = 0),
+             color = 'orange') + 
+  coord_trans(y = 'sqrt') +
+  geom_line(stat = 'summary', fun.y = mean) +
+  geom_line(stat = 'summary', fun.y = quantile, probs = .1,
+            linetype = 2, color = 'blue') +
+  geom_line(stat = 'summary', fun.y = quantile, probs = .5,
+            color = 'blue') +
+  geom_line(stat = 'summary', fun.y = quantile, probs = .9,
+            linetype = 2, color = 'blue')
+  
 ```
 
 #### What are some of your observations of the plot?
