@@ -183,10 +183,9 @@ Notes:
 
 ```{r Overlaying Summaries with Raw Data}
 ggplot(aes(x = age, y = friend_count), data = pf) +
-  coord_cartesian(xlim = c(13, 90)) +
+  coord_cartesian(xlim = c(13, 90), ylim = c(0,1000)) +
   geom_point(alpha = 1/20, position = position_jitter(h = 0),
              color = 'orange') + #use position and limit to get jitter dispersion without -/i #s
-  coord_trans(y = 'sqrt') +
   geom_line(stat = 'summary', fun.y = mean) +
   geom_line(stat = 'summary', fun.y = quantile, probs = .1,
             linetype = 2, color = 'blue') +
@@ -199,7 +198,6 @@ ggplot(aes(x= age, y= friend_count), data = pf) +
   coord_cartesian(xlim = c(13, 31)) +
   geom_point(alpha = 1/20, position = position_jitter(h = 0),
              color = 'orange') + 
-  coord_trans(y = 'sqrt') +
   geom_line(stat = 'summary', fun.y = mean) +
   geom_line(stat = 'summary', fun.y = quantile, probs = .1,
             linetype = 2, color = 'blue') +
@@ -211,7 +209,7 @@ ggplot(aes(x= age, y= friend_count), data = pf) +
 ```
 
 #### What are some of your observations of the plot?
-Response:
+Response: the 90th percentile is below 800 friends.
 
 ***
 
@@ -226,23 +224,23 @@ Notes:
 Notes:
 
 ```{r Correlation}
-
+cor.test(pf$age, pf$friend_count, method = c('pearson'))
 ```
 
 Look up the documentation for the cor.test function.
 
 What's the correlation between age and friend count? Round to three decimal places.
-Response:
+Response: -.027
 
 ***
 
 ### Correlation on Subsets
-Notes:
+Notes:  We should eliminate the higher ages, since we reasonably believe them to be erroneous.
 
 ```{r Correlation on Subsets}
-with(                 , cor.test(age, friend_count))
+with(subset(pf, pf$age <= 70), cor.test(age, friend_count))
 ```
-
+This produced a weaker negative correlation (as age decreases, number of friends decreases.  This does not demonstrate causality, for that we would need to use inferential vs. descriptive statistics.)
 ***
 
 ### Correlation Methods
