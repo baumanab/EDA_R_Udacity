@@ -7,8 +7,9 @@ setwd("~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson4")
 
 ```{r 'load libs,data'}
 library(ggplot2)
-library(gridextra)
+library(gridExtra)
 library(dplyr)
+library('alr3')
 getwd()
 list.files()
 pf <- read.csv("~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson3/pseudo_facebook.tsv", sep = '\t')
@@ -252,6 +253,24 @@ Notes:
 Notes:
 
 ```{r}
+# Create a scatterplot of likes_received (y)
+# vs. www_likes_received (x). Use any of the
+# techniques that you've learned so far to
+# modify the plot.
+ggplot(aes(x= www_likes_received, y= likes_received), data = pf) +
+  geom_point()
+
+#lets zoom in on the most dense area
+ggplot(aes(x= www_likes_received, y= likes_received), data = pf) +
+  coord_cartesian(xlim = c(0,5000), ylim = c(-100, 5000)) +
+  geom_point()
+
+#hard to see the very dense region
+ggplot(aes(x= likes_received, y= www_likes_received), data = pf) +
+  coord_cartesian(xlim = c(0,2000), ylim = c(-300, 2000)) +
+  geom_point(alpha = .05, position = position_jitter(h = 0),
+             color = 'orange')
+
 
 ```
 
@@ -261,13 +280,17 @@ Notes:
 Notes:
 
 ```{r Strong Correlations}
-
+ggplot(aes(x= www_likes_received, y= likes_received), data = pf) +
+  geom_point() +
+  xlim(0, quantile(pf$www_likes_received,0.95)) +
+  ylim(0,quantile(pf$likes_received,0.95)) +
+  geom_smooth(method = 'lm',color = 'red')
 ```
 
 What's the correlation betwen the two variables? Include the top 5% of values for the variable in the calculation and round to 3 decimal places.
 
 ```{r Correlation Calcuation}
-
+with(pf, cor.test(www_likes_received, likes_received))
 ```
 
 Response:
@@ -283,14 +306,18 @@ Notes:
 Notes:
 
 ```{r More Caution With Correlation}
-install.packages('alr3')
-library(alr3)
+#install.packages('alr3')
+$library(alr3)
+data(Mitchell)
+?Mitchell
+head(Mitchell)
 ```
 
 Create your plot!
 
 ```{r Temp vs Month}
-
+ggplot(aes(x= Month, y= Temp), data = Mitchell) +
+  geom_point()
 ```
 
 ***
@@ -298,11 +325,13 @@ Create your plot!
 ### Noisy Scatterplots
 a. Take a guess for the correlation coefficient for the scatterplot.
 
+.1
+
 b. What is the actual correlation of the two variables?
 (Round to the thousandths place)
 
 ```{r Noisy Scatterplots}
-
+with(Mitchell,cor.test(Month, Temp))
 ```
 
 ***
@@ -311,9 +340,31 @@ b. What is the actual correlation of the two variables?
 Notes:
 
 ```{r Making Sense of Data}
+ggplot(aes(x= Month, y= Temp), data = Mitchell) +
+  geom_point() +
+  scale_x_discrete(breaks = seq(0,203,12)) #found months by typing range(Mitchell$Month) directly into console
 
+#Let's stretch out the horizontal axis
+ggplot(aes(x= Month, y= Temp), data = Mitchell) +
+  geom_point() +
+  scale_x_discrete(breaks = seq(0,203,12))
+
+ggplot(aes(x=(Month%%12),y=Temp),data=Mitchell)+ 
+  geom_point() 
 ```
+Instructor Notes
 
+You could also get perspective on this data by overlaying each year's data on top of each other, giving a clear, generally sinusoidal graph. You can do this by using the R's modulus operator %% in your code. Try running the code below!
+
+ggplot(aes(x=(Month%%12),y=Temp),data=Mitchell)+ 
+  geom_point() 
+
+Data Visualization Pioneers 
+John Tukey 
+William Playfair 
+William Playfair and the Psychology of Graphs 
+
+There are other measures of associations that can detect this. The dcor.ttest() function in the energy package implements a non-parametric test of the independence of two variables. The test correctly rejects the independence.
 ***
 
 ### A New Perspective
@@ -330,7 +381,7 @@ Notes:
 Notes:
 
 ```{r Understanding Noise: Age to Age Months}
-
+pf$age_with_months <- pf$age + (1-pf$dob_month/12)
 ```
 
 ***
