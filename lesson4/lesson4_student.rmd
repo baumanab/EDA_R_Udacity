@@ -66,7 +66,7 @@ Notes:  We have so many points that it is difficult to see how many points are p
 ```{r Overplotting}
 ggplot(aes(x = age, y = friend_count), data = pf) + 
   geom_point(alpha = 1/20) + #alpha layer takes 20 points to make a dot completely black
-  xlim(13,90) + #min facebook age to reasonable max age
+  xlim(13,90) #min facebook age to reasonable max age
   
 #age is a continuous function but we have stacked columns (discrete), add jitter noise (dispersion) help us getter a better feel for the relationship between age and friend count.
   
@@ -307,7 +307,7 @@ Notes:
 
 ```{r More Caution With Correlation}
 #install.packages('alr3')
-$library(alr3)
+library(alr3)
 data(Mitchell)
 ?Mitchell
 head(Mitchell)
@@ -394,7 +394,29 @@ pf$age_with_months <- pf$age + (1-pf$dob_month/12)
 
 Programming Assignment
 ```{r Programming Assignment}
+# Create a new data frame called
+# pf.fc_by_age_months that contains
+# the mean friend count, the median friend
+# count, and the number of users in each
+# group of age_with_months. The rows of the
+# data framed should be arranged in increasing
+# order by the age_with_months variable.
 
+# For example, the first two rows of the resulting
+# data frame would look something like...
+
+# age_with_months  friend_count_mean  friend_count_median	n
+#              13            275.0000                   275 2
+#        13.25000            133.2000                   101 11
+
+pf.fc_by_age_months <- pf %>%
+  group_by(age_with_months) %>%
+  summarise(friend_count_mean = mean(friend_count),
+            friend_count_median = median(friend_count),
+            n = n()) %>%
+  arrange(age_with_months)
+
+head(pf.fc_by_age_months,20)
 ```
 
 ***
@@ -402,9 +424,55 @@ Programming Assignment
 ### Noise in Conditional Means
 
 ```{r Noise in Conditional Means}
+# Create a new scatterplot showing friend_count_mean
+# versus the new variable, age_with_months. Be sure to use
+# the correct data frame (the one you create in the last
+# exercise) AND subset the data to investigate
+# users with ages less than 71.
 
+ggplot(aes(x= age_with_months, y= friend_count_mean), data = subset(pf.fc_by_age_months,pf.fc_by_age_months$age_with_months < 71)) +
+  geom_point() +
+  geom_smooth(method = 'lm',color = 'red')
+
+p1 = ggplot(aes(x= age, y= friend_count_mean), data = subset(pf.fc_by_age,pf.fc_by_age$age < 71)) +
+  geom_line() +
+  geom_smooth(method = 'lm',color = 'red')
+
+
+p2 = ggplot(aes(x= age_with_months, y= friend_count_mean), data = subset(pf.fc_by_age_months,pf.fc_by_age_months$age_with_months < 71)) +
+  geom_line() +
+  geom_smooth(method = 'lm',color = 'red')
+
+
+
+
+p3 = ggplot(aes(x= round(age/5)*5, y= friend_count), data = subset(pf,pf$age < 71)) +
+  geom_line(stat = 'summary', fun.y = mean) + #plotting mean of friend count rather than friend count
+  geom_smooth(method = 'lm',color = 'red')
+
+
+grid.arrange(p2,p1,p3,ncol=1)
+
+p4 = ggplot(aes(x= age, y= friend_count_mean), data = subset(pf.fc_by_age,pf.fc_by_age$age < 71)) +
+  geom_line() +
+  geom_smooth()
+
+
+p5 = ggplot(aes(x= age_with_months, y= friend_count_mean), data = subset(pf.fc_by_age_months,pf.fc_by_age_months$age_with_months < 71)) +
+  geom_line() +
+  geom_smooth()
+
+
+p6 = ggplot(aes(x= round(age/5)*5, y= friend_count), data = subset(pf,pf$age < 71)) +
+  geom_line(stat = 'summary', fun.y = mean) + #plotting mean of friend count rather than friend count
+  geom_smooth()
+
+grid.arrange(p5,p4,p6,ncol=1)
 ```
+Looking at the 3 plots the top one (p2) has more bins (age in months), the middle plot (p1, age in years) has less bins, it is smoother.  For plot 3 we lump everyone together whose age falls on a multiple of five.  For example, users who are within 2.5 years of 40, 50, and 60 will be lumped together, respectively.
+Look at Local Regression (LOESS) explained visually on the Simply Statistics blog.  Now we have less data points and wider bin widths.  We may now be able to estimate more accurately but have lost some of the interesting features of the age and friend_count relationship.  This is bias variance tradeoff.  A better way to handle the noise is to use a smooth function.  Using these functions, splines etc. makes the assumption that the true data is smooth.  In this case it isn't, so while it does smooth out the noise, we miss the nonmontonic features of the low age ranges and the spike at age 69.
 
+The Details of Loess and Lowess
 ***
 
 ### Smoothing Conditional Means
