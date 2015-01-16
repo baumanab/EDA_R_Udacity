@@ -1,0 +1,72 @@
+---
+title: "Lesson4_problemset"
+output: html_document
+---
+
+```{r 'setwd'}
+setwd("~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson4")
+```
+###Load Library and Data Sets###
+
+```{r 'load libs,data'}
+library(ggplot2)
+library(gridExtra)
+library(dplyr)
+library('alr3')
+getwd()
+list.files()
+data(diamonds)
+summary(diamonds)
+names(diamonds)
+```
+
+```{r scatterplot price vs. x}
+ggplot(aes(x = x , y = price), data = diamonds ) +
+  geom_point(color = 'orange')
+
+```
+```{r correlation of price}
+cor.test(diamonds$x, diamonds$price)
+cor.test(diamonds$y,diamonds$price)
+cor.test(diamonds$z, diamonds$price)
+
+```
+```{r price vs. depth}
+ggplot(aes(x = depth, y = price), data = diamonds) +
+  geom_point(color = 'red')
+```
+
+```{r adjustments price vs. depth}
+ggplot(aes(x = depth, y = price), data = diamonds) +
+  geom_point(alpha = .01, color = 'red') +
+  scale_x_continuous(breaks = seq(40,80,2))
+```
+
+```{r correlation depth vs. price}
+cor.test(diamonds$depth, diamonds$price)
+```
+
+```{r price vs. carat}
+ggplot(aes(x = carat, y = price,), data = diamonds)+
+  geom_point(color = 'blue') +
+  xlim(0, quantile(diamonds$carat,0.99)) +
+  ylim(0, quantile(diamonds$price,0.99))
+```
+```{r price vs. volume}
+volume = diamonds$x * diamonds$y * diamonds$z
+ggplot(aes(x = volume, y = price), data = diamonds) +
+  geom_point(color = 'green')
+```
+```{r correlations on subsets}
+diamonds$volume = volume
+volume_subset = subset(diamonds, diamonds$volume > 0 & diamonds$volume <=800)
+cor.test(volume_subset$volume, volume_subset$price)
+```
+
+
+```{r adjustments price vs. volume}
+ggplot(aes(x = volume, y = price), data = volume_subset) +
+  geom_point(color = 'green') +
+  geom_smooth()
+```
+
