@@ -416,7 +416,7 @@ pf.fc_by_age_months <- pf %>%
             n = n()) %>%
   arrange(age_with_months)
 
-head(pf.fc_by_age_months,20)
+diamondsByClarity
 ```
 
 ***
