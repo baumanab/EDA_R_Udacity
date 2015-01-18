@@ -154,6 +154,9 @@ names(workhours)
 ###Analyze the data set##
 
 - Start with scatterplot of working hours vs. country and working hours vs. year
+- Merge with HPI data set (happiness index for 135 countries)
+- Determine if there is a correlation between workhours and happiness
+
 ```{r initial gapminder working hours scatterplots}
 gmp1 = ggplot(aes( x = year, y = value), data = workhours) +
   geom_point(fill = 'orange')
@@ -163,4 +166,48 @@ gmp2 = ggplot(aes( x = country, y = value), data = workhours) +
 
 grid.arrange(gmp1,gmp2,ncol =1)
 ```
+This data set is interesting, there are clearly some things to be learned from it, especially near the lower and upper bounds.  To really do something with this data though, we need to add something.  I'm going to merge this with another data set, which contains information such as happiness, gdp, and population by country.
 
+I converted the HPI data set to csv for import.
+
+###Import HPI Dataset###
+
+```{r import and clean HPI Dataset}
+hpi <- read.csv(file = 'hpi.csv')
+names(hpi) = tolower(names(hpi))
+names(hpi)
+```
+
+###Summarise the workhours data###
+```{r summarise workhours data frame}
+workhourssum <- workhours %>%
+  group_by(country) %>%
+  summarise(mean_hours = mean(value),
+            median_hours = median(as.numeric(value)),#necessary due to bug in version 0.4.1  (2015-01-14)
+            min_hours = min(value),
+            max_hours = max(value),
+            n = n()) %>%
+  arrange(max_hours)
+
+head(workhourssum)
+tail(workhourssum)
+```
+
+###Merge workhours and hpi###
+```{r merge workhours and hpi}
+merged = merge(workhourssum,hpi, by = 'country')
+```
+###Plot workhours vs.hpi rank###
+
+```{r workhours vs. hpi plots}
+ggplot(aes(x = mean_hours, y = hpi.rank), data = merged) +
+  geom_point() +
+  geom_smooth(method = 'lm',color = 'red')
+```
+
+No surprises here, it looks like there is a negative relationship between hours worked and hpi.rank.
+
+```{r test correlation hpi and hours worked}
+cor.test(merged$mean_hours, merged$hpi.rank)
+```
+There is a weak negative correlation between hours worked and happiness rank.  The gapminder data sest (hours worked) only contained 46 countries (merge key) with the 135 countries in the HPI data set.  This analysis is in sore need for more observations.
