@@ -120,4 +120,47 @@ p2 = ggplot(aes(x = color, y = price), data = diamonds) +
 
 grid.arrange(p1,p2,ncol = 1)
 ```
+###Observations###
+There does not appear to be a strong linear correlation between color or clarity and price.  This leads me to believe there are multiple factors which determine price.  The title of the next set of lessons is a strong indicator of this as well :).
+
+**from course answer**
+
+Mean price tends to decrease as clarity improves. The same can be said for color.
+
+We encourage you to look into the mean price across cut.
+
+```{r mean price as a function of cut}
+diamonds_by_cut <- group_by(diamonds, cut)
+diamonds_mp_by_cut <- summarise(diamonds_by_cut, mean_price = mean(price))
+
+p3 = ggplot(aes(x = cut, y = price), data = diamonds) +
+  geom_bar(stat = 'identity', aes(fill = cut))
+
+grid.arrange(p1,p2,p3,ncol = 1)
+```
+The relationship between price and cut seems to be linearly correlated.
+
+##Gapminder revisited##
+
+In your investigation, examine pairs of variable and create 2-5 plots that make use of the techniques from Lesson 4.
+
+```{r gapminder revisted}
+#load the data set
+
+ workhours <- read.csv("~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson3/workinghours.csv")
+names(workhours)
+
+```
+###Analyze the data set##
+
+- Start with scatterplot of working hours vs. country and working hours vs. year
+```{r initial gapminder working hours scatterplots}
+gmp1 = ggplot(aes( x = year, y = value), data = workhours) +
+  geom_point(fill = 'orange')
+
+gmp2 = ggplot(aes( x = country, y = value), data = workhours) +
+  geom_point(fill = 'red')
+
+grid.arrange(gmp1,gmp2,ncol =1)
+```
 
