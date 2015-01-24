@@ -322,7 +322,14 @@ ggplot(aes(x = age, y = friend_count),
 Notes:
 
 ```{r Friending Rate}
+frate <- subset(pf$friend_count/pf$tenure, pf$tenure >=1)
 
+mean(frate)
+median(frate)
+max(frate)
+
+#here is how the instructor solved it
+with(subset(pf, tenure >=1),summary(friend_count/tenure))
 ```
 
 ***
@@ -330,11 +337,60 @@ Notes:
 ### Friendships Initiated
 Notes:
 
-What is the median friend rate?
+What is the median friend rate? .22
 
-What is the maximum friend rate?
+What is the maximum friend rate? 417
 
 ```{r Friendships Initiated}
+# Create a line graph of mean of friendships_initiated per day (of tenure)
+# vs. tenure colored by year_joined.bucket.
+
+# You need to make use of the variables tenure,
+# friendships_initiated, and year_joined.bucket.
+
+# You also need to subset the data to only consider user with at least
+# one day of tenure.
+
+# This assignment is not graded and
+# will be marked as correct when you submit.
+
+# ENTER YOUR CODE BELOW THIS LINE
+# ========================================================================
+pf$firate <- pf$friendships_initiated/pf$tenure
+
+ggplot(aes(x = tenure, y = firate), data = subset(pf, firate >=1)) +
+  geom_line(aes(color = year_joined.bucket), stat = 'summary', fun.y = mean)
+
+#how the instructor did it
+ggplot(aes(x=tenure, y = friendships_initiated/tenure),
+       data = subset(pf, tenure >= 1)) +
+  geom_line(aes(color = year_joined.bucket),
+            stat = 'summary',
+            fun.y = mean)
+
+#this is very noisy, how can I bin this data to reduce noise? See lesson 4 for more detail on this binning technique
+
+ggplot(aes(x=7*round(tenure/7), y = friendships_initiated/tenure),
+       data = subset(pf, tenure >= 1)) +
+  geom_line(aes(color = year_joined.bucket),
+            stat = 'summary',
+            fun.y = mean)
+
+ggplot(aes(x=30*round(tenure/30), y = friendships_initiated/tenure),
+       data = subset(pf, tenure >= 1)) +
+  geom_line(aes(color = year_joined.bucket),
+            stat = 'summary',
+            fun.y = mean)
+
+ggplot(aes(x=90*round(tenure/90), y = friendships_initiated/tenure),
+       data = subset(pf, tenure >= 1)) +
+  geom_line(aes(color = year_joined.bucket),
+            stat = 'summary',
+            fun.y = mean)
+
+
+
+
 
 ```
 
@@ -369,8 +425,13 @@ ggplot(aes(x = 90 * round(tenure / 90), y = friendships_initiated / tenure),
             stat = "summary",
             fun.y = mean)
 
-```
+#this is one way of reducing noise/variance but a smoother might be a better option
 
+ggplot(aes(x = tenure, y = friendships_initiated / tenure),
+       data = subset(pf, tenure > 0)) +
+  geom_smooth(aes(color = year_joined.bucket))
+```
+link for bias variance tradeoff http://scott.fortmann-roe.com/docs/BiasVariance.html
 ***
 
 ### Sean's NFL Fan Sentiment Study
@@ -380,14 +441,19 @@ Notes:
 
 ### Introducing the Yogurt Data Set
 Notes:
-
+Has many rows per houshold, one for each purchase occasion.
 ***
 
 ### Histograms Revisited
 Notes:
 
 ```{r Histograms Revisited}
+yo = read.csv('yogurt.csv')
+str(yo)
+yo$id <- factor(yo$id)
+str(yo)
 
+#create histogram of prices
 ```
 
 ***
