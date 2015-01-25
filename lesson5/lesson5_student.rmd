@@ -12,6 +12,8 @@ library(ggplot2)
 library(gridExtra)
 library(dplyr)
 library('alr3')
+library("GGally")
+library('reshape2')
 
 pf <- read.csv("~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson3/pseudo_facebook.tsv", sep = '\t')
 names(pf)
@@ -208,9 +210,9 @@ Notes:
 
 # ENTER YOUR CODE BELOW THIS LINE.
 # ========================================================
-
-```
 pf$year_joined <- floor(2014 - pf$tenure/365)
+```
+
 
 
 ***
@@ -454,6 +456,14 @@ yo$id <- factor(yo$id)
 str(yo)
 
 #create histogram of prices
+
+ggplot(aes(x = price), data = yo)+
+  geom_histogram(color = 'black',fill = '#F79420')
+
+#trying bindwidth of 10
+
+ggplot(aes(x = price), data = yo)+
+  geom_histogram(binwidth = 10, color = 'black',fill = '#F79420')
 ```
 
 ***
@@ -462,31 +472,93 @@ str(yo)
 Notes:
 
 ```{r Number of Purchases}
+# Create a new variable called all.purchases,
+# which gives the total counts of yogurt for
+# each observation or household.
 
+# One way to do this is using the transform
+# function. You can look up the function transform
+# and run the examples of code at the bottom of the
+# documentation to figure out what it does.
+
+# The transform function produces a data frame
+# so if you use it then save the result to 'yo'!
+
+# OR you can figure out another way to create the
+# variable.
+
+# DO NOT ALTER THE CODE BELOW THIS LINE
+# ========================================================
+#yo <- read.csv('yogurt.csv')
+
+# ENTER YOUR CODE BELOW THIS LINE
+# ========================================================
+help(transform)
+
+yo <- transform(yo, all.purchases = strawberry + blueberry + pina.colada + plain + mixed.berry)
+
+#looking at distribution of prices
+ggplot(data = yo, aes(x = all.purchases)) +
+  geom_histogram(bindwidth = 1, color = 'black', fill = 'orange')
 ```
-
+The histogram of all.purchases demonstrates that most households purchase 1 or 2 yogurts at a time
 ***
 
 ### Prices over Time
 Notes:
 
 ```{r Prices over Time}
+# Create a scatterplot of price vs time.
 
+# This will be an example of a time series plot.
+
+# Resolve overplotting issues by using
+# techniques you learned in Lesson 4.
+
+# What are some things that you notice?
+
+# ENTER YOUR CODE BELOW THIS LINE
+# ================================================
+
+ggplot(data = yo, aes(x = time, y = price)) +
+  coord_cartesian( ylim = c(21, 72)) +  
+  geom_point(alpha = .25, position = position_jitter(h = 0),
+             color = 'orange')
 ```
-
+Modal of prices increasing over time
 ***
 
 ### Sampling Observations
-Notes:
+Notes:  For large data sets it is often useful to explore a small sub-sample in which the raw data can be readily displayed.  We can explore this data to get an idea of the variability and other characteristics of the data set.
+Instructor Notes
+
+Note: x %in% y returns a logical (boolean) vector the same length as x that says whether each entry in x appears in y. That is, for each entry in x, it checks to see whether it is in y. 
+
+This allows us to subset the data so we get all the purchases occasions for the households in the sample. Then, we create scatterplots of price vs. time and facet by the sample id. 
 
 ***
 
 ### Looking at Samples of Households
 
 ```{r Looking at Sample of Households}
+#create a reproducible seed
+
+set.seed(4230)
+
+#sample 16 households from the yogurt data set, sampling from levels because the levels represent different households
+
+sample.ids <- sample(levels(yo$id), 16)
+
+#plot each purchase occasion for each of the households we have sampled see notes above for x %in% y function
+
+ggplot(aes(x = time, y = price),
+       data = subset(yo, id %in% sample.ids)) +
+  facet_wrap(~id) + #facet by household
+  geom_line() +
+  geom_point(aes(size = all.purchases), pch = 1) #size of points proportional to number of items purchased for the respective id.
 
 ```
-
+We can use this type of plot to get a quick look at variation for the sample and number of items purchased by each household.
 ***
 
 ### The Limits of Cross Sectional Data
@@ -502,10 +574,21 @@ Notes:
 ### Scatterplot Matrix
 Notes:
 
+```{r scatterplot matrix}
+theme_set(theme_minimal(20))
+
+set.seed(1836)
+pf_subset <- pf[,c(2:15)] #slicing out the categorical variable columns because we are using scatter plots. also some were derivative of tenure
+names(pf_subset)
+#now use ggpairs from the ggally package
+ggpairs(pf_subset[sample.int(nrow(pf_subset), 1000),])
+
+```
+
 ***
 
 ### Even More Variables
-Notes:
+Notes: Example is a ncib genomic data set
 
 ***
 
@@ -514,6 +597,7 @@ Notes:
 
 ```{r}
 nci <- read.table("nci.tsv")
+#renaming columns for a nicer plot
 colnames(nci) <- c(1:64)
 ```
 
