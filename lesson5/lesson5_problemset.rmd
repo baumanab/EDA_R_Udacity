@@ -232,7 +232,9 @@ ggplot(data = diamonds, aes(x = cut, y = price/carat)) +
 # your investigation, and submit it when you are ready.
 # ================================================================================
 
+#read the data
 
+hourshpi <- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson4/workhours_hpi.csv')
 
 ```
 
