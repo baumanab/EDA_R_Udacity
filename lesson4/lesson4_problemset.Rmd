@@ -173,7 +173,7 @@ I converted the HPI data set to csv for import.
 ###Import HPI Dataset###
 
 ```{r import and clean HPI Dataset}
-hpi <- read.csv(file = 'hpi.csv')
+hpi <- read.csv(file = '~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson4/hpi.csv')
 names(hpi) = tolower(names(hpi))
 names(hpi)
 ```
@@ -197,6 +197,11 @@ tail(workhourssum)
 ```{r merge workhours and hpi}
 merged = merge(workhourssum,hpi, by = 'country')
 ```
+
+```{r write merged workhours and hpi file to csv}
+write.csv(merged, '~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson4/workhours_hpi.csv')
+```
+
 ###Plot workhours vs.hpi rank###
 
 ```{r workhours vs. hpi plots}

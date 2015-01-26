@@ -82,7 +82,8 @@ getwd()</code></pre>
 ##  [3] &quot;hpi.csv&quot;                 &quot;L4.RData&quot;               
 ##  [5] &quot;lesson4_mynotes.html&quot;    &quot;lesson4_mynotes.Rmd&quot;    
 ##  [7] &quot;lesson4_problemset.html&quot; &quot;lesson4_problemset.Rmd&quot; 
-##  [9] &quot;lesson4_student.html&quot;    &quot;lesson4_student.rmd&quot;</code></pre>
+##  [9] &quot;lesson4_student.html&quot;    &quot;lesson4_student.rmd&quot;    
+## [11] &quot;workhours_hpi.csv&quot;</code></pre>
 <pre class="r"><code>data(diamonds)
 summary(diamonds)</code></pre>
 <pre><code>##      carat               cut        color        clarity     
@@ -293,7 +294,7 @@ grid.arrange(gmp1,gmp2,ncol =1)</code></pre>
 </div>
 <div id="import-hpi-dataset" class="section level3">
 <h3>Import HPI Dataset</h3>
-<pre class="r"><code>hpi &lt;- read.csv(file = 'hpi.csv')
+<pre class="r"><code>hpi &lt;- read.csv(file = '~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson4/hpi.csv')
 names(hpi) = tolower(names(hpi))
 names(hpi)</code></pre>
 <pre><code>##  [1] &quot;hpi.rank&quot;                          
@@ -343,6 +344,7 @@ head(workhourssum)</code></pre>
 <div id="merge-workhours-and-hpi" class="section level3">
 <h3>Merge workhours and hpi</h3>
 <pre class="r"><code>merged = merge(workhourssum,hpi, by = 'country')</code></pre>
+<pre class="r"><code>write.csv(merged, '~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson4/workhours_hpi.csv')</code></pre>
 </div>
 <div id="plot-workhours-vs.hpi-rank" class="section level3">
 <h3>Plot workhours vs.hpi rank</h3>
