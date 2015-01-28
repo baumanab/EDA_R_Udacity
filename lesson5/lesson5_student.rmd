@@ -499,7 +499,7 @@ yo <- transform(yo, all.purchases = strawberry + blueberry + pina.colada + plain
 
 #looking at distribution of prices
 ggplot(data = yo, aes(x = all.purchases)) +
-  geom_histogram(bindwidth = 1, color = 'black', fill = 'orange')
+  geom_histogram(binwidth = 1, color = 'black', fill = 'orange')
 ```
 The histogram of all.purchases demonstrates that most households purchase 1 or 2 yogurts at a time
 ***

@@ -3,8 +3,8 @@ title: "Lesson 5 Problem Set"
 output: html_document
 ---
 
-```{r load libraries}
-
+```{r load libraries and set path}
+setwd("~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson5")
 library(ggplot2)
 library(gridExtra)
 library(dplyr)
@@ -234,7 +234,87 @@ ggplot(data = diamonds, aes(x = cut, y = price/carat)) +
 
 #read the data
 
-hourshpi <- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson4/workhours_hpi.csv')
+hourshpi <- read.csv('~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson4/workhours_hpi.csv')
+ognames <- names(hourshpi)
+
+names(hourshpi)
+
+names(hourshpi)[11] <- 'well.being'
+names(hourshpi)[13] <- 'footprint'
+names(hourshpi)[17] <- 'governance.rank'
+names(hourshpi)[10] <- 'life.expectancy'
+names(hourshpi)[12] <- 'happy.life.years'
+names(hourshpi)[16] <- 'gdp'
+
+hourshpi$gdp_norm = hourshpi$gdp/hourshpi$population
+
+names(hourshpi)
+```
+
+```{r hourshpi summaries}
+summary(hourshpi)
+str(hourshpi)
+quantile(hourshpi$gdp_norm)
+quantile(hourshpi$hpi.rank)
+summary(hourshpi$hpi.rank)
+
+```
+```{r create quartile columns as factors}
+
+hourshpi <- within(hourshpi, hpi.rank_quartile <- cut(hpi.rank, quantile(hpi.rank, probs=0:4/4), include.lowest=TRUE, labels=FALSE))
+
+hourshpi <- within(hourshpi, gdp_norm_quartile <- cut(gdp_norm, quantile(gdp_norm, probs=0:4/4), include.lowest=TRUE, labels=FALSE))
+
+hourshpi <- within(hourshpi, hours_quartile <- cut(mean_hours, quantile(mean_hours, probs=0:4/4), include.lowest=TRUE, labels=FALSE))
+
+hourshpi <- within(hourshpi, gdp_quartile <- cut(gdp, quantile(gdp, probs=0:4/4), include.lowest=TRUE, labels=FALSE))
+
+hourshpi <- within(hourshpi, happy.life_quartile <- cut(happy.life.years, quantile(happy.life.years, probs=0:4/4), include.lowest=TRUE, labels=FALSE))
+
+str(hourshpi)
+hourshpi$hpi.rank_quartile <- factor(hourshpi$hpi.rank_quartile)
+hourshpi$gdp_norm_quartile <- factor(hourshpi$gdp_norm_quartile)
+hourshpi$hours_quartile <- factor(hourshpi$hours_quartile)
+hourshpi$gdp_quartile <- factor(hourshpi$gdp_quartile)
+hourshpi$happy.life_quartile <- factor(hourshpi$happy.life_quartile)
+str(hourshpi)
+```
+
+```{r hourshpi histograms}
+ggplot(data = hourshpi, aes(x = mean_hours)) +
+  geom_histogram(binwidth = 1, color = 'black',aes(fill = hpi.rank_quartile))  +
+  facet_wrap(~gdp_norm_quartile)
+
+ggplot(data = hourshpi, aes(x = mean_hours)) +
+  geom_histogram(binwidth = 1, color = 'black',aes(fill = hpi.rank_quartile))  +
+  facet_wrap(~gdp_quartile)
+
+
+
+
+```
+
+```{r hpihours scatterplots}
+ggplot(data = hourshpi, aes(x = mean_hours , y = hpi.rank)) +
+geom_point(aes(color = gdp_quartile))
+#scale_colour_brewer(type = 'qual')
+#scale_x_continuous(limits = c(50,80), breaks = seq(50,80,2))
+
+ggplot(data = hourshpi, aes(x = mean_hours , y = hpi.rank)) +
+  geom_point(aes(color = gdp_quartile, size = well.being))
+
+ggplot(data = hourshpi, aes(x = mean_hours , y = hpi.rank)) +
+  geom_point(aes(color = gdp_quartile, size = well.being)) +
+  facet_wrap(~sub.region)
+
+ggplot(data = hourshpi, aes(x = mean_hours , y = hpi.rank)) +
+  geom_point(aes(color = gdp_quartile, size = well.being)) +
+  facet_wrap(~happy.life_quartile)
+
+
+
+  
+
 
 ```
 
