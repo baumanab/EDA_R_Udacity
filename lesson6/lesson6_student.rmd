@@ -176,13 +176,25 @@ ggplot(aes(carat, price), data = diamonds) +
 ### Overplotting Revisited
 
 ```{r Sort and Head Tables}
-
+head(sort(table(diamonds$carat), decreasing = T))
+head(sort(table(diamonds$price), decreasing = T))
 ```
 
 
 ```{r Overplotting Revisited}
+
+# Add a layer to adjust the features of the
+# scatterplot. Set the transparency to one half,
+# the size to three-fourths, and jitter the points.
+
+# If you need hints, see the Instructor Notes.
+# There are three hints so scroll down slowly if
+# you don't want all the hints at once.
+
+# ALTER THE CODE BELOW THIS LINE
+# =======================================================================
 ggplot(aes(carat, price), data = diamonds) + 
-  geom_point() + 
+  geom_point(alpha = .5, size = .75, position = 'jitter') + 
   scale_x_continuous(trans = cuberoot_trans(), limits = c(0.2, 3),
                      breaks = c(0.2, 0.5, 1, 2, 3)) + 
   scale_y_continuous(trans = log10_trans(), limits = c(350, 15000),
@@ -202,10 +214,25 @@ Notes:
 Alter the code below.
 ```{r Price vs. Carat and Clarity}
 # install and load the RColorBrewer package
-install.packages('RColorBrewer')
+#install.packages('RColorBrewer')
+
+
+# Adjust the code below to color the points by clarity.
+
+# A layer called scale_color_brewer() has 
+# been added to adjust the legend and
+# provide custom colors.
+
+# See if you can figure out what it does.
+# Links to resources are in the Instructor Notes.
+
+# You will need to install the package RColorBrewer
+# in R to get the same colors and color palettes.
+
+# =======================================
 library(RColorBrewer)
 
-ggplot(aes(x = carat, y = price), data = diamonds) + 
+ggplot(aes(x = carat, y = price, color = clarity), data = diamonds) + 
   geom_point(alpha = 0.5, size = 1, position = 'jitter') +
   scale_color_brewer(type = 'div',
     guide = guide_legend(title = 'Clarity', reverse = T,
@@ -228,7 +255,7 @@ Response:
 
 Alter the code below.
 ```{r Price vs. Carat and Cut}
-ggplot(aes(x = carat, y = price, color = clarity), data = diamonds) + 
+ggplot(aes(x = carat, y = price, color = cut), data = diamonds) + 
   geom_point(alpha = 0.5, size = 1, position = 'jitter') +
   scale_color_brewer(type = 'div',
                      guide = guide_legend(title = 'Clarity', reverse = T,
@@ -251,16 +278,16 @@ Response:
 
 Alter the code below.
 ```{r Price vs. Carat and Color}
-ggplot(aes(x = carat, y = price, color = cut), data = diamonds) + 
+ggplot(aes(x = carat, y = price, color = color), data = diamonds) + 
   geom_point(alpha = 0.5, size = 1, position = 'jitter') +
   scale_color_brewer(type = 'div',
-                     guide = guide_legend(title = Cut, reverse = T,
+                     guide = guide_legend(title = 'Color', reverse = F,
                                           override.aes = list(alpha = 1, size = 2))) +  
   scale_x_continuous(trans = cuberoot_trans(), limits = c(0.2, 3),
                      breaks = c(0.2, 0.5, 1, 2, 3)) + 
   scale_y_continuous(trans = log10_trans(), limits = c(350, 15000),
                      breaks = c(350, 1000, 5000, 10000, 15000)) +
-  ggtitle('Price (log10) by Cube-Root of Carat and Cut')
+  ggtitle('Price (log10) by Cube-Root of Carat and Color')
 ```
 
 ***
@@ -314,8 +341,9 @@ install.packages('RCurl')
 library('bitops')
 library('RCurl')
 
-diamondsurl = getBinaryURL("https://raw.github.com/solomonm/diamonds-data/master/BigDiamonds.Rda")
-load(rawConnection(diamondsurl))
+#diamondsurl = getBinaryURL("https://raw.github.com/solomonm/diamonds-data/master/BigDiamonds.Rda")
+#load(rawConnection(diamondsurl))
+load("~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson6/BigDiamonds.Rda")
 ```
 
 The code used to obtain the data is available here:
