@@ -200,6 +200,8 @@ merged = merge(workhourssum,hpi, by = 'country')
 
 ```{r write merged workhours and hpi file to csv}
 write.csv(merged, '~/Udacity/dataAnalysisR/EDA_R_Udacity/lesson4/workhours_hpi.csv')
+
+#note that we lost hong kong, korea, czech republic etc. because names did not match, this should be corrected at some point
 ```
 
 ###Plot workhours vs.hpi rank###

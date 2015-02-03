@@ -609,7 +609,7 @@ head(nci.long.samp)
 ggplot(aes(y = gene, x = case, fill = value),
   data = nci.long.samp) +
   geom_tile() +
-  scale_fill_gradientn(colours = colorRampPalette(c("blue", "red"))(100))
+  scale_fill_gradient(colours = colorRampPalette(c("blue", "red"))(100))
 ```
 
 
