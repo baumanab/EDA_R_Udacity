@@ -1,0 +1,50 @@
+---
+title: "Udacity EDA R Final Project"
+author: "Andrew Thomas Bauman"
+date: "Tuesday, February 10, 2015"
+output: html_document
+---
+
+#Introduction#
+
+```{r install libraries}
+#install devtools from CRAN, then Socrata Library from github
+#install.packages('devtools')
+library(devtools)
+#install_github('Chicago/RSocrata', username = 'baumanab')
+```
+[RScorata Github Repo](https://github.com/Chicago/RSocrata)
+
+```{r setpath}
+setwd("~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject")
+```
+
+```{r load libraries}
+library(RSocrata)
+library(ggplot2)
+library(gridExtra)
+library(dplyr)
+library('alr3')
+library("GGally")
+library('reshape2')
+
+```
+
+```{r load seattle.gov crime data sets}
+#police beat centerpoints, ties beatcode to geo
+df_policebeatcenterpoints<- read.socrata("https://data.seattle.gov/Land-Base/Police-Beat-and-Precinct-Centerpoints/4khs-fz35")
+#crimes form 1996 to 2007 by 1990 census tract (can be tied to tract data)
+df_seattlecrimestats1996to2007<- read.socrata("https://data.seattle.gov/Public-Safety/Seattle-Crime-Stats-by-1990-Census-Tract-1996-2007/e3zj-s4zh")
+#Crime stats 2008 to present by police beat (can be tied to police beat data and sector)
+df_seattlecrimestatsbypoliceprecinct<- read.socrata("https://data.seattle.gov/Public-Safety/Seattle-Crime-Stats-by-Police-Precinct-2008-Presen/3xqu-vnum")
+#SPD offense code key
+df_spdbyoffense<- read.socrata("https://data.seattle.gov/Public-Safety/Seattle-Police-Department-Police-Report-Offense/m2gk-mysw")
+#Incident initial reports by SPD officers has geo data
+df_reportincident<- read.socrata("https://data.seattle.gov/Public-Safety/Seattle-Police-Department-Police-Report-Incident/7ais-f98f")
+#911 call data from within the city has geo data
+df_spdincident911response<- read.socrata("https://data.seattle.gov/Public-Safety/Seattle-Police-Department-911-Incident-Response/3k2p-39jp")
+
+```
+
+
+
