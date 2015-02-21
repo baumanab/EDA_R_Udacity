@@ -31,8 +31,6 @@ other data sets for vaccination
 
 
 ```{r load school vaccination exemption data sets}
-#2011 vaccination exemption data set
-vaccexempt_st_fyi_2011 <- read.csv('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/syi_fyi_2011.csv')
 
 #2013-2014 vaccination exemption data set, aka kingcounty.gov data set 1
 kcounty_k12_vaccexempt_2013to2014 <- read.socrata('https://data.kingcounty.gov/dataset/Vaccination-Exemptions-in-King-County/xs83-3zit')
@@ -54,12 +52,22 @@ doh_k12_2013to2014 <- read.csv('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_Fina
 ```
 
 ```{r data structures and names}
-vaccexempt_st_fyi_2011_names <- names(vaccexempt_st_fyi_2011)
 kcounty_immcoverage_k12_mostrecent_2014_names <- names(kcounty_immcoverage_k12_mostrecent_2014)
 kcounty_k_mostrecent_2014 <- names(kcounty_k_mostrecent_2014)
 kcounty_k12_vaccexempt_2013to2014_names <- names(kcounty_k12_vaccexempt_2013to2014)
 doh_K12_2011to2012_names <- names(doh_K12_2011to2012)
 doh_k12_2012to2013_names <- names(doh_k12_2012to2013)
 doh_k12_2013to2014_names <- names(doh_k12_2013to2014)
+
+#kingcounty.gov name sets
+kcounty_immcoverage_k12_mostrecent_2014_names
+kcounty_k_mostrecent_2014
+kcounty_k12_vaccexempt_2013to2014_names
+
+#WA DOH name sets
+vaccexempt_st_fyi_2011_names
+doh_k12_2012to2013_names
+doh_k12_2013to2014
+doh_k12_2013to2014_names
 ```
 
