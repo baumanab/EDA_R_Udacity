@@ -5,19 +5,7 @@ date: "Tuesday, February 10, 2015"
 output: html_document
 ---
 
-#Introduction#
-
-```{r install libraries}
-#install devtools from CRAN, then Socrata Library from github
-#install.packages('devtools') #to install socrata
-library(devtools) #to install socrata
-#install_github('Chicago/RSocrata', username = 'redacted') #to access socrata data
-#install.packages('acs') #to access census data
-#install.packages('tidyr')
-
-
-```
-[RScorata Github Repo](https://github.com/Chicago/RSocrata)
+#Introductio#
 
 ```{r setpath}
 setwd("~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject")
@@ -42,19 +30,34 @@ other data sets for vaccination
 
 ```{r load school vaccination exemption data sets}
 #2011 vaccination exemption data set
-vaccexempt_2011 <- read.csv('http://projects.seattletimes.com/2015/fyiguy/school-vaccines/assets/school_exemption_data_all_schools_2011-12.csv')
+vaccexempt_st_fyi_2011 <- read.csv('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/syi_fyi_2011.csv')
 
-#2013-2014 vaccination exemption data set
-vaccexempt_2013to2014 <- read.socrata('https://data.kingcounty.gov/dataset/Vaccination-Exemptions-in-King-County/xs83-3zit')
+#2013-2014 vaccination exemption data set, aka kingcounty.gov data set 1
+kcounty_k12_vaccexempt_2013to2014 <- read.socrata('https://data.kingcounty.gov/dataset/Vaccination-Exemptions-in-King-County/xs83-3zit')
 
-#kindergarten MMR vacccine exemption data set
-vaccexempt_kindmmr <- read.socrata('https://data.kingcounty.gov/dataset/Kindergarten-MMR-Vaccine-Coverage/kbfa-mvcb')
+#kingcounty.gov data set 2
+ kcounty_immcoverage_k12_mostrecent_2014<- read.socrata('https://data.kingcounty.gov/dataset/K-12-Immunization-Coverage-by-Most-Recent-School-R/h2ef-byuh')
 
-more <- read.socrata('https://data.kingcounty.gov/dataset/K-12-Immunization-Coverage-by-Most-Recent-School-R/h2ef-byuh')
+#kingcounty.gov data set 3
+kcounty_k_mostrecent_2014 <- read.socrata('https://data.kingcounty.gov/dataset/Kindergarten-Immunization-Coverage-by-Most-Recent-/agib-e23h')
 
-evenmore <- read.socrata('https://data.kingcounty.gov/dataset/Kindergarten-Immunization-Coverage-by-Most-Recent-/agib-e23h')
+#WA DOH SY 2011-2012 K12
+doh_K12_2011to2012 <- read.csv('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/WA_Vacc_K12_2011.csv')
 
-yetmore <- read.socrata('https://data.kingcounty.gov/w/h2ef-byuh/shwn-npxw?cur=VVxMNDrQvgF&from=root#about')
+#WA DOH SY 2012-2013 K12
+doh_k12_2012to2013 <- read.csv('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/WA_Vacc_K12_2012.csv')
 
-
+#WA doh SY 2013-2014 K12
+doh_k12_2013to2014 <- read.csv('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/WA_Vacc_K12_2013.csv')
 ```
+
+```{r data structures and names}
+vaccexempt_st_fyi_2011_names <- names(vaccexempt_st_fyi_2011)
+kcounty_immcoverage_k12_mostrecent_2014_names <- names(kcounty_immcoverage_k12_mostrecent_2014)
+kcounty_k_mostrecent_2014 <- names(kcounty_k_mostrecent_2014)
+kcounty_k12_vaccexempt_2013to2014_names <- names(kcounty_k12_vaccexempt_2013to2014)
+doh_K12_2011to2012_names <- names(doh_K12_2011to2012)
+doh_k12_2012to2013_names <- names(doh_k12_2012to2013)
+doh_k12_2013to2014_names <- names(doh_k12_2013to2014)
+```
+
