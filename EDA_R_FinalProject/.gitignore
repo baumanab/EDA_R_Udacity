@@ -1,0 +1,6 @@
+*.ipynb_checkpoints/
+*.Rhistory
+*.zip
+*.Rproj.user
+# RStudio files
+*.Rproj.user/

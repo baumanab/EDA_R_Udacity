@@ -9,9 +9,13 @@ output: html_document
 
 ```{r install libraries}
 #install devtools from CRAN, then Socrata Library from github
-#install.packages('devtools')
-library(devtools)
-#install_github('Chicago/RSocrata', username = 'baumanab')
+#install.packages('devtools') #to install socrata
+library(devtools) #to install socrata
+#install_github('Chicago/RSocrata', username = 'redacted') #to access socrata data
+#install.packages('acs') #to access census data
+#install.packages('tidyr')
+
+
 ```
 [RScorata Github Repo](https://github.com/Chicago/RSocrata)
 
@@ -20,31 +24,37 @@ setwd("~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject")
 ```
 
 ```{r load libraries}
-library(RSocrata)
+library(RSocrata) #to access socrata data
 library(ggplot2)
 library(gridExtra)
 library(dplyr)
-library('alr3')
-library("GGally")
-library('reshape2')
+library(alr3)
+library(GGally)
+library(reshape2)
+library(acs) #to access census data
+library(tidyr) #bare bones data tidying library
 
 ```
 
-```{r load seattle.gov crime data sets}
-#police beat centerpoints, ties beatcode to geo
-df_policebeatcenterpoints<- read.socrata("https://data.seattle.gov/Land-Base/Police-Beat-and-Precinct-Centerpoints/4khs-fz35")
-#crimes form 1996 to 2007 by 1990 census tract (can be tied to tract data)
-df_seattlecrimestats1996to2007<- read.socrata("https://data.seattle.gov/Public-Safety/Seattle-Crime-Stats-by-1990-Census-Tract-1996-2007/e3zj-s4zh")
-#Crime stats 2008 to present by police beat (can be tied to police beat data and sector)
-df_seattlecrimestatsbypoliceprecinct<- read.socrata("https://data.seattle.gov/Public-Safety/Seattle-Crime-Stats-by-Police-Precinct-2008-Presen/3xqu-vnum")
-#SPD offense code key
-df_spdbyoffense<- read.socrata("https://data.seattle.gov/Public-Safety/Seattle-Police-Department-Police-Report-Offense/m2gk-mysw")
-#Incident initial reports by SPD officers has geo data
-df_reportincident<- read.socrata("https://data.seattle.gov/Public-Safety/Seattle-Police-Department-Police-Report-Incident/7ais-f98f")
-#911 call data from within the city has geo data
-df_spdincident911response<- read.socrata("https://data.seattle.gov/Public-Safety/Seattle-Police-Department-911-Incident-Response/3k2p-39jp")
+other data sets for vaccination
+
+
+
+```{r load school vaccination exemption data sets}
+#2011 vaccination exemption data set
+vaccexempt_2011 <- read.csv('http://projects.seattletimes.com/2015/fyiguy/school-vaccines/assets/school_exemption_data_all_schools_2011-12.csv')
+
+#2013-2014 vaccination exemption data set
+vaccexempt_2013to2014 <- read.socrata('https://data.kingcounty.gov/dataset/Vaccination-Exemptions-in-King-County/xs83-3zit')
+
+#kindergarten MMR vacccine exemption data set
+vaccexempt_kindmmr <- read.socrata('https://data.kingcounty.gov/dataset/Kindergarten-MMR-Vaccine-Coverage/kbfa-mvcb')
+
+more <- read.socrata('https://data.kingcounty.gov/dataset/K-12-Immunization-Coverage-by-Most-Recent-School-R/h2ef-byuh')
+
+evenmore <- read.socrata('https://data.kingcounty.gov/dataset/Kindergarten-Immunization-Coverage-by-Most-Recent-/agib-e23h')
+
+yetmore <- read.socrata('https://data.kingcounty.gov/w/h2ef-byuh/shwn-npxw?cur=VVxMNDrQvgF&from=root#about')
+
 
 ```
-
-
-
