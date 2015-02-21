@@ -5,7 +5,8 @@ date: "Tuesday, February 10, 2015"
 output: html_document
 ---
 
-#Introductio#
+#Introduction#
+
 
 ```{r setpath}
 setwd("~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject")
@@ -21,6 +22,7 @@ library(GGally)
 library(reshape2)
 library(acs) #to access census data
 library(tidyr) #bare bones data tidying library
+#test
 
 ```
 
