@@ -88,6 +88,11 @@ schoolcode_2012_unique<- subset(doh_k12_2012, doh_k12_2012$School.Code %in% doh_
   
 #2013 Unique School Code
 schoolcode_2013_unique<- subset(doh_k12_2013, doh_k12_2013$School.Code %in% doh_k12_2011$School.Code == F)
+
+#How many of the unique schools are in King County?
+summary(schoolcode_2012_unique$County == 'KING')
+summary(schoolcode_2013_unique$County == 'KING')
+
 ```
 
 
