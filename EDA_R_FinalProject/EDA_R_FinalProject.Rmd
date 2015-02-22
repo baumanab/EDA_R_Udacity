@@ -50,22 +50,49 @@ doh_k12_2012<- read.csv('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProjec
 doh_k12_2013<- read.csv('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/WA_Vacc_K12_2013.csv')
 ```
 ###Data Audit###
-Most of the audit was done through simple visual inspection.  
+Most of the audit was done through simple visual inspection.  A few things stood out already, that year was missing from 2012 and 2013, and that the 2012 data had a source column which I don't intend to use.  These were easy add and drops.  I would like to align the geographic information.  The 2012 and 2013 geo info is not as comprehensive as 2011.  I will use the school code to merge all the geo information, that way everything should align and the same strings and values should exist for all schools.  I will use this as a general strategy (referencing the 2011 info) rather than trying to homogenize in other ways.  
 
-```{r Data Audit}
+```{r Initial Data Audit}
 
 ```
 
 ###Align Columns to 2011 Set###
 Initial cleaning etc. may be clunky and manual.  I intend to semi-automate this with a pipeline prior to project completion.
 
-```{r align to 2011}
+```{r align to 2011 part 1, simple}
 #add Year
 doh_k12_2012$Year = 2012
 doh_k12_2013$Year= 2013
 
 #drop Data.Source
 doh_k12_2012$Data.Source <- NULL
+
+#rename 2013 School Code
+names(doh_k12_2013)[names(doh_k12_2013) == 'School.Building.Code'] <- 'School.Code'
 ```
 
+###Align School and District information to 2011 with a Merge###
+- drop school and district info columns that are indpendent of school year in 2012 and 2013 except school code
+- merge subset of 2011 on district code
+
+**Important Question**
+
+Are there schools unique to 2012 or 2013?  I need to inspect this to determine if they are worth holding on to and getting geo info.
+
+####School Code Audit####
+Going to try subset on this.  I will subset 2012 and 2013 on those school codes != to 2011, if any.
+```{r School Code Audit}
+#2012 Unique School Code
+schoolcode_2012_unique<- subset(doh_k12_2012, doh_k12_2012$School.Code != doh_k12_2011$School.Code)
+
+  
+#2013 Unique School Code
+schoolcode_2013_unique<- subset(doh_k12_2013, doh_k12_2013$ != doh_k12_2011$School.Code)
+```
+
+
+
+```{r align data to 2011 part 2}
+
+```
 
