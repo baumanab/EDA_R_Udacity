@@ -80,14 +80,14 @@ names(doh_k12_2013)[names(doh_k12_2013) == 'School.Building.Code'] <- 'School.Co
 Are there schools unique to 2012 or 2013?  I need to inspect this to determine if they are worth holding on to and getting geo info.
 
 ####School Code Audit####
-Going to try subset on this.  I will subset 2012 and 2013 on those school codes != to 2011, if any.
+Going to try subset on this.  I will subset 2012 and 2013 on those school codes != to 2011, if any.  Using the %in% operator and subsetting on False (not in 2011). 
 ```{r School Code Audit}
 #2012 Unique School Code
-schoolcode_2012_unique<- subset(doh_k12_2012, doh_k12_2012$School.Code != doh_k12_2011$School.Code)
+schoolcode_2012_unique<- subset(doh_k12_2012, doh_k12_2012$School.Code %in% doh_k12_2011$School.Code == F)
 
   
 #2013 Unique School Code
-schoolcode_2013_unique<- subset(doh_k12_2013, doh_k12_2013$ != doh_k12_2011$School.Code)
+schoolcode_2013_unique<- subset(doh_k12_2013, doh_k12_2013$School.Code %in% doh_k12_2011$School.Code == F)
 ```
 
 
