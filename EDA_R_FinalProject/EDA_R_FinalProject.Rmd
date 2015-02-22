@@ -82,19 +82,30 @@ Are there schools unique to 2012 or 2013?  I need to inspect this to determine i
 ####School Code Audit####
 Going to try subset on this.  I will subset 2012 and 2013 on those school codes != to 2011, if any.  Using the %in% operator and subsetting on False (not in 2011). 
 ```{r School Code Audit}
-#2012 Unique School Code
-schoolcode_2012_unique<- subset(doh_k12_2012, doh_k12_2012$School.Code %in% doh_k12_2011$School.Code == F)
+#2012 Unique School Code relative to 2011
+schoolcode_2012_unique_2011<- subset(doh_k12_2012, doh_k12_2012$School.Code %in% doh_k12_2011$School.Code == F)
 
   
-#2013 Unique School Code
-schoolcode_2013_unique<- subset(doh_k12_2013, doh_k12_2013$School.Code %in% doh_k12_2011$School.Code == F)
+#2013 Unique School Code relative to 2011
+schoolcode_2013_unique_2011<- subset(doh_k12_2013, doh_k12_2013$School.Code %in% doh_k12_2011$School.Code == F)
+
+#2011 unique school Code relative to 2012 and 2013
+schoolcode_2011_unique<- subset(doh_k12_2011, (doh_k12_2011$School.Code %in% doh_k12_2012$School.Code == F) & (doh_k12_2011$School.Code %in% doh_k12_2013$School.Code == F))
+
+
+#2012 unique school code relative to 2011 and 2013
+schoolcode_2012_unique<- subset(doh_k12_2012, (doh_k12_2012$School.Code %in% doh_k12_2011$School.Code == F) & (doh_k12_2012$School.Code %in% doh_k12_2013$School.Code == F))
+
+#2013 unique school code relative to 2011 and 2012
+schoolcode_2013_unique<- subset(doh_k12_2013, (doh_k12_2013$School.Code %in% doh_k12_2012$School.Code == F) & (doh_k12_2013$School.Code %in% doh_k12_2011$School.Code == F))
 
 #How many of the unique schools are in King County?
 summary(schoolcode_2012_unique$County == 'KING')
 summary(schoolcode_2013_unique$County == 'KING')
+summary(schoolcode_2011_unique$School.County == 'KING')
 
 ```
-
+The 2012 data set is missing address data, but there are only 31 unique school codes in this data set, so there are only 31 missing addresses.
 
 
 ```{r align data to 2011 part 2}
