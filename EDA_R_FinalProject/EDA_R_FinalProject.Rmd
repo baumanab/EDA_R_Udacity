@@ -73,10 +73,6 @@ names(doh_k12_2013)[names(doh_k12_2013) == 'School.Building.Code'] <- 'School.Co
 #drop 2012 K.12.Number.Complete
 doh_k12_2012$K.12.Number.Complete <- NULL
 
-#add columns to 2012:
-doh_k12_2012$school_street = 'placeholder'
-doh_k12_2012$school_city = 'placeholder'
-doh_k12_2012$distric_code = 0000
 ```
 
 ###Align School and District information to 2011 with a Merge###
@@ -124,11 +120,45 @@ colnames_2011 = c('year','school_code','school_name','school_type','school_stree
 
 colnames(doh_k12_2011) <- colnames_2011
 
-colnames_2012 = c('school_code','school_name','school_type','school_district','school_county','reported','grade_levels','enrolled','exempt','medical_exempt','personal_exempt','religious_exempt','religious_member_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_MMR','exempt_hepB','exempt_varicella','year','district_code','school_street','school_city')
+colnames_2012 = c('school_code','school_name','school_type','school_district','school_county','reported','grade_levels','enrolled','exempt','medical_exempt','personal_exempt','religious_exempt','religious_member_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_MMR','exempt_hepB','exempt_varicella','year')
 
 colnames(doh_k12_2012) <- colnames_2012
 
-col
+
+```
+The 2011 data set contains a field for each component of MMR.  I suspect these are all the same value since I'm not aware of administering MMR components seperately as a common practice.  Are these the same?  If so, I'm going to combine them into just MMR.
+
+```{r more audit}
+summary(doh_k12_2011$exempt_measles == doh_k12_2011$exempt_mumps)
+summary(doh_k12_2011$exempt_measles == doh_k12_2011$exempt_rubella)
+summary(doh_k12_2011$exempt_mumps == doh_k12_2011$exempt_rubella)
+
+```
+Hmm, it looks like the values differ in some instances, let's inspect that a bit.
+
+```{r inspect 2011 MMR}
+summary(doh_k12_2011$exempt_measles)
+summary(doh_k12_2011$exempt_mumps)
+summary(doh_k12_2011$exempt_rubella)
+
+reported_measles = doh_k12_2011$exempt_measles[doh_k12_2011$reported == 'Yes']
+reported_mumps = doh_k12_2011$exempt_mumps[doh_k12_2011$reported == 'Yes']
+reported_rubella = doh_k12_2011$exempt_rubella[doh_k12_2011$reported == 'Yes']
+
+summary(reported_measles - reported_rubella)
+summary(reported_measles - reported_mumps)
+summary(reported_mumps - reported_rubella)
+doh_k12_2011[max(reported_measles-reported_rubella),]
+```
+I don't understand some of the values the summaries are giving.  It looks like in most or all instances that M, M, and R are the same.  I'm going to use measles as MMR.  I will renamed the column and drop the other two.
+
+```{r 2011 drop and rename}
+#drop mumps and rubella
+doh_k12_2011$exempt_mumps <- NULL
+doh_k12_2011$exempt_rubella <- NULL
+colnames(doh_k12_2011)
+#rename measles to MMR
+names(doh_k12_2011)[names(doh_k12_2011) == 'exempt_measles'] <- 'exempt_MMR'
 ```
 
 ```{r align data to 2011 part 2}
