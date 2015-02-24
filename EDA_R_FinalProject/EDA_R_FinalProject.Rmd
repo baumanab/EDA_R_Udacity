@@ -7,13 +7,27 @@ output: html_document
 
 #Introduction#
 
-Recent news media coverage and my own personal interest inspired me to explore a school vaccination data set for WA state.  WA DOH employees generously assembled 3 data sets for my project for school years 2011-2012, 2012-2013, and 2013-2014.  The 2011-2012 set is the most comprehensive in terms of school covered and relavant fields.  I will use the following approach:
+Recent news media coverage and my own personal interest inspired me to explore a school vaccination data set for WA state.  WA DOH employees generously assembled 3 data sets for my project for school years 2011-2012, 2012-2013, and 2013-2014.  The 2011-2012 set is the most comprehensive in terms of school covered and relevant fields  Each data set contains an observation about a school.  The 3 data sets will be concantonated into one data set and then explored.  
 
-- Align 2012 and 2013 data with 2011 data, clean, and homogenize
-- Tidy the data
-- Concatonate the data
-- Merge with demographic data
-- Explore the data
+Additonal information can be provided by US Census Bureau data and data from the Office of the Superintendent of Public Instruction (OSPI) in Washington State.  This includes geographic data, demograhic data, and economic data at multiple levels of aggregation.  Final data frames will likely include:
+
+- school vaccination data frame for 3 school years (2011-2012,2012-2013,2013-2014)
+- Demographic data frame at the school, district, or county level
+- school profile data frame
+- economic data frame at the zip code level
+
+I will use the following approach to assemble my initial data frame and explore the data:
+
+* Read and audit each of the 3 school vaccination data frames
+* Choose columns for the final school vaccination data frame  
+* Prepare the 3 data frames to match item 2
+* Concatonate the data
+* Tidy the data
+* Explore the data
+* Merge with relevant demographic, economic, or profile data
+* Explore the merged data
+
+##Prepare the R Environment##
 
 ###Set Path and Load Libraries###
 
@@ -33,10 +47,11 @@ library(acs) #to access census data
 library(tidyr) #bare bones data tidying library
 
 ```
+##Read and Audit WA DOH K-12 School Vaccination Data Frames##
 
-###Load WA DOH Data Sets###
+###Read WA DOH Data Sets###
 
-Named data sets based on starting year of school year.  That is also how the year variable was assigned.  So 2011 referese to the school year (SY) 2011-2012
+Named data sets based on starting year of school year.  That is also how the year variable was assigned.  So 2011 referes to the school year (SY) 2011-2012
 
 ```{r load school vaccination exemption data sets}
 
@@ -50,14 +65,16 @@ doh_k12_2012<- read.csv('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProjec
 doh_k12_2013<- read.csv('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/WA_Vacc_K12_2013.csv')
 ```
 ###Data Audit###
-Most of the audit was done through simple visual inspection.  A few things stood out already, that year was missing from 2012 and 2013, and that the 2012 data had a source column which I don't intend to use.  These were easy add and drops.  I would like to align the geographic information.  The 2012 and 2013 geo info is not as comprehensive as 2011.  I will use the school code to merge all the geo information, that way everything should align and the same strings and values should exist for all schools.  I will use this as a general strategy (referencing the 2011 info) rather than trying to homogenize in other ways.  
+Most of the audit was done through simple visual inspection of fields and the first 20 rows of data. The columns of the dataframes don't match, there is missing information, and information was recorded in different ways.  The data is not tidy.  Tidying will be saved for the final school vaccination DF.
+
+**Columns for the final school vaccination data frame**
+I'm saving some of the geo information, combining some fields, and dropping calculated fields.
+
+year,school_code,school_name,school_type,school_city,school_state,school_zip,school_county,school_district,district_code,grade_levels,reported,enrolled,exempt,medical_exempt,personal_exempt,religious_exempt,exempt_DTTd,exempt_pertussis,exempt_polio,exempt_MMR,exempt_hepB,exempt_varicella
 
 ```{r Initial Data Audit}
 
 ```
-
-###Align Columns to 2011 Set###
-Initial cleaning etc. may be clunky and manual.  I intend to semi-automate this with a pipeline prior to project completion.
 
 ```{r align to 2011 part 1, simple}
 #add Year
@@ -157,8 +174,15 @@ I don't understand some of the values the summaries are giving.  It looks like i
 doh_k12_2011$exempt_mumps <- NULL
 doh_k12_2011$exempt_rubella <- NULL
 colnames(doh_k12_2011)
+colnames(doh_k12_2012)
 #rename measles to MMR
 names(doh_k12_2011)[names(doh_k12_2011) == 'exempt_measles'] <- 'exempt_MMR'
+```
+For 2012 it looks like religious exempt and religous member exempt are recording the same type of information, but seperately (exemptions due to religion).  I'm going to combine values onto $religious_exempt.
+
+```{r 2012 combine religious}
+#combine religious exemptions
+doh_k12_2011$religious_exempt[]
 ```
 
 ```{r align data to 2011 part 2}
