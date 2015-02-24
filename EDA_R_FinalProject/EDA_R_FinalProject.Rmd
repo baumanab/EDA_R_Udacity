@@ -118,32 +118,39 @@ names(doh_k12_2011)[names(doh_k12_2011) == 'exempt_measles'] <- 'exempt_MMR'
 ```
 
 ####2013####
+```{r prep 2013}
+#get columns names
+colnames(doh_k12_2013)
 
+#add year, reported, district_code: note initial values except year are placeholders
+doh_k12_2013$year <- 2013
+doh_k12_2013$reported <- "Yes"
+doh_k12_2013$district_code <- 8675309
+
+#rename
+colnames_2013 = c('school_code','school_name','school_type','school_street','school_city','school_state','school_zip','school_district','school_county','grade_levels','enrolled',"complete",'exempt','medical_exempt','personal_exempt','religious_exempt','religiousmember_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_MMR','exempt_hepB','exempt_varicella','year', 'reported',"district_code")
+
+colnames(doh_k12_2013) <- colnames_2013
+
+select_colnames_2013 = c('year','school_code','school_name','school_type','school_city','school_state','school_zip','school_county','school_district','district_code','grade_levels','reported','enrolled','exempt','medical_exempt','personal_exempt','religious_exempt',"religiousmember_exempt",'exempt_DTTd','exempt_pertussis','exempt_polio','exempt_MMR','exempt_hepB','exempt_varicella')
+
+#select columns
+doh_k12_2013 <- doh_k12_2013[,select_colnames_2013]
+
+
+```
+#####Handling Religious Exemption#####
+It appears that religious exemptions are broken into two categories, religious exemption and religious member exemption.  I will combine these two categories into religious exempt.
+
+```{r 2013 combine religious}
+#combine religious exemptions
+rel_exempt_2013 <- subset(doh_k12_2013, !is.na(doh_k12_2013$religious_exempt) & !is.na(doh_k12_2013$religiousmember_exempt))
 
 
 
 ####2012####
 
 
-
-
-```{r prepare 2011}
-#add Year
-doh_k12_2012$Year = 2012
-doh_k12_2013$Year= 2013
-
-#drop Data.Source
-doh_k12_2012$Data.Source <- NULL
-
-#rename 2013 School Code
-names(doh_k12_2013)[names(doh_k12_2013) == 'School.Building.Code'] <- 'School.Code'
-
-#drop 2012 K.12.Number.Complete
-doh_k12_2012$K.12.Number.Complete <- NULL
-
-###Align School and District information to 2011 with a Merge###
-- drop school and district info columns that are indpendent of school year in 2012 and 2013 except school code
-- merge subset of 2011 on district code
 
 **Important Question**
 
@@ -192,42 +199,7 @@ colnames(doh_k12_2012) <- colnames_2012
 
 
 ```
-The 2011 data set contains a field for each component of MMR.  I suspect these are all the same value since I'm not aware of administering MMR components seperately as a common practice.  Are these the same?  If so, I'm going to combine them into just MMR.
 
-```{r more audit}
-summary(doh_k12_2011$exempt_measles == doh_k12_2011$exempt_mumps)
-summary(doh_k12_2011$exempt_measles == doh_k12_2011$exempt_rubella)
-summary(doh_k12_2011$exempt_mumps == doh_k12_2011$exempt_rubella)
-
-```
-Hmm, it looks like the values differ in some instances, let's inspect that a bit.
-
-```{r inspect 2011 MMR}
-summary(doh_k12_2011$exempt_measles)
-summary(doh_k12_2011$exempt_mumps)
-summary(doh_k12_2011$exempt_rubella)
-
-reported_measles = doh_k12_2011$exempt_measles[doh_k12_2011$reported == 'Yes']
-reported_mumps = doh_k12_2011$exempt_mumps[doh_k12_2011$reported == 'Yes']
-reported_rubella = doh_k12_2011$exempt_rubella[doh_k12_2011$reported == 'Yes']
-
-summary(reported_measles - reported_rubella)
-summary(reported_measles - reported_mumps)
-summary(reported_mumps - reported_rubella)
-doh_k12_2011[max(reported_measles-reported_rubella),]
-```
-I don't understand some of the values the summaries are giving.  It looks like in most or all instances that M, M, and R are the same.  I'm going to use measles as MMR.  I will renamed the column and drop the other two.
-
-```{r 2011 drop and rename}
-#drop mumps and rubella
-doh_k12_2011$exempt_mumps <- NULL
-doh_k12_2011$exempt_rubella <- NULL
-colnames(doh_k12_2011)
-colnames(doh_k12_2012)
-#rename measles to MMR
-names(doh_k12_2011)[names(doh_k12_2011) == 'exempt_measles'] <- 'exempt_MMR'
-```
-For 2012 it looks like religious exempt and religous member exempt are recording the same type of information, but seperately (exemptions due to religion).  I'm going to combine values onto $religious_exempt.
 
 ```{r 2012 combine religious}
 #combine religious exemptions
