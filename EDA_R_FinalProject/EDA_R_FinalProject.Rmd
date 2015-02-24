@@ -72,11 +72,42 @@ I'm saving some of the geo information, combining some fields, and dropping calc
 
 year,school_code,school_name,school_type,school_city,school_state,school_zip,school_county,school_district,district_code,grade_levels,reported,enrolled,exempt,medical_exempt,personal_exempt,religious_exempt,exempt_DTTd,exempt_pertussis,exempt_polio,exempt_MMR,exempt_hepB,exempt_varicella
 
-```{r Initial Data Audit}
+###Prepare Initial Data Frames###
+Note that cleaning and auditing is clunky for now while I get acquainted. I may pipe/chain the process, if warranted, at a later date.
+
+####2011####
+
+```{r audit and prepare 2011}
+
+#get columns names
+colnames(doh_k12_2011)
+
+#rename
+colnames_2011 = c('year','school_code','school_name','school_type','school_street','school_city','school_state','school_zip','school_county','school_district','district_code','grade_levels','reported','enrolled','exempt','percent_exempt','medical_exempt','percent_medical_exempt','personal_exempt','percent_personal_exempt','religious_exempt','percent_religious_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_measles','exempt_mumps','exempt_rubella','exempt_hepB','exempt_varicella')
+
+colnames(doh_k12_2011) <- colnames_2011
+
+colnames_2011 = c('year','school_code','school_name','school_type','school_city','school_state','school_zip','school_county','school_district','district_code','grade_levels','reported','enrolled','exempt','medical_exempt','personal_exempt','religious_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_measles','exempt_mumps','exempt_rubella','exempt_hepB','exempt_varicella')
+
+#select columns
+doh_k12_2011 %
+
+colnames(doh_k12_2011)
 
 ```
 
-```{r align to 2011 part 1, simple}
+
+####2013####
+
+
+
+
+####2012####
+
+
+
+
+```{r prepare 2011}
 #add Year
 doh_k12_2012$Year = 2012
 doh_k12_2013$Year= 2013
@@ -89,8 +120,6 @@ names(doh_k12_2013)[names(doh_k12_2013) == 'School.Building.Code'] <- 'School.Co
 
 #drop 2012 K.12.Number.Complete
 doh_k12_2012$K.12.Number.Complete <- NULL
-
-```
 
 ###Align School and District information to 2011 with a Merge###
 - drop school and district info columns that are indpendent of school year in 2012 and 2013 except school code
