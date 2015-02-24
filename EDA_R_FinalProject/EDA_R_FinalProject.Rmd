@@ -143,19 +143,21 @@ doh_k12_2013 <- doh_k12_2013[,select_colnames_2013]
 It appears that religious exemptions are broken into two categories, religious exemption and religious member exemption.  I will combine these two categories into religious exempt.
 
 ```{r 2013 combine religious}
-#combine religious exemptions
-rel_exempt_2013 <- subset(doh_k12_2013, !is.na(doh_k12_2013$religious_exempt) & !is.na(doh_k12_2013$religiousmember_exempt))
+#assign is.na to unrealistic number
+doh_k12_2013$religious_exempt[is.na(doh_k12_2013$religious_exempt)] <- 5555
+doh_k12_2013$religiousmember_exempt[is.na(doh_k12_2013$religiousmember_exempt)] <- 5555
 
-#going to stop here, here is the strategy
-#change na values in the relexempt and relmemberexempt columns to a ridiculously large number, probably with a lambda function
-#add the columns onto relexempt
-#replace anything >= the ridiclously large number with na
+#combine religious exemption
+doh_k12_2013$religious_exempt <- doh_k12_2013$religious_exempt + doh_k12_2013$religiousmember_exempt
 
-doh_k12_2013$religious_exempt[is.na(doh_k12_2013$religious_exempt)]
+#drop religiousmember_exempt
+doh_k12_2013$religiousmember_exempt <- NULL
+
+#reassign na
+doh_k12_2013$religious_exempt[doh_k12_2013$religious_exempt >= 5555] <- NA
 
 
 
-<- rel_exempt_2013$religious_exempt + rel_exempt_2013$religiousmember_exempt
 
 
 
