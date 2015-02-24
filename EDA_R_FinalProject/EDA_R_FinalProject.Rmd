@@ -77,7 +77,7 @@ Note that cleaning and auditing is clunky for now while I get acquainted. I may 
 
 ####2011####
 
-```{r audit and prepare 2011}
+```{r rename and select columns 2011}
 
 #get columns names
 colnames(doh_k12_2011)
@@ -87,15 +87,35 @@ colnames_2011 = c('year','school_code','school_name','school_type','school_stree
 
 colnames(doh_k12_2011) <- colnames_2011
 
-colnames_2011 = c('year','school_code','school_name','school_type','school_city','school_state','school_zip','school_county','school_district','district_code','grade_levels','reported','enrolled','exempt','medical_exempt','personal_exempt','religious_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_measles','exempt_mumps','exempt_rubella','exempt_hepB','exempt_varicella')
+select_colnames_2011 = c('year','school_code','school_name','school_type','school_city','school_state','school_zip','school_county','school_district','district_code','grade_levels','reported','enrolled','exempt','medical_exempt','personal_exempt','religious_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_measles','exempt_mumps','exempt_rubella','exempt_hepB','exempt_varicella')
 
 #select columns
-doh_k12_2011 %
+doh_k12_2011 <- doh_k12_2011[,select_colnames_2011]
+```
+The 2011 data set contains a field for each component of MMR.  I suspect these are all the same value since I'm not aware of administering MMR components seperately as a common practice.  Are these the same?  If so, I'm going to combine them into just MMR.
 
-colnames(doh_k12_2011)
+```{r audit MMR 2011}
 
+reported_doh_k12_2011 <- subset(doh_k12_2011, doh_k12_2011$reported == 'Yes')
+reported_measles <- reported_doh_k12_2011$exempt_measles
+reported_mumps <- reported_doh_k12_2011$exempt_mumps
+reported_rubella <- reported_doh_k12_2011$exempt_rubella
+
+summary(reported_measles == reported_mumps)
+summary(abs(reported_measles - reported_mumps))
+maxdiff = reported_doh_k12_2011[max(abs(reported_measles-reported_mumps)),]
 ```
 
+I don't understand some of the values the summaries are giving Followup inspection is showing very little difference.  It looks like in most or all instances that M, M, and R are the same.  I'm going to use measles as MMR.  I will renamed the column and drop the other two. This will be revisited later.
+
+```{r 2011 drop and rename}
+#drop mumps and rubella
+doh_k12_2011$exempt_mumps <- NULL
+doh_k12_2011$exempt_rubella <- NULL
+
+#rename measles to MMR
+names(doh_k12_2011)[names(doh_k12_2011) == 'exempt_measles'] <- 'exempt_MMR'
+```
 
 ####2013####
 
