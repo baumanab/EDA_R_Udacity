@@ -60,14 +60,27 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>Recent news media coverage and my own personal interest inspired me to explore a school vaccination data set for WA state. WA DOH employees generously assembled 3 data sets for my project for school years 2011-2012, 2012-2013, and 2013-2014. The 2011-2012 set is the most comprehensive in terms of school covered and relavant fields. I will use the following approach:</p>
+<p>Recent news media coverage and my own personal interest inspired me to explore a school vaccination data set for WA state. WA DOH employees generously assembled 3 data sets for my project for school years 2011-2012, 2012-2013, and 2013-2014. The 2011-2012 set is the most comprehensive in terms of school covered and relevant fields Each data set contains an observation about a school. The 3 data sets will be concantonated into one data set and then explored.</p>
+<p>Additonal information can be provided by US Census Bureau data and data from the Office of the Superintendent of Public Instruction (OSPI) in Washington State. This includes geographic data, demograhic data, and economic data at multiple levels of aggregation. Final data frames will likely include:</p>
 <ul>
-<li>Align 2012 and 2013 data with 2011 data, clean, and homogenize</li>
-<li>Tidy the data</li>
-<li>Concatonate the data</li>
-<li>Merge with demographic data</li>
-<li>Explore the data</li>
+<li>school vaccination data frame for 3 school years (2011-2012,2012-2013,2013-2014)</li>
+<li>Demographic data frame at the school, district, or county level</li>
+<li>school profile data frame</li>
+<li>economic data frame at the zip code level</li>
 </ul>
+<p>I will use the following approach to assemble my initial data frame and explore the data:</p>
+<ul>
+<li>Read and audit each of the 3 school vaccination data frames</li>
+<li>Choose columns for the final school vaccination data frame<br /></li>
+<li>Prepare the 3 data frames to match item 2</li>
+<li>Concatonate the data</li>
+<li>Tidy the data</li>
+<li>Explore the data</li>
+<li>Merge with relevant demographic, economic, or profile data</li>
+<li>Explore the merged data</li>
+</ul>
+<div id="prepare-the-r-environment" class="section level2">
+<h2>Prepare the R Environment</h2>
 <div id="set-path-and-load-libraries" class="section level3">
 <h3>Set Path and Load Libraries</h3>
 <pre class="r"><code>setwd(&quot;~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject&quot;)</code></pre>
@@ -119,9 +132,12 @@ library(acs) #to access census data</code></pre>
 ##     apply</code></pre>
 <pre class="r"><code>library(tidyr) #bare bones data tidying library</code></pre>
 </div>
-<div id="load-wa-doh-data-sets" class="section level3">
-<h3>Load WA DOH Data Sets</h3>
-<p>Named data sets based on starting year of school year. That is also how the year variable was assigned. So 2011 referese to the school year (SY) 2011-2012</p>
+</div>
+<div id="read-and-audit-wa-doh-k-12-school-vaccination-data-frames" class="section level2">
+<h2>Read and Audit WA DOH K-12 School Vaccination Data Frames</h2>
+<div id="read-wa-doh-data-sets" class="section level3">
+<h3>Read WA DOH Data Sets</h3>
+<p>Named data sets based on starting year of school year. That is also how the year variable was assigned. So 2011 referes to the school year (SY) 2011-2012</p>
 <pre class="r"><code>#WA DOH SY 2011-2012 K-12
 doh_k12_2011&lt;- read.csv('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/WA_Vacc_K12_2011.csv')
 
@@ -133,25 +149,159 @@ doh_k12_2013&lt;- read.csv('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalPro
 </div>
 <div id="data-audit" class="section level3">
 <h3>Data Audit</h3>
-<p>Most of the audit was done through simple visual inspection. A few things stood out already, that year was missing from 2012 and 2013, and that the 2012 data had a source column which I don’t intend to use. These were easy add and drops. I would like to align the geographic information. The 2012 and 2013 geo info is not as comprehensive as 2011. I will use the school code to merge all the geo information, that way everything should align and the same strings and values should exist for all schools. I will use this as a general strategy (referencing the 2011 info) rather than trying to homogenize in other ways.</p>
+<p>Most of the audit was done through simple visual inspection of fields and the first 20 rows of data. The columns of the dataframes don’t match, there is missing information, and information was recorded in different ways. The data is not tidy. Tidying will be saved for the final school vaccination DF.</p>
+<p><strong>Columns for the final school vaccination data frame</strong> I’m saving some of the geo information, combining some fields, and dropping calculated fields.</p>
+<p>year,school_code,school_name,school_type,school_city,school_state,school_zip,school_county,school_district,district_code,grade_levels,reported,enrolled,exempt,medical_exempt,personal_exempt,religious_exempt,exempt_DTTd,exempt_pertussis,exempt_polio,exempt_MMR,exempt_hepB,exempt_varicella</p>
 </div>
-<div id="align-columns-to-2011-set" class="section level3">
-<h3>Align Columns to 2011 Set</h3>
-<p>Initial cleaning etc. may be clunky and manual. I intend to semi-automate this with a pipeline prior to project completion.</p>
-<pre class="r"><code>#add Year
-doh_k12_2012$Year = 2012
-doh_k12_2013$Year= 2013
+<div id="prepare-initial-data-frames" class="section level3">
+<h3>Prepare Initial Data Frames</h3>
+<p>Note that cleaning and auditing is clunky for now while I get acquainted. I may pipe/chain the process, if warranted, at a later date.</p>
+<div id="section" class="section level4">
+<h4>2011</h4>
+<pre class="r"><code>#get columns names
+colnames(doh_k12_2011)</code></pre>
+<pre><code>##  [1] &quot;Year&quot;                       &quot;School.Code&quot;               
+##  [3] &quot;School.Name&quot;                &quot;School.Type&quot;               
+##  [5] &quot;School.Street&quot;              &quot;School.City&quot;               
+##  [7] &quot;School.State&quot;               &quot;School.Zip&quot;                
+##  [9] &quot;School.County&quot;              &quot;School.District.Name&quot;      
+## [11] &quot;District.Code&quot;              &quot;Grades&quot;                    
+## [13] &quot;Reported.&quot;                  &quot;K.12.Enrolled&quot;             
+## [15] &quot;K.12.Exempt&quot;                &quot;K.12...Exempt&quot;             
+## [17] &quot;K.12.Medical.Exemption&quot;     &quot;K.12...Medical.Exemption&quot;  
+## [19] &quot;K.12.Personal.Exemption&quot;    &quot;K.12...Personal.Exemption&quot; 
+## [21] &quot;K.12.Religious.Exemption&quot;   &quot;K.12...Religious.Exemption&quot;
+## [23] &quot;K.12.Exempt.for.DT.Td&quot;      &quot;K.12.Exempt.for.Pertussis&quot; 
+## [25] &quot;K.12.exempt.for.Polio&quot;      &quot;K.12.exempt.for.Measles&quot;   
+## [27] &quot;K.12.Exempt.for.Mumps&quot;      &quot;K.12.Exempt.for.Rubella&quot;   
+## [29] &quot;K.12.Exempt.for.Hep.B&quot;      &quot;K.12.Exempt.for.Varicella&quot;</code></pre>
+<pre class="r"><code>#rename
+colnames_2011 = c('year','school_code','school_name','school_type','school_street','school_city','school_state','school_zip','school_county','school_district','district_code','grade_levels','reported','enrolled','exempt','percent_exempt','medical_exempt','percent_medical_exempt','personal_exempt','percent_personal_exempt','religious_exempt','percent_religious_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_measles','exempt_mumps','exempt_rubella','exempt_hepB','exempt_varicella')
 
-#drop Data.Source
-doh_k12_2012$Data.Source &lt;- NULL</code></pre>
+colnames(doh_k12_2011) &lt;- colnames_2011
+
+select_colnames_2011 = c('year','school_code','school_name','school_type','school_city','school_state','school_zip','school_county','school_district','district_code','grade_levels','reported','enrolled','exempt','medical_exempt','personal_exempt','religious_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_measles','exempt_mumps','exempt_rubella','exempt_hepB','exempt_varicella')
+
+#select columns
+doh_k12_2011 &lt;- doh_k12_2011[,select_colnames_2011]</code></pre>
+<p>The 2011 data set contains a field for each component of MMR. I suspect these are all the same value since I’m not aware of administering MMR components seperately as a common practice. Are these the same? If so, I’m going to combine them into just MMR.</p>
+<pre class="r"><code>reported_doh_k12_2011 &lt;- subset(doh_k12_2011, doh_k12_2011$reported == 'Yes')
+reported_measles &lt;- reported_doh_k12_2011$exempt_measles
+reported_mumps &lt;- reported_doh_k12_2011$exempt_mumps
+reported_rubella &lt;- reported_doh_k12_2011$exempt_rubella
+
+summary(reported_measles == reported_mumps)</code></pre>
+<pre><code>##    Mode   FALSE    TRUE    NA's 
+## logical     164    1770       0</code></pre>
+<pre class="r"><code>summary(abs(reported_measles - reported_mumps))</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.0000  0.0000  0.1443  0.0000 37.0000</code></pre>
+<pre class="r"><code>maxdiff = reported_doh_k12_2011[max(abs(reported_measles-reported_mumps)),]</code></pre>
+<p>I don’t understand some of the values the summaries are giving Followup inspection is showing very little difference. It looks like in most or all instances that M, M, and R are the same. I’m going to use measles as MMR. I will renamed the column and drop the other two. This will be revisited later.</p>
+<pre class="r"><code>#drop mumps and rubella
+doh_k12_2011$exempt_mumps &lt;- NULL
+doh_k12_2011$exempt_rubella &lt;- NULL
+
+#rename measles to MMR
+names(doh_k12_2011)[names(doh_k12_2011) == 'exempt_measles'] &lt;- 'exempt_MMR'</code></pre>
 </div>
-<div id="align-school-and-district-information-to-2011-with-a-merge" class="section level3">
-<h3>Align School and District information to 2011 with a Merge</h3>
-<ul>
-<li>drop school and district info columns that are indpendent of school year in 2012 and 2013 except school code</li>
-<li>merge subset of 2011 on district code</li>
-</ul>
-<p><em>Importand Question</em> Are there schools unique to 2012 or 2013? I need to inspect this to determine if they are worth holding on to and getting geo info.</p>
+<div id="section-1" class="section level4">
+<h4>2013</h4>
+<pre class="r"><code>#get columns names
+colnames(doh_k12_2013)</code></pre>
+<pre><code>##  [1] &quot;School.Building.Code&quot;                                                    
+##  [2] &quot;School.Name&quot;                                                             
+##  [3] &quot;School.Type&quot;                                                             
+##  [4] &quot;Address&quot;                                                                 
+##  [5] &quot;City&quot;                                                                    
+##  [6] &quot;State&quot;                                                                   
+##  [7] &quot;Zip&quot;                                                                     
+##  [8] &quot;District.Name&quot;                                                           
+##  [9] &quot;County&quot;                                                                  
+## [10] &quot;Grade.Levels&quot;                                                            
+## [11] &quot;Number.of.K.12..All.Grades..Students.Enrolled&quot;                           
+## [12] &quot;Number.of.K.12..All.Grades..Students.Complete&quot;                           
+## [13] &quot;Number.of.K.12..All.Grades..Students.with.any.Exemption&quot;                 
+## [14] &quot;Number.of.K.12..All.Grades..Students.with.Medical.Exemption&quot;             
+## [15] &quot;Number.of.K.12..All.Grades..Students.with.Personal.Exemption&quot;            
+## [16] &quot;Number.of.K.12..All.Grades..Students.with.Religious.Exemption&quot;           
+## [17] &quot;Number.of.K.12..All.Grades..Students.with.Religious.Membership.Exemption&quot;
+## [18] &quot;Number.of.K.12..All.Grades..Students.Exempt.for.Diphtheria.Tetanus&quot;      
+## [19] &quot;Number.of.K.12..All.Grades..Students.Exempt.for.Pertussis&quot;               
+## [20] &quot;Number.of.K.12..All.Grades..Students.Exempt.for.Polio&quot;                   
+## [21] &quot;Number.of.K.12..All.Grades..Students.Exempt.for.MMR&quot;                     
+## [22] &quot;Number.of.K.12..All.Grades..Students.Exempt.for.Hep.B&quot;                   
+## [23] &quot;Number.of.K.12..All.Grades..Students.Exempt.for.Varicella&quot;</code></pre>
+<pre class="r"><code>#add year, reported, district_code: note initial values except year are placeholders
+doh_k12_2013$year &lt;- 2013
+doh_k12_2013$reported &lt;- &quot;Yes&quot;
+doh_k12_2013$district_code &lt;- 8675309
+
+#rename
+colnames_2013 = c('school_code','school_name','school_type','school_street','school_city','school_state','school_zip','school_district','school_county','grade_levels','enrolled',&quot;complete&quot;,'exempt','medical_exempt','personal_exempt','religious_exempt','religiousmember_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_MMR','exempt_hepB','exempt_varicella','year', 'reported',&quot;district_code&quot;)
+
+colnames(doh_k12_2013) &lt;- colnames_2013
+
+select_colnames_2013 = c('year','school_code','school_name','school_type','school_city','school_state','school_zip','school_county','school_district','district_code','grade_levels','reported','enrolled','exempt','medical_exempt','personal_exempt','religious_exempt',&quot;religiousmember_exempt&quot;,'exempt_DTTd','exempt_pertussis','exempt_polio','exempt_MMR','exempt_hepB','exempt_varicella')
+
+#select columns
+doh_k12_2013 &lt;- doh_k12_2013[,select_colnames_2013]</code></pre>
+<div id="handling-religious-exemption" class="section level5">
+<h5>Handling Religious Exemption</h5>
+<p>It appears that religious exemptions are broken into two categories, religious exemption and religious member exemption. I will combine these two categories into religious exempt.</p>
+<pre class="r"><code>#assign is.na to unrealistic number
+doh_k12_2013$religious_exempt[is.na(doh_k12_2013$religious_exempt)] &lt;- 5555
+doh_k12_2013$religiousmember_exempt[is.na(doh_k12_2013$religiousmember_exempt)] &lt;- 5555
+
+#combine religious exemption
+doh_k12_2013$religious_exempt &lt;- doh_k12_2013$religious_exempt + doh_k12_2013$religiousmember_exempt
+
+#drop religiousmember_exempt
+doh_k12_2013$religiousmember_exempt &lt;- NULL
+
+#reassign na
+doh_k12_2013$religious_exempt[doh_k12_2013$religious_exempt &gt;= 5555] &lt;- NA</code></pre>
+</div>
+</div>
+<div id="section-2" class="section level4">
+<h4>2012</h4>
+<pre class="r"><code>colnames_2012 = c('school_code','school_name','school_type','school_district','school_county','reported','grade_levels','enrolled','exempt','medical_exempt','personal_exempt','religious_exempt','religious_member_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_MMR','exempt_hepB','exempt_varicella','year')</code></pre>
+<p><strong>Important Question</strong></p>
+<p>Are there schools unique to 2012 or 2013? I need to inspect this to determine if they are worth holding on to and getting geo info.</p>
+</div>
+<div id="school-code-audit" class="section level4">
+<h4>School Code Audit</h4>
+<p>Going to try subset on this. I will subset 2012 and 2013 on those school codes != to 2011, if any. Using the %in% operator and subsetting on False (not in 2011).</p>
+<pre class="r"><code>#2012 Unique School Code relative to 2011
+schoolcode_2012_unique_2011&lt;- subset(doh_k12_2012, doh_k12_2012$School.Code %in% doh_k12_2011$School.Code == F)
+
+  
+#2013 Unique School Code relative to 2011
+schoolcode_2013_unique_2011&lt;- subset(doh_k12_2013, doh_k12_2013$School.Code %in% doh_k12_2011$School.Code == F)
+
+#2011 unique school Code relative to 2012 and 2013
+schoolcode_2011_unique&lt;- subset(doh_k12_2011, (doh_k12_2011$School.Code %in% doh_k12_2012$School.Code == F) &amp; (doh_k12_2011$School.Code %in% doh_k12_2013$School.Code == F))
+
+
+#2012 unique school code relative to 2011 and 2013
+schoolcode_2012_unique&lt;- subset(doh_k12_2012, (doh_k12_2012$School.Code %in% doh_k12_2011$School.Code == F) &amp; (doh_k12_2012$School.Code %in% doh_k12_2013$School.Code == F))
+
+#2013 unique school code relative to 2011 and 2012
+schoolcode_2013_unique&lt;- subset(doh_k12_2013, (doh_k12_2013$School.Code %in% doh_k12_2012$School.Code == F) &amp; (doh_k12_2013$School.Code %in% doh_k12_2011$School.Code == F))
+
+#How many of the unique schools are in King County?
+summary(schoolcode_2012_unique$County == 'KING')</code></pre>
+<pre><code>##    Mode   FALSE    TRUE    NA's 
+## logical    1818     616       0</code></pre>
+<pre class="r"><code>summary(schoolcode_2013_unique$County == 'KING')</code></pre>
+<pre><code>##    Mode    NA's 
+## logical       0</code></pre>
+<pre class="r"><code>summary(schoolcode_2011_unique$School.County == 'KING')</code></pre>
+<pre><code>##    Mode    NA's 
+## logical       0</code></pre>
+<p>The 2012 data set is missing address data, but there are only 31 unique school codes in this data set, so there are only 31 missing addresses.</p>
+</div>
+</div>
 </div>
 </div>
 
