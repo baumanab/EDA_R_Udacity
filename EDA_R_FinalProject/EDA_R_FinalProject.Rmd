@@ -161,11 +161,8 @@ doh_k12_2013$religious_exempt[doh_k12_2013$religious_exempt >= 5555] <- NA
 The data set did not originally have a field indicating whether a school reported.
 I'm assuming that schools that have a value, even a 0 value, for exemptions, reported, and those with na (original value of file is blank), did not report.  I noticed that for the blank cases in exempt, most have a blank for enrollment also.  
 
-```{r 2013 assinging reported}
+```{r 2013 assgning reported}
 doh_k12_2013$reported[is.na(doh_k12_2013$exempt)] <- "No"
-
-
-
 
 ```
 
@@ -173,10 +170,23 @@ doh_k12_2013$reported[is.na(doh_k12_2013$exempt)] <- "No"
 
 
 ####2012####
-```{r}
-colnames_2012 = c('school_code','school_name','school_type','school_district','school_county','reported','grade_levels','enrolled','exempt','medical_exempt','personal_exempt','religious_exempt','religious_member_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_MMR','exempt_hepB','exempt_varicella','year')
-```
+```{r add, rename, select columns 2012}
+#add year
+doh_k12_2012$year <- 2012
+colnames(doh_k12_2012)
 
+#rename columns
+colnames_2012 = c('school_code','school_name','school_type','school_district','school_county','reported','grade_levels',"data_source",'enrolled',"complete",'exempt','medical_exempt','personal_exempt','religious_exempt','religious_member_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_MMR','exempt_hepB','exempt_varicella','year')
+
+#combine religious exemptions
+
+
+```
+#####Handling Religous Exemptions#####
+This is the same situation as the 2013 data, with the same solution.
+```{r religious exemptions 2012}
+
+```
 
 
 **Important Question**
