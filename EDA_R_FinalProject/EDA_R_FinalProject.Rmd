@@ -170,22 +170,34 @@ doh_k12_2013$reported[is.na(doh_k12_2013$exempt)] <- "No"
 
 
 ####2012####
-```{r add, rename, select columns 2012}
+```{r add & rename columns 2012}
 #add year
 doh_k12_2012$year <- 2012
-colnames(doh_k12_2012)
+
 
 #rename columns
-colnames_2012 = c('school_code','school_name','school_type','school_district','school_county','reported','grade_levels',"data_source",'enrolled',"complete",'exempt','medical_exempt','personal_exempt','religious_exempt','religious_member_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_MMR','exempt_hepB','exempt_varicella','year')
+colnames_2012 = c('school_code','school_name','school_type','school_district','school_county','reported','grade_levels',"data_source",'enrolled',"complete",'exempt','medical_exempt','personal_exempt','religious_exempt','religiousmember_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_MMR','exempt_hepB','exempt_varicella','year')
 
-#combine religious exemptions
+colnames(doh_k12_2012) <- colnames_2012
+
 
 
 ```
 #####Handling Religous Exemptions#####
 This is the same situation as the 2013 data, with the same solution.
 ```{r religious exemptions 2012}
+#assign is.na to unrealistic number
+doh_k12_2012$religious_exempt[is.na(doh_k12_2012$religious_exempt)] <- 5555
+doh_k12_2012$religiousmember_exempt[is.na(doh_k12_2012$religiousmember_exempt)] <- 5555
 
+#combine religious exemption
+doh_k12_2012$religious_exempt <- doh_k12_2012$religious_exempt + doh_k12_2012$religiousmember_exempt
+
+#drop religiousmember_exempt
+doh_k12_2012$religiousmember_exempt <- NULL
+
+#reassign na
+doh_k12_2012$religious_exempt[doh_k12_2012$religious_exempt >= 5555] <- NA
 ```
 
 
