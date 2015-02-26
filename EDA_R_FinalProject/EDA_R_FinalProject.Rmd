@@ -213,12 +213,12 @@ doh_k12_2012$religious_exempt[doh_k12_2012$religious_exempt >= 5555] <- NA
 
 ```
 
-**Important Question**
+###Unique Schools by Year###
 
-Are there schools unique to 2012 or 2013?  I need to inspect this to determine if they are worth holding on to and getting geo info.
+Are there schools unique to any year?  This would be reasonable since schools open and close each year in WA.
 
 ####School Code Audit####
-Going to try subset on this.  I will subset 2012 and 2013 on those school codes != to 2011, if any.  Using the %in% operator and subsetting on False (not in 2011). 
+Going to try subset on this.  I will subset 2012 and 2013 on those school codes != to 2011, if any.  Using the %in% operator and subsetting on False (not in year). 
 ```{r School Code Audit}
 #2012 Unique School Code relative to 2011
 schoolcode_2012_unique_2011<- subset(doh_k12_2012, doh_k12_2012$School.Code %in% doh_k12_2011$School.Code == F)
