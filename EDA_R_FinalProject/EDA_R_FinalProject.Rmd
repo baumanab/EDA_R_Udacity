@@ -65,6 +65,11 @@ doh_k12_2012<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProj
 
 #WA doh SY 2013-2014 K-12
 doh_k12_2013<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2013.txt', quote="" , stringsAsFactors=FALSE)
+
+#checking structures to determine state of data and column classes
+str(doh_k12_2011)
+str(doh_k12_2012)
+str(doh_k12_2013)
 ```
 ###Data Audit###
 Most of the audit was done through simple visual inspection of fields and the first 20 rows of data. The columns of the dataframes don't match, there is missing information, and information was recorded in different ways.  The data is not tidy.  Tidying will be saved for the final school vaccination DF.
@@ -108,7 +113,7 @@ summary(abs(reported_measles - reported_mumps))
 maxdiff = reported_doh_k12_2011[max(abs(reported_measles-reported_mumps)),]
 ```
 
-I don't understand some of the values the summaries are giving Followup inspection is showing very little difference.  It looks like in most or all instances that M, M, and R are the same.  I'm going to use measles as MMR.  I will renamed the column and drop the other two. This will be revisited later.
+I don't understand some of the values the summaries are giving. Followup inspection reveals very little difference.  It looks like in most or all instances that M, M, and R are identical or similiar.  I'm going to use measles as MMR.  I will rename the column and drop the other two. This will be revisited later.
 
 ```{r 2011 drop and rename}
 #drop mumps and rubella
