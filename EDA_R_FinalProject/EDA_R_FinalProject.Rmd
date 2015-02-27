@@ -187,8 +187,9 @@ colnames_2012 = c('school_code','school_name','school_type','school_district','s
 
 colnames(doh_k12_2012) <- colnames_2012
 
-#drop data_source
+#drop data_source and complete
 doh_k12_2012$data_source <- NULL
+doh_k12_2012$complete <- NULL
 
 
 
