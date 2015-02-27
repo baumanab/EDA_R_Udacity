@@ -85,7 +85,6 @@ Note that cleaning and auditing is clunky for now while I get acquainted. I may 
 ####2011####
 
 ```{r rename and select columns 2011}
-
 #get columns names
 colnames(doh_k12_2011)
 
@@ -214,7 +213,13 @@ doh_k12_2012$religious_exempt[doh_k12_2012$religious_exempt >= 5555] <- NA
 
 ```
 ###Fill in missing zip codes and district codes###
-The 2012 data set is missing geo information, such as county, state, and zip code.  The 2013 data set is missing district code
+The 2012 data set is missing city, state, zip, and district code.  The 2013 data set is missing district code.  The 2012, 2013, and 2011 data sets have a lot of overlap, and all of them have the school code field.  I will write a function that reads in school code and returns zip code, district code, and zip.
+
+```{r missing values 2012}
+#fill in state
+doh_k12_2012$state <- "WA"
+```
+
 ###Unique Schools by Year###
 
 Are there schools unique to any year?  This would be reasonable since schools open and close each year in WA.
