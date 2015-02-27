@@ -183,7 +183,7 @@ doh_k12_2012$year <- 2012
 
 
 #rename columns
-colnames_2012 = c('school_code','school_name','school_type','school_district','school_county','reported','grade_levels',"data_source",'enrolled',"complete",'exempt','medical_exempt','personal_exempt','religious_exempt','religiousmember_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_MMR','exempt_hepB','exempt_varicella','year')
+colnames_2012 = c('school_code','school_name','school_type','school_district','school_county','reported',"data_source",'grade_levels','enrolled',"complete",'exempt','medical_exempt','personal_exempt','religious_exempt','religiousmember_exempt','exempt_DTTd','exempt_pertussis','exempt_polio','exempt_MMR','exempt_hepB','exempt_varicella','year')
 
 colnames(doh_k12_2012) <- colnames_2012
 
@@ -212,7 +212,8 @@ doh_k12_2012$religious_exempt[doh_k12_2012$religious_exempt >= 5555] <- NA
 
 
 ```
-
+###Fill in missing zip codes and district codes###
+The 2012 data set is missing geo information, such as county, state, and zip code.  The 2013 data set is missing district code
 ###Unique Schools by Year###
 
 Are there schools unique to any year?  This would be reasonable since schools open and close each year in WA.
