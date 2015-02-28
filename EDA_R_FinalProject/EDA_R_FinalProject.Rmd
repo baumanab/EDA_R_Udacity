@@ -219,7 +219,8 @@ The 2012 data set is missing city, state, zip, and district code.  The 2013 data
 #fill in state
 doh_k12_2012$state <- "WA"
 ```
-
+##Assemble school code key##
+Assembling a key tying school code to district code and zip code.
 ###Unique Schools by Year###
 
 Are there schools unique to any year?  This would be reasonable since schools open and close each year in WA.

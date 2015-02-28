@@ -1,0 +1,302 @@
+ESD No	ESD Name	District-County Code	District name	Mailing AddressLine1	Mailing  AddressLine2	Mailing City	Mailing  State	Mailing  ZipCode	Physical AddressLine1	Physical  AddressLine2	Physical City	Physical  State	Physical  ZipCode	Superintendent Name	phone
+34801	Educational Service District 113	14005	Aberdeen School District	216 N G ST		ABERDEEN	Washington	98520-5297	216 N G ST		ABERDEEN	Washington	98520-5297	Thomas Opstad	360.538.2002
+34801	Educational Service District 113	21226	Adna School District	PO BOX 118		ADNA	Washington	98522-0118	179 DIECKMAN RD		ADNA	Washington	98522-0118	James Forrest	360.748.9217
+32801	Educational Service District 101	22017	Almira School District	PO BOX 217		ALMIRA	Washington	99103-0217	310 S 3RD ST		ALMIRA	Washington	99103-0217	Shauna Schmerer	509.639.2414
+29801	Northwest Educational Service District 189	29103	Anacortes School District	2200 M AVE		ANACORTES	Washington	98221-3794	2200 M AVE		ANACORTES	Washington	98221-3794	Chris Borgen	(360) 293-1212
+29801	Northwest Educational Service District 189	31016	Arlington School District	315 N FRENCH AVE		ARLINGTON	Washington	98223-1317	315 N FRENCH AVE		ARLINGTON	Washington	98223-1317	Kristine McDuffy	360.618.6200
+11801	Educational Service District 123	2420	Asotin-Anatone School District	PO BOX 489		ASOTIN	Washington	99402-0489	314 FIRST ST		ASOTIN	Washington	99402-0489	Greg Godwin	509.243.1100
+17801	Puget Sound Educational Service District 121	17408	Auburn School District	915 4TH ST NE		AUBURN	Washington	98002-4499	915 4TH ST NE		AUBURN	Washington	98002-4499	Dennis Herren	253.931.4914
+17801	Puget Sound Educational Service District 121	18303	Bainbridge Island School District	8489 MADISON AVE NE		BAINBRIDGE ISLAND	Washington	98110-2999	8489 MADISON AVE NE		BAINBRIDGE ISLAND	Washington	98110-2999	Faith Chapel	206.780.1050
+6801	Educational Service District 112	6119	Battle Ground School District	PO BOX 200		BATTLE GROUND	Washington	98604-0200	11104 NE 149TH ST		BATTLE GROUND	Washington	98604-0200	Shonny Bria	360.885.5302
+17801	Puget Sound Educational Service District 121	17405	Bellevue School District	PO BOX 90010		BELLEVUE	Washington	98005-3183	12111 NE 1ST ST		BELLEVUE	Washington	98005-3183	J. Tim Mills	425.456.4172
+29801	Northwest Educational Service District 189	37501	Bellingham School District	1306 DUPONT ST		BELLINGHAM	Washington	98225-3118	1306 DUPONT ST		BELLINGHAM	Washington	98225-3118	Greg Baker	360.676.6501
+32801	Educational Service District 101	1122	Benge School District	2978 E BENGE WINONA RD		BENGE	Washington	99105-9705	2978 E BENGE WINONA RD		BENGE	Washington	99105-9705	Mary Ault	(509) 887-2370
+17801	Puget Sound Educational Service District 121	27403	Bethel School District	516 176TH ST E		SPANAWAY	Washington	98387-8399	516 176TH ST E		SPANAWAY	Washington	98387-8399	Thomas Seigel	253.683.6000
+39801	Educational Service District 105	20203	Bickleton School District	PO BOX 10		BICKLETON	Washington	99322-0010	100 MARKET ST		BICKLETON	Washington	99322-0010	Ric Palmer	(509) 896-5473
+29801	Northwest Educational Service District 189	37503	Blaine School District	765 H Street		BLAINE	Washington	00009-8230	765 H Street		BLAINE	Washington	00009-8230	Ron Spanjer	360.332.5881
+34801	Educational Service District 113	21234	Boistfort School District	983 BOISTFORT RD		CURTIS	Washington	98538-9734	983 BOISTFORT RD		CURTIS	Washington	98538-9734	Richard Apperson	(360) 245-3343
+18801	Olympic Educational Service District 114	18100	Bremerton School District	134 MARION AVE N		BREMERTON	Washington	98312-3542	134 MARION AVE N		BREMERTON	Washington	98312-3542	"Lester ""Flip"" Herndon"	360.473.1004
+4801	North Central Educational Service District 171	24111	Brewster School District	P.O. Box 97		Brewster	Washington	98812	503 S 7TH ST		BREWSTER	Washington	98812-0097	Eric Driessen	509.689.3418
+4801	North Central Educational Service District 171	9075	Bridgeport School District	PO BOX 1060		BRIDGEPORT	Washington	98813-1060	1300 DOUGLAS AVE		BRIDGEPORT	Washington	98813-1060	Scott Sattler	509.686.5656
+18801	Olympic Educational Service District 114	16046	Brinnon School District	46 SCHOOLHOUSE RD		BRINNON	Washington	98320-9651	46 SCHOOLHOUSE RD		BRINNON	Washington	98320-9651	Wally Lis	360.796.4646
+29801	Northwest Educational Service District 189	29100	Burlington-Edison School District	927 E FAIRHAVEN AVE		BURLINGTON	Washington	98233-1900	927 E FAIRHAVEN AVE		BURLINGTON	Washington	98233-1900	Laurel Browning	360.757.3311
+6801	Educational Service District 112	6117	Camas School District	841 NE 22nd AVE		CAMAS	Washington	98607-1148	841 NE 22nd Ave		CAMAS	Washington	98607-1148	Mike Nerland	360.335.3000
+18801	Olympic Educational Service District 114	5401	Cape Flattery School District	PO BOX 109	13-193 HWY 112	SEKIU	Washington	98381-9747	13193 HWY 112		SEKIU	Washington	98381-9747	Kandy Ritter	360.963.2056
+17801	Puget Sound Educational Service District 121	27019	Carbonado School District	PO BOX 131		CARBONADO	Washington	98323-0131	427 4TH ST		CARBONADO	Washington	98323-0131	Scott Hubbard	(360) 829-0121
+4801	North Central Educational Service District 171	4228	Cascade School District	330 EVANS ST		LEAVENWORTH	Washington	98826-1244	330 EVANS ST		LEAVENWORTH	Washington	98826-1244	Steve McKenna	509.548.5885
+4801	North Central Educational Service District 171	4222	Cashmere School District	210 S DIVISION ST		CASHMERE	Washington	98815-1133	210 S DIVISION ST		CASHMERE	Washington	98815-1133	Glenn Johnson	509.782.3355
+6801	Educational Service District 112	8401	Castle Rock School District	600 HUNTINGTON AVE S		CASTLE ROCK	Washington	98611-8901	600 HUNTINGTON AVE S		CASTLE ROCK	Washington	98611-8901	Susan Barker	360.501.2940
+6801	Educational Service District 112	20215	Centerville School District	2315 CENTERVILLE HWY		CENTERVILLE	Washington	98613-3021	2315 CENTERVILLE HWY		CENTERVILLE	Washington	98613-3021	Mike  Lindhe	509.773.4893
+18801	Olympic Educational Service District 114	18401	Central Kitsap School District	PO BOX 8		SILVERDALE	Washington	98383-9197	9210 SILVERDALE WAY NW		SILVERDALE	Washington	98383-9197	Gregory Lynch	360.662.3100
+32801	Educational Service District 101	32356	Central Valley School District	19307 E CATALDO AVE		GREENACRES	Washington	99016-9404	19307 E CATALDO AVE		GREENACRES	Washington	99016-9404	Ben Small	509.228.5406
+34801	Educational Service District 113	21401	Centralia School District	PO BOX 610		CENTRALIA	Washington	98531-0610	2320 BORST AVE		CENTRALIA	Washington	98531-0610	Steve Bodnar	360 330-7600
+34801	Educational Service District 113	21302	Chehalis School District	310 SW 16TH ST		CHEHALIS	Washington	98532-3809	310 SW 16TH ST		CHEHALIS	Washington	98532-3809	Ed Rothlin	360.807.7200
+32801	Educational Service District 101	32360	Cheney School District	520 4TH ST		CHENEY	Washington	99004-1695	520 4TH ST		CHENEY	Washington	99004-1695	Debra Clemens	509.559.4500
+32801	Educational Service District 101	33036	Chewelah School District	PO BOX 47	N. 210 Park Street	Chewelah	Washington	99109-8970	210 N PARK ST		CHEWELAH	Washington	99109-8970	RICHARD LINEHAN	509.685.6800
+18801	Olympic Educational Service District 114	16049	Chimacum School District	PO BOX 278		CHIMACUM	Washington	98325-0278	91 W VALLEY RD		CHIMACUM	Washington	98325-0278	Craig Downs	360.732.4090 ext.273
+11801	Educational Service District 123	2250	Clarkston School District	PO BOX 70		CLARKSTON	Washington	99403-2557	1294 CHESTNUT AVE		CLARKSTON	Washington	99403-2557	Darcey Weisner	509.758.2531
+39801	Educational Service District 105	19404	Cle Elum-Roslyn School District	2690 STATE ROUTE 903		CLE ELUM	Washington	98922-8704	2690 STATE ROUTE 903		CLE ELUM	Washington	98922-8704	Mark Flatau	509.649.4850
+17801	Puget Sound Educational Service District 121	27400	Clover Park School District	10903 GRAVELLY LAKE DR SW		LAKEWOOD	Washington	98499-1341	10903 GRAVELLY LAKE DR SW		LAKEWOOD	Washington	98499-1341	Debbie LeBeau	253.583.5190
+32801	Educational Service District 101	38300	Colfax School District	1110 N MORTON ST		COLFAX	Washington	99111-2198	1110 N MORTON ST		COLFAX	Washington	99111-2198	Michael Morgan	509.397.3042
+11801	Educational Service District 123	36250	College Place School District	1755 S College Ave		COLLEGE PLACE	Washington	99324-1175	1755 S College Ave		COLLEGE PLACE	Washington	99324-1175	Tim Payne	509.525.4827
+32801	Educational Service District 101	38306	Colton School District	706 Union		COLTON	Washington	99113	706 UNION		COLTON	Washington	99113-0109	C Foley	(509) 229-3385
+32801	Educational Service District 101	33206	Columbia (Stevens) School District	PO BOX 7		HUNTERS	Washington	99137-0007	HILLTOP DR #1		HUNTERS	Washington	99137-0007	Chuck Wyborney	509.722.3311
+11801	Educational Service District 123	36400	Columbia (Walla Walla) School District	755 MAPLE ST		BURBANK	Washington	99323-0548	755 MAPLE ST		BURBANK	Washington	99323-0548	Louis Gates	509.547.2136
+32801	Educational Service District 101	33115	Colville School District	217 S HOFSTETTER ST		COLVILLE	Washington	99114-3239	217 S HOFSTETTER ST		COLVILLE	Washington	99114-3239	Michael  Cashion	509.684.7850
+29801	Northwest Educational Service District 189	29011	Concrete School District	45389 AIRPORT WAY RM 103		CONCRETE	Washington	98237-9355	45389 AIRPORT WAY RM 103		CONCRETE	Washington	98237-9355	Barbara  Hawkings	360.853-8141
+29801	Northwest Educational Service District 189	29317	Conway School District	19710 STATE ROUTE 534		MOUNT VERNON	Washington	98274-8026	19710 STATE ROUTE 534		MOUNT VERNON	Washington	98274-8026	Kenneth Axelson	360.445.5785
+34801	Educational Service District 113	14099	Cosmopolis School District	PO BOX 479 - Mailing	1439 4th Street - Physical	COSMOPOLIS	Washington	98537	1439 FOURTH		COSMOPOLIS	Washington	98537-0479	Tami Hickle	360.532.7181
+4801	North Central Educational Service District 171	13151	Coulee-Hartline School District	PO BOX 428		COULEE CITY	Washington	99115-0428	410 W LOCUST ST		COULEE CITY	Washington	99115-0428	James Evans	509.632.5231
+29801	Northwest Educational Service District 189	15204	Coupeville School District	2 S Main St		Coupeville	Washington	98239	2 S MAIN ST		COUPEVILLE	Washington	98239-3518	Karen Koschak	360.678.4522
+18801	Olympic Educational Service District 114	5313	Crescent School District	PO BOX 20		JOYCE	Washington	98343-0020	50350 HWY 112		JOYCE	Washington	98343-0020	Clayton Mork	360.928.3311
+32801	Educational Service District 101	22073	Creston School District	PO BOX 17		CRESTON	Washington	99117-0017	485 SE E ST		CRESTON	Washington	99117-0017	William Wadlington	509.636.2721
+32801	Educational Service District 101	10050	Curlew School District	PO BOX 370		CURLEW	Washington	99118-9748	47 CURLEW SCHOOL RD		CURLEW	Washington	99118-9748	Steve Mccullough	509.779.4931
+32801	Educational Service District 101	26059	Cusick School District	305 MONUMENTAL WAY		CUSICK	Washington	99119-9761	305 MONUMENTAL WAY		CUSICK	Washington	99119-9761	Dan Read	(509) 445-1125
+39801	Educational Service District 105	19007	Damman School District	3600 UMPTANUM RD		ELLENSBURG	Washington	98926-8747	3600 UMPTANUM RD		ELLENSBURG	Washington	98926-8747	Marsha Smith	509.962.9079
+29801	Northwest Educational Service District 189	31330	Darrington School District	PO BOX 27		DARRINGTON	Washington	98241-0027	1065 FIR ST		DARRINGTON	Washington	98241-0027	Dave Holmer	360.436.1323
+32801	Educational Service District 101	22207	Davenport School District	801 7th Street		DAVENPORT	Washington	99122-9548	801 7th Street		DAVENPORT	Washington	99122-9548	James Kowalkowski	509.725.1481
+11801	Educational Service District 123	7002	Dayton School District	609 S 2ND ST		DAYTON	Washington	99328-1572	609 S 2ND ST		DAYTON	Washington	99328-1572	Doug Johnson	509.382.2543
+32801	Educational Service District 101	32414	Deer Park School District	P.O. BOX 490		DEER PARK	Washington	99006-0490	N. 428 Main		DEER PARK	Washington	99006	Becky Berg	509.464.5500
+17801	Puget Sound Educational Service District 121	27343	Dieringer School District	1320 178TH AVE E		Lake Tapps	Washington	98391	1320 178TH AVE E		SUMNER	Washington	98390-6411	Judy Neumeier-Martinson	(253) 862-2537
+11801	Educational Service District 123	36101	Dixie School District	PO BOX 40		DIXIE	Washington	99329-0040	HWY 12 & BISCUIT RIDGE RD		DIXIE	Washington	99329-0040	Mark Wegner	509.525.5339
+32801	Educational Service District 101	32361	East Valley School District (Spokane)	12325 E GRACE AVE		SPOKANE	Washington	99216-3716	12325 E GRACE AVE		SPOKANE	Washington	99216-3716	John Glenewinkel	509.924.1830
+39801	Educational Service District 105	39090	East Valley School District (Yakima)	2002 BEAUDRY RD		YAKIMA	Washington	98901-8012	2002 BEAUDRY RD		YAKIMA	Washington	98901-8012	John Schieche	509.573.7320
+4801	North Central Educational Service District 171	9206	Eastmont School District	460 9TH ST NE		EAST WENATCHEE	Washington	98802-4443	460 9TH ST NE		EAST WENATCHEE	Washington	98802-4443	Garn Christensen	509-884-7169
+39801	Educational Service District 105	19028	Easton School District	PO BOX 8		EASTON	Washington	98925-0008	1893 RAILROAD ST		EASTON	Washington	98925-0008	Patrick Dehuff	509.656.2317
+17801	Puget Sound Educational Service District 121	27404	Eatonville School District	PO BOX 698		EATONVILLE	Washington	98328-0698	200 LYNCH ST W		EATONVILLE	Washington	98328-0698	Rich Stewart	360.879.1000
+29801	Northwest Educational Service District 189	31015	Edmonds School District	20420 68TH AVE W		LYNNWOOD	Washington	98036-7400	20420 68TH AVE W		LYNNWOOD	Washington	98036-7400	Nick Brossoit	425.431.7003
+39801	Educational Service District 105	19401	Ellensburg School District	1300 E 3RD AVE		ELLENSBURG	Washington	98926-3576	1300 E 3RD AVE		ELLENSBURG	Washington	98926-3576	NULL	NULL
+34801	Educational Service District 113	14068	Elma School District	1235 MONTE ELMA RD		ELMA	Washington	98541-9038	1235 MONTE ELMA RD		ELMA	Washington	98541-9038	Howard King	360.482.2822
+32801	Educational Service District 101	38308	Endicott School District	308 SCHOOL DR		ENDICOTT	Washington	00009-9125	308 SCHOOL DR		ENDICOTT	Washington	00009-9125	Gary Wargo	509.657.3523
+4801	North Central Educational Service District 171	4127	Entiat School District	2650 ENTIAT WAY		ENTIAT	Washington	98822-9710	2650 ENTIAT WAY		ENTIAT	Washington	98822-9710	Michael Wyant	509.784.1800
+17801	Puget Sound Educational Service District 121	17216	Enumclaw School District	2929 MCDOUGALL AVE		ENUMCLAW	Washington	98022-7499	2929 MCDOUGALL AVE		ENUMCLAW	Washington	98022-7499	Michael Nelson	360.802.7103
+4801	North Central Educational Service District 171	13165	Ephrata School District	499 C ST NW		EPHRATA	Washington	98823-1690	499 C ST NW		EPHRATA	Washington	98823-1690	Jerry Simon	509.754.2474
+34801	Educational Service District 113	21036	Evaline School District	111 SCHOOLHOUSE RD		WINLOCK	Washington	98596-9718	111 SCHOOLHOUSE RD		WINLOCK	Washington	98596-9718	George  Crawford	360.785.3460
+29801	Northwest Educational Service District 189	31002	Everett School District	PO BOX 2098		EVERETT	Washington	98213-2999	4730 COLBY AVE		EVERETT	Washington	98203-2999	Gary Cohn	425.385.4016
+6801	Educational Service District 112	6114	Evergreen School District (Clark)	PO BOX 8910		VANCOUVER	Washington	98668-8910	13501 NE 28TH ST		VANCOUVER	Washington	98668-8910	John Deeder	360.604.4005
+32801	Educational Service District 101	33205	Evergreen School District (Stevens)	3341 ADDY GIFFORD RD		GIFFORD	Washington	99131-9701	3341 ADDY GIFFORD RD		GIFFORD	Washington	99131-9701	Bill Glidewell	509.722.6084
+17801	Puget Sound Educational Service District 121	17210	Federal Way School District	33330 8th AVE S		FEDERAL WAY	Washington	98003-5433	33330 8th AVE S		FEDERAL WAY	Washington	98003-5433	Robert Neu	253.945.2000
+29801	Northwest Educational Service District 189	37502	Ferndale School District	PO Box 698		FERNDALE	Washington	98248-9317	PO Box 698		FERNDALE	Washington	98248-9317	Linda Quinn	360.383.9207
+17801	Puget Sound Educational Service District 121	27417	Fife School District	5802 20TH ST E		TACOMA	Washington	98424-2000	5802 20TH ST E		TACOMA	Washington	98424-2000	Stephen Mccammon	(253) 284-1000
+11801	Educational Service District 123	3053	Finley School District	224606 E GAME FARM RD		KENNEWICK	Washington	99337-8623	224606 E GAME FARM RD		KENNEWICK	Washington	99337-8623	Lance Hahn	509.586.3217
+17801	Puget Sound Educational Service District 121	27402	Franklin Pierce School District	315 129TH ST S		TACOMA	Washington	98444-5099	315 129TH ST S		TACOMA	Washington	98444-5099	Frank Hewins	253.298.3000
+32801	Educational Service District 101	32358	Freeman School District	15001 S JACKSON RD		ROCKFORD	Washington	99030-9755	15001 S JACKSON RD		ROCKFORD	Washington	99030-9755	Randy Russell	509.291.3695
+32801	Educational Service District 101	38302	Garfield School District	PO BOX 398		GARFIELD	Washington	99130-0398	810 N THIRD ST		GARFIELD	Washington	99130-0398	Zane  Wells	509.635.1331
+6801	Educational Service District 112	20401	Glenwood School District	PO BOX 12		GLENWOOD	Washington	98619-0012	320 BUNNELL ST		GLENWOOD	Washington	98619-0012	Shane Couch	509.364.3438
+39801	Educational Service District 105	20404	Goldendale School District	604 E. BROOKS ST		GOLDENDALE	Washington	98620	604 E. BROOKS ST		GOLDENDALE	Washington	98620	MARK HEID	509 773 5177
+4801	North Central Educational Service District 171	13301	Grand Coulee Dam School District	110 Stevens Ave.		COULEE DAM	Washington	99116-1503	110 STEVENS AVE		COULEE DAM	Washington	99116-1503	Dennis Carlson	509.633.2143
+39801	Educational Service District 105	39200	Grandview School District	913 W 2ND ST		GRANDVIEW	Washington	98930-1202	913 W 2ND ST		GRANDVIEW	Washington	98930-1202	Kevin Chase	509.882.8500
+39801	Educational Service District 105	39204	Granger School District	701 E AVE		GRANGER	Washington	98932-0400	701 E AVE		GRANGER	Washington	98932-0400	Margarita Lopez	509.854.1515
+29801	Northwest Educational Service District 189	31332	Granite Falls School District	205 North Alder Avenue		GRANITE FALLS	Washington	98252-8908	205 N ALDER AVE		GRANITE FALLS	Washington	98252	Linda Hall	360.691.7717
+34801	Educational Service District 113	23054	Grapeview School District	822 E MASON BENSON RD		GRAPEVIEW	Washington	98546-9514	822 E MASON BENSON RD		GRAPEVIEW	Washington	98546-9514	Donald Brannam	360.426.4921
+32801	Educational Service District 101	32312	Great Northern School District	3115 N SPOTTED RD		SPOKANE	Washington	99224-8921	3115 N SPOTTED RD		SPOKANE	Washington	99224-8921	Glenn Frizzell	(509) 747-7714
+6801	Educational Service District 112	6103	Green Mountain School District	13105 NE GRINNELL RD		WOODLAND	Washington	98674-3808	13105 NE GRINNELL RD		WOODLAND	Washington	98674-3808	Joe Jones	360.225.7366
+34801	Educational Service District 113	34324	Griffin School District	6530 33RD AVE NW		OLYMPIA	Washington	98502-9599	6530 33RD AVE NW		OLYMPIA	Washington	98502-9599	Greg Woods	360.866.2515 ext.105
+32801	Educational Service District 101	22204	Harrington School District	PO BOX 204		HARRINGTON	Washington	99134-0248	100 S 1ST ST		HARRINGTON	Washington	99134-0248	Monte Swenson	509.253.4331
+39801	Educational Service District 105	39203	Highland School District	PO BOX 38		COWICHE	Washington	98923-0038	17000 SUMMITVIEW RD		COWICHE	Washington	98923-0038	Mark Anderson	509.678.7209
+17801	Puget Sound Educational Service District 121	17401	Highline School District	15675 AMBAUM BLVD SW		BURIEN	Washington	98166-0100	15675 AMBAUM BLVD SW		BURIEN	Washington	98166-0100	Susan Enfield	206.433.2217
+6801	Educational Service District 112	6098	Hockinson School District	17912 NE 159TH ST		BRUSH PRAIRIE	Washington	98606-9765	17912 NE 159TH ST		BRUSH PRAIRIE	Washington	98606-9765	Sandra Yager	360.448.6400
+34801	Educational Service District 113	23404	Hood Canal School District	111 N STATE ROUTE 106		SHELTON	Washington	98584-9703	111 N STATE ROUTE 106		SHELTON	Washington	98584-9703	Shawn Batstone	360.877.5463
+34801	Educational Service District 113	14028	Hoquiam School District	305 SIMPSON AVE		HOQUIAM	Washington	98550-2419	305 SIMPSON AVE		HOQUIAM	Washington	98550-2419	Mike Parker	360.538.8200
+32801	Educational Service District 101	10070	Inchelium School District	PO BOX 285		INCHELIUM	Washington	99138-0285	1 HORNET AVE		INCHELIUM	Washington	99138-0285	Ron Washington	(509) 722-6181
+29801	Northwest Educational Service District 189	31063	Index School District	PO BOX 237		INDEX	Washington	98256-0237	436 INDEX AVE		INDEX	Washington	98256-0237	Linda Tate	360.793.1330
+17801	Puget Sound Educational Service District 121	17411	Issaquah School District	565 NW HOLLY ST		ISSAQUAH	Washington	98027-2899	565 NW HOLLY ST		ISSAQUAH	Washington	98027-2899	Steve Rasmussen	425.837.7002
+11801	Educational Service District 123	11056	Kahlotus School District	PO BOX 69		KAHLOTUS	Washington	99335-0069	100 W MARTIN ST		KAHLOTUS	Washington	99335-0069	Sergio Hernandez	509.282.3338
+6801	Educational Service District 112	8402	Kalama School District	548 CHINA GARDEN RD		KALAMA	Washington	98625-9764	548 CHINA GARDEN RD		KALAMA	Washington	98625-9764	Jim Sutton	360.673.5282
+32801	Educational Service District 101	10003	Keller School District	PO BOX 367	17 South School Road	KELLER	Washington	99140-0367	17 South School Road		KELLER	Washington	99140-0367	David Iverson	509.634.4325
+32801	Educational Service District 101	10003	Keller School District	PO BOX 367	17 South School Road	KELLER	Washington	99140-0367	17 South School Road		KELLER	Washington	99140-0367	Gary Greene	509.634.4325
+6801	Educational Service District 112	8458	Kelso School District	601 CRAWFORD ST		KELSO	Washington	98626-4398	601 CRAWFORD ST		KELSO	Washington	98626-4398	Robert MacGregor	360.501.1927
+11801	Educational Service District 123	3017	Kennewick School District	1000 W. 4th Avenue		KENNEWICK	Washington	99336-5601	1000 W. 4th Avenue		KENNEWICK	Washington	99336-5601	Dave Bond	509.222.5020
+17801	Puget Sound Educational Service District 121	17415	Kent School District	12033 SE 256TH ST		KENT	Washington	98031-6643	12033 SE 256TH ST		KENT	Washington	98031-6643	Edward Lee Vargas	253.373.7701
+32801	Educational Service District 101	33212	Kettle Falls School District	PO BOX 458		KETTLE FALLS	Washington	99141-0458	S 735 MEYERS		KETTLE FALLS	Washington	99141-0458	Greg Goodnight	509.738.6625
+11801	Educational Service District 123	3052	Kiona-Benton City School District	1107 GRACE AVE		BENTON CITY	Washington	99320-9704	1107 GRACE AVE		BENTON CITY	Washington	99320-9704	Rom Castilleja	509.588.2001
+39801	Educational Service District 105	19403	Kittitas School District	PO BOX 599		KITTITAS	Washington	98934-0599	N PIERCE ST		KITTITAS	Washington	98934-0599	Monty Sabin	509.968.3115
+6801	Educational Service District 112	20402	Klickitat School District	PO BOX 37		KLICKITAT	Washington	98628-0037	98 SCHOOL DRIVE		KLICKITAT	Washington	98628-0037	Jerry Lynch	(509) 369-4145
+6801	Educational Service District 112	6101	La Center School District	PO BOX 1840		LA CENTER	Washington	98629-5507	725 HIGHLAND ROAD		LA CENTER	Washington	98629-5507	Mark Mansell	360.263.2131
+29801	Northwest Educational Service District 189	29311	La Conner School District	PO BOX 2103		LA CONNER	Washington	98257-2103	305 N 6TH ST		LA CONNER	Washington	98257-2103	Tim Bruce	(360) 466-3171
+32801	Educational Service District 101	38126	LaCrosse School District	111 Hill Ave.		LACROSSE	Washington	99143	111 Hill Ave.		LACROSSE	Washington	99143	Gary Wargo	(509) 549-3591
+4801	North Central Educational Service District 171	4129	Lake Chelan School District	PO BOX 369		CHELAN	Washington	98816-0369	303 E JOHNSON AVE		CHELAN	Washington	98816-0369	Rob Manahan	509.682.3515
+34801	Educational Service District 113	14097	Lake Quinault School District	PO BOX 38		AMANDA PARK	Washington	98526-0038	6130 HWY 101 N		AMANDA PARK	Washington	98526-0038	Richard DuBois	360.288.2260
+29801	Northwest Educational Service District 189	31004	Lake Stevens School District	12309 22ND ST NE		LAKE STEVENS	Washington	98258	12309 22ND ST NE		LAKE STEVENS	Washington	98258	Amy Beth Cook	425.335.1500
+17801	Puget Sound Educational Service District 121	17414	Lake Washington School District	PO BOX 97039		REDMOND	Washington	98073-9739	16250 NE 74TH ST		REDMOND	Washington	98052	Traci Pierce	425.936.1256
+29801	Northwest Educational Service District 189	31306	Lakewood School District	PO BOX 220		NORTH LAKEWOOD	Washington	98259-0220	17110 16TH DR NE		NORTH LAKEWOOD	Washington	98259-0220	Dennis Haddock	360.652.4500
+32801	Educational Service District 101	38264	Lamont School District	602 MAIN ST		LAMONT	Washington	99017-8769	602 MAIN ST		LAMONT	Washington	99017-8769	Joe Whipple	509.257.2463
+32801	Educational Service District 101	32362	Liberty School District	29818 S NORTH PINE CREEK RD		SPANGLE	Washington	99031-9797	29818 S NORTH PINE CREEK RD		SPANGLE	Washington	99031-9797	Bill Motsenbocker	509.624.4415
+32801	Educational Service District 101	1158	Lind School District	PO BOX 340		LIND	Washington	99341-0340	206 W THIRD ST		LIND	Washington	99341-0340	Robert Roettger	509.677.3481
+6801	Educational Service District 112	8122	Longview School District	2715 LILAC ST		LONGVIEW	Washington	98632-3596	2715 LILAC ST		LONGVIEW	Washington	98632-3596	Suzanne Cusick	360.575.7016
+32801	Educational Service District 101	33183	Loon Lake School District	4001 MAPLE ST		LOON LAKE	Washington	99148-9761	4001 MAPLE ST		LOON LAKE	Washington	99148-9761	Steven Waunch	(509) 233-2212
+29801	Northwest Educational Service District 189	28144	Lopez School District	86 SCHOOL RD		LOPEZ ISLAND	Washington	98261-8000	86 SCHOOL RD		LOPEZ ISLAND	Washington	98261-8000	Bill Evans	360.468.2202
+6801	Educational Service District 112	20406	Lyle School District	PO BOX 368		LYLE	Washington	98635-0009	625 KEASEY STREET		LYLE	Washington	98635-0009	Glenys Hill	509.365.2191
+29801	Northwest Educational Service District 189	37504	Lynden School District	1203 BRADLEY RD		LYNDEN	Washington	98264-9514	1203 BRADLEY RD		LYNDEN	Washington	98264-9514	James Frey	360.354.4443
+39801	Educational Service District 105	39120	Mabton School District	PO BOX 37		MABTON	Washington	98935-0037	306 N MAIN		MABTON	Washington	98935-0037	Minera Morales	509.894.4852
+4801	North Central Educational Service District 171	9207	Mansfield School District	PO BOX 188		MANSFIELD	Washington	98830-0188	491 RD 14NE		MANSFIELD	Washington	98830-0188	Eugene Nelson	509.683.1012
+4801	North Central Educational Service District 171	4019	Manson School District	PO BOX A		MANSON	Washington	98831-9668	312 N QUETILQUASOON RD		MANSON	Washington	98831-9668	Matt Charlton	509.687.3140
+34801	Educational Service District 113	23311	Mary M Knight School District	2987 W MATLOCK BRADY RD		ELMA	Washington	98541-9713	2987 W MATLOCK BRADY RD		ELMA	Washington	98541-9713	Beth Daneker	360.426.6767
+32801	Educational Service District 101	33207	Mary Walker School District	PO BOX 159		SPRINGDALE	Washington	99173-0159	500 N 4TH		SPRINGDALE	Washington	99173-0159	Kevin Jacka	509.258.4534
+29801	Northwest Educational Service District 189	31025	Marysville School District	4220 80th St. NE		Marysville	Washington	98270	4220 80TH ST NE		MARYSVILLE	Washington	98270-3498	Larry Nyland	(360) 653-0800
+34801	Educational Service District 113	14065	McCleary School District	611 S MAIN ST		MCCLEARY	Washington	98557-9524	611 S MAIN ST		MCCLEARY	Washington	98557-9524	Dan Bolender	360.495.3204
+32801	Educational Service District 101	32354	Mead School District	12828 N NEWPORT HWY		MEAD	Washington	99021-9690	12828 N NEWPORT HWY		MEAD	Washington	99021-9690	Tom Rockefeller	509.465.6014
+32801	Educational Service District 101	32326	Medical Lake School District	PO BOX 128		MEDICAL LAKE	Washington	99022-0128	116 W THIRD ST		MEDICAL LAKE	Washington	99022-0128	Pam Veltri	509.565.3100
+17801	Puget Sound Educational Service District 121	17400	Mercer Island School District	4160 86TH AVE SE		MERCER ISLAND	Washington	98040-4196	4160 86TH AVE SE		MERCER ISLAND	Washington	98040-4196	Gary Plano	206.236.3300
+29801	Northwest Educational Service District 189	37505	Meridian School District	214 W LAUREL RD		BELLINGHAM	Washington	98226-9623	214 W LAUREL RD		BELLINGHAM	Washington	98226-9623	Tom Churchill	360.398.7111
+4801	North Central Educational Service District 171	24350	Methow Valley School District	18 TWIN LAKES RD		WINTHROP	Washington	98862-9713	18 TWIN LAKES RD		WINTHROP	Washington	98862-9713	Mark Wenzel	509.996.9205
+6801	Educational Service District 112	30031	Mill A School District	1142 JESSUP RD		COOK	Washington	98605-9120	1142 JESSUP RD		COOK	Washington	98605-9120	Dale Palmer	509.538.2522
+29801	Northwest Educational Service District 189	31103	Monroe School District	200 East Fremont Street		Monroe	Washington	98272-2336	200 E FREMONT ST		MONROE	Washington	98272-2336	Ken Hoover	360.804.2500
+34801	Educational Service District 113	14066	Montesano School District	302 CHURCH ST N		MONTESANO	Washington	98563-2500	302 CHURCH ST N		MONTESANO	Washington	98563-2500	Dan Winter	360.249.3942
+34801	Educational Service District 113	21214	Morton School District	PO BOX H		MORTON	Washington	98356-0048	152 WESTLAKE AVE		MORTON	Washington	98356-0048	Tom Manke	360.496.5300
+4801	North Central Educational Service District 171	13161	Moses Lake School District	920 W IVY AVE		MOSES LAKE	Washington	98837-2047	920 W IVY AVE		MOSES LAKE	Washington	98837-2047	Michelle Price	509.766.2650
+34801	Educational Service District 113	21206	Mossyrock School District	PO BOX 478		MOSSYROCK	Washington	98564-0478	545 WILLIAMS ST		MOSSYROCK	Washington	98564-0478	Karen Ernest	360.983.3181
+39801	Educational Service District 105	39209	Mount Adams School District	PO BOX 578		WHITE SWAN	Washington	98952-0578	621 SIGNAL PEAK RD		WHITE SWAN	Washington	98952-0578	Henry Strom	509.874.2611
+29801	Northwest Educational Service District 189	37507	Mount Baker School District	PO BOX 95		DEMING	Washington	98244-0095	4956 DEMING RD		DEMING	Washington	98244-0095	Charles Burleigh	360.383.2000
+6801	Educational Service District 112	30029	Mount Pleasant School District	152 MARBLE RD		WASHOUGAL	Washington	98671-7913	152 MARBLE RD		WASHOUGAL	Washington	98671-7913	Linda  Slattery	360.835.3371
+6801	Educational Service District 112	30029	Mount Pleasant School District	152 MARBLE RD		WASHOUGAL	Washington	98671-7913	152 MARBLE RD		WASHOUGAL	Washington	98671-7913	Peter Tarzian	360.835.3371
+29801	Northwest Educational Service District 189	29320	Mount Vernon School District	124 E LAWRENCE ST		MOUNT VERNON	Washington	98273-2999	124 E LAWRENCE ST		MOUNT VERNON	Washington	98273-2999	Carl Bruner	(360) 428-6181
+29801	Northwest Educational Service District 189	31006	Mukilteo School District	9401 SHARON DR		EVERETT	Washington	98204-2699	9401 SHARON DR		EVERETT	Washington	98204-2699	Marci Larsen	(425) 356-1220
+39801	Educational Service District 105	39003	Naches Valley School District	PO BOX 99		NACHES	Washington	98937-9744	24 SHAFER AVE		NACHES	Washington	98937-9744	Duane Lyons	509.653.2220
+34801	Educational Service District 113	21014	Napavine School District	PO BOX 840		NAPAVINE	Washington	98565-0840	413 E PARK ST		NAPAVINE	Washington	98565-0840	Richard Jones	360.262.3303
+6801	Educational Service District 112	25155	Naselle-Grays River Valley School District	793 STATE ROUTE 4		NASELLE	Washington	98638-8541	793 STATE ROUTE 4		NASELLE	Washington	98638-8541	Rick Pass	360.484.7121
+4801	North Central Educational Service District 171	24014	Nespelem School District	PO BOX 291		NESPELEM	Washington	99155-0291	229 SCHOOL LOOP RD	PO Box 291	NESPELEM	Washington	99155-0291	John Adkins	509.634.4541
+32801	Educational Service District 101	26056	Newport School District	PO BOX 70		NEWPORT	Washington	99156-0070	1380 W 5TH		NEWPORT	Washington	99156-0070	Jason Thompson	509.447.3167
+32801	Educational Service District 101	32325	Nine Mile Falls School District	10110 W CHARLES RD		NINE MILE FALLS	Washington	99026-8623	10110 W CHARLES RD		NINE MILE FALLS	Washington	99026-8623	Brian Talbott	509.340.4303
+29801	Northwest Educational Service District 189	37506	Nooksack Valley School District	PO BOX 4307		EVERSON	Washington	98247-9232	3326 E BADGER RD		EVERSON	Washington	98247-9232	Mark Johnson	360.988.4754
+34801	Educational Service District 113	14064	North Beach School District	PO BOX 159		OCEAN SHORES	Washington	98569-9563	2652 ST ROUTE 109 OCEAN CITY		OCEAN SHORES	Washington	98569-9563	Stanley Pinnick	360.289.2447
+11801	Educational Service District 123	11051	North Franklin School District	PO BOX 829		CONNELL	Washington	99326-0829	1100 W CLARK ST		CONNELL	Washington	99326-0829	Gregg Taylor	509.234.2021
+18801	Olympic Educational Service District 114	18400	North Kitsap School District	18360 CALDART AVE NE		POULSBO	Washington	98370-8775	18360 CALDART AVE NE		POULSBO	Washington	98370-8775	Patrice Page	360.779.8700
+18801	Olympic Educational Service District 114	23403	North Mason School District	71 EAST CAMPUS DRIVE		BELFAIR	Washington	98528-0000	71 EAST CAMPUS DRIVE		BELFAIR	Washington	98528-0000	David Peterson	360.277.2300
+34801	Educational Service District 113	25200	North River School District	2867 N RIVER RD		COSMOPOLIS	Washington	98537-9743	2867 N RIVER RD		COSMOPOLIS	Washington	98537-9743	David Pickering	360.532.3079
+34801	Educational Service District 113	34003	North Thurston Public Schools	305 COLLEGE ST NE		LACEY	Washington	98516-5390	305 COLLEGE ST NE		LACEY	Washington	98516-5390	Raj Manhas	360.412.4413
+32801	Educational Service District 101	33211	Northport School District	PO BOX 1280		NORTHPORT	Washington	99157-1280	404 10TH ST		NORTHPORT	Washington	99157-1280	Wes Harris	509.732.4251
+17801	Puget Sound Educational Service District 121	17417	Northshore School District	3330 Monte Villa Parkway		BOTHELL	Washington	98021-8972	3330 Monte Villa Parkway		BOTHELL	Washington	98021-8972	Larry Francois	425.408.7701
+29801	Northwest Educational Service District 189	15201	Oak Harbor School District	350 S OAK HARBOR ST		OAK HARBOR	Washington	98277-5015	350 S OAK HARBOR ST		OAK HARBOR	Washington	98277-5015	Rick Schulte	360.279.5006
+32801	Educational Service District 101	38324	Oakesdale School District	PO BOX 228		OAKESDALE	Washington	99158-0228	FIRST & MCCOY		OAKESDALE	Washington	99158-0228	Jacob Dingman	509.285.5296
+34801	Educational Service District 113	14400	Oakville School District	PO BOX H		OAKVILLE	Washington	98568-0090	103 SCHOOL ST		OAKVILLE	Washington	98568-0090	Kathy Lorton	360.273.0171
+6801	Educational Service District 112	25101	Ocean Beach School District	PO Box 778		Long Beach	Washington	98631-0778	500 Washington Ave S		Long Beach	Washington	98631-0000	Mark Hottowe	360.642.3739
+34801	Educational Service District 113	14172	Ocosta School District	2580 S MONTESANO ST		WESTPORT	Washington	98595-9718	2580 S MONTESANO ST		WESTPORT	Washington	98595-9718	Gail Sackman	360.268.9125 ext.129
+32801	Educational Service District 101	22105	Odessa School District	PO BOX 248		ODESSA	Washington	99159-0248	311 S FIRST ST		ODESSA	Washington	99159-0248	Suellen White	509.982.2668
+4801	North Central Educational Service District 171	24105	Okanogan School District	PO BOX 592		OKANOGAN	Washington	98840-0592	244 5TH AVE SOUTH		OKANOGAN	Washington	98840-0592	Richard Johnson	509.422.3629
+34801	Educational Service District 113	34111	Olympia School District	1113 LEGION WAY SE		OLYMPIA	Washington	98501-1697	1113 LEGION WAY SE		OLYMPIA	Washington	98501-1697	Dominic Cvitanich	360.596.6100
+4801	North Central Educational Service District 171	24019	Omak School District	PO BOX 833		OMAK	Washington	98841-9700	619 W BARTLETT AVE		OMAK	Washington	98841-9700	Arthur Himmler	509.826.7681
+34801	Educational Service District 113	21300	Onalaska School District	540 CARLISLE AVE		ONALASKA	Washington	98570-9654	540 CARLISLE AVE		ONALASKA	Washington	98570-9654	Scott Fenter	360.978.4111
+32801	Educational Service District 101	33030	Onion Creek School District	2006 LOTZE CREEK RD		COLVILLE	Washington	99114-8602	2006 LOTZE CREEK RD		COLVILLE	Washington	99114-8602	Patsy Guglielmino	509.732.4240
+29801	Northwest Educational Service District 189	28137	Orcas Island School District	557 SCHOOL RD		EASTSOUND	Washington	98245-9457	557 SCHOOL RD		EASTSOUND	Washington	98245-9457	Barbara Kline	360.376.2284
+32801	Educational Service District 101	32123	Orchard Prairie School District	7626 N ORCHARD PRAIRIE RD		SPOKANE	Washington	99217-9766	7626 N ORCHARD PRAIRIE RD		SPOKANE	Washington	99217-9766	Duane Reidenbach	509.467.9517
+32801	Educational Service District 101	10065	Orient School District	PO BOX 1419		ORIENT	Washington	99160-0419	5TH AND C STREET	P O  Box 1419	ORIENT	Washington	99160-0419	Mark Selle	509.684.6873
+4801	North Central Educational Service District 171	9013	Orondo School District	P O Box 71		ORONDO	Washington	98843	100 ORONDO SCHOOL RD		ORONDO	Washington	98843-9723	Millie Watkins	509.784.2443
+4801	North Central Educational Service District 171	24410	Oroville School District	816 JUNIPER		OROVILLE	Washington	98844-0000	816 JUNIPER		OROVILLE	Washington	98844-0000	STEVEN QUICK	509.476.2281
+17801	Puget Sound Educational Service District 121	27344	Orting School District	120 WASHINGTON AVE N		ORTING	Washington	98360-8403	120 WASHINGTON AVE N		ORTING	Washington	98360-8403	Michelle Curry	360.893.6500
+11801	Educational Service District 123	1147	Othello School District	615 E JUNIPER ST		OTHELLO	Washington	99344-1463	615 E JUNIPER ST		OTHELLO	Washington	99344-1463	George Juarez	(509) 488-2659
+4801	North Central Educational Service District 171	9102	Palisades School District	1114 PALISADES RD		PALISADES	Washington	98845-9609	1114 PALISADES RD		PALISADES	Washington	98845-9609	Russ Elliott	509.884.8071
+32801	Educational Service District 101	38301	Palouse School District	600 E ALDER ST		PALOUSE	Washington	99161-8780	600 E ALDER ST		PALOUSE	Washington	99161-8780	Darcy Eliason	509.878.1921
+32801	Educational Service District 101	38301	Palouse School District	600 E ALDER ST		PALOUSE	Washington	99161-8780	600 E ALDER ST		PALOUSE	Washington	99161-8780	Jake Dingman	509.878.1921
+11801	Educational Service District 123	11001	Pasco School District	Pasco School District	C.L. Booth Service Center	PASCO	Washington	99301-5472	1215 W LEWIS ST		PASCO	Washington	99301-5472	Saundra Hill	(509) 543-6700
+4801	North Central Educational Service District 171	24122	Pateros School District	PO BOX 98		PATEROS	Washington	98846-0098	344 W BEACH ST		PATEROS	Washington	98846-0098	Lois  Davies	509.923.2751
+11801	Educational Service District 123	3050	Paterson School District	PO BOX 189		PATERSON	Washington	99345-0189	51409 W PRIOR RD		PATERSON	Washington	99345-0189	Peggy Douglas	509.875.2601
+34801	Educational Service District 113	21301	Pe Ell School District	PO BOX 368		PE ELL	Washington	98572-0368	519 NORTH 2ND		PE ELL	Washington	98572-0368	Kyle MacDonald	360.291.3244
+17801	Puget Sound Educational Service District 121	27401	Peninsula School District	14015 62ND AVE NW		GIG HARBOR	Washington	98332-8698	14015 62ND AVE NW		GIG HARBOR	Washington	98332-8698	Charles Cuzzetto	253.530.1000
+34801	Educational Service District 113	23402	Pioneer School District	611 E AGATE RD		SHELTON	Washington	98584-7306	611 E AGATE RD		SHELTON	Washington	98584-7306	Martin Brewer	360.426.9115
+11801	Educational Service District 123	12110	Pomeroy School District	PO BOX 950		POMEROY	Washington	99347-0950	121 S 10th Street		POMEROY	Washington	99347-0950	Kim Spacek	509.843.3393
+18801	Olympic Educational Service District 114	5121	Port Angeles School District	216 E 4TH ST		PORT ANGELES	Washington	98362-3200	216 E 4TH ST		PORT ANGELES	Washington	98362-3200	Jane Pryne	360.457.8575
+18801	Olympic Educational Service District 114	16050	Port Townsend School District	1610 Blaine St.		Port Townsend	Washington	98368	1610 Blaine St.		Port Townsend	Washington	98368	David Engle	360.379.4501
+11801	Educational Service District 123	36402	Prescott School District	Aj Jacobson	PO Box 65	PRESCOTT	Washington	99348-0065	207 SOUTH A  STREET		PRESCOTT	Washington	99348-0065	Bill Jordan	509.849.2216 ext.105
+11801	Educational Service District 123	3116	Prosser School District	823 PARK AVE		PROSSER	Washington	99350-1264	823 PARK AVE		PROSSER	Washington	99350-1264	Ray Tolcacher	509.786.3323
+32801	Educational Service District 101	38267	Pullman School District	240 SE DEXTER ST		PULLMAN	Washington	99163-3585	240 SE DEXTER ST		PULLMAN	Washington	99163-3585	Paul Sturm	509.332.3581
+17801	Puget Sound Educational Service District 121	27003	Puyallup School District	PO BOX 370		PUYALLUP	Washington	98372-3220	302 2ND ST SE		PUYALLUP	Washington	98372-3220	Timothy Yeomans	253.840.8950
+18801	Olympic Educational Service District 114	16020	Queets-Clearwater School District	146000 HIGHWAY 101		FORKS	Washington	98331-9484	146000 HIGHWAY 101		FORKS	Washington	98331-9484	Michael Ferguson	360.962.2395
+18801	Olympic Educational Service District 114	16048	Quilcene School District	PO BOX 40		QUILCENE	Washington	98376-0040	294715 HWY 101		QUILCENE	Washington	98376-0040	Wally Lis	360.765.3363 ext.202
+18801	Olympic Educational Service District 114	5402	Quillayute Valley School District	PO BOX 60		FORKS	Washington	98331-0060	411 S SPARTAN AVE		FORKS	Washington	98331-0060	Diana  Reaume	360.374.6262
+4801	North Central Educational Service District 171	13144	Quincy School District	119 J ST SW		QUINCY	Washington	98848-1330	119 J ST SW		QUINCY	Washington	98848-1330	Burton Dickerson	509 787 4571
+34801	Educational Service District 113	34307	Rainier School District	PO BOX 98		RAINIER	Washington	98576-0098	307 ALASKA ST		RAINIER	Washington	98576-0098	Tim Garchow	360.446.2207
+34801	Educational Service District 113	25116	Raymond School District	1016 COMMERCIAL ST		RAYMOND	Washington	98577-2631	1016 COMMERCIAL ST		RAYMOND	Washington	98577-2631	Steve Holland	360.942.3415
+32801	Educational Service District 101	22009	Reardan-Edwall School District	PO BOX 225		REARDAN	Washington	99029-0225	E. 215 Spokane Street		REARDAN	Washington	99029-0225	Marcus Morgan	509.796.2701
+17801	Puget Sound Educational Service District 121	17403	Renton School District	300 SW 7TH ST		RENTON	Washington	98055-2307	300 SW 7TH ST		RENTON	Washington	98055-2307	Mary Alice Heuschel	425.204.2340
+32801	Educational Service District 101	10309	Republic School District	30306 E HIGHWAY 20		REPUBLIC	Washington	99166-8746	30306 E HIGHWAY 20		REPUBLIC	Washington	99166-8746	Kyle Rydell	509.775.3173
+11801	Educational Service District 123	3400	Richland School District	615 SNOW AVE		RICHLAND	Washington	99352-3899	615 SNOW AVE		RICHLAND	Washington	99352-3899	Jim Busey	509.967.6001
+6801	Educational Service District 112	6122	Ridgefield School District	2724 S HILLHURST RD		RIDGEFIELD	Washington	98642-9088	2724 S HILLHURST RD		RIDGEFIELD	Washington	98642-9088	Art Edgerly	360.619.1302
+32801	Educational Service District 101	1160	Ritzville School District	209 E WELLSANDT RD		RITZVILLE	Washington	99169-1600	209 E WELLSANDT RD		RITZVILLE	Washington	99169-1600	Robert Roettger	509.659.1660
+32801	Educational Service District 101	32416	Riverside School District	34515 N NEWPORT HWY		CHATTAROY	Washington	99003-7706	34515 N NEWPORT HWY		CHATTAROY	Washington	99003-7706	Roberta Kramer	509.464.8201
+17801	Puget Sound Educational Service District 121	17407	Riverview School District	PO Box 519		DUVALL	Washington	98019	15510 1st Ave NE		DUVALL	Washington	98019	Conrad Robertson	(425) 844-4504
+34801	Educational Service District 113	34401	Rochester School District	10140 HIGHWAY 12 SW		ROCHESTER	Washington	98579-9601	10140 HIGHWAY 12 SW		ROCHESTER	Washington	98579-9601	Kimberly Fry	360.273.5536
+6801	Educational Service District 112	20403	Roosevelt School District	PO BOX 248		ROOSEVELT	Washington	99356-0248	615 CHINOOK AVE		ROOSEVELT	Washington	99356-0248	Ken Belieu	509.384.5462
+32801	Educational Service District 101	38320	Rosalia School District	PO BOX 128		ROSALIA	Washington	99170-9550	916 S JOSEPHINE		ROSALIA	Washington	99170-9550	William Thurston	509.523.3061
+39801	Educational Service District 105	13160	Royal School District	PO BOX 486		ROYAL CITY	Washington	99357-0486	901 AHLERS RD		ROYAL CITY	Washington	99357-0486	Rosemarie Search	509.346.2222
+29801	Northwest Educational Service District 189	28149	San Juan Island School District	PO BOX 458		FRIDAY HARBOR	Washington	98250-0458	285 BLAIR STREET		FRIDAY HARBOR	Washington	98250-0458	Rick Thompson	360.378.4133
+34801	Educational Service District 113	14104	Satsop School District	PO BOX 96		SATSOP	Washington	98583-0096	853 MONTE ELMA RD		SATSOP	Washington	98583-0096	Marsha Hendrick	(360) 482-5330
+17801	Puget Sound Educational Service District 121	17001	Seattle Public Schools	PO BOX 34165		SEATTLE	Washington	98124-1165	2445 3RD AVE S		SEATTLE	Washington	98134-1165	Jose Banda	206.252.0000
+29801	Northwest Educational Service District 189	29101	Sedro-Woolley School District	801 TRAIL RD		SEDRO WOOLLEY	Washington	98284-9387	801 TRAIL RD		SEDRO WOOLLEY	Washington	98284-9387	Mark Venn	360.855.3500
+39801	Educational Service District 105	39119	Selah School District	105 W BARTLETT AVE		SELAH	Washington	98942-1117	105 W BARTLETT AVE		SELAH	Washington	98942-1117	Shane Backlund	509.697.0702
+32801	Educational Service District 101	26070	Selkirk School District	PO BOX 129		METALINE FALLS	Washington	99153-0129	10372 HWY 31		METALINE FALLS	Washington	99153-0129	Nancy Lotze	(509) 446-2951
+18801	Olympic Educational Service District 114	5323	Sequim School District	503 N SEQUIM AVE		SEQUIM	Washington	98382-3161	503 N SEQUIM AVE		SEQUIM	Washington	98382-3161	Kelly Shea	360.582.3260
+29801	Northwest Educational Service District 189	28010	Shaw Island School District	PO BOX 426		SHAW ISLAND	Washington	98286-0426	44 HOFFMAN COVE RD		SHAW ISLAND	Washington	98286-0426	Robert Pattermann	360.468.2570
+34801	Educational Service District 113	23309	Shelton School District	700 S 1ST ST		SHELTON	Washington	98584-3602	700 S 1ST ST		SHELTON	Washington	98584-3602	Wayne Massie	360.426.1687
+17801	Puget Sound Educational Service District 121	17412	Shoreline School District	18560 1ST AVE NE		SHORELINE	Washington	98155-2118	18560 1ST AVE NE		SHORELINE	Washington	98155-2118	Sue Walker	206.393.4203
+6801	Educational Service District 112	30002	Skamania School District	122 BUTLER LOOP RD		SKAMANIA	Washington	98648-6021	122 BUTLER LOOP RD		SKAMANIA	Washington	98648-6021	JoAnn Fritz	509.427.8239
+17801	Puget Sound Educational Service District 121	17404	Skykomish School District	PO BOX 325		SKYKOMISH	Washington	98288-0325	105 6TH ST N		SKYKOMISH	Washington	98288-0325	Jeffery Long	360.677.2623
+29801	Northwest Educational Service District 189	31201	Snohomish School District	1601 AVENUE D		SNOHOMISH	Washington	98290-1799	1601 AVENUE D		SNOHOMISH	Washington	98290-1799	William Mester	360.563.7280
+17801	Puget Sound Educational Service District 121	17410	Snoqualmie Valley School District	PO BOX 400		SNOQUALMIE	Washington	98065-0400	8001 SILVA AVE SE		SNOQUALMIE	Washington	98065-0400	Joel Aune	425.831.8000
+4801	North Central Educational Service District 171	13156	Soap Lake School District	PO BOX 158		SOAP LAKE	Washington	98851-0158	410 GINGKO ST S		SOAP LAKE	Washington	98851-0158	Danny McDonald	509.246.1822
+34801	Educational Service District 113	25118	South Bend School District	PO BOX 437		SOUTH BEND	Washington	98586-0437	405 E 1ST		SOUTH BEND	Washington	98586-0437	Mike Morris	(360) 875-6041
+18801	Olympic Educational Service District 114	18402	South Kitsap School District	2689 HOOVER AVE SE		PORT ORCHARD	Washington	98366-3013	2689 HOOVER AVE SE		PORT ORCHARD	Washington	98366-3013	Beverly Cheney	360.874.7009
+29801	Northwest Educational Service District 189	15206	South Whidbey School District	PO BOX 346	721 Camano Avenue	LANGLEY	Washington	98260-0346	721 CAMANO AVE		LANGLEY	Washington	98260-0346	Josephine Moccia	360.221.6100
+34801	Educational Service District 113	23042	Southside School District	161 SE COLLIER RD		SHELTON	Washington	98584-8367	161 SE COLLIER RD		SHELTON	Washington	98584-8367	Doris Bolender	360.426.8437
+32801	Educational Service District 101	32081	Spokane School District	200 N BERNARD ST		SPOKANE	Washington	99201-0282	200 N BERNARD ST		SPOKANE	Washington	99201-0282	Shelley Redinger	509.354.7364
+32801	Educational Service District 101	22008	Sprague School District	PO BOX 305		SPRAGUE	Washington	99032-0305	S 512 F STREET		SPRAGUE	Washington	99032-0305	Pat Whipple	509.257.2591
+32801	Educational Service District 101	38322	St. John School District	301 W NOB HL		SAINT JOHN	Washington	99171-0058	301 W NOB HL		SAINT JOHN	Washington	99171-0058	Gary Wargo	509.648.3336
+29801	Northwest Educational Service District 189	31401	Stanwood-Camano School District	26920 Pioneer Highway		Stanwood	Washington	98292-9548	26920 Pioneer Highway		Stanwood	Washington	98292-9548	Jean Shumate	(360) 629-1200
+11801	Educational Service District 123	11054	Star School District	24180 PASCO KAHLOTUS RD		PASCO	Washington	99301-9738	24180 PASCO KAHLOTUS RD		PASCO	Washington	99301-9738	Rich  Puryear	509.967.6030
+11801	Educational Service District 123	7035	Starbuck School District	PO BOX 188		STARBUCK	Washington	99359-0188	717 TUCANNON ST		STARBUCK	Washington	99359-0188	Karen Rubenser	509.399.2381
+11801	Educational Service District 123	7035	Starbuck School District	PO BOX 188		STARBUCK	Washington	99359-0188	717 TUCANNON ST		STARBUCK	Washington	99359-0188	Karl Edie	509.399.2381
+4801	North Central Educational Service District 171	4069	Stehekin School District	PO BOX 37		STEHEKIN	Washington	98852-0037	3 MILE MAIN VALLEY RD		STEHEKIN	Washington	98852-0037	RICH MCBRIDE	509.665.2628
+17801	Puget Sound Educational Service District 121	27001	Steilacoom Hist. School District	510 CHAMBERS ST		STEILACOOM	Washington	98388-3311	510 CHAMBERS ST		STEILACOOM	Washington	98388-3311	Bill Fritz	253.983.2200
+32801	Educational Service District 101	38304	Steptoe School District	PO BOX 138		Steptoe	Washington	99174-3138	12 TENNESSEE ST		STEPTOE	Washington	99174-3138	Glenn Frizzell	(509) 397-3119
+6801	Educational Service District 112	30303	Stevenson-Carson School District	PO BOX 850		STEVENSON	Washington	98648-0850	350 NW BULLDOG DR		STEVENSON	Washington	98648	Teena McDonald	509.427.5674
+29801	Northwest Educational Service District 189	31311	Sultan School District	514 4th Street		SULTAN	Washington	98294-9474	514 4TH ST		SULTAN	Washington	98294-0399	Dan Chaplik	360.793.9800
+32801	Educational Service District 101	33202	Summit Valley School District	2360 ADDY GIFFORD RD		ADDY	Washington	99101-9703	2360 ADDY GIFFORD RD		ADDY	Washington	99101-9703	Bill Glidewell	509.935.6362
+17801	Puget Sound Educational Service District 121	27320	Sumner School District	1202 WOOD AVE		SUMNER	Washington	98390-1933	1202 WOOD AVE		SUMNER	Washington	98390-1933	Craig Spencer	253.891.6080
+39801	Educational Service District 105	39201	Sunnyside School District	1110 S 6th St		Sunnyside	Washington	98944-2197	1110 S 6TH ST		SUNNYSIDE	Washington	98944-2197	Richard Cole	(509) 836-6532
+17801	Puget Sound Educational Service District 121	27010	Tacoma School District	PO BOX 1357		TACOMA	Washington	98401-1357	601 S 8TH ZIP 98405		TACOMA	Washington	98401-1357	Carla Santorno	253.571.1010
+34801	Educational Service District 113	14077	Taholah School District	PO BOX 249		TAHOLAH	Washington	98587-0249	600 CHITWHIN DR		TAHOLAH	Washington	98587-0249	Lynda Roberts-Sanchez	360.276.4780
+17801	Puget Sound Educational Service District 121	17409	Tahoma School District	25720 MAPLE VALLEY BLK DIAM RD SE		MAPLE VALLEY	Washington	98038-8313	25720 MAPLE VALLEY BLK DIAM RD SE		MAPLE VALLEY	Washington	98038-8313	Mike Maryanski	425.413.3400
+32801	Educational Service District 101	38265	Tekoa School District	PO BOX 869		TEKOA	Washington	99033-0869	135 N COLLEGE AVE		TEKOA	Washington	99033-0869	Connie Kliewer	509.284.3281
+34801	Educational Service District 113	34402	Tenino School District	PO BOX 4024		TENINO	Washington	98589-4024	301 OLD HWY 99 N		TENINO	Washington	98589-4024	Russell Pickett	360.264.3411
+39801	Educational Service District 105	19400	Thorp School District	PO BOX 150		THORP	Washington	98946-0150	10831 N THORP HWY		THORP	Washington	98946-0150	LINDA MARTIN	509.964.2107
+34801	Educational Service District 113	21237	Toledo School District	PO BOX 469		TOLEDO	Washington	98591-0469	130 N 5TH ST		TOLEDO	Washington	98591-0469	Sharon Bower	(360) 864-6325
+4801	North Central Educational Service District 171	24404	Tonasket School District	35 DO HIGHWAY 20 EAST		TONASKET	Washington	98855-9601	35 DO E HIGHWAY 20		TONASKET	Washington	98855-9601	B. Turner	509.486.2126
+39801	Educational Service District 105	39202	Toppenish School District	306 BOLIN DR		TOPPENISH	Washington	98948-1644	306 BOLIN DR		TOPPENISH	Washington	98948-1644	John Cerna	509.865.8155
+11801	Educational Service District 123	36300	Touchet School District	P.O. Box 135		TOUCHET	Washington	99360-9533	90 CHAMPION ST		TOUCHET	Washington	99360-9533	Susan Bell	509.394.2352
+6801	Educational Service District 112	8130	Toutle Lake School District	5050 SPIRIT LAKE HWY		TOUTLE	Washington	98649-9701	5050 SPIRIT LAKE HWY		TOUTLE	Washington	98649-9701	Scott Grabenhorst	360.274.6182 ext.1003
+6801	Educational Service District 112	20400	Trout Lake School District	PO Box 488	2310 Hwy 141	TROUT LAKE	Washington	98650-9735	2310 HIGHWAY 141		TROUT LAKE	Washington	98650-9735	Doug Dearden	509.395.2571
+17801	Puget Sound Educational Service District 121	17406	Tukwila School District	4640 S 144TH ST		TUKWILA	Washington	98168-4134	4640 S 144TH ST		TUKWILA	Washington	98168-4134	Mellody Matthes	206.901.8009
+34801	Educational Service District 113	34033	Tumwater School District	621 LINWOOD AVE SW		TUMWATER	Washington	98512-8499	621 LINWOOD AVE SW		TUMWATER	Washington	98512-8499	NULL	NULL
+39801	Educational Service District 105	39002	Union Gap School District	3201 South 4th Street		UNION GAP	Washington	98903-1894	3201 South 4th Street		UNION GAP	Washington	98903-1894	Kurt  Hilyard	509.248.3966 ext.403
+17801	Puget Sound Educational Service District 121	27083	University Place School District	3717 GRANDVIEW DR W		UNIVERSITY PLACE	Washington	98466-2138	3717 GRANDVIEW DR W		UNIVERSITY PLACE	Washington	98466-2138	Patti Banks	(253) 566-5600
+34801	Educational Service District 113	21018	Vader School District	PO BOX 190		VADER	Washington	98593-0190	704 D S		VADER	Washington	98593-0190	Joann Anshutz	(360) 295-3351
+32801	Educational Service District 101	33070	Valley School District	3030 Huffman Road		Valley	Washington	99181	3030 Huffman Road		Valley	Washington	99181	Mark Selle	509.937.2770
+6801	Educational Service District 112	6037	Vancouver School District	PO BOX 8937		VANCOUVER	Washington	98661-5683	2901 FALK RD		VANCOUVER	Washington	98661-5683	Steven Webb	360.313.1200
+17801	Puget Sound Educational Service District 121	17402	Vashon Island School District	P O Box 547		VASHON	Washington	98070-0547	9309 SW Cemetery Rd		VASHON	Washington	98070-3105	Michael Soltman	206.463.2121
+6801	Educational Service District 112	35200	Wahkiakum School District	PO BOX 398		CATHLAMET	Washington	98612-0398	500 S 3RD		CATHLAMET	Washington	98612-0398	Bob Garrett	360.795.3971
+39801	Educational Service District 105	13073	Wahluke School District	PO BOX 907		MATTAWA	Washington	99349-0952	411 E SADDLE MT DRIVE		MATTAWA	Washington	99349-0952	Aaron Chavez	509.932.4565
+11801	Educational Service District 123	36401	Waitsburg School District	PO BOX 217		WAITSBURG	Washington	99361-0217	605 MAIN		WAITSBURG	Washington	99361-0217	Carol Clarke	509.337.6301
+11801	Educational Service District 123	36140	Walla Walla Public Schools	364 S PARK ST		WALLA WALLA	Washington	99362-3249	364 S PARK ST		WALLA WALLA	Washington	99362-3249	DONALD MILLER	509.526.6714
+39801	Educational Service District 105	39207	Wapato School District	PO BOX 38		WAPATO	Washington	98951-1308	212 W 3RD ST		WAPATO	Washington	98951-1308	Becky Imler	509.877.4181
+4801	North Central Educational Service District 171	13146	Warden School District	101 W BECK WAY		WARDEN	Washington	98857-9401	101 W BECK WAY		WARDEN	Washington	98857-9401	Sandra Sheldon	(509) 349-2366
+6801	Educational Service District 112	6112	Washougal School District	4855 Evergreen Way		WASHOUGAL	Washington	98671-9176	4855 Evergreen Way		WASHOUGAL	Washington	98671-9176	Dawn Tarzian	360.954.3000
+32801	Educational Service District 101	1109	Washtucna School District	730 East Booth Avenue		WASHTUCNA	Washington	99371-0688	730 East Booth Avenue		WASHTUCNA	Washington	99371-0688	J. Brent  Seedall	509.646.3211 ext.123
+32801	Educational Service District 101	1109	Washtucna School District	730 East Booth Avenue		WASHTUCNA	Washington	99371-0688	730 East Booth Avenue		WASHTUCNA	Washington	99371-0688	Robert  Allen	509.646.3211 ext.124
+4801	North Central Educational Service District 171	9209	Waterville School District	PO BOX 490		WATERVILLE	Washington	98858-0490	200 E BIRCH		WATERVILLE	Washington	98858-0490	Catherine Nelson	509.745.8584
+32801	Educational Service District 101	33049	Wellpinit School District	PO BOX 390		WELLPINIT	Washington	99040-9700	6270 FORD WELLPINIT RD		WELLPINIT	Washington	99040-9700	Tim Ames	509.258.4535
+4801	North Central Educational Service District 171	4246	Wenatchee School District	PO BOX 1767		WENATCHEE	Washington	98801-1999	235 SUNSET AVE		WENATCHEE	Washington	98801-1999	Brian Flones	509.663.8161
+32801	Educational Service District 101	32363	West Valley School District (Spokane)	PO BOX 11739		SPOKANE	Washington	99212-2245	2805 N ARGONNE RD		SPOKANE	Washington	99212-2245	Gene Sementi	509.924.2150
+39801	Educational Service District 105	39208	West Valley School District (Yakima)	8902 ZIER RD		YAKIMA	Washington	98908-9240	8902 ZIER RD		YAKIMA	Washington	98908-9240	MICHAEL BROPHY	509.972.6005
+34801	Educational Service District 113	21303	White Pass School District	PO BOX 188		RANDLE	Washington	98377-9208	516 SILVERBROOK RD		RANDLE	Washington	98377-9208	Rebecca Miner	360.497.3791
+17801	Puget Sound Educational Service District 121	27416	White River School District	PO BOX 2050		BUCKLEY	Washington	98321-2050	240 N A ST		BUCKLEY	Washington	98321-2050	Janel Keating	360.829.3814
+6801	Educational Service District 112	20405	White Salmon Valley School District	PO BOX 157		WHITE SALMON	Washington	98672-0157	171 NW WASHINGTON		WHITE SALMON	Washington	98672-0157	Jerry Lewis	509.493.1500
+32801	Educational Service District 101	22200	Wilbur School District	PO BOX 1090		WILBUR	Washington	99185-1090	202 POPE ST		WILBUR	Washington	99185-1090	Steve Gaub	509.647.2221
+34801	Educational Service District 113	25160	Willapa Valley School District	PO BOX 128		MENLO	Washington	98561-9998	22 VIKING WAY		MENLO	Washington	98561-9998	Rob Friese	360.942.5855
+4801	North Central Educational Service District 171	13167	Wilson Creek School District	PO BOX 46		WILSON CREEK	Washington	98860-0046	400 NAVAR ST		WILSON CREEK	Washington	98860-0046	Brad Smedley	509.345.2541
+34801	Educational Service District 113	21232	Winlock School District	311 NW FIR ST		WINLOCK	Washington	98596-9417	311 NW FIR ST		WINLOCK	Washington	98596-9417	Shannon Criss	360.785.3582
+34801	Educational Service District 113	14117	Wishkah Valley School District	4640 Wishkah Road		Aberdeen	Washington	98520-9626	4640 Wishkah Road		Aberdeen	Washington	98520-9626	Ray Yoder	360.532.3128
+6801	Educational Service District 112	20094	Wishram School District	PO BOX 8		WISHRAM	Washington	98673-0008	135 BUNN		WISHRAM	Washington	98673-0008	Duane Grams	(509) 748-2551
+6801	Educational Service District 112	8404	Woodland School District	800 3RD ST		WOODLAND	Washington	98674-8467	800 3RD ST		WOODLAND	Washington	98674-8467	Michael Green	360.841.2705
+39801	Educational Service District 105	39007	Yakima School District	104 N 4TH AVE		YAKIMA	Washington	98902-2636	104 N 4TH AVE		YAKIMA	Washington	98902-2636	Elaine Beraza	509.573.7001
+34801	Educational Service District 113	34002	Yelm School District	PO BOX 476		YELM	Washington	98597-0476	107 1st N.		YELM	Washington	98597-0476	WILLIAM WOLF	360.458.1900
+39801	Educational Service District 105	39205	Zillah School District	213 4TH AVE		ZILLAH	Washington	98953-9533	213 4TH AVE		ZILLAH	Washington	98953-9533	Kevin Mckay	509.829.5911
