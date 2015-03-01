@@ -218,12 +218,27 @@ The 2012 data set is missing city, state, zip, and district code.  The 2013 data
 ```{r missing values 2012}
 #fill in state
 doh_k12_2012$state <- "WA"
+
 ```
-##Assemble school code key##
-Assembling a key tying school code to district code and zip code.
+##Fill in missing zip and district codes 2012 & 2013##
+**Plan**
+- assemble a dataframe of unique school codes, zip codes, school city, and disrict codes from OSPI and current data sets
+- Use lambda function to fill in missing codes
 ###Unique Schools by Year###
 
 Are there schools unique to any year?  This would be reasonable since schools open and close each year in WA.
+
+###Construct school profile keys###
+
+```{r constrct WA DOH codeframe keys}
+codeframe_2011 <- doh_k12_2011[c("school_code","school_zip","school_city","district_code")]
+
+codeframe_2013 <- doh_k12_2013[c("school_code","school_zip","school_city","district_code")]
+
+codeframe <- rbind(codeframe_2011,codeframe_2013)
+
+```
+
 
 ####School Code Audit####
 Going to try subset on this.  I will subset 2012 and 2013 on those school codes != to 2011, if any.  Using the %in% operator and subsetting on False (not in year). 
