@@ -43,7 +43,7 @@ library(dplyr)
 library(alr3)
 library(GGally)
 library(reshape2)
-#library(acs) #to access census data
+#library(acs) #to access census data, commented out because masks base apply
 library(tidyr) #bare bones data tidying library
 
 ```
@@ -229,6 +229,17 @@ doh_k12_2012$state <- "WA"
 Are there schools unique to any year?  This would be reasonable since schools open and close each year in WA.
 
 ###Construct school profile keys and fill in gaps###
+**Strategy**  I have some options for filling in missing geo data.  I can fill in from the WA DOH data sets, from the OSIP data sets, or both.  Note that the OSIP data sets have complete zip codes, whereas the WA DOH data sets have only the 5 digit zip code.  The complete zip code may come in handy later for extracting census info.  The 5 digit would be good for aggregation on overall zip code.
+**NOte on Packages** The ACS package has an apply function.  I used detach(package:acs) to remove the acs package so that R base apply would not be masked.
+
+I'm going to use all the data stats for filing in info and Split, Apply, Combine
+
+- assemble WA DOH and OSIP codeframes (geo info keys including school building code vector)
+- apply on OSIP first
+- split on missing values
+- fill in on WA DOH
+- Rbind to original data sets
+- create two zip code vectors, 1 for first five and 1 for last digits.  Later I can combine these for acs queries.
 
 ```{r constrct WA DOH codeframe keys}
 codeframe_2011 <- doh_k12_2011[c("school_code","school_zip","school_city","district_code")]
@@ -240,16 +251,35 @@ WA_DOH_codeframe <- rbind(codeframe_2011,codeframe_2013)
 #remove duplicate school codes
 WA_DOH_codeframe <- WA_DOH_codeframe[!duplicated(WA_DOH_codeframe$school_code),]
 
+```
+```{r Read in OSIP data and construct OSIP codeframes}
+#WA OSIP 1
+WA_OSIP_1<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/school_lists/482_SDF_bldg.txt', quote="" , stringsAsFactors=FALSE)
+
+#WA OSIP 2
+WA_OSIP_2<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/school_lists/483_SDF_bldg.txt', quote="" , stringsAsFactors=FALSE)
+
+#WA OSIP 3
+WA_OSIP_3<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/school_lists/491_SDF_ApprovedPrivateSchoolsList.txt', quote="" , stringsAsFactors=FALSE)
+
+#WA OSIP 4
+WA_OSIP_4<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/school_lists/492_SDF_ApprovedPrivateSchoolsList.txt', quote="" , stringsAsFactors=FALSE)
+```
+
+```{r Test code on WA DOH codeframes}
 #Test function concept
 WA_DOH_codeframe$school_zip[WA_DOH_codeframe$school_code == "4178"]
 
 WA_DOH_codeframe$school_zip[WA_DOH_codeframe$school_code == doh_k12_2012$school_code[3]]
 
-
+#use lambda function (apply) to extract zip code 2012, note that I could have 
+#used sapply or mapply here, but instead chose drop = False to work on a single
+#vector (column) because I may re-use this code on multiple columns later.
 doh_k12_2012$school_zip <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {WA_DOH_codeframe$school_zip[WA_DOH_codeframe$school_code == x]})
-
-
 ```
+
+
+
 
 
 
