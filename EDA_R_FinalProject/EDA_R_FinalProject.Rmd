@@ -43,7 +43,7 @@ library(dplyr)
 library(alr3)
 library(GGally)
 library(reshape2)
-library(acs) #to access census data
+#library(acs) #to access census data
 library(tidyr) #bare bones data tidying library
 
 ```
@@ -228,16 +228,29 @@ doh_k12_2012$state <- "WA"
 
 Are there schools unique to any year?  This would be reasonable since schools open and close each year in WA.
 
-###Construct school profile keys###
+###Construct school profile keys and fill in gaps###
 
 ```{r constrct WA DOH codeframe keys}
 codeframe_2011 <- doh_k12_2011[c("school_code","school_zip","school_city","district_code")]
 
-codeframe_2013 <- doh_k12_2013[c("school_code","school_zip","school_city","district_code")]
+codeframe_2013 <- doh_k12_2013[c("school_code","school_zip","school_city","'district_code")]
 
-codeframe <- rbind(codeframe_2011,codeframe_2013)
+WA_DOH_codeframe <- rbind(codeframe_2011,codeframe_2013)
+
+#remove duplicate school codes
+WA_DOH_codeframe <- WA_DOH_codeframe[!duplicated(WA_DOH_codeframe$school_code),]
+
+#Test function concept
+WA_DOH_codeframe$school_zip[WA_DOH_codeframe$school_code == "4178"]
+
+WA_DOH_codeframe$school_zip[WA_DOH_codeframe$school_code == doh_k12_2012$school_code[3]]
+
+
+doh_k12_2012$school_zip <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {WA_DOH_codeframe$school_zip[WA_DOH_codeframe$school_code == x]})
+
 
 ```
+
 
 
 ####School Code Audit####

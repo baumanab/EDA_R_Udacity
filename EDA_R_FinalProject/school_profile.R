@@ -3,7 +3,7 @@
 
 school_profile <- function(df,key,scode) {
   
-  school_zip = key$school_zip[key$scode == df$scode & key$school_zip != 8675309,] #8675309 is placeholder
+  school_zip = key$school_zip[key$scode == df$scode & key$school_zip != 8675309] #8675309 is placeholder
     
   school_city = key$school_city[key$scode == df$scode & key$school_city !="TBD",] #TBD is placeholder
     
