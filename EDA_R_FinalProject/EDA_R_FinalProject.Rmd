@@ -264,6 +264,12 @@ WA_OSIP_3<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject
 
 #WA OSIP 4
 WA_OSIP_4<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/school_lists/492_SDF_ApprovedPrivateSchoolsList.txt', quote="" , stringsAsFactors=FALSE)
+
+names(WA_OSIP_2) == names(WA_OSIP_1)
+
+names(WA_OSIP_3) == names(WA_OSIP_4)
+
+
 ```
 
 ```{r Test code on WA DOH codeframes}
