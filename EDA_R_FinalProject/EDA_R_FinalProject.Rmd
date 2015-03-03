@@ -309,11 +309,14 @@ cols <- c("school_code", "school_city","school_zip")
 
 OSIP_codeframe<- rbind(WA_OSIP_1[cols],WA_OSIP_2[cols],WA_OSIP_3[cols],WA_OSIP_4[cols])
 
-#remove duplicates
-OSIP_codeframe <- OSIP_codeframe[!duplicated(OSIP_codeframe$school_code),]
+#clean city field (web addresses and empty)
+OSIP_codeframe <- OSIP_codeframe[grepl("www",OSIP_codeframe$school_city) == F,]
+OSIP_codeframe <- OSIP_codeframe[grepl(" ",OSIP_codeframe$school_city) == F,]
+
 
 #omit NA
 OSIP_codeframe <- na.omit(OSIP_codeframe)
+
 
 
 #srip zipcode at hypehn ("-"), extract first five digits
