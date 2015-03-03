@@ -325,14 +325,19 @@ OSIP_codeframe_private <- OSIP_codeframe_private[grepl(" ",OSIP_codeframe_privat
 OSIP_codeframe_public <- OSIP_codeframe_public[grepl("www",OSIP_codeframe_public$school_city) == F,]
 OSIP_codeframe_public <- OSIP_codeframe_public[grepl(" ",OSIP_codeframe_public$school_city) == F,]
 
+#srip zipcode at hypehn ("-"), extract first five digits
+sapply(strsplit(OSIP_codeframe_private$school_zip,split = "-"),"[",1)
+sapply(strsplit(OSIP_codeframe_public$school_zip,split = "-"),"[",1)
+
+
 
 #omit NA
-OSIP_codeframe <- na.omit(OSIP_codeframe)
+OSIP_codeframe_public <- na.omit(OSIP_codeframe_public)
+OSIP_codeframe_private <- na.omit(OSIP_codeframe_private)
 
 
 
-#srip zipcode at hypehn ("-"), extract first five digits
-sapply(strsplit(OSIP_codeframe$school_zip,split = "-"),"[",1)
+
 ```
 
 
