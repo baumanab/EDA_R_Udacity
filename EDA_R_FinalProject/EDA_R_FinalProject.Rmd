@@ -308,6 +308,9 @@ names(WA_OSIP_4)[9] <- "school_zip"
 cols <- c("school_code", "school_city","school_zip")
 
 OSIP_codeframe<- rbind(WA_OSIP_1[cols],WA_OSIP_2[cols],WA_OSIP_3[cols],WA_OSIP_4[cols])
+
+#remove duplicates
+OSIP_codeframe <- OSIP_codeframe[!duplicated(OSIP_codeframe$school_code),]
 ```
 
 
