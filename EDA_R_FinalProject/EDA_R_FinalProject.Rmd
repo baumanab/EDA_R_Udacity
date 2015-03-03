@@ -283,9 +283,13 @@ WA_DOH_codeframe$school_zip[WA_DOH_codeframe$school_code == doh_k12_2012$school_
 #vector (column) because I may re-use this code on multiple columns later.
 doh_k12_2012$school_zip <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {WA_DOH_codeframe$school_zip[WA_DOH_codeframe$school_code == x]})
 ```
+####Plan for OSIP Data Frames####
+- combine public
+- combine private
+- audit and clean
+- add subset with unique school codes relative to WA DOH Codeframe to WA DOH codeframe
 
-
-```{r combine OSIP data frames}
+```{r combine OSIP data frames public set and private set}
 #rename columns
 names(WA_OSIP_1)[5] <- "school_code"
 names(WA_OSIP_1)[11] <- "school_city"
