@@ -291,10 +291,12 @@ doh_k12_2012$school_zip <- apply(doh_k12_2012[,c("school_code"), drop = F],1, fu
 
 ```{r combine OSIP data frames public set and private set}
 #rename columns
+names(WA_OSIP_1)[3] <- "district_code"
 names(WA_OSIP_1)[5] <- "school_code"
 names(WA_OSIP_1)[11] <- "school_city"
 names(WA_OSIP_1)[13] <- "school_zip"
 
+names(WA_OSIP_2)[3] <- "district_code"
 names(WA_OSIP_2)[5] <- "school_code"
 names(WA_OSIP_2)[11] <- "school_city"
 names(WA_OSIP_2)[13] <- "school_zip"
@@ -309,13 +311,19 @@ names(WA_OSIP_4)[9] <- "school_zip"
 
 #combine rows
 
-cols <- c("school_code", "school_city","school_zip")
+cols_public <- c("school_code", "school_city","school_zip", "district_code")
+cols_private <- c("school_code", "school_city","school_zip")
 
-OSIP_codeframe<- rbind(WA_OSIP_1[cols],WA_OSIP_2[cols],WA_OSIP_3[cols],WA_OSIP_4[cols])
+OSIP_codeframe_public<- rbind(WA_OSIP_1[cols_public],WA_OSIP_2[cols_public])
+
+OSIP_codeframe_private<- rbind(WA_OSIP_3[cols_private],WA_OSIP_4[cols_private])
 
 #clean city field (web addresses and empty)
-OSIP_codeframe <- OSIP_codeframe[grepl("www",OSIP_codeframe$school_city) == F,]
-OSIP_codeframe <- OSIP_codeframe[grepl(" ",OSIP_codeframe$school_city) == F,]
+OSIP_codeframe_private <- OSIP_codeframe_private[grepl("www",OSIP_codeframe_private$school_city) == F,]
+OSIP_codeframe_private <- OSIP_codeframe_private[grepl(" ",OSIP_codeframe_private$school_city) == F,]
+
+OSIP_codeframe_public <- OSIP_codeframe_public[grepl("www",OSIP_codeframe_public$school_city) == F,]
+OSIP_codeframe_public <- OSIP_codeframe_public[grepl(" ",OSIP_codeframe_public$school_city) == F,]
 
 
 #omit NA
