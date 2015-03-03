@@ -311,6 +311,13 @@ OSIP_codeframe<- rbind(WA_OSIP_1[cols],WA_OSIP_2[cols],WA_OSIP_3[cols],WA_OSIP_4
 
 #remove duplicates
 OSIP_codeframe <- OSIP_codeframe[!duplicated(OSIP_codeframe$school_code),]
+
+#omit NA
+OSIP_codeframe <- na.omit(OSIP_codeframe)
+
+
+#srip zipcode at hypehn ("-"), extract first five digits
+sapply(strsplit(OSIP_codeframe$school_zip,split = "-"),"[",1)
 ```
 
 
