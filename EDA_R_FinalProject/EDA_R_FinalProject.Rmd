@@ -285,6 +285,30 @@ doh_k12_2012$school_zip <- apply(doh_k12_2012[,c("school_code"), drop = F],1, fu
 ```
 
 
+```{r combine OSIP data frames}
+#rename columns
+names(WA_OSIP_1)[5] <- "school_code"
+names(WA_OSIP_1)[11] <- "school_city"
+names(WA_OSIP_1)[13] <- "school_zip"
+
+names(WA_OSIP_2)[5] <- "school_code"
+names(WA_OSIP_2)[11] <- "school_city"
+names(WA_OSIP_2)[13] <- "school_zip"
+
+names(WA_OSIP_3)[4] <- "school_code"
+names(WA_OSIP_3)[7] <- "school_city"
+names(WA_OSIP_3)[9] <- "school_zip"
+
+names(WA_OSIP_4)[4] <- "school_code"
+names(WA_OSIP_4)[7] <- "school_city"
+names(WA_OSIP_4)[9] <- "school_zip"
+
+#combine rows
+
+cols <- c("school_code", "school_city","school_zip")
+
+OSIP_codeframe<- rbind(WA_OSIP_1[cols],WA_OSIP_2[cols],WA_OSIP_3[cols],WA_OSIP_4[cols])
+```
 
 
 
