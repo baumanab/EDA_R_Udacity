@@ -340,11 +340,15 @@ OSIP_codeframe_private <- na.omit(OSIP_codeframe_private)
 
 ```
 ```{r assembling final codeframe}
-#how many OSIP codeframe private zips not in WA DOH codeframe?
+#how many OSIP codeframe private school codes not in WA DOH codeframe?
 OSIP_codeframe_private_unique<- subset(OSIP_codeframe_private, OSIP_codeframe_private$school_code %in% WA_DOH_codeframe$school_code == F)
 
 #private unique with actual zip
 OSIP_codeframe_private_unique <- OSIP_codeframe_private_unique[grepl("9",OSIP_codeframe_private_unique$school_zip),]
+
+#how many OSIP codeframe public school codes not in WA DOH codeframe?
+OSIP_codeframe_public_unique<- subset(OSIP_codeframe_public, OSIP_codeframe_public$school_code %in% WA_DOH_codeframe$school_code == F)
+
 
   
 
