@@ -350,11 +350,11 @@ OSIP_codeframe_private_unique <- OSIP_codeframe_private_unique[grepl("9",OSIP_co
 OSIP_codeframe_public_unique<- subset(OSIP_codeframe_public, OSIP_codeframe_public$school_code %in% WA_DOH_codeframe$school_code == F)
 
 
-  
+#add placeholder disrict code to private unique
+OSIP_codeframe_private_unique$district_code <- 8675309
 
-#2011 unique school Code relative to 2012 and 2013
-schoolcode_2011_unique<- subset(doh_k12_2011, (doh_k12_2011$School.Code %in% doh_k12_2012$School.Code == F) & (doh_k12_2011$School.Code %in% doh_k12_2013$School.Code == F))
-
+#assemble final codeframe
+final_codeframe <- rbind(WA_DOH_codeframe,OSIP_codeframe_private_unique,OSIP_codeframe_public_unique)
 
 
 ```
