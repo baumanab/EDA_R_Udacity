@@ -386,8 +386,13 @@ doh_k12_2013$district_code <- apply(doh_k12_2013[,c("school_code"), drop = F],1,
 ###Assemble combined WA DOH dataframe###
 
 ```{r}
+
+#rename 2012 column "state" --> "school_state"
+names(doh_k12_2012)[20] <- "school_state"
 #grab 2011 column names
+reorder_colnames <- c(names(doh_k12_2011))
 #reorder and match names
+
 
 #rbind
 
