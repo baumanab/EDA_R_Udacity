@@ -386,7 +386,18 @@ doh_k12_2013$district_code <- apply(doh_k12_2013[,c("school_code"), drop = F],1,
 ###Assemble combined WA DOH dataframe###
 
 ```{r}
-WA_DOH_combined <- rbind(doh_k12_2011,doh_k12_2012,doh_k12_2013)
+#grab 2011 column names
+#reorder and match names
+
+#rbind
+
+#subset rows with 8675309 district code placeholder
+
+#create district_name ----- disrict code DF
+
+#complete fill in of district code
+
+#rbind to combined DF
 ```
 
 
