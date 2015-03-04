@@ -366,12 +366,10 @@ final_codeframe <- final_codeframe[!duplicated(final_codeframe$school_code),]
 #vector (column) because I may re-use this code on multiple columns later.
 doh_k12_2012$school_zip <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {final_codeframe$school_zip[final_codeframe$school_code == x]})
 
-#collapse lists
-doh_k12_2012$school_zip <- unique(doh_k12_2012$school_zip)
-
 #handle character(0)
-duplicated(final_codeframe$school_code)
-#insert school_city
+
+
+#insert school_city 2012
 doh_k12_2012$school_city <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {final_codeframe$school_city[final_codeframe$school_code == x]})
 
 #subset final codeframe to eliminate district code placeholder
