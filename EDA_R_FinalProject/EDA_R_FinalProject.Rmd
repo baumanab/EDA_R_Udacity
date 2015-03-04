@@ -383,19 +383,25 @@ doh_k12_2013$district_code <- apply(doh_k12_2013[,c("school_code"), drop = F],1,
 - will likely leave numeric(0) and character(0) as is
 - Most instances of the 867309 placeholder can be solved by creating a key relating district name to disritct code.  I will use split, apply, combine
 
-###Assemble combined WA DOH dataframe###
+###Combined WA DOH dataframe###
 
-```{r}
+
+####Assemble####
+
+```{r assemble combined DF}
 
 #rename 2012 column "state" --> "school_state"
 names(doh_k12_2012)[20] <- "school_state"
-#grab 2011 column names
-reorder_colnames <- c(names(doh_k12_2011))
-#reorder and match names
 
 
 #rbind
+WA_DOH_combined <- rbind(doh_k12_2011,doh_k12_2012,doh_k12_2013)
 
+```
+
+####Finish insertion of district codes####
+
+```{r final district code insert}
 #subset rows with 8675309 district code placeholder
 
 #create district_name ----- disrict code DF
@@ -405,4 +411,17 @@ reorder_colnames <- c(names(doh_k12_2011))
 #rbind to combined DF
 ```
 
+###Tidy the combined DF###
+
+```{r tidy combined DF}
+#gather exemptions
+
+```
+
+###Add Fields to combined DF###
+
+```{r add fields to combined DF}
+#specific exemption percents
+
+```
 
