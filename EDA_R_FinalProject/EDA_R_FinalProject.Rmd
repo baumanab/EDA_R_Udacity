@@ -366,26 +366,27 @@ final_codeframe <- final_codeframe[!duplicated(final_codeframe$school_code),]
 #vector (column) because I may re-use this code on multiple columns later.
 doh_k12_2012$school_zip <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {final_codeframe$school_zip[final_codeframe$school_code == x]})
 
-#handle character(0)
-
-
 #insert school_city 2012
 doh_k12_2012$school_city <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {final_codeframe$school_city[final_codeframe$school_code == x]})
 
-#subset final codeframe to eliminate district code placeholder
-final_codeframe_dcodefilter<- final_codeframe[final_codeframe$district_code != 8675309,]
-
-#filter final codeframe for unique school code values
-final_codeframe_dcodefilter <- final_codeframe_dcodefilter[!duplicated(final_codeframe_dcodefilter$school_code),]
 
 #insert district code 2012
-doh_k12_2012$district_code <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {final_codeframe_dcodefilter$district_code[final_codeframe_dcodefilter$school_code == x]})
+doh_k12_2012$district_code <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {final_codeframe$district_code[final_codeframe$school_code == x]})
+
 
 #insert district code 2013
-doh_k12_2013$district_code <- apply(doh_k12_2013[,c("school_code"), drop = F],1, function(x) {final_codeframe_dcodefilter$district_code[final_codeframe_dcodefilter$school_code == x]})
+doh_k12_2013$district_code <- apply(doh_k12_2013[,c("school_code"), drop = F],1, function(x) {final_codeframe$district_code[final_codeframe$school_code == x]})
 
 ```
+####Note on handling numeric(0), character(0), and 8675309 placeholder####
+- will handle these in final WA DOH DF
+- will likely leave numeric(0) and character(0) as is
+- Most instances of the 867309 placeholder can be solved by creating a key relating district name to disritct code.  I will use split, apply, combine
 
+###Assemble combined WA DOH dataframe###
 
+```{r}
+WA_DOH_combined <- rbind(doh_k12_2011,doh_k12_2012,doh_k12_2013)
+```
 
 
