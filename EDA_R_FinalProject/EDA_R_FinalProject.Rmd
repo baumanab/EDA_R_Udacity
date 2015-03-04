@@ -335,9 +335,6 @@ OSIP_codeframe_public$school_zip <- sapply(strsplit(OSIP_codeframe_public$school
 OSIP_codeframe_public <- na.omit(OSIP_codeframe_public)
 OSIP_codeframe_private <- na.omit(OSIP_codeframe_private)
 
-
-
-
 ```
 ```{r assembling final codeframe}
 #how many OSIP codeframe private school codes not in WA DOH codeframe?
@@ -356,37 +353,41 @@ OSIP_codeframe_private_unique$district_code <- 8675309
 #assemble final codeframe
 final_codeframe <- rbind(WA_DOH_codeframe,OSIP_codeframe_private_unique,OSIP_codeframe_public_unique)
 
+#remove duplicate values
+final_codeframe <- final_codeframe[!duplicated(final_codeframe$school_code),]
+
+```
+
+
+```{r complete data sets}
+#2012
+#use lambda function (apply) to extract zip code 2012, note that I could have 
+#used sapply or mapply here, but instead chose drop = False to work on a single
+#vector (column) because I may re-use this code on multiple columns later.
+doh_k12_2012$school_zip <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {final_codeframe$school_zip[final_codeframe$school_code == x]})
+
+#collapse lists
+doh_k12_2012$school_zip <- unique(doh_k12_2012$school_zip)
+
+#handle character(0)
+duplicated(final_codeframe$school_code)
+#insert school_city
+doh_k12_2012$school_city <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {final_codeframe$school_city[final_codeframe$school_code == x]})
+
+#subset final codeframe to eliminate district code placeholder
+final_codeframe_dcodefilter<- final_codeframe[final_codeframe$district_code != 8675309,]
+
+#filter final codeframe for unique school code values
+final_codeframe_dcodefilter <- final_codeframe_dcodefilter[!duplicated(final_codeframe_dcodefilter$school_code),]
+
+#insert district code 2012
+doh_k12_2012$district_code <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {final_codeframe_dcodefilter$district_code[final_codeframe_dcodefilter$school_code == x]})
+
+#insert district code 2013
+doh_k12_2013$district_code <- apply(doh_k12_2013[,c("school_code"), drop = F],1, function(x) {final_codeframe_dcodefilter$district_code[final_codeframe_dcodefilter$school_code == x]})
 
 ```
 
 
 
-
-####School Code Audit####
-Going to try subset on this.  I will subset 2012 and 2013 on those school codes != to 2011, if any.  Using the %in% operator and subsetting on False (not in year). 
-```{r School Code Audit}
-#2012 Unique School Code relative to 2011
-schoolcode_2012_unique_2011<- subset(doh_k12_2012, doh_k12_2012$School.Code %in% doh_k12_2011$School.Code == F)
-
-  
-#2013 Unique School Code relative to 2011
-schoolcode_2013_unique_2011<- subset(doh_k12_2013, doh_k12_2013$School.Code %in% doh_k12_2011$School.Code == F)
-
-#2011 unique school Code relative to 2012 and 2013
-schoolcode_2011_unique<- subset(doh_k12_2011, (doh_k12_2011$School.Code %in% doh_k12_2012$School.Code == F) & (doh_k12_2011$School.Code %in% doh_k12_2013$School.Code == F))
-
-
-#2012 unique school code relative to 2011 and 2013
-schoolcode_2012_unique<- subset(doh_k12_2012, (doh_k12_2012$School.Code %in% doh_k12_2011$School.Code == F) & (doh_k12_2012$School.Code %in% doh_k12_2013$School.Code == F))
-
-#2013 unique school code relative to 2011 and 2012
-schoolcode_2013_unique<- subset(doh_k12_2013, (doh_k12_2013$School.Code %in% doh_k12_2012$School.Code == F) & (doh_k12_2013$School.Code %in% doh_k12_2011$School.Code == F))
-
-#How many of the unique schools are in King County?
-summary(schoolcode_2012_unique$County == 'KING')
-summary(schoolcode_2013_unique$County == 'KING')
-summary(schoolcode_2011_unique$School.County == 'KING')
-
-```
-The 2012 data set is missing address data, but there are only 31 unique school codes in this data set, so there are only 31 missing addresses.
 
