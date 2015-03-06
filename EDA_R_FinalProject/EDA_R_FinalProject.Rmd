@@ -208,16 +208,18 @@ doh_k12_2012$religiousmember_exempt <- NULL
 
 #reassign na
 doh_k12_2012$religious_exempt[doh_k12_2012$religious_exempt >= 5555] <- NA
+
 ```
 
 
-```
+
 ###Fill in missing zip codes and district codes###
 The 2012 data set is missing city, state, zip, and district code.  The 2013 data set is missing district code.  The 2012, 2013, and 2011 data sets have a lot of overlap, and all of them have the school code field.  I will write a function that reads in school code and returns zip code, district code, and zip.
 
 ```{r missing values 2012}
 #fill in state
 doh_k12_2012$state <- "WA"
+
 
 ```
 ##Fill in missing zip and district codes 2012 & 2013##
@@ -244,7 +246,7 @@ I'm going to use all the data stats for filing in info and Split, Apply, Combine
 ```{r constrct WA DOH codeframe keys}
 codeframe_2011 <- doh_k12_2011[c("school_code","school_zip","school_city","district_code")]
 
-codeframe_2013 <- doh_k12_2013[c("school_code","school_zip","school_city","'district_code")]
+codeframe_2013 <- doh_k12_2013[c("school_code","school_zip","school_city","district_code")]
 
 WA_DOH_codeframe <- rbind(codeframe_2011,codeframe_2013)
 
@@ -272,17 +274,7 @@ names(WA_OSIP_3) == names(WA_OSIP_4)
 
 ```
 
-```{r Test code on WA DOH codeframes}
-#Test function concept
-WA_DOH_codeframe$school_zip[WA_DOH_codeframe$school_code == "4178"]
 
-WA_DOH_codeframe$school_zip[WA_DOH_codeframe$school_code == doh_k12_2012$school_code[3]]
-
-#use lambda function (apply) to extract zip code 2012, note that I could have 
-#used sapply or mapply here, but instead chose drop = False to work on a single
-#vector (column) because I may re-use this code on multiple columns later.
-doh_k12_2012$school_zip <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {WA_DOH_codeframe$school_zip[WA_DOH_codeframe$school_code == x]})
-```
 ####Plan for OSIP Data Frames####
 - combine public
 - combine private
@@ -395,14 +387,23 @@ names(doh_k12_2012)[20] <- "school_state"
 
 
 #rbind
-WA_DOH_combined <- rbind(doh_k12_2011,doh_k12_2012,doh_k12_2013)
+WA_DOH_combined <- rbind(doh_k12_2011,doh_k12_2013)
+str(WA_DOH_combined)
+str(doh_k12_2012)
 
 ```
 
 ####Finish insertion of district codes####
 
 ```{r final district code insert}
+#still have some hyphenated zip codes, split them
+#srip zipcode at hypehn (
+WA_DOH_combined$school_zip <- sapply(strsplit(WA_DOH_combined$school_zip,split = "-"),"[",1)
+
 #subset rows with 8675309 district code placeholder
+subset(WA_DOH_codeframe, district_code == 8675309)
+str(doh_k12_2011)
+
 
 #create district_name ----- disrict code DF
 
