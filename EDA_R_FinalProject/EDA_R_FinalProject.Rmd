@@ -356,18 +356,35 @@ final_codeframe <- final_codeframe[!duplicated(final_codeframe$school_code),]
 #use lambda function (apply) to extract zip code 2012, note that I could have 
 #used sapply or mapply here, but instead chose drop = False to work on a single
 #vector (column) because I may re-use this code on multiple columns later.
-doh_k12_2012$school_zip <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {final_codeframe$school_zip[final_codeframe$school_code == x]})
+#Note that I'm using a subset of some codeframes.  That is because the final codeframe does #not contain all values of school code for 2012.  This causes type(0) values, which 
+#apparently forces a list instead of a vector into the DF.I use split apply combine.
+
+#clear WA DOHH 012 zip, city, district
+doh_k12_2012$school_zip <- NULL
+doh_k12_2012$school_city <- NULL
+doh_k12_2012$district_code <- NULL
+
+#subset final codeframe for 2012 data
+final_codeframe_subset2012 <- subset(final_codeframe, doh_k12_2012$school_code %in% final_codeframe$school_code)
+doh_k12_2012_in <- subset(doh_k12_2012, doh_k12_2012$school_code %in% final_codeframe$school_code)
+doh_k12_2012_out <- subset(doh_k12_2012, doh_k12_2012$school_code %in% final_codeframe$school_code == F)
+
+#insert school zip
+doh_k12_2012_in$school_zip <- apply(doh_k12_2012_in[,c("school_code"), drop = F],1, function(x) {final_codeframe$school_zip[final_codeframe$school_code == x]})
+
 
 #insert school_city 2012
-doh_k12_2012$school_city <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {final_codeframe$school_city[final_codeframe$school_code == x]})
+doh_k12_2012_in$school_city <- apply(doh_k12_2012_in[,c("school_code"), drop = F],1, function(x) {final_codeframe$school_city[final_codeframe$school_code == x]})
 
 
 #insert district code 2012
-doh_k12_2012$district_code <- apply(doh_k12_2012[,c("school_code"), drop = F],1, function(x) {final_codeframe$district_code[final_codeframe$school_code == x]})
+doh_k12_2012_in$district_code <- apply(doh_k12_2012_in[,c("school_code"), drop = F],1, function(x) {final_codeframe$district_code[final_codeframe$school_code == x]})
 
 
 #insert district code 2013
 doh_k12_2013$district_code <- apply(doh_k12_2013[,c("school_code"), drop = F],1, function(x) {final_codeframe$district_code[final_codeframe$school_code == x]})
+
+doh_k12_2013$gg <- NULL
 
 ```
 ####Note on handling numeric(0), character(0), and 8675309 placeholder####
