@@ -384,7 +384,7 @@ doh_k12_2012_in$district_code <- apply(doh_k12_2012_in[,c("school_code"), drop =
 #insert district code 2013
 doh_k12_2013$district_code <- apply(doh_k12_2013[,c("school_code"), drop = F],1, function(x) {final_codeframe$district_code[final_codeframe$school_code == x]})
 
-doh_k12_2013$gg <- NULL
+str(doh_k12_2012_in)
 
 ```
 ####Note on handling numeric(0), character(0), and 8675309 placeholder####
