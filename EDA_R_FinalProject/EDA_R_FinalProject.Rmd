@@ -391,9 +391,8 @@ doh_k12_2012_out$district_code <- 8675309
 
 
 ```
-####Note on handling numeric(0), character(0), and 8675309 placeholder####
+####8675309 district code placeholder####
 - will handle these in final WA DOH DF
-- will likely leave numeric(0) and character(0) as is
 - Most instances of the 867309 placeholder can be solved by creating a key relating district name to disritct code.  I will use split, apply, combine
 
 ###Combined WA DOH dataframe###
@@ -404,13 +403,13 @@ doh_k12_2012_out$district_code <- 8675309
 ```{r assemble combined DF}
 
 #rename 2012 column "state" --> "school_state"
-names(doh_k12_2012)[20] <- "school_state"
+names(doh_k12_2012_in)[20] <- "school_state"
+names(doh_k12_2012_out)[20] <- "school_state"
 
 
 #rbind
-WA_DOH_combined <- rbind(doh_k12_2011,doh_k12_2013)
-str(WA_DOH_combined)
-str(doh_k12_2012)
+WA_DOH_combined <- rbind(doh_k12_2011,doh_k12_2013,doh_k12_2012_in,doh_k12_2012_out)
+rm(test)
 
 ```
 
