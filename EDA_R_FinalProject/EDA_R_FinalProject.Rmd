@@ -409,7 +409,7 @@ names(doh_k12_2012_out)[20] <- "school_state"
 
 #rbind
 WA_DOH_combined <- rbind(doh_k12_2011,doh_k12_2013,doh_k12_2012_in,doh_k12_2012_out)
-rm(test)
+rm(final_codeframe_subset2012)
 
 ```
 
@@ -417,12 +417,13 @@ rm(test)
 
 ```{r final district code insert}
 #still have some hyphenated zip codes, split them
-#srip zipcode at hypehn (
+#strip zipcode at hypehn
 WA_DOH_combined$school_zip <- sapply(strsplit(WA_DOH_combined$school_zip,split = "-"),"[",1)
 
-#subset rows with 8675309 district code placeholder
-subset(WA_DOH_codeframe, district_code == 8675309)
-str(doh_k12_2011)
+#subset rows with and without 8675309 district code placeholder
+WA_DOH_combined_8675309_dcode <- subset(WA_DOH_codeframe, district_code == 8675309)
+WA_DOH_combined <- subset(WA_DOH_codeframe, district_code != 8675309)
+
 
 
 #create district_name ----- disrict code DF
@@ -444,5 +445,11 @@ str(doh_k12_2011)
 ```{r add fields to combined DF}
 #specific exemption percents
 
+```
+
+###Convert Classes of Combined DF###
+
+```{r convert classes of combined}
+#convert categorical variables to factors
 ```
 
