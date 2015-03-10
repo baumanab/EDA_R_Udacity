@@ -443,13 +443,15 @@ district_codeframe <- district_codeframe[!duplicated(district_codeframe$school_d
 WA_DOH_combined_8675309_dcode$district_code <- apply(WA_DOH_combined_8675309_dcode[,c("school_district"), drop = F],1, function(x) {district_codeframe$district_code[district_codeframe$school_district == x]})
 #rbind to combined DF
 WA_DOH_combined <- rbind(WA_DOH_combined,WA_DOH_combined_8675309_dcode)
+rm(WA_DOH_combined_8675309_dcode)
 ```
 
 ###Tidy the combined DF###
 
 ```{r tidy combined DF}
 #gather exemptions
-
+help(gather)
+gather(WA_DOH_combined,exemption_type,exemptions,medical_exempt, personal_exempt, religious_exempt)
 ```
 
 ###Add Fields to combined DF###
