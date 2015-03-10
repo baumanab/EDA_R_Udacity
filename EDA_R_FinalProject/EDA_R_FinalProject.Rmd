@@ -425,12 +425,22 @@ WA_DOH_combined$school_zip <- sapply(strsplit(WA_DOH_combined$school_zip,split =
 WA_DOH_combined_8675309_dcode <- subset(WA_DOH_combined, district_code == 8675309)
 WA_DOH_combined <- subset(WA_DOH_combined, district_code != 8675309)
 
+rm(WA_OSIP_1, WA_OSIP_2,WA_OSIP_3,WA_OSIP_4,WA_DOH_codeframe,OSIP_codeframe_private,OSIP_codeframe_private_unique,OSIP_codeframe_public,OSIP_codeframe_public_unique,codeframe_2011,codeframe_2013,colnames_2011,colnames_2012,colnames_2013,cols_private,cols_public)
 
+rm(doh_k12_2012_in,doh_k12_2012_out,maxdiff,reported_doh_k12_2011,reported_measles,reported_mumps,reported_rubella)
+
+rm(select_colnames_2011,select_colnames_2013)
 
 #create district_name ----- disrict code DF
+district_codeframe <- WA_DOH_combined[,c("school_district", "district_code")]
+
+
+#remove duplicated values
+district_codeframe <- district_codeframe[!duplicated(district_codeframe$school_district),]
+
 
 #complete fill in of district code
-
+WA_DOH_combined_8675309_dcode$district_code <- apply(WA_DOH_combined_8675309_dcode[,c("school_district"), drop = F],1, function(x) {district_codeframe$district_code[district_codeframe$school_district == x]})
 #rbind to combined DF
 ```
 
