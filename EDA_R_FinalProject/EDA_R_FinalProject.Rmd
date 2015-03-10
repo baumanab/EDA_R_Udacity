@@ -32,6 +32,7 @@ I will use the following approach to assemble my initial data frame and explore 
 ###Set Path and Load Libraries###
 
 ```{r setpath}
+load("~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/project_pause.RData")
 setwd("~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject")
 ```
 
@@ -421,8 +422,8 @@ rm(final_codeframe_subset2012)
 WA_DOH_combined$school_zip <- sapply(strsplit(WA_DOH_combined$school_zip,split = "-"),"[",1)
 
 #subset rows with and without 8675309 district code placeholder
-#WA_DOH_combined_8675309_dcode <- subset(WA_DOH_codeframe, district_code == 8675309)
-#WA_DOH_combined <- subset(WA_DOH_codeframe, district_code != 8675309)
+WA_DOH_combined_8675309_dcode <- subset(WA_DOH_combined, district_code == 8675309)
+WA_DOH_combined <- subset(WA_DOH_combined, district_code != 8675309)
 
 
 
