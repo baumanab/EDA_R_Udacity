@@ -450,14 +450,30 @@ rm(WA_DOH_combined_8675309_dcode)
 
 ```{r tidy combined DF}
 #gather exemptions
-help(gather)
-gather(WA_DOH_combined,exemption_type,exemptions,medical_exempt, personal_exempt, religious_exempt)
+WA_DOH_tidy <- gather(WA_DOH_combined,exemption_type,exemptions,medical_exempt, personal_exempt, religious_exempt)
 ```
 
 ###Add Fields to combined DF###
 
 ```{r add fields to combined DF}
 #specific exemption percents
+WA_DOH_tidy$percent_exempt_DTTd <- round((WA_DOH_tidy$exempt_DTTd/WA_DOH_tidy$enrolled)*100,digits = 2)
+
+WA_DOH_tidy$percent_exempt_pertussis <- round((WA_DOH_tidy$exempt_pertussis/WA_DOH_tidy$enrolled)*100,digits = 2)
+
+WA_DOH_tidy$percent_exempt_polio <- round((WA_DOH_tidy$exempt_polio/WA_DOH_tidy$enrolled)*100,digits = 2)
+
+WA_DOH_tidy$percent_exempt_MMR <- round((WA_DOH_tidy$exempt_MMR/WA_DOH_tidy$enrolled)*100,digits = 2)
+
+WA_DOH_tidy$percent_exempt_hepB <- round((WA_DOH_tidy$exempt_hepB/WA_DOH_tidy$enrolled)*100,digits = 2)
+
+WA_DOH_tidy$percent_exempt_varicella <- round((WA_DOH_tidy$exempt_varicella/WA_DOH_tidy$enrolled)*100,digits = 2)
+
+WA_DOH_tidy$percent_exempt <- round((WA_DOH_tidy$exempt/WA_DOH_tidy$enrolled)*100,digits = 2)
+
+WA_DOH_tidy$percent_exemption_type <- round((WA_DOH_tidy$exemptions/WA_DOH_tidy$enrolled)*100,digits = 2)
+
+
 
 ```
 
