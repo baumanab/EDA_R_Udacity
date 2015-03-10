@@ -481,5 +481,8 @@ WA_DOH_tidy$percent_exemption_type <- round((WA_DOH_tidy$exemptions/WA_DOH_tidy$
 
 ```{r convert classes of combined}
 #convert categorical variables to factors
+WA_DOH_tidy$school_type <- as.factor(WA_DOH_tidy$school_type)
+WA_DOH_tidy$year <- as.factor(WA_DOH_tidy$year)
+WA_DOH_tidy$reported <- as.factor(WA_DOH_tidy$reported)
 ```
 
