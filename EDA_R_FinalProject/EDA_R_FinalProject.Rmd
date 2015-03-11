@@ -464,14 +464,15 @@ WA_DOH_combined$percent_exempt_polio <- round((WA_DOH_combined$exempt_polio/WA_D
 
 WA_DOH_combined$percent_exempt_MMR <- round((WA_DOH_combined$exempt_MMR/WA_DOH_combined$enrolled)*100,digits = 2)
 
-WA_DOH_combined$percent_exempt_hepB <- round((WA_DOH_combined$exempt_hepB/WA_DOH_tidy$enrolled)*100,digits = 2)
+WA_DOH_combined$percent_exempt_hepB <- round((WA_DOH_combined$exempt_hepB/WA_DOH_combined$enrolled)*100,digits = 2)
 
 WA_DOH_combined$percent_exempt_varicella <- round((WA_DOH_combined$exempt_varicella/WA_DOH_combined$enrolled)*100,digits = 2)
 
 WA_DOH_combined$percent_exempt <- round((WA_DOH_combined$total_exemptions/WA_DOH_combined$enrolled)*100,digits = 2)
 
 
-
+str(WA_DOH_combined)
+summary(WA_DOH_combined)
 
 
 ```
@@ -480,9 +481,9 @@ WA_DOH_combined$percent_exempt <- round((WA_DOH_combined$total_exemptions/WA_DOH
 
 ```{r convert classes of combined}
 #convert categorical variables to factors
-WA_DOH_tidy$school_type <- as.factor(WA_DOH_tidy$school_type)
-WA_DOH_tidy$year <- as.factor(WA_DOH_tidy$year)
-WA_DOH_tidy$reported <- as.factor(WA_DOH_tidy$reported)
+WA_DOH_combined$school_type <- as.factor(WA_DOH_combined$school_type)
+WA_DOH_combined$year <- as.factor(WA_DOH_combined$year)
+WA_DOH_combined$reported <- as.factor(WA_DOH_combined$reported)
 ```
 ###Tidy the combined DF###
 
