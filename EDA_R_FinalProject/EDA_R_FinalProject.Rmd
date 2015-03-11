@@ -498,5 +498,26 @@ WA_DOH_tidy <- gather(WA_DOH_combined,exemption_type,exemptions,medical_exempt, 
 #add percent by exemption type
 WA_DOH_tidy$percent_exemption_type <- round((WA_DOH_tidy$total_exemptions/WA_DOH_tidy$enrolled)*100,digits = 2)
 
-names(WA_DOH_tidy)
 ```
+
+```{r for udacity coaches}
+#what I started with
+str(doh_k12_2011)
+summary(doh_k12_2011)
+
+str(doh_k12_2012)
+summary(doh_k12_2012)
+
+str(doh_k12_2013)
+summary(doh_k12_2013)
+
+#Current versions
+str(WA_DOH_combined)
+summary(WA_DOH_combined)
+
+str(WA_DOH_tidy)
+summary(WA_DOH_tidy)
+
+
+```
+
