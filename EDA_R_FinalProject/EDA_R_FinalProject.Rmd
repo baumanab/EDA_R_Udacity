@@ -418,12 +418,12 @@ WA_DOH_combined_8675309_dcode <- subset(WA_DOH_combined, district_code == 867530
 WA_DOH_combined_NA_dcode <- subset(WA_DOH_combined, is.na(district_code))
 WA_DOH_combined <- subset(WA_DOH_combined, district_code != 8675309)
 
-str(WA_DOH_combined)
+
 
 #create district_name ----- disrict code DF
 district_codeframe <- WA_DOH_combined[,c("school_district", "district_code")]
 
-
+WA_DOH_combined_NA_dcode
 #remove duplicated values
 district_codeframe <- district_codeframe[!duplicated(district_codeframe$school_district),]
 
@@ -431,9 +431,9 @@ district_codeframe <- district_codeframe[!duplicated(district_codeframe$school_d
 #complete fill in of district code
 WA_DOH_combined_8675309_dcode$district_code <- apply(WA_DOH_combined_8675309_dcode[,c("school_district"), drop = F],1, function(x) {district_codeframe$district_code[district_codeframe$school_district == x]})
 #rbind to combined DF
-WA_DOH_combined <- rbind(WA_DOH_combined,WA_DOH_combined_8675309_dcode)
+WA_DOH_combined <- rbind(WA_DOH_combined,WA_DOH_combined_8675309_dcode,WA_DOH_combined_NA_dcode)
 
-
+str(WA_DOH_combined)
 
 #change fied name of exempt to total_exemptions, to avoid confusion
 names(WA_DOH_combined)[14] <- "total_exemptions"
@@ -475,6 +475,12 @@ WA_DOH_combined$year <- as.factor(WA_DOH_combined$school_year)
 WA_DOH_combined$reported <- as.factor(WA_DOH_combined$reported)
 ```
 
+```{r save and export WA DOH combined DF}
+write.table(WA_DOH_combined, "~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/WA_DOH_Combined.txt", sep ="\t")
+
+saveRDS(WA_DOH_combined,"WA_DOH_Combined.rds")
+
+```
 
 ###Tidy the combined DF###
 
