@@ -502,14 +502,14 @@ WA_DOH_tidy$percent_exemption_type <- round((WA_DOH_tidy$total_exemptions/WA_DOH
 
 ```{r for udacity coaches}
 #what I started with
-str(doh_k12_2011)
-summary(doh_k12_2011)
+str(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2011.txt', quote="" , stringsAsFactors=FALSE))
+summary(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2011.txt', quote="" , stringsAsFactors=FALSE))
 
-str(doh_k12_2012)
-summary(doh_k12_2012)
+str(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2012.txt', quote="" , stringsAsFactors=FALSE))
+summary(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2012.txt', quote="" , stringsAsFactors=FALSE))
 
-str(doh_k12_2013)
-summary(doh_k12_2013)
+str(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2013.txt', quote="" , stringsAsFactors=FALSE))
+summary(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2013.txt', quote="" , stringsAsFactors=FALSE))
 
 #Current versions
 str(WA_DOH_combined)
