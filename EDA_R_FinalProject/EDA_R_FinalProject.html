@@ -498,7 +498,6 @@ doh_k12_2012_in$school_city &lt;- apply(doh_k12_2012_in[,c(&quot;school_code&quo
 #insert district code 2012
 doh_k12_2012_in$district_code &lt;- apply(doh_k12_2012_in[,c(&quot;school_code&quot;), drop = F],1, function(x) {final_codeframe$district_code[final_codeframe$school_code == x]})
 
-
 #insert district code 2013
 doh_k12_2013$district_code &lt;- apply(doh_k12_2013[,c(&quot;school_code&quot;), drop = F],1, function(x) {final_codeframe$district_code[final_codeframe$school_code == x]})
 
@@ -525,8 +524,7 @@ names(doh_k12_2012_out)[20] &lt;- &quot;school_state&quot;
 
 
 #rbind
-WA_DOH_combined &lt;- rbind(doh_k12_2011,doh_k12_2013,doh_k12_2012_in,doh_k12_2012_out)
-rm(final_codeframe_subset2012)</code></pre>
+WA_DOH_combined &lt;- rbind(doh_k12_2011,doh_k12_2013,doh_k12_2012_in, doh_k12_2012_out)</code></pre>
 </div>
 <div id="finish-insertion-of-district-codes" class="section level4">
 <h4>Finish insertion of district codes</h4>
@@ -536,30 +534,104 @@ WA_DOH_combined$school_zip &lt;- sapply(strsplit(WA_DOH_combined$school_zip,spli
 
 #subset rows with and without 8675309 district code placeholder
 WA_DOH_combined_8675309_dcode &lt;- subset(WA_DOH_combined, district_code == 8675309)
+WA_DOH_combined_NA_dcode &lt;- subset(WA_DOH_combined, is.na(district_code))
 WA_DOH_combined &lt;- subset(WA_DOH_combined, district_code != 8675309)
 
-rm(WA_OSIP_1, WA_OSIP_2,WA_OSIP_3,WA_OSIP_4,WA_DOH_codeframe,OSIP_codeframe_private,OSIP_codeframe_private_unique,OSIP_codeframe_public,OSIP_codeframe_public_unique,codeframe_2011,codeframe_2013,colnames_2011,colnames_2012,colnames_2013,cols_private,cols_public)
 
-rm(doh_k12_2012_in,doh_k12_2012_out,maxdiff,reported_doh_k12_2011,reported_measles,reported_mumps,reported_rubella)
-
-rm(select_colnames_2011,select_colnames_2013)
 
 #create district_name ----- disrict code DF
 district_codeframe &lt;- WA_DOH_combined[,c(&quot;school_district&quot;, &quot;district_code&quot;)]
 
-
-#remove duplicated values
+WA_DOH_combined_NA_dcode</code></pre>
+<pre><code>##       year school_code                  school_name    school_type
+## 814   2011        8793 Forest Park Adventist School Private School
+## 2841    NA                                                        
+## 3465  2013        8793 Forest Park Adventist School Private School
+## 24301 2012                                                        
+## 24311 2012                                                        
+## 24321 2012                                                        
+## 24331 2012                                                        
+## 24341 2012                                                        
+##       school_city school_state school_zip school_county
+## 814       Everett           WA      98203     SNOHOMISH
+## 2841                                 &lt;NA&gt;              
+## 3465      Everett           WA      98203     SNOHOMISH
+## 24301                       WA       &lt;NA&gt;              
+## 24311                       WA       &lt;NA&gt;              
+## 24321                       WA       &lt;NA&gt;              
+## 24331                       WA       &lt;NA&gt;              
+## 24341                       WA       &lt;NA&gt;              
+##               school_district district_code grade_levels reported enrolled
+## 814                   Everett            NA          1-8       No       NA
+## 2841                                     NA                             NA
+## 3465  Everett School District            NA          K-8       No       NA
+## 24301                                    NA                             NA
+## 24311                                    NA                             NA
+## 24321                                    NA                             NA
+## 24331                                    NA                             NA
+## 24341                                    NA                             NA
+##       exempt medical_exempt personal_exempt religious_exempt exempt_DTTd
+## 814       NA             NA              NA               NA          NA
+## 2841      NA             NA              NA               NA          NA
+## 3465      NA             NA              NA               NA          NA
+## 24301     NA             NA              NA               NA          NA
+## 24311     NA             NA              NA               NA          NA
+## 24321     NA             NA              NA               NA          NA
+## 24331     NA             NA              NA               NA          NA
+## 24341     NA             NA              NA               NA          NA
+##       exempt_pertussis exempt_polio exempt_MMR exempt_hepB
+## 814                 NA           NA         NA          NA
+## 2841                NA           NA         NA          NA
+## 3465                NA           NA         NA          NA
+## 24301               NA           NA         NA          NA
+## 24311               NA           NA         NA          NA
+## 24321               NA           NA         NA          NA
+## 24331               NA           NA         NA          NA
+## 24341               NA           NA         NA          NA
+##       exempt_varicella
+## 814                 NA
+## 2841                NA
+## 3465                NA
+## 24301               NA
+## 24311               NA
+## 24321               NA
+## 24331               NA
+## 24341               NA</code></pre>
+<pre class="r"><code>#remove duplicated values
 district_codeframe &lt;- district_codeframe[!duplicated(district_codeframe$school_district),]
 
 
 #complete fill in of district code
 WA_DOH_combined_8675309_dcode$district_code &lt;- apply(WA_DOH_combined_8675309_dcode[,c(&quot;school_district&quot;), drop = F],1, function(x) {district_codeframe$district_code[district_codeframe$school_district == x]})
 #rbind to combined DF
-WA_DOH_combined &lt;- rbind(WA_DOH_combined,WA_DOH_combined_8675309_dcode)
-rm(WA_DOH_combined_8675309_dcode)
+WA_DOH_combined &lt;- rbind(WA_DOH_combined,WA_DOH_combined_8675309_dcode,WA_DOH_combined_NA_dcode)
 
-
-#change fied name of exempt to total_exemptions, to avoid confusion
+str(WA_DOH_combined)</code></pre>
+<pre><code>## 'data.frame':    7922 obs. of  23 variables:
+##  $ year            : num  2011 2011 2011 2011 2011 ...
+##  $ school_code     : chr  &quot;1656&quot; &quot;1976&quot; &quot;4500&quot; &quot;2834&quot; ...
+##  $ school_name     : chr  &quot;10th Street School&quot; &quot;19-21 Transition Academy&quot; &quot;A G West Black Hills High School&quot; &quot;A J West Elementary&quot; ...
+##  $ school_type     : chr  &quot;Public School&quot; &quot;Public School&quot; &quot;Public School&quot; &quot;Public School&quot; ...
+##  $ school_city     : chr  &quot;Marysville&quot; &quot;Redmond&quot; &quot;Tumwater&quot; &quot;Aberdeen&quot; ...
+##  $ school_state    : chr  &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; ...
+##  $ school_zip      : chr  &quot;98271&quot; &quot;98052&quot; &quot;98512&quot; &quot;98520&quot; ...
+##  $ school_county   : chr  &quot;SNOHOMISH&quot; &quot;KING&quot; &quot;THURSTON&quot; &quot;GRAYS HARBOR&quot; ...
+##  $ school_district : chr  &quot;Marysville School District&quot; &quot;Lake Washington School District&quot; &quot;Tumwater School District&quot; &quot;Aberdeen School District&quot; ...
+##  $ district_code   : num  31025 17414 34033 14005 32081 ...
+##  $ grade_levels    : chr  &quot;6-8&quot; &quot;12-12&quot; &quot;9-12&quot; &quot;K-6&quot; ...
+##  $ reported        : chr  &quot;Yes&quot; &quot;No&quot; &quot;Yes&quot; &quot;Yes&quot; ...
+##  $ enrolled        : int  181 NA 858 450 NA 510 NA NA 167 NA ...
+##  $ exempt          : int  10 NA 44 4 NA 16 NA NA 42 NA ...
+##  $ medical_exempt  : int  0 NA 0 0 NA 1 NA NA 0 NA ...
+##  $ personal_exempt : int  10 NA 44 4 NA 13 NA NA 40 NA ...
+##  $ religious_exempt: num  0 NA 0 0 NA 2 NA NA 2 NA ...
+##  $ exempt_DTTd     : int  4 NA 17 2 NA 13 NA NA 40 NA ...
+##  $ exempt_pertussis: int  5 NA 36 2 NA 15 NA NA 40 NA ...
+##  $ exempt_polio    : int  5 NA 28 3 NA 15 NA NA 40 NA ...
+##  $ exempt_MMR      : int  6 NA 35 2 NA 15 NA NA 40 NA ...
+##  $ exempt_hepB     : int  5 NA 31 2 NA 13 NA NA 42 NA ...
+##  $ exempt_varicella: int  0 NA 0 2 NA 11 NA NA 40 NA ...</code></pre>
+<pre class="r"><code>#change fied name of exempt to total_exemptions, to avoid confusion
 names(WA_DOH_combined)[14] &lt;- &quot;total_exemptions&quot;
 #rename year column to school_year
 names(WA_DOH_combined)[1] &lt;- &quot;school_year&quot;</code></pre>
@@ -580,114 +652,7 @@ WA_DOH_combined$percent_exempt_hepB &lt;- round((WA_DOH_combined$exempt_hepB/WA_
 
 WA_DOH_combined$percent_exempt_varicella &lt;- round((WA_DOH_combined$exempt_varicella/WA_DOH_combined$enrolled)*100,digits = 2)
 
-WA_DOH_combined$percent_exempt &lt;- round((WA_DOH_combined$total_exemptions/WA_DOH_combined$enrolled)*100,digits = 2)
-
-
-str(WA_DOH_combined)</code></pre>
-<pre><code>## 'data.frame':    7914 obs. of  30 variables:
-##  $ school_year             : num  2011 2011 2011 2011 2011 ...
-##  $ school_code             : chr  &quot;1656&quot; &quot;1976&quot; &quot;4500&quot; &quot;2834&quot; ...
-##  $ school_name             : chr  &quot;10th Street School&quot; &quot;19-21 Transition Academy&quot; &quot;A G West Black Hills High School&quot; &quot;A J West Elementary&quot; ...
-##  $ school_type             : chr  &quot;Public School&quot; &quot;Public School&quot; &quot;Public School&quot; &quot;Public School&quot; ...
-##  $ school_city             : chr  &quot;Marysville&quot; &quot;Redmond&quot; &quot;Tumwater&quot; &quot;Aberdeen&quot; ...
-##  $ school_state            : chr  &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; ...
-##  $ school_zip              : chr  &quot;98271&quot; &quot;98052&quot; &quot;98512&quot; &quot;98520&quot; ...
-##  $ school_county           : chr  &quot;SNOHOMISH&quot; &quot;KING&quot; &quot;THURSTON&quot; &quot;GRAYS HARBOR&quot; ...
-##  $ school_district         : chr  &quot;Marysville School District&quot; &quot;Lake Washington School District&quot; &quot;Tumwater School District&quot; &quot;Aberdeen School District&quot; ...
-##  $ district_code           : num  31025 17414 34033 14005 32081 ...
-##  $ grade_levels            : chr  &quot;6-8&quot; &quot;12-12&quot; &quot;9-12&quot; &quot;K-6&quot; ...
-##  $ reported                : chr  &quot;Yes&quot; &quot;No&quot; &quot;Yes&quot; &quot;Yes&quot; ...
-##  $ enrolled                : int  181 NA 858 450 NA 510 NA NA 167 NA ...
-##  $ total_exemptions        : int  10 NA 44 4 NA 16 NA NA 42 NA ...
-##  $ medical_exempt          : int  0 NA 0 0 NA 1 NA NA 0 NA ...
-##  $ personal_exempt         : int  10 NA 44 4 NA 13 NA NA 40 NA ...
-##  $ religious_exempt        : num  0 NA 0 0 NA 2 NA NA 2 NA ...
-##  $ exempt_DTTd             : int  4 NA 17 2 NA 13 NA NA 40 NA ...
-##  $ exempt_pertussis        : int  5 NA 36 2 NA 15 NA NA 40 NA ...
-##  $ exempt_polio            : int  5 NA 28 3 NA 15 NA NA 40 NA ...
-##  $ exempt_MMR              : int  6 NA 35 2 NA 15 NA NA 40 NA ...
-##  $ exempt_hepB             : int  5 NA 31 2 NA 13 NA NA 42 NA ...
-##  $ exempt_varicella        : int  0 NA 0 2 NA 11 NA NA 40 NA ...
-##  $ percent_exempt_DTTd     : num  2.21 NA 1.98 0.44 NA ...
-##  $ percent_exempt_pertussis: num  2.76 NA 4.2 0.44 NA ...
-##  $ percent_exempt_polio    : num  2.76 NA 3.26 0.67 NA ...
-##  $ percent_exempt_MMR      : num  3.31 NA 4.08 0.44 NA ...
-##  $ percent_exempt_hepB     : num  2.76 NA 3.61 0.44 NA ...
-##  $ percent_exempt_varicella: num  0 NA 0 0.44 NA ...
-##  $ percent_exempt          : num  5.52 NA 5.13 0.89 NA ...</code></pre>
-<pre class="r"><code>summary(WA_DOH_combined)</code></pre>
-<pre><code>##   school_year   school_code        school_name        school_type       
-##  Min.   :2011   Length:7914        Length:7914        Length:7914       
-##  1st Qu.:2011   Class :character   Class :character   Class :character  
-##  Median :2012   Mode  :character   Mode  :character   Mode  :character  
-##  Mean   :2012                                                           
-##  3rd Qu.:2013                                                           
-##  Max.   :2013                                                           
-##                                                                         
-##  school_city        school_state        school_zip       
-##  Length:7914        Length:7914        Length:7914       
-##  Class :character   Class :character   Class :character  
-##  Mode  :character   Mode  :character   Mode  :character  
-##                                                          
-##                                                          
-##                                                          
-##                                                          
-##  school_county      school_district    district_code   grade_levels      
-##  Length:7914        Length:7914        Min.   : 1109   Length:7914       
-##  Class :character   Class :character   1st Qu.:17001   Class :character  
-##  Mode  :character   Mode  :character   Median :19401   Mode  :character  
-##                                        Mean   :22212                     
-##                                        3rd Qu.:31025                     
-##                                        Max.   :39209                     
-##                                                                          
-##    reported            enrolled       total_exemptions medical_exempt   
-##  Length:7914        Min.   :    0.0   Min.   :  0.00   Min.   :  0.000  
-##  Class :character   1st Qu.:  209.0   1st Qu.:  7.00   1st Qu.:  0.000  
-##  Mode  :character   Median :  424.0   Median : 19.00   Median :  2.000  
-##                     Mean   :  474.1   Mean   : 25.43   Mean   :  3.528  
-##                     3rd Qu.:  585.0   3rd Qu.: 35.00   3rd Qu.:  4.000  
-##                     Max.   :10696.0   Max.   :436.00   Max.   :214.000  
-##                     NA's   :1199      NA's   :1200     NA's   :1206     
-##  personal_exempt  religious_exempt  exempt_DTTd      exempt_pertussis
-##  Min.   :  0.00   Min.   : 0.000   Min.   :   0.00   Min.   :  0.00  
-##  1st Qu.:  6.00   1st Qu.: 0.000   1st Qu.:   4.00   1st Qu.:  4.00  
-##  Median : 15.00   Median : 0.000   Median :  11.00   Median : 11.00  
-##  Mean   : 20.89   Mean   : 1.375   Mean   :  15.07   Mean   : 14.81  
-##  3rd Qu.: 29.00   3rd Qu.: 2.000   3rd Qu.:  20.00   3rd Qu.: 20.00  
-##  Max.   :319.00   Max.   :78.000   Max.   :1010.00   Max.   :292.00  
-##  NA's   :1200     NA's   :1236     NA's   :1200      NA's   :1200    
-##   exempt_polio      exempt_MMR      exempt_hepB     exempt_varicella 
-##  Min.   :  0.00   Min.   :  0.00   Min.   :  0.00   Min.   :   0.00  
-##  1st Qu.:  4.00   1st Qu.:  4.00   1st Qu.:  4.00   1st Qu.:   0.00  
-##  Median : 11.00   Median : 11.00   Median : 11.00   Median :   7.00  
-##  Mean   : 13.82   Mean   : 14.77   Mean   : 15.17   Mean   :  12.69  
-##  3rd Qu.: 19.00   3rd Qu.: 20.00   3rd Qu.: 20.75   3rd Qu.:  18.00  
-##  Max.   :335.00   Max.   :269.00   Max.   :257.00   Max.   :1176.00  
-##  NA's   :1200     NA's   :1200     NA's   :1200     NA's   :1201     
-##  percent_exempt_DTTd percent_exempt_pertussis percent_exempt_polio
-##  Min.   :  0.000     Min.   :  0.000          Min.   :  0.000     
-##  1st Qu.:  1.450     1st Qu.:  1.390          1st Qu.:  1.360     
-##  Median :  2.830     Median :  2.800          Median :  2.630     
-##  Mean   :  4.205     Mean   :  4.137          Mean   :  4.013     
-##  3rd Qu.:  4.650     3rd Qu.:  4.650          3rd Qu.:  4.400     
-##  Max.   :336.670     Max.   :100.000          Max.   :100.000     
-##  NA's   :1216        NA's   :1216             NA's   :1216        
-##  percent_exempt_MMR percent_exempt_hepB percent_exempt_varicella
-##  Min.   :  0.000    Min.   :  0.000     Min.   :  0.000         
-##  1st Qu.:  1.470    1st Qu.:  1.500     1st Qu.:  0.000         
-##  Median :  2.840    Median :  2.860     Median :  2.230         
-##  Mean   :  4.211    Mean   :  4.359     Mean   :  3.922         
-##  3rd Qu.:  4.680    3rd Qu.:  4.790     3rd Qu.:  5.000         
-##  Max.   :100.000    Max.   :100.000     Max.   :133.180         
-##  NA's   :1216       NA's   :1216        NA's   :1217            
-##  percent_exempt   
-##  Min.   :  0.000  
-##  1st Qu.:  2.810  
-##  Median :  5.010  
-##  Mean   :  6.674  
-##  3rd Qu.:  7.970  
-##  Max.   :100.000  
-##  NA's   :1216</code></pre>
+WA_DOH_combined$percent_exempt &lt;- round((WA_DOH_combined$total_exemptions/WA_DOH_combined$enrolled)*100,digits = 2)</code></pre>
 </div>
 <div id="convert-classes-of-combined-df" class="section level3">
 <h3>Convert Classes of Combined DF</h3>
@@ -695,6 +660,9 @@ str(WA_DOH_combined)</code></pre>
 WA_DOH_combined$school_type &lt;- as.factor(WA_DOH_combined$school_type)
 WA_DOH_combined$year &lt;- as.factor(WA_DOH_combined$school_year)
 WA_DOH_combined$reported &lt;- as.factor(WA_DOH_combined$reported)</code></pre>
+<pre class="r"><code>write.table(WA_DOH_combined, &quot;~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/WA_DOH_Combined.txt&quot;, sep =&quot;\t&quot;)
+
+saveRDS(WA_DOH_combined,&quot;WA_DOH_Combined.rds&quot;)</code></pre>
 </div>
 <div id="tidy-the-combined-df" class="section level3">
 <h3>Tidy the combined DF</h3>
@@ -1069,11 +1037,11 @@ str(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/20
 ##  NA's   :302</code></pre>
 <pre class="r"><code>#Current versions
 str(WA_DOH_combined)</code></pre>
-<pre><code>## 'data.frame':    7914 obs. of  31 variables:
+<pre><code>## 'data.frame':    7922 obs. of  31 variables:
 ##  $ school_year             : num  2011 2011 2011 2011 2011 ...
 ##  $ school_code             : chr  &quot;1656&quot; &quot;1976&quot; &quot;4500&quot; &quot;2834&quot; ...
 ##  $ school_name             : chr  &quot;10th Street School&quot; &quot;19-21 Transition Academy&quot; &quot;A G West Black Hills High School&quot; &quot;A J West Elementary&quot; ...
-##  $ school_type             : Factor w/ 7 levels &quot;Contract School&quot;,..: 6 6 6 6 2 6 4 4 4 6 ...
+##  $ school_type             : Factor w/ 8 levels &quot;&quot;,&quot;Contract School&quot;,..: 7 7 7 7 3 7 5 5 5 7 ...
 ##  $ school_city             : chr  &quot;Marysville&quot; &quot;Redmond&quot; &quot;Tumwater&quot; &quot;Aberdeen&quot; ...
 ##  $ school_state            : chr  &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; ...
 ##  $ school_zip              : chr  &quot;98271&quot; &quot;98052&quot; &quot;98512&quot; &quot;98520&quot; ...
@@ -1081,7 +1049,7 @@ str(WA_DOH_combined)</code></pre>
 ##  $ school_district         : chr  &quot;Marysville School District&quot; &quot;Lake Washington School District&quot; &quot;Tumwater School District&quot; &quot;Aberdeen School District&quot; ...
 ##  $ district_code           : num  31025 17414 34033 14005 32081 ...
 ##  $ grade_levels            : chr  &quot;6-8&quot; &quot;12-12&quot; &quot;9-12&quot; &quot;K-6&quot; ...
-##  $ reported                : Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 2 1 2 2 1 2 1 1 2 1 ...
+##  $ reported                : Factor w/ 3 levels &quot;&quot;,&quot;No&quot;,&quot;Yes&quot;: 3 2 3 3 2 3 2 2 3 2 ...
 ##  $ enrolled                : int  181 NA 858 450 NA 510 NA NA 167 NA ...
 ##  $ total_exemptions        : int  10 NA 44 4 NA 16 NA NA 42 NA ...
 ##  $ medical_exempt          : int  0 NA 0 0 NA 1 NA NA 0 NA ...
@@ -1103,37 +1071,37 @@ str(WA_DOH_combined)</code></pre>
 ##  $ year                    : Factor w/ 3 levels &quot;2011&quot;,&quot;2012&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <pre class="r"><code>summary(WA_DOH_combined)</code></pre>
 <pre><code>##   school_year   school_code        school_name       
-##  Min.   :2011   Length:7914        Length:7914       
+##  Min.   :2011   Length:7922        Length:7922       
 ##  1st Qu.:2011   Class :character   Class :character  
 ##  Median :2012   Mode  :character   Mode  :character  
 ##  Mean   :2012                                        
 ##  3rd Qu.:2013                                        
 ##  Max.   :2013                                        
-##                                                      
-##           school_type   school_city        school_state      
-##  Contract School:   7   Length:7914        Length:7914       
-##  Institution    :  22   Class :character   Class :character  
-##  Private        : 443   Mode  :character   Mode  :character  
-##  Private School :1060                                        
-##  Public         :1986                                        
-##  Public School  :4388                                        
-##  Tribal School  :   8                                        
+##  NA's   :1                                           
+##          school_type   school_city        school_state      
+##  Public School :4388   Length:7922        Length:7922       
+##  Public        :1986   Class :character   Class :character  
+##  Private School:1062   Mode  :character   Mode  :character  
+##  Private       : 443                                        
+##  Institution   :  22                                        
+##  Tribal School :   8                                        
+##  (Other)       :  13                                        
 ##   school_zip        school_county      school_district    district_code  
-##  Length:7914        Length:7914        Length:7914        Min.   : 1109  
+##  Length:7922        Length:7922        Length:7922        Min.   : 1109  
 ##  Class :character   Class :character   Class :character   1st Qu.:17001  
 ##  Mode  :character   Mode  :character   Mode  :character   Median :19401  
 ##                                                           Mean   :22212  
 ##                                                           3rd Qu.:31025  
 ##                                                           Max.   :39209  
-##                                                                          
+##                                                           NA's   :8      
 ##  grade_levels       reported      enrolled       total_exemptions
-##  Length:7914        No :1206   Min.   :    0.0   Min.   :  0.00  
-##  Class :character   Yes:6708   1st Qu.:  209.0   1st Qu.:  7.00  
-##  Mode  :character              Median :  424.0   Median : 19.00  
+##  Length:7922           :   6   Min.   :    0.0   Min.   :  0.00  
+##  Class :character   No :1208   1st Qu.:  209.0   1st Qu.:  7.00  
+##  Mode  :character   Yes:6708   Median :  424.0   Median : 19.00  
 ##                                Mean   :  474.1   Mean   : 25.43  
 ##                                3rd Qu.:  585.0   3rd Qu.: 35.00  
 ##                                Max.   :10696.0   Max.   :436.00  
-##                                NA's   :1199      NA's   :1200    
+##                                NA's   :1207      NA's   :1208    
 ##  medical_exempt    personal_exempt  religious_exempt  exempt_DTTd     
 ##  Min.   :  0.000   Min.   :  0.00   Min.   : 0.000   Min.   :   0.00  
 ##  1st Qu.:  0.000   1st Qu.:  6.00   1st Qu.: 0.000   1st Qu.:   4.00  
@@ -1141,7 +1109,7 @@ str(WA_DOH_combined)</code></pre>
 ##  Mean   :  3.528   Mean   : 20.89   Mean   : 1.375   Mean   :  15.07  
 ##  3rd Qu.:  4.000   3rd Qu.: 29.00   3rd Qu.: 2.000   3rd Qu.:  20.00  
 ##  Max.   :214.000   Max.   :319.00   Max.   :78.000   Max.   :1010.00  
-##  NA's   :1206      NA's   :1200     NA's   :1236     NA's   :1200     
+##  NA's   :1214      NA's   :1208     NA's   :1244     NA's   :1208     
 ##  exempt_pertussis  exempt_polio      exempt_MMR      exempt_hepB    
 ##  Min.   :  0.00   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
 ##  1st Qu.:  4.00   1st Qu.:  4.00   1st Qu.:  4.00   1st Qu.:  4.00  
@@ -1149,7 +1117,7 @@ str(WA_DOH_combined)</code></pre>
 ##  Mean   : 14.81   Mean   : 13.82   Mean   : 14.77   Mean   : 15.17  
 ##  3rd Qu.: 20.00   3rd Qu.: 19.00   3rd Qu.: 20.00   3rd Qu.: 20.75  
 ##  Max.   :292.00   Max.   :335.00   Max.   :269.00   Max.   :257.00  
-##  NA's   :1200     NA's   :1200     NA's   :1200     NA's   :1200    
+##  NA's   :1208     NA's   :1208     NA's   :1208     NA's   :1208    
 ##  exempt_varicella  percent_exempt_DTTd percent_exempt_pertussis
 ##  Min.   :   0.00   Min.   :  0.000     Min.   :  0.000         
 ##  1st Qu.:   0.00   1st Qu.:  1.450     1st Qu.:  1.390         
@@ -1157,7 +1125,7 @@ str(WA_DOH_combined)</code></pre>
 ##  Mean   :  12.69   Mean   :  4.205     Mean   :  4.137         
 ##  3rd Qu.:  18.00   3rd Qu.:  4.650     3rd Qu.:  4.650         
 ##  Max.   :1176.00   Max.   :336.670     Max.   :100.000         
-##  NA's   :1201      NA's   :1216        NA's   :1216            
+##  NA's   :1209      NA's   :1224        NA's   :1224            
 ##  percent_exempt_polio percent_exempt_MMR percent_exempt_hepB
 ##  Min.   :  0.000      Min.   :  0.000    Min.   :  0.000    
 ##  1st Qu.:  1.360      1st Qu.:  1.470    1st Qu.:  1.500    
@@ -1165,21 +1133,21 @@ str(WA_DOH_combined)</code></pre>
 ##  Mean   :  4.013      Mean   :  4.211    Mean   :  4.359    
 ##  3rd Qu.:  4.400      3rd Qu.:  4.680    3rd Qu.:  4.790    
 ##  Max.   :100.000      Max.   :100.000    Max.   :100.000    
-##  NA's   :1216         NA's   :1216       NA's   :1216       
+##  NA's   :1224         NA's   :1224       NA's   :1224       
 ##  percent_exempt_varicella percent_exempt      year     
-##  Min.   :  0.000          Min.   :  0.000   2011:2839  
-##  1st Qu.:  0.000          1st Qu.:  2.810   2012:2429  
-##  Median :  2.230          Median :  5.010   2013:2646  
-##  Mean   :  3.922          Mean   :  6.674              
+##  Min.   :  0.000          Min.   :  0.000   2011:2840  
+##  1st Qu.:  0.000          1st Qu.:  2.810   2012:2434  
+##  Median :  2.230          Median :  5.010   2013:2647  
+##  Mean   :  3.922          Mean   :  6.674   NA's:   1  
 ##  3rd Qu.:  5.000          3rd Qu.:  7.970              
 ##  Max.   :133.180          Max.   :100.000              
-##  NA's   :1217             NA's   :1216</code></pre>
+##  NA's   :1225             NA's   :1224</code></pre>
 <pre class="r"><code>str(WA_DOH_tidy)</code></pre>
-<pre><code>## 'data.frame':    23742 obs. of  31 variables:
+<pre><code>## 'data.frame':    23766 obs. of  31 variables:
 ##  $ school_year             : num  2011 2011 2011 2011 2011 ...
 ##  $ school_code             : chr  &quot;1656&quot; &quot;1976&quot; &quot;4500&quot; &quot;2834&quot; ...
 ##  $ school_name             : chr  &quot;10th Street School&quot; &quot;19-21 Transition Academy&quot; &quot;A G West Black Hills High School&quot; &quot;A J West Elementary&quot; ...
-##  $ school_type             : Factor w/ 7 levels &quot;Contract School&quot;,..: 6 6 6 6 2 6 4 4 4 6 ...
+##  $ school_type             : Factor w/ 8 levels &quot;&quot;,&quot;Contract School&quot;,..: 7 7 7 7 3 7 5 5 5 7 ...
 ##  $ school_city             : chr  &quot;Marysville&quot; &quot;Redmond&quot; &quot;Tumwater&quot; &quot;Aberdeen&quot; ...
 ##  $ school_state            : chr  &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; ...
 ##  $ school_zip              : chr  &quot;98271&quot; &quot;98052&quot; &quot;98512&quot; &quot;98520&quot; ...
@@ -1187,7 +1155,7 @@ str(WA_DOH_combined)</code></pre>
 ##  $ school_district         : chr  &quot;Marysville School District&quot; &quot;Lake Washington School District&quot; &quot;Tumwater School District&quot; &quot;Aberdeen School District&quot; ...
 ##  $ district_code           : num  31025 17414 34033 14005 32081 ...
 ##  $ grade_levels            : chr  &quot;6-8&quot; &quot;12-12&quot; &quot;9-12&quot; &quot;K-6&quot; ...
-##  $ reported                : Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 2 1 2 2 1 2 1 1 2 1 ...
+##  $ reported                : Factor w/ 3 levels &quot;&quot;,&quot;No&quot;,&quot;Yes&quot;: 3 2 3 3 2 3 2 2 3 2 ...
 ##  $ enrolled                : int  181 NA 858 450 NA 510 NA NA 167 NA ...
 ##  $ total_exemptions        : int  10 NA 44 4 NA 16 NA NA 42 NA ...
 ##  $ exempt_DTTd             : int  4 NA 17 2 NA 13 NA NA 40 NA ...
@@ -1209,37 +1177,37 @@ str(WA_DOH_combined)</code></pre>
 ##  $ percent_exemption_type  : num  5.52 NA 5.13 0.89 NA ...</code></pre>
 <pre class="r"><code>summary(WA_DOH_tidy)</code></pre>
 <pre><code>##   school_year   school_code        school_name       
-##  Min.   :2011   Length:23742       Length:23742      
+##  Min.   :2011   Length:23766       Length:23766      
 ##  1st Qu.:2011   Class :character   Class :character  
 ##  Median :2012   Mode  :character   Mode  :character  
 ##  Mean   :2012                                        
 ##  3rd Qu.:2013                                        
 ##  Max.   :2013                                        
-##                                                      
-##           school_type    school_city        school_state      
-##  Contract School:   21   Length:23742       Length:23742      
-##  Institution    :   66   Class :character   Class :character  
-##  Private        : 1329   Mode  :character   Mode  :character  
-##  Private School : 3180                                        
-##  Public         : 5958                                        
-##  Public School  :13164                                        
-##  Tribal School  :   24                                        
+##  NA's   :3                                           
+##          school_type    school_city        school_state      
+##  Public School :13164   Length:23766       Length:23766      
+##  Public        : 5958   Class :character   Class :character  
+##  Private School: 3186   Mode  :character   Mode  :character  
+##  Private       : 1329                                        
+##  Institution   :   66                                        
+##  Tribal School :   24                                        
+##  (Other)       :   39                                        
 ##   school_zip        school_county      school_district    district_code  
-##  Length:23742       Length:23742       Length:23742       Min.   : 1109  
+##  Length:23766       Length:23766       Length:23766       Min.   : 1109  
 ##  Class :character   Class :character   Class :character   1st Qu.:17001  
 ##  Mode  :character   Mode  :character   Mode  :character   Median :19401  
 ##                                                           Mean   :22212  
 ##                                                           3rd Qu.:31025  
 ##                                                           Max.   :39209  
-##                                                                          
+##                                                           NA's   :24     
 ##  grade_levels       reported       enrolled       total_exemptions
-##  Length:23742       No : 3618   Min.   :    0.0   Min.   :  0.00  
-##  Class :character   Yes:20124   1st Qu.:  208.0   1st Qu.:  7.00  
-##  Mode  :character               Median :  424.0   Median : 19.00  
+##  Length:23766          :   18   Min.   :    0.0   Min.   :  0.00  
+##  Class :character   No : 3624   1st Qu.:  208.0   1st Qu.:  7.00  
+##  Mode  :character   Yes:20124   Median :  424.0   Median : 19.00  
 ##                                 Mean   :  474.1   Mean   : 25.43  
 ##                                 3rd Qu.:  585.0   3rd Qu.: 35.00  
 ##                                 Max.   :10696.0   Max.   :436.00  
-##                                 NA's   :3597      NA's   :3600    
+##                                 NA's   :3621      NA's   :3624    
 ##   exempt_DTTd      exempt_pertussis  exempt_polio      exempt_MMR    
 ##  Min.   :   0.00   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
 ##  1st Qu.:   4.00   1st Qu.:  4.00   1st Qu.:  4.00   1st Qu.:  4.00  
@@ -1247,7 +1215,7 @@ str(WA_DOH_combined)</code></pre>
 ##  Mean   :  15.07   Mean   : 14.81   Mean   : 13.82   Mean   : 14.77  
 ##  3rd Qu.:  20.00   3rd Qu.: 20.00   3rd Qu.: 19.00   3rd Qu.: 20.00  
 ##  Max.   :1010.00   Max.   :292.00   Max.   :335.00   Max.   :269.00  
-##  NA's   :3600      NA's   :3600     NA's   :3600     NA's   :3600    
+##  NA's   :3624      NA's   :3624     NA's   :3624     NA's   :3624    
 ##   exempt_hepB     exempt_varicella  percent_exempt_DTTd
 ##  Min.   :  0.00   Min.   :   0.00   Min.   :  0.000    
 ##  1st Qu.:  4.00   1st Qu.:   0.00   1st Qu.:  1.450    
@@ -1255,7 +1223,7 @@ str(WA_DOH_combined)</code></pre>
 ##  Mean   : 15.17   Mean   :  12.69   Mean   :  4.205    
 ##  3rd Qu.: 21.00   3rd Qu.:  18.00   3rd Qu.:  4.650    
 ##  Max.   :257.00   Max.   :1176.00   Max.   :336.670    
-##  NA's   :3600     NA's   :3603      NA's   :3648       
+##  NA's   :3624     NA's   :3627      NA's   :3672       
 ##  percent_exempt_pertussis percent_exempt_polio percent_exempt_MMR
 ##  Min.   :  0.000          Min.   :  0.000      Min.   :  0.000   
 ##  1st Qu.:  1.390          1st Qu.:  1.360      1st Qu.:  1.470   
@@ -1263,7 +1231,7 @@ str(WA_DOH_combined)</code></pre>
 ##  Mean   :  4.137          Mean   :  4.013      Mean   :  4.211   
 ##  3rd Qu.:  4.650          3rd Qu.:  4.400      3rd Qu.:  4.680   
 ##  Max.   :100.000          Max.   :100.000      Max.   :100.000   
-##  NA's   :3648             NA's   :3648         NA's   :3648      
+##  NA's   :3672             NA's   :3672         NA's   :3672      
 ##  percent_exempt_hepB percent_exempt_varicella percent_exempt   
 ##  Min.   :  0.000     Min.   :  0.000          Min.   :  0.000  
 ##  1st Qu.:  1.500     1st Qu.:  0.000          1st Qu.:  2.810  
@@ -1271,15 +1239,15 @@ str(WA_DOH_combined)</code></pre>
 ##  Mean   :  4.359     Mean   :  3.923          Mean   :  6.674  
 ##  3rd Qu.:  4.790     3rd Qu.:  5.000          3rd Qu.:  7.970  
 ##  Max.   :100.000     Max.   :133.180          Max.   :100.000  
-##  NA's   :3648        NA's   :3651             NA's   :3648     
+##  NA's   :3672        NA's   :3675             NA's   :3672     
 ##    year               exemption_type   exemptions     
-##  2011:8517   medical_exempt  :7914   Min.   :  0.000  
-##  2012:7287   personal_exempt :7914   1st Qu.:  0.000  
-##  2013:7938   religious_exempt:7914   Median :  2.000  
-##                                      Mean   :  8.611  
+##  2011:8520   medical_exempt  :7922   Min.   :  0.000  
+##  2012:7302   personal_exempt :7922   1st Qu.:  0.000  
+##  2013:7941   religious_exempt:7922   Median :  2.000  
+##  NA's:   3                           Mean   :  8.611  
 ##                                      3rd Qu.:  9.000  
 ##                                      Max.   :319.000  
-##                                      NA's   :3642     
+##                                      NA's   :3666     
 ##  percent_exemption_type
 ##  Min.   :  0.000       
 ##  1st Qu.:  2.810       
@@ -1287,7 +1255,7 @@ str(WA_DOH_combined)</code></pre>
 ##  Mean   :  6.674       
 ##  3rd Qu.:  7.970       
 ##  Max.   :100.000       
-##  NA's   :3648</code></pre>
+##  NA's   :3672</code></pre>
 </div>
 </div>
 </div>
