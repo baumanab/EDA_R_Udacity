@@ -375,7 +375,6 @@ doh_k12_2012_in$school_city <- apply(doh_k12_2012_in[,c("school_code"), drop = F
 #insert district code 2012
 doh_k12_2012_in$district_code <- apply(doh_k12_2012_in[,c("school_code"), drop = F],1, function(x) {final_codeframe$district_code[final_codeframe$school_code == x]})
 
-
 #insert district code 2013
 doh_k12_2013$district_code <- apply(doh_k12_2013[,c("school_code"), drop = F],1, function(x) {final_codeframe$district_code[final_codeframe$school_code == x]})
 
@@ -405,7 +404,6 @@ names(doh_k12_2012_out)[20] <- "school_state"
 #rbind
 WA_DOH_combined <- rbind(doh_k12_2011,doh_k12_2013,doh_k12_2012_in, doh_k12_2012_out)
 
-
 ```
 
 ####Finish insertion of district codes####
@@ -416,14 +414,11 @@ WA_DOH_combined <- rbind(doh_k12_2011,doh_k12_2013,doh_k12_2012_in, doh_k12_2012
 WA_DOH_combined$school_zip <- sapply(strsplit(WA_DOH_combined$school_zip,split = "-"),"[",1)
 
 #subset rows with and without 8675309 district code placeholder
-WA_DOH_combined_8675309_dcode <- subset(WA_DOH_combined, district_code == 8675309 | is.na(district_code))
+WA_DOH_combined_8675309_dcode <- subset(WA_DOH_combined, district_code == 8675309)
+WA_DOH_combined_NA_dcode <- subset(WA_DOH_combined, is.na(district_code))
 WA_DOH_combined <- subset(WA_DOH_combined, district_code != 8675309)
 
-dim(WA_DOH_combined[is.na(WA_DOH_combined$district_code),])
-
-
-
-
+str(WA_DOH_combined)
 
 #create district_name ----- disrict code DF
 district_codeframe <- WA_DOH_combined[,c("school_district", "district_code")]
@@ -437,7 +432,7 @@ district_codeframe <- district_codeframe[!duplicated(district_codeframe$school_d
 WA_DOH_combined_8675309_dcode$district_code <- apply(WA_DOH_combined_8675309_dcode[,c("school_district"), drop = F],1, function(x) {district_codeframe$district_code[district_codeframe$school_district == x]})
 #rbind to combined DF
 WA_DOH_combined <- rbind(WA_DOH_combined,WA_DOH_combined_8675309_dcode)
-rm(WA_DOH_combined_8675309_dcode)
+
 
 
 #change fied name of exempt to total_exemptions, to avoid confusion
@@ -467,8 +462,6 @@ WA_DOH_combined$percent_exempt_varicella <- round((WA_DOH_combined$exempt_varice
 WA_DOH_combined$percent_exempt <- round((WA_DOH_combined$total_exemptions/WA_DOH_combined$enrolled)*100,digits = 2)
 
 
-str(WA_DOH_combined)
-summary(WA_DOH_combined)
 
 
 ```
