@@ -37,14 +37,8 @@ setwd("~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject")
 ```
 
 ```{r load libraries}
-library(RSocrata) #to access socrata data
-library(ggplot2)
-library(gridExtra)
 library(dplyr)
 library(alr3)
-library(GGally)
-library(reshape2)
-#library(acs) #to access census data, commented out because masks base apply
 library(tidyr) #bare bones data tidying library
 
 ```

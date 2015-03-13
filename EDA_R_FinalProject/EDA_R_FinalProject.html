@@ -85,20 +85,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h3>Set Path and Load Libraries</h3>
 <pre class="r"><code>load(&quot;~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/project_pause.RData&quot;)
 setwd(&quot;~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject&quot;)</code></pre>
-<pre class="r"><code>library(RSocrata) #to access socrata data</code></pre>
-<pre><code>## Loading required package: httr
-## Loading required package: jsonlite
-## 
-## Attaching package: 'jsonlite'
-## 
-## The following object is masked from 'package:utils':
-## 
-##     View
-## 
-## Loading required package: mime</code></pre>
-<pre class="r"><code>library(ggplot2)
-library(gridExtra)</code></pre>
-<pre><code>## Loading required package: grid</code></pre>
 <pre class="r"><code>library(dplyr)</code></pre>
 <pre><code>## 
 ## Attaching package: 'dplyr'
@@ -112,16 +98,7 @@ library(gridExtra)</code></pre>
 ##     intersect, setdiff, setequal, union</code></pre>
 <pre class="r"><code>library(alr3)</code></pre>
 <pre><code>## Loading required package: car</code></pre>
-<pre class="r"><code>library(GGally)</code></pre>
-<pre><code>## 
-## Attaching package: 'GGally'
-## 
-## The following object is masked from 'package:dplyr':
-## 
-##     nasa</code></pre>
-<pre class="r"><code>library(reshape2)
-#library(acs) #to access census data, commented out because masks base apply
-library(tidyr) #bare bones data tidying library</code></pre>
+<pre class="r"><code>library(tidyr) #bare bones data tidying library</code></pre>
 </div>
 </div>
 <div id="read-and-audit-wa-doh-k-12-school-vaccination-data-frames" class="section level2">
@@ -727,33 +704,40 @@ WA_DOH_tidy &lt;- gather(WA_DOH_combined,exemption_type,exemptions,medical_exemp
 #add percent by exemption type
 WA_DOH_tidy$percent_exemption_type &lt;- round((WA_DOH_tidy$total_exemptions/WA_DOH_tidy$enrolled)*100,digits = 2)</code></pre>
 <pre class="r"><code>#what I started with
-str(doh_k12_2011)</code></pre>
-<pre><code>## 'data.frame':    2841 obs. of  23 variables:
-##  $ year            : int  2011 2011 2011 2011 2011 2011 2011 2011 2011 2011 ...
-##  $ school_code     : chr  &quot;1656&quot; &quot;1976&quot; &quot;4500&quot; &quot;2834&quot; ...
-##  $ school_name     : chr  &quot;10th Street School&quot; &quot;19-21 Transition Academy&quot; &quot;A G West Black Hills High School&quot; &quot;A J West Elementary&quot; ...
-##  $ school_type     : chr  &quot;Public School&quot; &quot;Public School&quot; &quot;Public School&quot; &quot;Public School&quot; ...
-##  $ school_city     : chr  &quot;Marysville&quot; &quot;Redmond&quot; &quot;Tumwater&quot; &quot;Aberdeen&quot; ...
-##  $ school_state    : chr  &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; ...
-##  $ school_zip      : int  98271 98052 98512 98520 99207 98801 98005 98105 9822 98188 ...
-##  $ school_county   : chr  &quot;SNOHOMISH&quot; &quot;KING&quot; &quot;THURSTON&quot; &quot;GRAYS HARBOR&quot; ...
-##  $ school_district : chr  &quot;Marysville School District&quot; &quot;Lake Washington School District&quot; &quot;Tumwater School District&quot; &quot;Aberdeen School District&quot; ...
-##  $ district_code   : int  31025 17414 34033 14005 32081 4246 17405 17001 31016 17401 ...
-##  $ grade_levels    : chr  &quot;6-8&quot; &quot;12-12&quot; &quot;9-12&quot; &quot;K-6&quot; ...
-##  $ reported        : chr  &quot;Yes&quot; &quot;No&quot; &quot;Yes&quot; &quot;Yes&quot; ...
-##  $ enrolled        : int  181 NA 858 450 NA 510 NA NA 167 NA ...
-##  $ exempt          : int  10 NA 44 4 NA 16 NA NA 42 NA ...
-##  $ medical_exempt  : int  0 NA 0 0 NA 1 NA NA 0 NA ...
-##  $ personal_exempt : int  10 NA 44 4 NA 13 NA NA 40 NA ...
-##  $ religious_exempt: int  0 NA 0 0 NA 2 NA NA 2 NA ...
-##  $ exempt_DTTd     : int  4 NA 17 2 NA 13 NA NA 40 NA ...
-##  $ exempt_pertussis: int  5 NA 36 2 NA 15 NA NA 40 NA ...
-##  $ exempt_polio    : int  5 NA 28 3 NA 15 NA NA 40 NA ...
-##  $ exempt_MMR      : int  6 NA 35 2 NA 15 NA NA 40 NA ...
-##  $ exempt_hepB     : int  5 NA 31 2 NA 13 NA NA 42 NA ...
-##  $ exempt_varicella: int  0 NA 0 2 NA 11 NA NA 40 NA ...</code></pre>
-<pre class="r"><code>summary(doh_k12_2011)</code></pre>
-<pre><code>##       year      school_code        school_name        school_type       
+str(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2011.txt', quote=&quot;&quot; , stringsAsFactors=FALSE))</code></pre>
+<pre><code>## 'data.frame':    2841 obs. of  30 variables:
+##  $ Year                      : int  2011 2011 2011 2011 2011 2011 2011 2011 2011 2011 ...
+##  $ School.Code               : chr  &quot;1656&quot; &quot;1976&quot; &quot;4500&quot; &quot;2834&quot; ...
+##  $ School.Name               : chr  &quot;10th Street School&quot; &quot;19-21 Transition Academy&quot; &quot;A G West Black Hills High School&quot; &quot;A J West Elementary&quot; ...
+##  $ School.Type               : chr  &quot;Public School&quot; &quot;Public School&quot; &quot;Public School&quot; &quot;Public School&quot; ...
+##  $ School.Street             : chr  &quot;7204 27th Ave NE&quot; &quot;16642 Cleveland Street&quot; &quot;7741 Littlerock Road SW&quot; &quot;1801 Bay Ave.&quot; ...
+##  $ School.City               : chr  &quot;Marysville&quot; &quot;Redmond&quot; &quot;Tumwater&quot; &quot;Aberdeen&quot; ...
+##  $ School.State              : chr  &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; ...
+##  $ School.Zip                : int  98271 98052 98512 98520 99207 98801 98005 98105 9822 98188 ...
+##  $ School.County             : chr  &quot;SNOHOMISH&quot; &quot;KING&quot; &quot;THURSTON&quot; &quot;GRAYS HARBOR&quot; ...
+##  $ School.District.Name      : chr  &quot;Marysville School District&quot; &quot;Lake Washington School District&quot; &quot;Tumwater School District&quot; &quot;Aberdeen School District&quot; ...
+##  $ District.Code             : int  31025 17414 34033 14005 32081 4246 17405 17001 31016 17401 ...
+##  $ Grades                    : chr  &quot;6-8&quot; &quot;12-12&quot; &quot;9-12&quot; &quot;K-6&quot; ...
+##  $ Reported.                 : chr  &quot;Yes&quot; &quot;No&quot; &quot;Yes&quot; &quot;Yes&quot; ...
+##  $ K.12.Enrolled             : int  181 NA 858 450 NA 510 NA NA 167 NA ...
+##  $ K.12.Exempt               : int  10 NA 44 4 NA 16 NA NA 42 NA ...
+##  $ K.12...Exempt             : chr  &quot;5.5%&quot; &quot;&quot; &quot;5.1%&quot; &quot;0.9%&quot; ...
+##  $ K.12.Medical.Exemption    : int  0 NA 0 0 NA 1 NA NA 0 NA ...
+##  $ K.12...Medical.Exemption  : chr  &quot;0.0%&quot; &quot;&quot; &quot;0.0%&quot; &quot;0.0%&quot; ...
+##  $ K.12.Personal.Exemption   : int  10 NA 44 4 NA 13 NA NA 40 NA ...
+##  $ K.12...Personal.Exemption : chr  &quot;5.5%&quot; &quot;&quot; &quot;5.1%&quot; &quot;0.9%&quot; ...
+##  $ K.12.Religious.Exemption  : int  0 NA 0 0 NA 2 NA NA 2 NA ...
+##  $ K.12...Religious.Exemption: chr  &quot;0.0%&quot; &quot;&quot; &quot;0.0%&quot; &quot;0.0%&quot; ...
+##  $ K.12.Exempt.for.DT.Td     : int  4 NA 17 2 NA 13 NA NA 40 NA ...
+##  $ K.12.Exempt.for.Pertussis : int  5 NA 36 2 NA 15 NA NA 40 NA ...
+##  $ K.12.exempt.for.Polio     : int  5 NA 28 3 NA 15 NA NA 40 NA ...
+##  $ K.12.exempt.for.Measles   : int  6 NA 35 2 NA 15 NA NA 40 NA ...
+##  $ K.12.Exempt.for.Mumps     : int  6 NA 35 2 NA 15 NA NA 40 NA ...
+##  $ K.12.Exempt.for.Rubella   : int  6 NA 35 2 NA 15 NA NA 40 NA ...
+##  $ K.12.Exempt.for.Hep.B     : int  5 NA 31 2 NA 13 NA NA 42 NA ...
+##  $ K.12.Exempt.for.Varicella : int  0 NA 0 2 NA 11 NA NA 40 NA ...</code></pre>
+<pre class="r"><code>summary(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2011.txt', quote=&quot;&quot; , stringsAsFactors=FALSE))</code></pre>
+<pre><code>##       Year      School.Code        School.Name        School.Type       
 ##  Min.   :2011   Length:2841        Length:2841        Length:2841       
 ##  1st Qu.:2011   Class :character   Class :character   Class :character  
 ##  Median :2011   Mode  :character   Mode  :character   Mode  :character  
@@ -761,70 +745,103 @@ str(doh_k12_2011)</code></pre>
 ##  3rd Qu.:2011                                                           
 ##  Max.   :2011                                                           
 ##  NA's   :1                                                              
-##  school_city        school_state         school_zip    school_county     
-##  Length:2841        Length:2841        Min.   : 9822   Length:2841       
-##  Class :character   Class :character   1st Qu.:98146   Class :character  
-##  Mode  :character   Mode  :character   Median :98387   Mode  :character  
-##                                        Mean   :98473                     
-##                                        3rd Qu.:98830                     
-##                                        Max.   :99403                     
-##                                        NA's   :1                         
-##  school_district    district_code   grade_levels         reported        
-##  Length:2841        Min.   : 1109   Length:2841        Length:2841       
-##  Class :character   1st Qu.:17001   Class :character   Class :character  
-##  Mode  :character   Median :20400   Mode  :character   Mode  :character  
-##                     Mean   :22302                                        
-##                     3rd Qu.:31025                                        
-##                     Max.   :39209                                        
-##                     NA's   :2                                            
-##     enrolled          exempt       medical_exempt    personal_exempt 
-##  Min.   :   0.0   Min.   :  0.00   Min.   :  0.000   Min.   :  0.00  
-##  1st Qu.: 280.0   1st Qu.: 10.00   1st Qu.:  0.000   1st Qu.:  8.00  
-##  Median : 446.5   Median : 23.00   Median :  1.000   Median : 19.00  
-##  Mean   : 507.5   Mean   : 28.62   Mean   :  2.928   Mean   : 24.52  
-##  3rd Qu.: 600.0   3rd Qu.: 38.00   3rd Qu.:  3.000   3rd Qu.: 33.00  
-##  Max.   :3383.0   Max.   :436.00   Max.   :168.000   Max.   :319.00  
-##  NA's   :901      NA's   :901      NA's   :901       NA's   :901     
-##  religious_exempt  exempt_DTTd      exempt_pertussis  exempt_polio   
-##  Min.   : 0.000   Min.   :   0.00   Min.   :  0.00   Min.   :  0.00  
-##  1st Qu.: 0.000   1st Qu.:   5.00   1st Qu.:  6.00   1st Qu.:  5.00  
-##  Median : 0.000   Median :  12.00   Median : 14.00   Median : 12.00  
-##  Mean   : 1.163   Mean   :  16.26   Mean   : 17.67   Mean   : 15.11  
-##  3rd Qu.: 2.000   3rd Qu.:  21.00   3rd Qu.: 24.00   3rd Qu.: 20.00  
-##  Max.   :26.000   Max.   :1010.00   Max.   :284.00   Max.   :335.00  
-##  NA's   :902      NA's   :901       NA's   :901      NA's   :901     
-##    exempt_MMR      exempt_hepB     exempt_varicella 
-##  Min.   :  0.00   Min.   :  0.00   Min.   :  0.000  
-##  1st Qu.:  5.00   1st Qu.:  6.00   1st Qu.:  0.000  
-##  Median : 12.00   Median : 13.00   Median :  6.000  
-##  Mean   : 15.24   Mean   : 16.92   Mean   :  9.575  
-##  3rd Qu.: 21.00   3rd Qu.: 22.00   3rd Qu.: 15.000  
-##  Max.   :229.00   Max.   :235.00   Max.   :159.000  
-##  NA's   :901      NA's   :901      NA's   :902</code></pre>
-<pre class="r"><code>str(doh_k12_2012)</code></pre>
-<pre><code>## 'data.frame':    2434 obs. of  20 variables:
-##  $ school_code     : chr  &quot;8395&quot; &quot;8951&quot; &quot;4178&quot; &quot;5260&quot; ...
-##  $ school_name     : chr  &quot;Rock Creek Hutterite&quot; &quot;Theresa and Elizabeths School&quot; &quot;Decatur Elementary&quot; &quot;The Seattle Public Schools Skills Center&quot; ...
-##  $ school_type     : chr  &quot;Private&quot; &quot;Private&quot; &quot;Public&quot; &quot;Public&quot; ...
-##  $ school_district : chr  &quot;Odessa School District&quot; &quot;Monroe School District&quot; &quot;Lopez School District&quot; &quot;Seattle Public Schools&quot; ...
-##  $ school_county   : chr  &quot;LINCOLN&quot; &quot;SNOHOMISH&quot; &quot;SKAGIT&quot; &quot;KING&quot; ...
-##  $ reported        : chr  &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; ...
-##  $ grade_levels    : chr  &quot;K-12&quot; &quot;K-12&quot; &quot;K -8&quot; &quot;12&quot; ...
-##  $ enrolled        : int  1 1 1 1 2 2 2 2 2 2 ...
-##  $ exempt          : int  1 0 0 0 0 0 0 0 0 0 ...
-##  $ medical_exempt  : int  0 0 0 0 0 0 0 0 0 0 ...
-##  $ personal_exempt : int  0 0 0 0 0 0 0 0 0 0 ...
-##  $ religious_exempt: num  1 0 0 0 0 0 0 0 0 0 ...
-##  $ exempt_DTTd     : int  1 0 0 0 0 0 0 0 0 0 ...
-##  $ exempt_pertussis: int  1 0 0 0 0 0 0 0 0 0 ...
-##  $ exempt_polio    : int  1 0 0 0 0 0 0 0 0 0 ...
-##  $ exempt_MMR      : int  1 0 0 0 0 0 0 0 0 0 ...
-##  $ exempt_hepB     : int  1 0 0 0 0 0 0 0 0 0 ...
-##  $ exempt_varicella: int  1 0 0 0 0 0 0 0 0 0 ...
-##  $ year            : num  2012 2012 2012 2012 2012 ...
-##  $ state           : chr  &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; ...</code></pre>
-<pre class="r"><code>summary(doh_k12_2012)</code></pre>
-<pre><code>##  school_code        school_name        school_type       
+##  School.Street      School.City        School.State         School.Zip   
+##  Length:2841        Length:2841        Length:2841        Min.   : 9822  
+##  Class :character   Class :character   Class :character   1st Qu.:98146  
+##  Mode  :character   Mode  :character   Mode  :character   Median :98387  
+##                                                           Mean   :98473  
+##                                                           3rd Qu.:98830  
+##                                                           Max.   :99403  
+##                                                           NA's   :1      
+##  School.County      School.District.Name District.Code  
+##  Length:2841        Length:2841          Min.   : 1109  
+##  Class :character   Class :character     1st Qu.:17001  
+##  Mode  :character   Mode  :character     Median :20400  
+##                                          Mean   :22302  
+##                                          3rd Qu.:31025  
+##                                          Max.   :39209  
+##                                          NA's   :2      
+##     Grades           Reported.         K.12.Enrolled     K.12.Exempt    
+##  Length:2841        Length:2841        Min.   :   0.0   Min.   :  0.00  
+##  Class :character   Class :character   1st Qu.: 280.0   1st Qu.: 10.00  
+##  Mode  :character   Mode  :character   Median : 446.5   Median : 23.00  
+##                                        Mean   : 507.5   Mean   : 28.62  
+##                                        3rd Qu.: 600.0   3rd Qu.: 38.00  
+##                                        Max.   :3383.0   Max.   :436.00  
+##                                        NA's   :901      NA's   :901     
+##  K.12...Exempt      K.12.Medical.Exemption K.12...Medical.Exemption
+##  Length:2841        Min.   :  0.000        Length:2841             
+##  Class :character   1st Qu.:  0.000        Class :character        
+##  Mode  :character   Median :  1.000        Mode  :character        
+##                     Mean   :  2.928                                
+##                     3rd Qu.:  3.000                                
+##                     Max.   :168.000                                
+##                     NA's   :901                                    
+##  K.12.Personal.Exemption K.12...Personal.Exemption
+##  Min.   :  0.00          Length:2841              
+##  1st Qu.:  8.00          Class :character         
+##  Median : 19.00          Mode  :character         
+##  Mean   : 24.52                                   
+##  3rd Qu.: 33.00                                   
+##  Max.   :319.00                                   
+##  NA's   :901                                      
+##  K.12.Religious.Exemption K.12...Religious.Exemption K.12.Exempt.for.DT.Td
+##  Min.   : 0.000           Length:2841                Min.   :   0.00      
+##  1st Qu.: 0.000           Class :character           1st Qu.:   5.00      
+##  Median : 0.000           Mode  :character           Median :  12.00      
+##  Mean   : 1.163                                      Mean   :  16.26      
+##  3rd Qu.: 2.000                                      3rd Qu.:  21.00      
+##  Max.   :26.000                                      Max.   :1010.00      
+##  NA's   :902                                         NA's   :901          
+##  K.12.Exempt.for.Pertussis K.12.exempt.for.Polio K.12.exempt.for.Measles
+##  Min.   :  0.00            Min.   :  0.00        Min.   :  0.00         
+##  1st Qu.:  6.00            1st Qu.:  5.00        1st Qu.:  5.00         
+##  Median : 14.00            Median : 12.00        Median : 12.00         
+##  Mean   : 17.67            Mean   : 15.11        Mean   : 15.24         
+##  3rd Qu.: 24.00            3rd Qu.: 20.00        3rd Qu.: 21.00         
+##  Max.   :284.00            Max.   :335.00        Max.   :229.00         
+##  NA's   :901               NA's   :901           NA's   :901            
+##  K.12.Exempt.for.Mumps K.12.Exempt.for.Rubella K.12.Exempt.for.Hep.B
+##  Min.   :  0.00        Min.   :  0.00          Min.   :  0.00       
+##  1st Qu.:  5.00        1st Qu.:  5.00          1st Qu.:  6.00       
+##  Median : 12.00        Median : 12.00          Median : 13.00       
+##  Mean   : 15.27        Mean   : 15.16          Mean   : 16.92       
+##  3rd Qu.: 21.00        3rd Qu.: 21.00          3rd Qu.: 22.00       
+##  Max.   :228.00        Max.   :143.00          Max.   :235.00       
+##  NA's   :901           NA's   :901             NA's   :901          
+##  K.12.Exempt.for.Varicella
+##  Min.   :  0.000          
+##  1st Qu.:  0.000          
+##  Median :  6.000          
+##  Mean   :  9.575          
+##  3rd Qu.: 15.000          
+##  Max.   :159.000          
+##  NA's   :902</code></pre>
+<pre class="r"><code>str(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2012.txt', quote=&quot;&quot; , stringsAsFactors=FALSE))</code></pre>
+<pre><code>## 'data.frame':    2434 obs. of  21 variables:
+##  $ School.Code                         : chr  &quot;8395&quot; &quot;8951&quot; &quot;4178&quot; &quot;5260&quot; ...
+##  $ School.Name                         : chr  &quot;Rock Creek Hutterite&quot; &quot;Theresa and Elizabeths School&quot; &quot;Decatur Elementary&quot; &quot;The Seattle Public Schools Skills Center&quot; ...
+##  $ School.Type                         : chr  &quot;Private&quot; &quot;Private&quot; &quot;Public&quot; &quot;Public&quot; ...
+##  $ School.District                     : chr  &quot;Odessa School District&quot; &quot;Monroe School District&quot; &quot;Lopez School District&quot; &quot;Seattle Public Schools&quot; ...
+##  $ County                              : chr  &quot;LINCOLN&quot; &quot;SNOHOMISH&quot; &quot;SKAGIT&quot; &quot;KING&quot; ...
+##  $ Reported.                           : chr  &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; ...
+##  $ Data.Source                         : chr  &quot;IIS&quot; &quot;IIS&quot; &quot;XLSCSV&quot; &quot;XLSCSVSea&quot; ...
+##  $ Grade.Levels                        : chr  &quot;K-12&quot; &quot;K-12&quot; &quot;K -8&quot; &quot;12&quot; ...
+##  $ K.12.Number.Enrolled                : int  1 1 1 1 2 2 2 2 2 2 ...
+##  $ K.12.Number.Complete                : int  0 1 1 0 2 1 2 2 2 2 ...
+##  $ K.12.Number.Exempt                  : int  1 0 0 0 0 0 0 0 0 0 ...
+##  $ K.12.Number.Exempt..Medical         : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ K.12.Number.Exempt..Personal        : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ K.12.Number.Exempt..Religious       : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ K.12.Number.Exempt..Religious.Member: int  1 0 0 0 0 0 0 0 0 0 ...
+##  $ K.12.Number.Exempt..D.T             : int  1 0 0 0 0 0 0 0 0 0 ...
+##  $ K.12.Number.Exempt..Pertussis       : int  1 0 0 0 0 0 0 0 0 0 ...
+##  $ K.12.Number.Exempt..Polio           : int  1 0 0 0 0 0 0 0 0 0 ...
+##  $ K.12.Number.Exempt..MMR             : int  1 0 0 0 0 0 0 0 0 0 ...
+##  $ K.12.Number.Exempt..Hep.B           : int  1 0 0 0 0 0 0 0 0 0 ...
+##  $ K.12.Number.Exempt..Varicella       : int  1 0 0 0 0 0 0 0 0 0 ...</code></pre>
+<pre class="r"><code>summary(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2012.txt', quote=&quot;&quot; , stringsAsFactors=FALSE))</code></pre>
+<pre><code>##  School.Code        School.Name        School.Type       
 ##  Length:2434        Length:2434        Length:2434       
 ##  Class :character   Class :character   Class :character  
 ##  Mode  :character   Mode  :character   Mode  :character  
@@ -832,7 +849,7 @@ str(doh_k12_2011)</code></pre>
 ##                                                          
 ##                                                          
 ##                                                          
-##  school_district    school_county        reported        
+##  School.District       County           Reported.        
 ##  Length:2434        Length:2434        Length:2434       
 ##  Class :character   Class :character   Class :character  
 ##  Mode  :character   Mode  :character   Mode  :character  
@@ -840,73 +857,97 @@ str(doh_k12_2011)</code></pre>
 ##                                                          
 ##                                                          
 ##                                                          
-##  grade_levels          enrolled           exempt       medical_exempt   
-##  Length:2434        Min.   :    1.0   Min.   :  0.00   Min.   :  0.000  
-##  Class :character   1st Qu.:  170.0   1st Qu.:  6.00   1st Qu.:  0.000  
-##  Mode  :character   Median :  408.0   Median : 18.00   Median :  2.000  
-##                     Mean   :  458.3   Mean   : 23.85   Mean   :  3.013  
-##                     3rd Qu.:  573.0   3rd Qu.: 33.00   3rd Qu.:  4.000  
-##                     Max.   :10696.0   Max.   :371.00   Max.   :186.000  
-##                     NA's   :5         NA's   :5        NA's   :5        
-##  personal_exempt  religious_exempt  exempt_DTTd     exempt_pertussis
-##  Min.   :  0.00   Min.   : 0.000   Min.   :  0.00   Min.   :  0.00  
-##  1st Qu.:  5.00   1st Qu.: 0.000   1st Qu.:  4.00   1st Qu.:  3.00  
-##  Median : 14.00   Median : 0.000   Median : 10.00   Median : 10.00  
-##  Mean   : 19.86   Mean   : 1.351   Mean   : 14.48   Mean   : 13.59  
-##  3rd Qu.: 27.00   3rd Qu.: 2.000   3rd Qu.: 20.00   3rd Qu.: 19.00  
-##  Max.   :304.00   Max.   :36.000   Max.   :287.00   Max.   :285.00  
-##  NA's   :5        NA's   :5        NA's   :5        NA's   :5       
-##   exempt_polio      exempt_MMR      exempt_hepB     exempt_varicella 
-##  Min.   :  0.00   Min.   :  0.00   Min.   :  0.00   Min.   :   0.00  
-##  1st Qu.:  3.00   1st Qu.:  4.00   1st Qu.:  4.00   1st Qu.:   1.00  
-##  Median : 10.00   Median : 11.00   Median : 11.00   Median :   8.00  
-##  Mean   : 13.19   Mean   : 14.59   Mean   : 14.64   Mean   :  14.52  
-##  3rd Qu.: 19.00   3rd Qu.: 20.00   3rd Qu.: 20.00   3rd Qu.:  19.00  
-##  Max.   :262.00   Max.   :267.00   Max.   :256.00   Max.   :1176.00  
-##  NA's   :5        NA's   :5        NA's   :5        NA's   :5        
-##       year         state          
-##  Min.   :2012   Length:2434       
-##  1st Qu.:2012   Class :character  
-##  Median :2012   Mode  :character  
-##  Mean   :2012                     
-##  3rd Qu.:2012                     
-##  Max.   :2012                     
-## </code></pre>
-<pre class="r"><code>str(doh_k12_2013)</code></pre>
+##  Data.Source        Grade.Levels       K.12.Number.Enrolled
+##  Length:2434        Length:2434        Min.   :    1.0     
+##  Class :character   Class :character   1st Qu.:  170.0     
+##  Mode  :character   Mode  :character   Median :  408.0     
+##                                        Mean   :  458.3     
+##                                        3rd Qu.:  573.0     
+##                                        Max.   :10696.0     
+##                                        NA's   :5           
+##  K.12.Number.Complete K.12.Number.Exempt K.12.Number.Exempt..Medical
+##  Min.   :    0.0      Min.   :  0.00     Min.   :  0.000            
+##  1st Qu.:  134.0      1st Qu.:  6.00     1st Qu.:  0.000            
+##  Median :  353.0      Median : 18.00     Median :  2.000            
+##  Mean   :  405.4      Mean   : 23.85     Mean   :  3.013            
+##  3rd Qu.:  518.0      3rd Qu.: 33.00     3rd Qu.:  4.000            
+##  Max.   :10529.0      Max.   :371.00     Max.   :186.000            
+##  NA's   :5            NA's   :5          NA's   :5                  
+##  K.12.Number.Exempt..Personal K.12.Number.Exempt..Religious
+##  Min.   :  0.00               Min.   : 0.000               
+##  1st Qu.:  5.00               1st Qu.: 0.000               
+##  Median : 14.00               Median : 0.000               
+##  Mean   : 19.86               Mean   : 1.206               
+##  3rd Qu.: 27.00               3rd Qu.: 2.000               
+##  Max.   :304.00               Max.   :35.000               
+##  NA's   :5                    NA's   :5                    
+##  K.12.Number.Exempt..Religious.Member K.12.Number.Exempt..D.T
+##  Min.   : 0.0000                      Min.   :  0.00         
+##  1st Qu.: 0.0000                      1st Qu.:  4.00         
+##  Median : 0.0000                      Median : 10.00         
+##  Mean   : 0.1449                      Mean   : 14.48         
+##  3rd Qu.: 0.0000                      3rd Qu.: 20.00         
+##  Max.   :18.0000                      Max.   :287.00         
+##  NA's   :5                            NA's   :5              
+##  K.12.Number.Exempt..Pertussis K.12.Number.Exempt..Polio
+##  Min.   :  0.00                Min.   :  0.00           
+##  1st Qu.:  3.00                1st Qu.:  3.00           
+##  Median : 10.00                Median : 10.00           
+##  Mean   : 13.59                Mean   : 13.19           
+##  3rd Qu.: 19.00                3rd Qu.: 19.00           
+##  Max.   :285.00                Max.   :262.00           
+##  NA's   :5                     NA's   :5                
+##  K.12.Number.Exempt..MMR K.12.Number.Exempt..Hep.B
+##  Min.   :  0.00          Min.   :  0.00           
+##  1st Qu.:  4.00          1st Qu.:  4.00           
+##  Median : 11.00          Median : 11.00           
+##  Mean   : 14.59          Mean   : 14.64           
+##  3rd Qu.: 20.00          3rd Qu.: 20.00           
+##  Max.   :267.00          Max.   :256.00           
+##  NA's   :5               NA's   :5                
+##  K.12.Number.Exempt..Varicella
+##  Min.   :   0.00              
+##  1st Qu.:   1.00              
+##  Median :   8.00              
+##  Mean   :  14.52              
+##  3rd Qu.:  19.00              
+##  Max.   :1176.00              
+##  NA's   :5</code></pre>
+<pre class="r"><code>str(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2013.txt', quote=&quot;&quot; , stringsAsFactors=FALSE))</code></pre>
 <pre><code>## 'data.frame':    2647 obs. of  23 variables:
-##  $ year            : num  2013 2013 2013 2013 2013 ...
-##  $ school_code     : chr  &quot;8022&quot; &quot;3857&quot; &quot;3476&quot; &quot;2449&quot; ...
-##  $ school_name     : chr  &quot;St. Mary School&quot; &quot;Harbor High School&quot; &quot;J M Weatherwax High School&quot; &quot;McDermoth Elementary&quot; ...
-##  $ school_type     : chr  &quot;Private School&quot; &quot;Public School&quot; &quot;Public School&quot; &quot;Public School&quot; ...
-##  $ school_city     : chr  &quot;Aberdeen&quot; &quot;Aberdeen&quot; &quot;Aberdeen&quot; &quot;Aberdeen&quot; ...
-##  $ school_state    : chr  &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; ...
-##  $ school_zip      : chr  &quot;98520&quot; &quot;98520&quot; &quot;98520&quot; &quot;98520&quot; ...
-##  $ school_county   : chr  &quot;GRAYS HARBOR&quot; &quot;GRAYS HARBOR&quot; &quot;GRAYS HARBOR&quot; &quot;GRAYS HARBOR&quot; ...
-##  $ school_district : chr  &quot;Aberdeen School District&quot; &quot;Aberdeen School District&quot; &quot;Aberdeen School District&quot; &quot;Aberdeen School District&quot; ...
-##  $ district_code   : num  14005 14005 14005 14005 14005 ...
-##  $ grade_levels    : chr  &quot;P-8&quot; &quot;9-12&quot; &quot;9-12&quot; &quot;K -6&quot; ...
-##  $ reported        : chr  &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; ...
-##  $ enrolled        : int  110 123 911 384 458 NA 397 174 479 234 ...
-##  $ exempt          : int  3 2 25 6 9 NA 4 5 12 7 ...
-##  $ medical_exempt  : int  0 0 0 0 0 NA 1 0 0 2 ...
-##  $ personal_exempt : int  3 1 25 6 8 NA 2 5 12 5 ...
-##  $ religious_exempt: num  0 1 0 0 1 NA 1 0 0 0 ...
-##  $ exempt_DTTd     : int  3 2 21 4 9 NA 4 3 9 5 ...
-##  $ exempt_pertussis: int  3 2 22 4 9 NA 4 3 9 5 ...
-##  $ exempt_polio    : int  3 2 15 3 5 NA 4 3 9 5 ...
-##  $ exempt_MMR      : int  3 1 21 4 5 NA 4 2 10 5 ...
-##  $ exempt_hepB     : int  3 0 15 2 6 NA 4 3 10 3 ...
-##  $ exempt_varicella: int  3 0 0 6 0 NA 4 5 12 7 ...</code></pre>
-<pre class="r"><code>summary(doh_k12_2013)</code></pre>
-<pre><code>##       year      school_code        school_name        school_type       
-##  Min.   :2013   Length:2647        Length:2647        Length:2647       
-##  1st Qu.:2013   Class :character   Class :character   Class :character  
-##  Median :2013   Mode  :character   Mode  :character   Mode  :character  
-##  Mean   :2013                                                           
-##  3rd Qu.:2013                                                           
-##  Max.   :2013                                                           
-##                                                                         
-##  school_city        school_state        school_zip       
+##  $ School.Building.Code                                                    : chr  &quot;8022&quot; &quot;3857&quot; &quot;3476&quot; &quot;2449&quot; ...
+##  $ School.Name                                                             : chr  &quot;St. Mary School&quot; &quot;Harbor High School&quot; &quot;J M Weatherwax High School&quot; &quot;McDermoth Elementary&quot; ...
+##  $ School.Type                                                             : chr  &quot;Private School&quot; &quot;Public School&quot; &quot;Public School&quot; &quot;Public School&quot; ...
+##  $ Address                                                                 : chr  &quot;518 North H St&quot; &quot;300 N. Williams&quot; &quot;410 North G Street&quot; &quot;409 North K St&quot; ...
+##  $ City                                                                    : chr  &quot;Aberdeen&quot; &quot;Aberdeen&quot; &quot;Aberdeen&quot; &quot;Aberdeen&quot; ...
+##  $ State                                                                   : chr  &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; &quot;WA&quot; ...
+##  $ Zip                                                                     : chr  &quot;98520&quot; &quot;98520&quot; &quot;98520&quot; &quot;98520&quot; ...
+##  $ District.Name                                                           : chr  &quot;Aberdeen School District&quot; &quot;Aberdeen School District&quot; &quot;Aberdeen School District&quot; &quot;Aberdeen School District&quot; ...
+##  $ County                                                                  : chr  &quot;GRAYS HARBOR&quot; &quot;GRAYS HARBOR&quot; &quot;GRAYS HARBOR&quot; &quot;GRAYS HARBOR&quot; ...
+##  $ Grade.Levels                                                            : chr  &quot;P-8&quot; &quot;9-12&quot; &quot;9-12&quot; &quot;K -6&quot; ...
+##  $ Number.of.K.12..All.Grades..Students.Enrolled                           : int  110 123 911 384 458 NA 397 174 479 234 ...
+##  $ Number.of.K.12..All.Grades..Students.Complete                           : int  108 121 886 338 449 NA 323 153 435 216 ...
+##  $ Number.of.K.12..All.Grades..Students.with.any.Exemption                 : int  3 2 25 6 9 NA 4 5 12 7 ...
+##  $ Number.of.K.12..All.Grades..Students.with.Medical.Exemption             : int  0 0 0 0 0 NA 1 0 0 2 ...
+##  $ Number.of.K.12..All.Grades..Students.with.Personal.Exemption            : int  3 1 25 6 8 NA 2 5 12 5 ...
+##  $ Number.of.K.12..All.Grades..Students.with.Religious.Exemption           : int  0 1 0 0 1 NA 0 0 0 0 ...
+##  $ Number.of.K.12..All.Grades..Students.with.Religious.Membership.Exemption: int  0 0 0 0 0 NA 1 0 0 0 ...
+##  $ Number.of.K.12..All.Grades..Students.Exempt.for.Diphtheria.Tetanus      : int  3 2 21 4 9 NA 4 3 9 5 ...
+##  $ Number.of.K.12..All.Grades..Students.Exempt.for.Pertussis               : int  3 2 22 4 9 NA 4 3 9 5 ...
+##  $ Number.of.K.12..All.Grades..Students.Exempt.for.Polio                   : int  3 2 15 3 5 NA 4 3 9 5 ...
+##  $ Number.of.K.12..All.Grades..Students.Exempt.for.MMR                     : int  3 1 21 4 5 NA 4 2 10 5 ...
+##  $ Number.of.K.12..All.Grades..Students.Exempt.for.Hep.B                   : int  3 0 15 2 6 NA 4 3 10 3 ...
+##  $ Number.of.K.12..All.Grades..Students.Exempt.for.Varicella               : int  3 0 0 6 0 NA 4 5 12 7 ...</code></pre>
+<pre class="r"><code>summary(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2013.txt', quote=&quot;&quot; , stringsAsFactors=FALSE))</code></pre>
+<pre><code>##  School.Building.Code School.Name        School.Type       
+##  Length:2647          Length:2647        Length:2647       
+##  Class :character     Class :character   Class :character  
+##  Mode  :character     Mode  :character   Mode  :character  
+##                                                            
+##                                                            
+##                                                            
+##                                                            
+##    Address              City              State          
 ##  Length:2647        Length:2647        Length:2647       
 ##  Class :character   Class :character   Class :character  
 ##  Mode  :character   Mode  :character   Mode  :character  
@@ -914,45 +955,117 @@ str(doh_k12_2011)</code></pre>
 ##                                                          
 ##                                                          
 ##                                                          
-##  school_county      school_district    district_code    
-##  Length:2647        Length:2647        Min.   :   1109  
-##  Class :character   Class :character   1st Qu.:  17400  
-##  Mode  :character   Mode  :character   Median :  24122  
-##                                        Mean   : 601240  
-##                                        3rd Qu.:  32081  
-##                                        Max.   :8675309  
-##                                        NA's   :1        
-##  grade_levels         reported            enrolled          exempt      
-##  Length:2647        Length:2647        Min.   :   0.0   Min.   :  0.00  
-##  Class :character   Class :character   1st Qu.: 189.0   1st Qu.:  7.00  
-##  Mode  :character   Mode  :character   Median : 417.0   Median : 18.00  
-##                                        Mean   : 462.7   Mean   : 24.45  
-##                                        3rd Qu.: 583.0   3rd Qu.: 33.00  
-##                                        Max.   :3416.0   Max.   :357.00  
-##                                        NA's   :301      NA's   :302     
-##  medical_exempt   personal_exempt  religious_exempt  exempt_DTTd   
-##  Min.   :  0.00   Min.   :  0.00   Min.   : 0.000   Min.   :  0.0  
-##  1st Qu.:  0.00   1st Qu.:  5.00   1st Qu.: 0.000   1st Qu.:  4.0  
-##  Median :  2.00   Median : 14.00   Median : 1.000   Median : 10.0  
-##  Mean   :  4.56   Mean   : 18.94   Mean   : 1.579   Mean   : 14.7  
-##  3rd Qu.:  5.00   3rd Qu.: 26.00   3rd Qu.: 2.000   3rd Qu.: 19.0  
-##  Max.   :214.00   Max.   :277.00   Max.   :78.000   Max.   :295.0  
-##  NA's   :308      NA's   :302      NA's   :337      NA's   :302    
-##  exempt_pertussis  exempt_polio      exempt_MMR      exempt_hepB    
-##  Min.   :  0.00   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
-##  1st Qu.:  3.00   1st Qu.:  4.00   1st Qu.:  4.00   1st Qu.:  4.00  
-##  Median :  9.00   Median : 10.00   Median : 11.00   Median : 10.00  
-##  Mean   : 13.71   Mean   : 13.41   Mean   : 14.56   Mean   : 14.26  
-##  3rd Qu.: 18.00   3rd Qu.: 19.00   3rd Qu.: 20.00   3rd Qu.: 20.00  
-##  Max.   :292.00   Max.   :267.00   Max.   :269.00   Max.   :257.00  
-##  NA's   :302      NA's   :302      NA's   :302      NA's   :302     
-##  exempt_varicella
-##  Min.   :  0.00  
-##  1st Qu.:  1.00  
-##  Median :  8.00  
-##  Mean   : 13.38  
-##  3rd Qu.: 19.00  
-##  Max.   :227.00  
+##      Zip            District.Name         County         
+##  Length:2647        Length:2647        Length:2647       
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##                                                          
+##  Grade.Levels       Number.of.K.12..All.Grades..Students.Enrolled
+##  Length:2647        Min.   :   0.0                               
+##  Class :character   1st Qu.: 189.0                               
+##  Mode  :character   Median : 417.0                               
+##                     Mean   : 462.7                               
+##                     3rd Qu.: 583.0                               
+##                     Max.   :3416.0                               
+##                     NA's   :301                                  
+##  Number.of.K.12..All.Grades..Students.Complete
+##  Min.   :   0.0                               
+##  1st Qu.: 145.0                               
+##  Median : 359.0                               
+##  Mean   : 404.4                               
+##  3rd Qu.: 524.0                               
+##  Max.   :3366.0                               
+##  NA's   :303                                  
+##  Number.of.K.12..All.Grades..Students.with.any.Exemption
+##  Min.   :  0.00                                         
+##  1st Qu.:  7.00                                         
+##  Median : 18.00                                         
+##  Mean   : 24.45                                         
+##  3rd Qu.: 33.00                                         
+##  Max.   :357.00                                         
+##  NA's   :302                                            
+##  Number.of.K.12..All.Grades..Students.with.Medical.Exemption
+##  Min.   :  0.00                                             
+##  1st Qu.:  0.00                                             
+##  Median :  2.00                                             
+##  Mean   :  4.56                                             
+##  3rd Qu.:  5.00                                             
+##  Max.   :214.00                                             
+##  NA's   :308                                                
+##  Number.of.K.12..All.Grades..Students.with.Personal.Exemption
+##  Min.   :  0.00                                              
+##  1st Qu.:  5.00                                              
+##  Median : 14.00                                              
+##  Mean   : 18.94                                              
+##  3rd Qu.: 26.00                                              
+##  Max.   :277.00                                              
+##  NA's   :302                                                 
+##  Number.of.K.12..All.Grades..Students.with.Religious.Exemption
+##  Min.   : 0.000                                               
+##  1st Qu.: 0.000                                               
+##  Median : 0.000                                               
+##  Mean   : 1.304                                               
+##  3rd Qu.: 2.000                                               
+##  Max.   :42.000                                               
+##  NA's   :311                                                  
+##  Number.of.K.12..All.Grades..Students.with.Religious.Membership.Exemption
+##  Min.   : 0.0000                                                         
+##  1st Qu.: 0.0000                                                         
+##  Median : 0.0000                                                         
+##  Mean   : 0.2865                                                         
+##  3rd Qu.: 0.0000                                                         
+##  Max.   :77.0000                                                         
+##  NA's   :336                                                             
+##  Number.of.K.12..All.Grades..Students.Exempt.for.Diphtheria.Tetanus
+##  Min.   :  0.0                                                     
+##  1st Qu.:  4.0                                                     
+##  Median : 10.0                                                     
+##  Mean   : 14.7                                                     
+##  3rd Qu.: 19.0                                                     
+##  Max.   :295.0                                                     
+##  NA's   :302                                                       
+##  Number.of.K.12..All.Grades..Students.Exempt.for.Pertussis
+##  Min.   :  0.00                                           
+##  1st Qu.:  3.00                                           
+##  Median :  9.00                                           
+##  Mean   : 13.71                                           
+##  3rd Qu.: 18.00                                           
+##  Max.   :292.00                                           
+##  NA's   :302                                              
+##  Number.of.K.12..All.Grades..Students.Exempt.for.Polio
+##  Min.   :  0.00                                       
+##  1st Qu.:  4.00                                       
+##  Median : 10.00                                       
+##  Mean   : 13.41                                       
+##  3rd Qu.: 19.00                                       
+##  Max.   :267.00                                       
+##  NA's   :302                                          
+##  Number.of.K.12..All.Grades..Students.Exempt.for.MMR
+##  Min.   :  0.00                                     
+##  1st Qu.:  4.00                                     
+##  Median : 11.00                                     
+##  Mean   : 14.56                                     
+##  3rd Qu.: 20.00                                     
+##  Max.   :269.00                                     
+##  NA's   :302                                        
+##  Number.of.K.12..All.Grades..Students.Exempt.for.Hep.B
+##  Min.   :  0.00                                       
+##  1st Qu.:  4.00                                       
+##  Median : 10.00                                       
+##  Mean   : 14.26                                       
+##  3rd Qu.: 20.00                                       
+##  Max.   :257.00                                       
+##  NA's   :302                                          
+##  Number.of.K.12..All.Grades..Students.Exempt.for.Varicella
+##  Min.   :  0.00                                           
+##  1st Qu.:  1.00                                           
+##  Median :  8.00                                           
+##  Mean   : 13.38                                           
+##  3rd Qu.: 19.00                                           
+##  Max.   :227.00                                           
 ##  NA's   :302</code></pre>
 <pre class="r"><code>#Current versions
 str(WA_DOH_combined)</code></pre>
