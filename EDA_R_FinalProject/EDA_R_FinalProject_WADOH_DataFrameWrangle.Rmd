@@ -482,16 +482,6 @@ saveRDS(WA_DOH_combined,"data/WA_DOH_Combined.rds")
 
 ```
 
-###Tidy the combined DF###
-
-```{r tidy combined DF}
-#gather exemptions
-WA_DOH_tidy <- gather(WA_DOH_combined,exemption_type,exemptions,medical_exempt, personal_exempt, religious_exempt)
-
-#add percent by exemption type
-WA_DOH_tidy$percent_exemption_type <- round((WA_DOH_tidy$total_exemptions/WA_DOH_tidy$enrolled)*100,digits = 2)
-
-```
 
 ```{r for data review}
 #what I started with
@@ -507,10 +497,6 @@ summary(read.delim('data/2013.txt', quote="" , stringsAsFactors=FALSE))
 #Current versions
 str(WA_DOH_combined)
 summary(WA_DOH_combined)
-
-str(WA_DOH_tidy)
-summary(WA_DOH_tidy)
-
 
 ```
 
