@@ -435,6 +435,7 @@ str(WA_DOH_combined)
 names(WA_DOH_combined)[14] <- "total_exemptions"
 #rename year column to school_year
 names(WA_DOH_combined)[1] <- "school_year"
+WA_DOH_combined$year <- NULL
 ```
 
 
@@ -467,7 +468,7 @@ WA_DOH_combined$percent_exempt <- round((WA_DOH_combined$total_exemptions/WA_DOH
 ```{r convert classes of combined}
 #convert categorical variables to factors
 WA_DOH_combined$school_type <- as.factor(WA_DOH_combined$school_type)
-WA_DOH_combined$year <- as.factor(WA_DOH_combined$school_year)
+WA_DOH_combined$school_year <- as.factor(WA_DOH_combined$school_year)
 WA_DOH_combined$reported <- as.factor(WA_DOH_combined$reported)
 ```
 
