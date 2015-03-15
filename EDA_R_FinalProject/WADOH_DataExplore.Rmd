@@ -16,14 +16,32 @@ The current state is a rough approach and far from perfect.  I plan to revisit t
 **Disclaimer:**
 While I am a trained scientist, I am not an expert statistician or programmer.  This is a student project.  My data cleaning and wrangling is not perfect.  As such, please exercise caution and good judgement regarding my observations and conclusions.  **Feedback on any aspect of this project is encouraged and most welcome.**
 
-```{r data load}
-WAVaccExempt <- readRDS('data/WA_DOH_Combined.rds')
+#Prepare Environment and Load Data#
 
+```{r working directory, .RData I/O}
+setwd("Udacity//dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/")
+save.image("project_pause.RData")
+load.image("project_pause.RData")
+```
+
+```{r data load}
+#load current rds
+WAVaccExempt <- readRDS('data/WA_DOH_Combined.rds')
 ```
 
 
 ```{r library load}
 library(dplyr)
 library(tidyr)
+library(ggplot2)
+```
+
+#Exploratory Data Analysis#
+
+##Initial Survey##
+
+```{r summary and structure}
+
+
 ```
 
