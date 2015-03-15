@@ -1,0 +1,18 @@
+---
+title: "Exploration of WA DOH School Vaccine Exemption Data for 2011-2013 School Year"
+author: "Andrew Thomas Bauman"
+date: "Saturday, March 14, 2015"
+output: html_document
+---
+
+```{r data load}
+WAVaccExempt <- readRDS('data/WA_DOH_Combined.rds')
+
+```
+
+
+```{r library load}
+library(dplyr)
+library(tidyr)
+```
+
