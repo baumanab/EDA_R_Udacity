@@ -472,6 +472,16 @@ WA_DOH_combined$school_year <- as.factor(WA_DOH_combined$school_year)
 WA_DOH_combined$reported <- as.factor(WA_DOH_combined$reported)
 ```
 
+```{r cleanup reported field}
+#reported field has 3 levels, it should have 2, yes or no
+WA_DOH_combined[WA_DOH_combined$reported == "",]
+
+#These rows have no real information in them, removing from combined DF
+WA_DOH_combined <- WA_DOH_combined[WA_DOH_combined$reported != "",]
+
+
+```
+
 ```{r save and export WA DOH combined DF}
 write.table(WA_DOH_combined, "data/WA_DOH_Combined.txt", sep ="\t")
 
