@@ -479,7 +479,6 @@ WA_DOH_combined[WA_DOH_combined$reported == "",]
 #These rows have no real information in them, removing from combined DF
 WA_DOH_combined <- WA_DOH_combined[WA_DOH_combined$reported != "",]
 
-
 ```
 
 ```{r save and export WA DOH combined DF}
@@ -491,7 +490,7 @@ saveRDS(WA_DOH_combined,"data/WA_DOH_Combined.rds")
 
 
 ```{r for data review}
-#what I started with
+#what I started with after conversion from .xlsx
 str(read.delim('data/2011.txt', quote="" , stringsAsFactors=FALSE))
 summary(read.delim('data/2011.txt', quote="" , stringsAsFactors=FALSE))
 
