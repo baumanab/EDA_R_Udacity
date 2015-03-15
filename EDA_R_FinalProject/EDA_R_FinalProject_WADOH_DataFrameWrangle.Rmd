@@ -38,9 +38,6 @@ getwd()
 
 ```{r load libraries}
 library(dplyr)
-library(alr3)
-library(tidyr) #bare bones data tidying library
-
 ```
 ##Read and Audit WA DOH K-12 School Vaccination Data Frames##
 
@@ -227,7 +224,6 @@ Are there schools unique to any year?  This would be reasonable since schools op
 
 ###Construct school profile keys and fill in gaps###
 **Strategy**  I have some options for filling in missing geo data.  I can fill in from the WA DOH data sets, from the OSIP data sets, or both.  Note that the OSIP data sets have complete zip codes, whereas the WA DOH data sets have only the 5 digit zip code.  The complete zip code may come in handy later for extracting census info.  The 5 digit would be good for aggregation on overall zip code.
-**NOte on Packages** The ACS package has an apply function.  I used detach(package:acs) to remove the acs package so that R base apply would not be masked.
 
 I'm going to use all the data stats for filing in info and Split, Apply, Combine
 
