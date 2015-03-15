@@ -4,6 +4,17 @@ author: "Andrew Thomas Bauman"
 date: "Saturday, March 14, 2015"
 output: html_document
 ---
+#Introduction#
+
+Recent news media coverage and my own personal interest inspired me to explore a school vaccination data set for WA state.  WA DOH employees generously assembled 3 data sets for my project for school years 2011-2012, 2012-2013, and 2013-2014.  The 2011-2012 set is the most comprehensive in terms of school covered and relevant fields  Each data set contains an observation about a school.  The 3 data sets were bound into one data set, then explored.  
+
+The initial data and cleaning/assembly of the combined data frame can be found here:
+[githubrepo](https://github.com/baumanab/EDA_R_Udacity/tree/master/EDA_R_FinalProject)
+
+The current state is a rough approach and far from perfect.  I plan to revisit this as I discover additional elements that need cleaning.  I am currently working on a more readable and organized version of the data wrangling which involves piping/chaining the code together, so that changes are easy to make and push to the .rds file called as data for this project.
+
+**Disclaimer:**
+While I am a trained scientist, I am not an expert statistician or programmer.  This is a student project.  My data cleaning and wrangling is not perfect.  As such, please exercise caution and good judgement regarding my observations and conclusions.  **Feedback on any aspect of this project is encouraged and most welcome.**
 
 ```{r data load}
 WAVaccExempt <- readRDS('data/WA_DOH_Combined.rds')
