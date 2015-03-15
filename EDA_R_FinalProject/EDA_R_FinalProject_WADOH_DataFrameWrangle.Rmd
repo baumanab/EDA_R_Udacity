@@ -32,9 +32,8 @@ I will use the following approach to assemble my initial data frame and explore 
 ###Set Path and Load Libraries###
 
 ```{r setpath}
-load("~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/project_pause.RData")
-setwd("~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject")
-list.files()
+load("project_pause.RData")
+getwd()
 ```
 
 ```{r load libraries}
