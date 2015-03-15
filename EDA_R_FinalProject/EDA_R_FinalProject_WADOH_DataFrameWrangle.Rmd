@@ -53,13 +53,13 @@ Data was provided as 3 Excel files.  The files contained summary functions as we
 ```{r load school vaccination exemption data sets}
 
 #WA DOH SY 2011-2012 K-12
-doh_k12_2011<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2011.txt', quote="" , stringsAsFactors=FALSE)
+doh_k12_2011<- read.delim('data/2011.txt', quote="" , stringsAsFactors=FALSE)
 
 #WA DOH SY 2012-2013 K-12
-doh_k12_2012<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2012.txt', quote="" , stringsAsFactors=FALSE)
+doh_k12_2012<- read.delim('data/2012.txt', quote="" , stringsAsFactors=FALSE)
 
 #WA doh SY 2013-2014 K-12
-doh_k12_2013<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2013.txt', quote="" , stringsAsFactors=FALSE)
+doh_k12_2013<- read.delim('data/2013.txt', quote="" , stringsAsFactors=FALSE)
 
 #checking structures to determine state of data and column classes
 str(doh_k12_2011)
@@ -251,16 +251,16 @@ WA_DOH_codeframe <- WA_DOH_codeframe[!duplicated(WA_DOH_codeframe$school_code),]
 ```
 ```{r Read in OSIP data and construct OSIP codeframes}
 #WA OSIP 1
-WA_OSIP_1<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/school_lists/482_SDF_bldg.txt', quote="" , stringsAsFactors=FALSE)
+WA_OSIP_1<- read.delim('data/school_lists/482_SDF_bldg.txt', quote="" , stringsAsFactors=FALSE)
 
 #WA OSIP 2
-WA_OSIP_2<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/school_lists/483_SDF_bldg.txt', quote="" , stringsAsFactors=FALSE)
+WA_OSIP_2<- read.delim('data/school_lists/483_SDF_bldg.txt', quote="" , stringsAsFactors=FALSE)
 
 #WA OSIP 3
-WA_OSIP_3<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/school_lists/491_SDF_ApprovedPrivateSchoolsList.txt', quote="" , stringsAsFactors=FALSE)
+WA_OSIP_3<- read.delim('data/school_lists/491_SDF_ApprovedPrivateSchoolsList.txt', quote="" , stringsAsFactors=FALSE)
 
 #WA OSIP 4
-WA_OSIP_4<- read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/school_lists/492_SDF_ApprovedPrivateSchoolsList.txt', quote="" , stringsAsFactors=FALSE)
+WA_OSIP_4<- read.delim('data/school_lists/492_SDF_ApprovedPrivateSchoolsList.txt', quote="" , stringsAsFactors=FALSE)
 
 names(WA_OSIP_2) == names(WA_OSIP_1)
 
@@ -476,9 +476,9 @@ WA_DOH_combined$reported <- as.factor(WA_DOH_combined$reported)
 ```
 
 ```{r save and export WA DOH combined DF}
-write.table(WA_DOH_combined, "~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/WA_DOH_Combined.txt", sep ="\t")
+write.table(WA_DOH_combined, "data/WA_DOH_Combined.txt", sep ="\t")
 
-saveRDS(WA_DOH_combined,"WA_DOH_Combined.rds")
+saveRDS(WA_DOH_combined,"data/WA_DOH_Combined.rds")
 
 ```
 
@@ -493,16 +493,16 @@ WA_DOH_tidy$percent_exemption_type <- round((WA_DOH_tidy$total_exemptions/WA_DOH
 
 ```
 
-```{r for udacity coaches}
+```{r for data review}
 #what I started with
-str(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2011.txt', quote="" , stringsAsFactors=FALSE))
-summary(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2011.txt', quote="" , stringsAsFactors=FALSE))
+str(read.delim('data/2011.txt', quote="" , stringsAsFactors=FALSE))
+summary(read.delim('data/2011.txt', quote="" , stringsAsFactors=FALSE))
 
-str(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2012.txt', quote="" , stringsAsFactors=FALSE))
-summary(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2012.txt', quote="" , stringsAsFactors=FALSE))
+str(read.delim('data/2012.txt', quote="" , stringsAsFactors=FALSE))
+summary(read.delim('data/2012.txt', quote="" , stringsAsFactors=FALSE))
 
-str(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2013.txt', quote="" , stringsAsFactors=FALSE))
-summary(read.delim('~/Udacity/dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/data/2013.txt', quote="" , stringsAsFactors=FALSE))
+str(read.delim('data/2013.txt', quote="" , stringsAsFactors=FALSE))
+summary(read.delim('data/2013.txt', quote="" , stringsAsFactors=FALSE))
 
 #Current versions
 str(WA_DOH_combined)
