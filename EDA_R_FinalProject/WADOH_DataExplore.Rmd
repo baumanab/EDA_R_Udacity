@@ -21,12 +21,12 @@ While I am a trained scientist, I am not an expert statistician or programmer.  
 ```{r working directory, .RData I/O}
 setwd("Udacity//dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/")
 save.image("project_pause.RData")
-load.image("project_pause.RData")
+load("project_pause.RData")
 ```
 
 ```{r data load}
 #load current rds
-WAVaccExempt <- readRDS('data/WA_DOH_Combined.rds')
+vacc <- readRDS('data/WA_DOH_Combined.rds')
 ```
 
 
@@ -34,14 +34,32 @@ WAVaccExempt <- readRDS('data/WA_DOH_Combined.rds')
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(gridExtra)
+library(GGally)
+library(reshape2)
+library(tidyr)
+
 ```
 
 #Exploratory Data Analysis#
 
 ##Initial Survey##
 
-```{r summary and structure}
-
+```{r summary, structure, names}
+str(vacc)
+summary(vacc)
+names(vacc)
 
 ```
+###Who is and is not reporting###
+Many schools have not been reporting the vaccination status of their students.  Non-reporting is responsible for many of the Na values in this data set.  Who is and is not reporting?  Is this changing from year to year?
+
+```{r reported yes VS no}
+table(vacc$reported)
+with(vacc,table(school_year, reported))
+
+```
+
+
+
 
