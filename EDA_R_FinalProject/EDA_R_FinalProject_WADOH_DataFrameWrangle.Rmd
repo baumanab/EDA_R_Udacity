@@ -480,6 +480,20 @@ WA_DOH_combined[WA_DOH_combined$reported == "",]
 WA_DOH_combined <- WA_DOH_combined[WA_DOH_combined$reported != "",]
 
 ```
+```{r cleanup school type}
+#unique values for school type
+unique(WA_DOH_combined$school_type)
+#convert type (currently factor) to character
+WA_DOH_combined$school_type <- as.character(WA_DOH_combined$school_type)
+
+#split on space and take first word
+WA_DOH_combined$school_type <- sapply(strsplit(WA_DOH_combined$school_type,split = " "),"[",1)
+
+#convert back to factor
+WA_DOH_combined$school_type <- as.factor(WA_DOH_combined$school_type)
+
+
+```
 
 ```{r save and export WA DOH combined DF}
 write.table(WA_DOH_combined, "data/WA_DOH_Combined.txt", sep ="\t")

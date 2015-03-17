@@ -59,7 +59,7 @@ table(vacc$reported)
 with(vacc,table(school_year, reported))
 
 ```
-
+The 2011 data set has the most not reported.  The 2012 data set has 0 not reported.  This seems unusual given the number of not reported in the bracketing school years.  I wonder if the data provided in 2012 was only from schools that reported.  I do note that the 2012 data set has the most amount of schools as well.  Interesting, I will follow up on this.  2013 has 302 schools not reporting.  The data set actually didn't contain this information, and I surmised it for Na values in other columns (see data wrangling RMD).  Several news sources have reported that ~300 schools are failing to report.  That doesn't assure the accuracy of my calculation, but it is consistent.
 
 
 
