@@ -20,7 +20,7 @@ While I am a trained scientist, I am not an expert statistician or programmer.  
 
 ```{r working directory, .RData I/O}
 setwd("Udacity//dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/")
-save.image("project_pause.RData")
+#save.image("project_pause.RData")
 load("project_pause.RData")
 ```
 
@@ -55,13 +55,79 @@ names(vacc)
 Many schools have not been reporting the vaccination status of their students.  Non-reporting is responsible for many of the Na values in this data set.  Who is and is not reporting?  Is this changing from year to year?
 
 ```{r reported yes VS no}
+#counts of reported
 table(vacc$reported)
-with(vacc,table(school_year, reported))
-with(vacc,table(school_year, school_type, reported == "No"))
-prop.table(with(vacc,table(school_year== "2011", school_type, reported)))*100
+#counts of repored for each year
+with(vacc,table(school_year, reported))[,2:3]
+#counts of reported for each school type
+with(vacc,table(school_type, reported))[,2:3]
+#counts of reported for each school type for each school year
+with(vacc,table(school_type, reported, school_year))
+#percent reported for each school type
+prop.table(with(vacc,table(school_type, reported)),1)[,2:3]*100
+#percent reported for each school type for each year
+prop.table(with(vacc,table(school_type, reported,school_year == "2011")),1)[,2:3,2]*100
+prop.table(with(vacc,table(school_type, reported,school_year == "2012")),1)[,2:3,2]*100
+prop.table(with(vacc,table(school_type, reported,school_year == "2013")),1)[,2:3,2]*100
+
 
 ```
 The 2011 data set has the most not reported.  The 2012 data set has 0 not reported.  This seems unusual given the number of not reported in the bracketing school years.  I wonder if the data provided in 2012 was only from schools that reported.  I do note that the 2012 data set has the most amount of schools as well.  Interesting, I will follow up on this.  2013 has 302 schools not reporting.  The data set actually didn't contain this information, and I surmised it for Na values in other columns (see data wrangling RMD).  Several news sources have reported that ~300 schools are failing to report.  That doesn't assure the accuracy of my calculation, but it is consistent.
 
+```{r alter vacc}
+#subset on reported == "Yes"
+vaccReported <- subset(vacc, vacc$reported == "Yes")
+names(vaccReported)
+#create column for nonmedical_exempt
+vaccReported$nonmedical_exempt <- sum(vacc$religious_exempt,vacc$personal_exempt)
 
+gg <- vaccReported[is.na(vaccReported$religious_exempt),]
+is.na(vaccReported$personal_exempt)
+#there are Na's where the value should be 0 or null (example, 1 exemption, that exemption is personal, therefore medical and religious are Na, ask coaches how to handle this)
+```
+
+
+```{r distributions}
+#explore total exemptions
+summary(vaccReported$total_exemptions)
+by(vaccReported$total_exemptions, vaccReported$school_year,summary)
+#total exempt
+ggplot(aes(x = total_exemptions), data = vaccReported) + 
+  geom_histogram(binwidth = 5,  color = 'black',fill = '#F79420') +
+  scale_x_continuous(limits = c(0,250), breaks = seq(0, 250, 25))
+
+#total exempt by year
+ggplot(aes(x = total_exemptions), data = vaccReported) + 
+  geom_histogram(binwidth = 5,  color = 'black',fill = '#F79420') +
+  facet_wrap(~school_year) +
+  scale_x_continuous(limits = c(0,250), breaks = seq(0, 250, 25))
+
+#log scale (longtail data)
+ggplot(aes(x = total_exemptions), data = vaccReported) + 
+  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  facet_wrap(~school_year) +
+  scale_x_log10() +
+  xlab("Log10(total_exemptions)")
+
+#explore medical exemptions
+summary(vaccReported$medical_exempt)
+by(vaccReported$medical_exempt, vaccReported$school_year,summary)
+#medical exempt
+ggplot(aes(x = medical_exempt), data = vaccReported) + 
+  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  facet_wrap(~school_year) +
+  scale_x_log10() +
+  xlab("Log10(medical_exemptions)")
+
+#explore non-medical exemptions
+summary(vaccReported$nonmedical_exempt)
+by(vaccReported$nonmedical_exempt, vaccReported$school_year,summary)
+#non-medical exempt
+ggplot(aes(x = non), data = vaccReported) + 
+  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  facet_wrap(~school_year) +
+  scale_x_log10() +
+  xlab("Log10(nonMedical_exemptions)")
+
+```
 
