@@ -492,8 +492,30 @@ WA_DOH_combined$school_type <- sapply(strsplit(WA_DOH_combined$school_type,split
 #convert back to factor
 WA_DOH_combined$school_type <- as.factor(WA_DOH_combined$school_type)
 
+```
+###Fill Na for exemption types###
+Some values for exemption by type that are reported and have total exemptions are errouneously listed as Na.  Many or all of these should be 0.  For example if the total exemptions for an observation = 1, and there is a value of 1 assigned to personal exemptions, then the other exemption types for that observation should be 0, not Na.
+
+```{r reconciling Na for exemption types}
+#find the erroneous Na
+ex_test <- subset(WA_DOH_combined,reported == "Yes")
+ex_test_mpr <-subset(ex_test,is.na(religious_exempt) | is.na(medical_exempt) | is.na(personal_exempt))
+
+#all 37 records are reported and have exemption type counts reconciled to total, so Na should be 0
+ex_test_mpr$religious_exempt[is.na(ex_test_mpr$religious_exempt)] <- 0
+ex_test_mpr$medical_exempt[is.na(ex_test_mpr$medical_exempt)] <- 0
+
+#assign rows to be removed
+remove <- row.names(subset(WA_DOH_combined, (reported == "Yes") & (is.na(medical_exempt) | is.na(religious_exempt))))
+
+#remove rows
+WA_DOH_combined <- WA_DOH_combined[!rownames(WA_DOH_combined) %in% remove, ]
+
+#recombine with corrected rows
+WA_DOH_combined <- rbind(WA_DOH_combined,ex_test_mpr)
 
 ```
+
 
 ```{r save and export WA DOH combined DF}
 write.table(WA_DOH_combined, "data/WA_DOH_Combined.txt", sep ="\t")

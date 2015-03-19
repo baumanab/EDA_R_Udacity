@@ -1830,7 +1830,6 @@
 "1830"	"2011"	"4262"	"Orting Middle School"	"Public"	"Orting"	"WA"	"98360"	"PIERCE"	"Orting School District"	27344	"6-8"	"Yes"	533	38	3	35	0	27	27	17	18	23	0	5.07	5.07	3.19	3.38	4.32	0	7.13
 "1831"	"2011"	"2360"	"Orting Primary School"	"Public"	"Orting"	"WA"	"98360"	"PIERCE"	"Orting School District"	27344	"K-2"	"Yes"	524	26	1	24	1	14	14	12	12	11	22	2.67	2.67	2.29	2.29	2.1	4.2	4.96
 "1832"	"2011"	"5011"	"Orting Special Education"	"Public"	"Orting"	"WA"	"98360"	"PIERCE"	"Orting School District"	27344	"K-PK"	"No"	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-"1833"	"2011"	"2827"	"Osborn Elementary"	"Public"	"Leavenworth"	"WA"	"98826"	"CHELAN"	"Cascade School District"	4228	"3-5"	"Yes"	275	14	1	13	NA	11	11	11	12	10	14	4	4	4	4.36	3.64	5.09	5.09
 "1834"	"2011"	"3015"	"Othello High School"	"Public"	"Othello"	"WA"	"99344"	"ADAMS"	"Othello School District"	1147	"9-12"	"Yes"	996	19	4	14	1	11	11	5	8	7	0	1.1	1.1	0.5	0.8	0.7	0	1.91
 "1835"	"2011"	"1665"	"Other Schools"	"Public"	"Everett"	"WA"	"98203"	"SNOHOMISH"	"Everett School District"	31002	"5-12"	"No"	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
 "1836"	"2011"	"2955"	"Otis Orchards Elementary"	"Public"	"OTIS ORCHARDS"	"WA"	"99027"	"SPOKANE"	"East Valley School District (Spokane)"	32361	"K-5"	"Yes"	420	36	14	22	0	11	11	12	15	20	13	2.62	2.62	2.86	3.57	4.76	3.1	8.57
@@ -4831,58 +4830,22 @@
 "5003"	"2013"	"8188"	"St. Aloysius Catholic School"	"Private"	"Spokane"	"WA"	"99202"	"SPOKANE"	"Spokane School District"	32081	"P-8"	"No"	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
 "5004"	"2013"	"8293"	"St. Matthew Lutheran School"	"Private"	"Spokane"	"WA"	"99208"	"SPOKANE"	"Spokane School District"	32081	"P-8"	"No"	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
 "5005"	"2013"	"8195"	"St. Patrick Catholic School"	"Private"	"Spokane"	"WA"	"99217"	"SPOKANE"	"Spokane School District"	32081	"6-8"	"No"	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-"5006"	"2013"	"2156"	"Adams Elementary"	"Public"	"Spokane"	"WA"	"99223"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	324	24	3	19	NA	9	9	10	10	10	16	2.78	2.78	3.09	3.09	3.09	4.94	7.41
-"5007"	"2013"	"1567"	"Alternative Bancroft School"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"3-12"	"Yes"	80	4	NA	4	NA	3	3	3	3	2	3	3.75	3.75	3.75	3.75	2.5	3.75	5
-"5008"	"2013"	"2381"	"Arlington Elementary"	"Public"	"Spokane"	"WA"	"99217"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	553	44	9	34	NA	31	31	23	23	13	34	5.61	5.61	4.16	4.16	2.35	6.15	7.96
-"5009"	"2013"	"2128"	"Audubon Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	450	18	3	14	NA	10	10	11	11	9	16	2.22	2.22	2.44	2.44	2	3.56	4
-"5010"	"2013"	"3357"	"Balboa Elementary"	"Public"	"Spokane"	"WA"	"99208"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	389	27	3	21	NA	13	13	12	12	13	24	3.34	3.34	3.08	3.08	3.34	6.17	6.94
-"5011"	"2013"	"2155"	"Bemiss "	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	576	27	6	20	NA	15	15	16	17	12	26	2.6	2.6	2.78	2.95	2.08	4.51	4.69
-"5012"	"2013"	"2218"	"Browne Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	434	32	9	22	NA	11	11	11	11	16	26	2.53	2.53	2.53	2.53	3.69	5.99	7.37
-"5013"	"2013"	"3008"	"Bryant Center"	"Public"	"Spokane"	"WA"	"99201"	"SPOKANE"	"Spokane School District"	32081	"PK-12"	"Yes"	444	120	3	114	NA	101	101	87	90	89	108	22.75	22.75	19.59	20.27	20.05	24.32	27.03
 "5014"	"2013"	"4457"	"Chase Middle School"	"Public"	"Spokane"	"WA"	"99223"	"SPOKANE"	"Spokane School District"	32081	"7-8"	"Yes"	791	61	4	50	8	41	41	37	35	37	41	5.18	5.18	4.68	4.42	4.68	5.18	7.71
-"5015"	"2013"	"2129"	"Cooper Elementary"	"Public"	"Spokane"	"WA"	"99217"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	531	32	4	27	NA	21	21	19	21	17	29	3.95	3.95	3.58	3.95	3.2	5.46	6.03
-"5016"	"2013"	"1603"	"Daybreak Alternative School"	"Public"	"Spokane"	"WA"	"99202"	"SPOKANE"	"Spokane School District"	32081	"8-12"	"Yes"	27	1	NA	1	NA	1	1	1	1	1	1	3.7	3.7	3.7	3.7	3.7	3.7	3.7
 "5017"	"2013"	"3412"	"Ferris High School"	"Public"	"Spokane"	"WA"	"99223"	"SPOKANE"	"Spokane School District"	32081	"9-12"	"Yes"	1677	99	8	90	3	75	75	39	46	46	49	4.47	4.47	2.33	2.74	2.74	2.92	5.9
 "5018"	"2013"	"2312"	"Finch Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	524	47	9	35	3	19	19	20	21	20	41	3.63	3.63	3.82	4.01	3.82	7.82	8.97
 "5019"	"2013"	"2127"	"Franklin Elementary"	"Public"	"Spokane"	"WA"	"99223"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	376	50	5	34	6	30	30	31	32	36	43	7.98	7.98	8.24	8.51	9.57	11.44	13.3
-"5020"	"2013"	"3727"	"Garfield Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	530	23	1	21	NA	16	16	15	13	13	18	3.02	3.02	2.83	2.45	2.45	3.4	4.34
-"5021"	"2013"	"3758"	"Garry Middle School"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"7-8"	"Yes"	599	47	5	41	NA	30	30	20	19	18	20	5.01	5.01	3.34	3.17	3.01	3.34	7.85
-"5022"	"2013"	"3258"	"Glover Middle School"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"7-8"	"Yes"	644	49	7	38	NA	32	32	20	23	24	32	4.97	4.97	3.11	3.57	3.73	4.97	7.61
-"5023"	"2013"	"3729"	"Grant Elementary"	"Public"	"Spokane"	"WA"	"99202"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	353	20	3	18	NA	17	17	16	14	16	17	4.82	4.82	4.53	3.97	4.53	4.82	5.67
 "5024"	"2013"	"3007"	"Hamblen Elementary"	"Public"	"Spokane"	"WA"	"99203"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	518	46	7	35	2	17	17	20	26	21	39	3.28	3.28	3.86	5.02	4.05	7.53	8.88
-"5025"	"2013"	"2056"	"Holmes Elementary"	"Public"	"Spokane"	"WA"	"99201"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	399	17	4	12	NA	10	10	9	11	12	14	2.51	2.51	2.26	2.76	3.01	3.51	4.26
 "5026"	"2013"	"2258"	"Hutton Elementary"	"Public"	"Spokane"	"WA"	"99203"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	518	41	7	29	5	17	17	19	21	20	30	3.28	3.28	3.67	4.05	3.86	5.79	7.92
-"5027"	"2013"	"3506"	"Indian Trail Elementary"	"Public"	"Spokane"	"WA"	"99208"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	334	27	4	22	NA	11	11	9	10	11	19	3.29	3.29	2.69	2.99	3.29	5.69	8.08
 "5028"	"2013"	"2111"	"Jefferson Elementary"	"Public"	"Spokane"	"WA"	"99203"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	629	86	5	77	3	51	51	55	55	65	64	8.11	8.11	8.74	8.74	10.33	10.17	13.67
-"5029"	"2013"	"2172"	"Lewis & Clark High School"	"Public"	"Spokane"	"WA"	"99204"	"SPOKANE"	"Spokane School District"	32081	"9-12"	"Yes"	1886	152	16	134	NA	110	110	71	82	76	71	5.83	5.83	3.76	4.35	4.03	3.76	8.06
-"5030"	"2013"	"2401"	"Libby Center"	"Public"	"Spokane"	"WA"	"99202"	"SPOKANE"	"Spokane School District"	32081	"5-8"	"Yes"	327	25	6	18	NA	12	12	13	13	16	20	3.67	3.67	3.98	3.98	4.89	6.12	7.65
-"5031"	"2013"	"2952"	"Lidgerwood Elementary"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	371	18	2	15	NA	13	13	12	10	8	14	3.5	3.5	3.23	2.7	2.16	3.77	4.85
-"5032"	"2013"	"2951"	"Lincoln Heights Elementary"	"Public"	"Spokane"	"WA"	"99223"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	514	43	NA	40	3	34	34	35	34	33	41	6.61	6.61	6.81	6.61	6.42	7.98	8.37
 "5033"	"2013"	"3190"	"Linwood Elementary"	"Public"	"Spokane"	"WA"	"99208"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	395	19	1	14	4	13	13	13	14	12	16	3.29	3.29	3.29	3.54	3.04	4.05	4.81
-"5034"	"2013"	"3719"	"Logan Elementary"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	456	21	4	12	NA	13	13	12	11	10	14	2.85	2.85	2.63	2.41	2.19	3.07	4.61
-"5035"	"2013"	"3718"	"Longfellow Elementary"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	557	21	NA	19	NA	13	13	11	13	12	18	2.33	2.33	1.97	2.33	2.15	3.23	3.77
-"5036"	"2013"	"2708"	"Madison Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	344	15	2	11	NA	9	9	11	10	10	9	2.62	2.62	3.2	2.91	2.91	2.62	4.36
 "5037"	"2013"	"4389"	"Moran Prairie Elementary"	"Public"	"Spokane"	"WA"	"99223"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	483	25	6	18	2	13	13	11	11	15	17	2.69	2.69	2.28	2.28	3.11	3.52	5.18
 "5038"	"2013"	"4035"	"Mullan Road Elementary"	"Public"	"Spokane"	"WA"	"99223"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	549	32	6	25	2	24	24	25	25	23	29	4.37	4.37	4.55	4.55	4.19	5.28	5.83
-"5039"	"2013"	"4191"	"NEWTECH Skills Center"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"9-12"	"Yes"	430	2	NA	2	NA	2	2	1	1	1	1	0.47	0.47	0.23	0.23	0.23	0.23	0.47
-"5040"	"2013"	"2106"	"North Central High School"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"9-12"	"Yes"	1237	67	6	60	NA	46	46	32	30	34	36	3.72	3.72	2.59	2.43	2.75	2.91	5.42
-"5041"	"2013"	"2096"	"Regal Elementary"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	451	11	1	11	NA	5	5	6	3	4	9	1.11	1.11	1.33	0.67	0.89	2	2.44
 "5042"	"2013"	"2950"	"Ridgeview Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	392	20	12	5	3	9	9	8	9	8	20	2.3	2.3	2.04	2.3	2.04	5.1	5.1
-"5043"	"2013"	"2479"	"Rogers High School"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"9-12"	"Yes"	1500	68	9	57	NA	48	48	33	35	35	28	3.2	3.2	2.2	2.33	2.33	1.87	4.53
-"5044"	"2013"	"2086"	"Roosevelt Elementary"	"Public"	"Spokane"	"WA"	"99204"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	468	21	3	18	NA	14	14	14	15	17	17	2.99	2.99	2.99	3.21	3.63	3.63	4.49
 "5045"	"2013"	"3356"	"Sacajawea Middle School"	"Public"	"Spokane"	"WA"	"99203"	"SPOKANE"	"Spokane School District"	32081	"7-8"	"Yes"	825	82	14	68	3	40	40	32	35	52	46	4.85	4.85	3.88	4.24	6.3	5.58	9.94
 "5046"	"2013"	"4286"	"Sacred Heart Hospital"	"Public"	"Spokane"	"WA"	"99204"	"SPOKANE"	"Spokane School District"	32081	"3-12"	"No"	10	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
 "5047"	"2013"	"3413"	"Salk Middle School"	"Public"	"Spokane"	"WA"	"99208"	"SPOKANE"	"Spokane School District"	32081	"7-8"	"Yes"	731	56	8	43	5	38	38	28	32	28	34	5.2	5.2	3.83	4.38	3.83	4.65	7.66
-"5048"	"2013"	"1698"	"SCCP Images"	"Public"	"Spokane"	"WA"	"99217"	"SPOKANE"	"Spokane School District"	32081	"12-12"	"Yes"	32	3	NA	3	NA	2	2	2	2	2	2	6.25	6.25	6.25	6.25	6.25	6.25	9.38
 "5049"	"2013"	"3189"	"Shadle Park High School"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"9-12"	"Yes"	1409	80	7	67	7	55	55	36	41	43	42	3.9	3.9	2.56	2.91	3.05	2.98	5.68
 "5050"	"2013"	"3257"	"Shaw Middle School"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"7-8"	"Yes"	596	40	7	31	3	29	29	22	22	22	21	4.87	4.87	3.69	3.69	3.69	3.52	6.71
-"5051"	"2013"	"2110"	"Sheridan Elementary"	"Public"	"Spokane"	"WA"	"99202"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	457	20	2	12	NA	13	13	14	14	11	20	2.84	2.84	3.06	3.06	2.41	4.38	4.38
-"5052"	"2013"	"2108"	"Stevens Elementary"	"Public"	"Spokane"	"WA"	"99202"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	540	25	4	20	NA	12	12	9	10	8	17	2.22	2.22	1.67	1.85	1.48	3.15	4.63
-"5053"	"2013"	"3063"	"Westview Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	400	20	2	14	NA	15	15	14	14	12	19	3.75	3.75	3.5	3.5	3	4.75	5
-"5054"	"2013"	"2191"	"Whitman Elementary"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	573	17	6	10	NA	7	7	4	8	4	12	1.22	1.22	0.7	1.4	0.7	2.09	2.97
-"5055"	"2013"	"2109"	"Willard Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	595	39	3	32	NA	28	28	26	26	23	30	4.71	4.71	4.37	4.37	3.87	5.04	6.55
-"5056"	"2013"	"2296"	"Wilson Elementary"	"Public"	"Spokane"	"WA"	"99203"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	372	36	2	34	NA	19	19	21	19	24	32	5.11	5.11	5.65	5.11	6.45	8.6	9.68
-"5057"	"2013"	"4192"	"Woodridge Elementary"	"Public"	"Spokane"	"WA"	"99208"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	415	21	2	19	NA	15	15	12	14	9	18	3.61	3.61	2.89	3.37	2.17	4.34	5.06
 "5058"	"2013"	"3050"	"Sprague Elementary"	"Public"	"Sprague"	"WA"	"99032"	"LINCOLN"	"Sprague School District"	22008	"K -4"	"Yes"	42	3	1	2	0	3	3	3	3	3	3	7.14	7.14	7.14	7.14	7.14	7.14	7.14
 "5059"	"2013"	"2186"	"Sprague High School"	"Public"	"Sprague"	"WA"	"99032"	"LINCOLN"	"Sprague School District"	22008	"9-12"	"Yes"	26	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 "5060"	"2013"	"3069"	"St. John Elementary"	"Public"	"Saint John"	"WA"	"99171"	"WHITMAN"	"St. John School District"	38322	"K -6"	"Yes"	86	5	0	5	0	3	3	4	4	3	5	3.49	3.49	4.65	4.65	3.49	5.81	5.81
@@ -7915,3 +7878,40 @@
 "42610"	"2012"	"OICP20"	"Cascade Vista Baptist School"	"Private"	"placeholder"	"WA"	"8675309"	"KING"	"Kent School District"	17415	"K-12"	"Yes"	99	18	2	15	1	7	2	4	9	2	5	7.07	2.02	4.04	9.09	2.02	5.05	18.18
 "814"	"2011"	"8793"	"Forest Park Adventist School"	"Private"	"Everett"	"WA"	"98203"	"SNOHOMISH"	"Everett"	NA	"1-8"	"No"	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
 "3465"	"2013"	"8793"	"Forest Park Adventist School"	"Private"	"Everett"	"WA"	"98203"	"SNOHOMISH"	"Everett School District"	NA	"K-8"	"No"	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+"1833"	"2011"	"2827"	"Osborn Elementary"	"Public"	"Leavenworth"	"WA"	"98826"	"CHELAN"	"Cascade School District"	4228	"3-5"	"Yes"	275	14	1	13	0	11	11	11	12	10	14	4	4	4	4.36	3.64	5.09	5.09
+"5006"	"2013"	"2156"	"Adams Elementary"	"Public"	"Spokane"	"WA"	"99223"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	324	24	3	19	0	9	9	10	10	10	16	2.78	2.78	3.09	3.09	3.09	4.94	7.41
+"5007"	"2013"	"1567"	"Alternative Bancroft School"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"3-12"	"Yes"	80	4	0	4	0	3	3	3	3	2	3	3.75	3.75	3.75	3.75	2.5	3.75	5
+"5008"	"2013"	"2381"	"Arlington Elementary"	"Public"	"Spokane"	"WA"	"99217"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	553	44	9	34	0	31	31	23	23	13	34	5.61	5.61	4.16	4.16	2.35	6.15	7.96
+"5009"	"2013"	"2128"	"Audubon Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	450	18	3	14	0	10	10	11	11	9	16	2.22	2.22	2.44	2.44	2	3.56	4
+"5010"	"2013"	"3357"	"Balboa Elementary"	"Public"	"Spokane"	"WA"	"99208"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	389	27	3	21	0	13	13	12	12	13	24	3.34	3.34	3.08	3.08	3.34	6.17	6.94
+"5011"	"2013"	"2155"	"Bemiss "	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	576	27	6	20	0	15	15	16	17	12	26	2.6	2.6	2.78	2.95	2.08	4.51	4.69
+"5012"	"2013"	"2218"	"Browne Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	434	32	9	22	0	11	11	11	11	16	26	2.53	2.53	2.53	2.53	3.69	5.99	7.37
+"5013"	"2013"	"3008"	"Bryant Center"	"Public"	"Spokane"	"WA"	"99201"	"SPOKANE"	"Spokane School District"	32081	"PK-12"	"Yes"	444	120	3	114	0	101	101	87	90	89	108	22.75	22.75	19.59	20.27	20.05	24.32	27.03
+"5015"	"2013"	"2129"	"Cooper Elementary"	"Public"	"Spokane"	"WA"	"99217"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	531	32	4	27	0	21	21	19	21	17	29	3.95	3.95	3.58	3.95	3.2	5.46	6.03
+"5016"	"2013"	"1603"	"Daybreak Alternative School"	"Public"	"Spokane"	"WA"	"99202"	"SPOKANE"	"Spokane School District"	32081	"8-12"	"Yes"	27	1	0	1	0	1	1	1	1	1	1	3.7	3.7	3.7	3.7	3.7	3.7	3.7
+"5020"	"2013"	"3727"	"Garfield Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	530	23	1	21	0	16	16	15	13	13	18	3.02	3.02	2.83	2.45	2.45	3.4	4.34
+"5021"	"2013"	"3758"	"Garry Middle School"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"7-8"	"Yes"	599	47	5	41	0	30	30	20	19	18	20	5.01	5.01	3.34	3.17	3.01	3.34	7.85
+"5022"	"2013"	"3258"	"Glover Middle School"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"7-8"	"Yes"	644	49	7	38	0	32	32	20	23	24	32	4.97	4.97	3.11	3.57	3.73	4.97	7.61
+"5023"	"2013"	"3729"	"Grant Elementary"	"Public"	"Spokane"	"WA"	"99202"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	353	20	3	18	0	17	17	16	14	16	17	4.82	4.82	4.53	3.97	4.53	4.82	5.67
+"5025"	"2013"	"2056"	"Holmes Elementary"	"Public"	"Spokane"	"WA"	"99201"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	399	17	4	12	0	10	10	9	11	12	14	2.51	2.51	2.26	2.76	3.01	3.51	4.26
+"5027"	"2013"	"3506"	"Indian Trail Elementary"	"Public"	"Spokane"	"WA"	"99208"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	334	27	4	22	0	11	11	9	10	11	19	3.29	3.29	2.69	2.99	3.29	5.69	8.08
+"5029"	"2013"	"2172"	"Lewis & Clark High School"	"Public"	"Spokane"	"WA"	"99204"	"SPOKANE"	"Spokane School District"	32081	"9-12"	"Yes"	1886	152	16	134	0	110	110	71	82	76	71	5.83	5.83	3.76	4.35	4.03	3.76	8.06
+"5030"	"2013"	"2401"	"Libby Center"	"Public"	"Spokane"	"WA"	"99202"	"SPOKANE"	"Spokane School District"	32081	"5-8"	"Yes"	327	25	6	18	0	12	12	13	13	16	20	3.67	3.67	3.98	3.98	4.89	6.12	7.65
+"5031"	"2013"	"2952"	"Lidgerwood Elementary"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	371	18	2	15	0	13	13	12	10	8	14	3.5	3.5	3.23	2.7	2.16	3.77	4.85
+"5032"	"2013"	"2951"	"Lincoln Heights Elementary"	"Public"	"Spokane"	"WA"	"99223"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	514	43	0	40	3	34	34	35	34	33	41	6.61	6.61	6.81	6.61	6.42	7.98	8.37
+"5034"	"2013"	"3719"	"Logan Elementary"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	456	21	4	12	0	13	13	12	11	10	14	2.85	2.85	2.63	2.41	2.19	3.07	4.61
+"5035"	"2013"	"3718"	"Longfellow Elementary"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	557	21	0	19	0	13	13	11	13	12	18	2.33	2.33	1.97	2.33	2.15	3.23	3.77
+"5036"	"2013"	"2708"	"Madison Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	344	15	2	11	0	9	9	11	10	10	9	2.62	2.62	3.2	2.91	2.91	2.62	4.36
+"5039"	"2013"	"4191"	"NEWTECH Skills Center"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"9-12"	"Yes"	430	2	0	2	0	2	2	1	1	1	1	0.47	0.47	0.23	0.23	0.23	0.23	0.47
+"5040"	"2013"	"2106"	"North Central High School"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"9-12"	"Yes"	1237	67	6	60	0	46	46	32	30	34	36	3.72	3.72	2.59	2.43	2.75	2.91	5.42
+"5041"	"2013"	"2096"	"Regal Elementary"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"K -6"	"Yes"	451	11	1	11	0	5	5	6	3	4	9	1.11	1.11	1.33	0.67	0.89	2	2.44
+"5043"	"2013"	"2479"	"Rogers High School"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"9-12"	"Yes"	1500	68	9	57	0	48	48	33	35	35	28	3.2	3.2	2.2	2.33	2.33	1.87	4.53
+"5044"	"2013"	"2086"	"Roosevelt Elementary"	"Public"	"Spokane"	"WA"	"99204"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	468	21	3	18	0	14	14	14	15	17	17	2.99	2.99	2.99	3.21	3.63	3.63	4.49
+"5048"	"2013"	"1698"	"SCCP Images"	"Public"	"Spokane"	"WA"	"99217"	"SPOKANE"	"Spokane School District"	32081	"12-12"	"Yes"	32	3	0	3	0	2	2	2	2	2	2	6.25	6.25	6.25	6.25	6.25	6.25	9.38
+"5051"	"2013"	"2110"	"Sheridan Elementary"	"Public"	"Spokane"	"WA"	"99202"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	457	20	2	12	0	13	13	14	14	11	20	2.84	2.84	3.06	3.06	2.41	4.38	4.38
+"5052"	"2013"	"2108"	"Stevens Elementary"	"Public"	"Spokane"	"WA"	"99202"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	540	25	4	20	0	12	12	9	10	8	17	2.22	2.22	1.67	1.85	1.48	3.15	4.63
+"5053"	"2013"	"3063"	"Westview Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	400	20	2	14	0	15	15	14	14	12	19	3.75	3.75	3.5	3.5	3	4.75	5
+"5054"	"2013"	"2191"	"Whitman Elementary"	"Public"	"Spokane"	"WA"	"99207"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	573	17	6	10	0	7	7	4	8	4	12	1.22	1.22	0.7	1.4	0.7	2.09	2.97
+"5055"	"2013"	"2109"	"Willard Elementary"	"Public"	"Spokane"	"WA"	"99205"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	595	39	3	32	0	28	28	26	26	23	30	4.71	4.71	4.37	4.37	3.87	5.04	6.55
+"5056"	"2013"	"2296"	"Wilson Elementary"	"Public"	"Spokane"	"WA"	"99203"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	372	36	2	34	0	19	19	21	19	24	32	5.11	5.11	5.65	5.11	6.45	8.6	9.68
+"5057"	"2013"	"4192"	"Woodridge Elementary"	"Public"	"Spokane"	"WA"	"99208"	"SPOKANE"	"Spokane School District"	32081	"PK-6"	"Yes"	415	21	2	19	0	15	15	12	14	9	18	3.61	3.61	2.89	3.37	2.17	4.34	5.06
