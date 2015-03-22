@@ -85,6 +85,17 @@ vaccReported$nonmedical_exempt <- vaccReported$religious_exempt + vaccReported$p
 
 ```
 
+```{r}
+#change all schools that are not public to not_Public
+vaccReported$school_type <- as.character(vaccReported$school_type)
+vaccReported$school_type[vaccReported$school_type != "Public"] <- "not_Public"
+unique(vaccReported$school_type)
+vaccReported$school_type <- as.factor(vaccReported$school_type)
+
+
+
+
+```
 
 ```{r distributions}
 #explore total exemptions
@@ -133,13 +144,7 @@ ggplot(aes(x = nonmedical_exempt), data = vaccReported) +
   scale_x_log10() +
   xlab("Log10(nonMedical_exemptions)")
 
-#normalize to per 1000 students
 
-per1k_total_enrolled <- sum(vaccReported$enrolled)/1000
-
-per1k_2011 <- sum(vaccReported$enrolled[vaccReported$school_year == "2011"])/1000
-per1k_2012 <- sum(vaccReported$enrolled[vaccReported$school_year == "2012"])/1000
-per1k_2013 <- sum(vaccReported$enrolled[vaccReported$school_year == "2013"])/1000
 
 #explore non-medical exemptions
 summary(vaccReported$nonmedical_exempt)
