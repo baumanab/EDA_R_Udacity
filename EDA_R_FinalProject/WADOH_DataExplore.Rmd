@@ -80,12 +80,6 @@ vaccReported <- subset(vacc, vacc$reported == "Yes")
 names(vaccReported)
 #create column for nonmedical_exempt
 vaccReported$nonmedical_exempt <- vaccReported$religious_exempt + vaccReported$personal_exempt
-
-
-
-```
-
-```{r}
 #change all schools that are not public to not_Public
 vaccReported$school_type <- as.character(vaccReported$school_type)
 vaccReported$school_type[vaccReported$school_type != "Public"] <- "not_Public"
@@ -93,9 +87,76 @@ unique(vaccReported$school_type)
 vaccReported$school_type <- as.factor(vaccReported$school_type)
 
 
+```
+```{r sandbox}
+#trying to normalize hist plots to number of observations per level (ie county, city etc)
+by(vaccReported$total_exemptions,vaccReported$school_county,length)
+vaccReported$total_exemptions/length(vaccReported$school_county)
 
+## Look
+arrange(data.sub, desc(Exempt))[1:200,c("name", "county", "city","enrollment", "Exempt")]
+state.rate <- mean(data.sub$Exempt, na.rm=TRUE)
+summarize(data.sub, Mean.PBE = mean(Exempt, na.rm = TRUE))
+
+### By Pub/Private
+by.type <- data.sub %>% group_by(Type) %>% summarize(Mean.PBE = round(mean(Exempt, na.rm=TRUE), 2), Students=sum(enrollment, na.rm = TRUE))
+
+
+### by specific type
+by.mwc <- data.sub %>%  group_by(MWC) %>% summarize(Mean.PBE = round(mean(Exempt, na.rm=TRUE), 2), Median.PBE = round(median(Exempt, na.rm=TRUE), 2), Max.PBE = round(max(Exempt, na.rm=TRUE), 2), Min.PBE = round(min(Exempt, na.rm=TRUE), 2), Schools=n(), Students=sum(enrollment, na.rm=TRUE)) %>% na.omit() %>% arrange(desc(Mean.PBE))
+
+### By County
+by.county <- data.sub %>% group_by(county) %>% summarize(Mean.PBE = round(mean(Exempt, na.rm=TRUE), 2), Students=sum(enrollment, na.rm=TRUE)) %>% na.omit() %>% arrange(desc(Mean.PBE))
+
+### By School within County
+school.by.county <- data.sub %>% group_by(county, name) %>% summarize(Mean.PBE = round(mean(Exempt, na.rm=TRUE), 2), Students=sum(enrollment, na.rm=TRUE)) %>% na.omit() %>% arrange(desc(Mean.PBE))
+
+### By City
+by.city <- data.sub %>% group_by(city) %>% summarize(Mean.PBE = round(mean(Exempt, na.rm=TRUE), 2), Students=sum(enrollment, na.rm=TRUE)) %>% na.omit() %>% arrange(desc(Mean.PBE))
+
+### By School within City
+school.by.city <- data.sub %>% group_by(city, code) %>% summarize(Mean.PBE = round(mean(Exempt, na.rm=TRUE), 2), Students=sum(enrollment, na.rm=TRUE)) %>% na.omit() %>% arrange(desc(Mean.PBE))
+
+### By District
+by.district <- data.sub %>% group_by(district) %>% summarize(Mean.PBE = round(mean(Exempt, na.rm=TRUE), 2), Students=sum(enrollment, na.rm=TRUE)) %>% na.omit() %>% arrange(desc(Mean.PBE))
+
+### By School within District
+school.by.district <-  data.sub %>% group_by(district, code) %>% summarize(Mean.PBE = round(mean(Exempt, na.rm=TRUE), 2), Students=sum(enrollment, na.rm=TRUE)) %>% na.omit() %>% arrange(desc(Mean.PBE))
+
+### By School within Type
+school.by.type <- data.sub %>% group_by(MWC, name) %>% summarize(Mean.PBE = round(mean(Exempt, na.rm=TRUE), 2), Students=sum(enrollment, na.rm=TRUE)) %>% na.omit() %>% arrange(desc(Mean.PBE))
+
+filter(school.by.type, MWC=="Private Catholic") # Top Catholic PBE is
+                                        # a homeschool service
+
+
+### County Level
+p <- ggplot(by.county, aes(x=log(Students), y=Mean.PBE))
+p1 <- p + geom_point(alpha=0.6) + theme_bw() +
+    ylab("Percent of Students with a Personal Belief Exemption") +
+        xlab("log N Students in County \n") +  ggtitle("Kindergarten Vaccine Exemption Rates in California, County Level") + scale_color_manual(values=cb.palette)
+
+### Pick out some outliers
+ind <- with(by.county, (Mean.PBE>2*IQR(Mean.PBE)))
+data.out <- droplevels(by.county[ind,])
+
+pdf(file="figures/pbe-by-county.pdf", height=5, width=8)
+p2 <- p1 + geom_text(data = data.out, aes(x=log(Students),
+                         y=Mean.PBE, label=county), hjust=-0.1, size=2)
+print(p2)
+credit("Data: CA Dept of Public Health, 2015. Kieran Healy: http://kieranhealy.org")
+dev.off()
+
+ggsave(
+    "figures/pbe-by-county.png",
+    p2,
+    width=8,
+    height=5,
+    dpi=300
+    )
 
 ```
+
 
 ```{r distributions}
 #explore total exemptions
