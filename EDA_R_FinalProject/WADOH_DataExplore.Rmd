@@ -20,7 +20,7 @@ While I am a trained scientist, I am not an expert statistician or programmer.  
 
 ```{r working directory, .RData I/O}
 setwd("Udacity//dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/")
-save.image("project_pause.RData")
+#save.image("project_pause.RData")
 load("project_pause.RData")
 
 ```
@@ -92,6 +92,11 @@ vaccReported$school_type <- as.factor(vaccReported$school_type)
 #trying to normalize hist plots to number of observations per level (ie county, city etc)
 by(vaccReported$total_exemptions,vaccReported$school_county,length)
 vaccReported$total_exemptions/length(vaccReported$school_county)
+
+ggplot(aes(x = percent_exempt, y = ..count../sum(..count..)), data = vaccReported) +
+  geom_freqpoly(binwidth = .5, aes(color = school_year)) +
+  facet_wrap(~school_county) +
+  scale_x_log10()
 
 ## Look
 arrange(data.sub, desc(Exempt))[1:200,c("name", "county", "city","enrollment", "Exempt")]
@@ -236,7 +241,12 @@ ggplot(aes(x = percent_exempt_MMR), data = vaccReported) +
 
 ggplot(aes(x = percent_exempt, y = ..count../sum(..count..)), data = vaccReported) +
   geom_freqpoly(binwidth = .1, aes(color = school_year)) +
-  facet_wrap(~school_county) +
+  facet_wrap(school_county) +
+  scale_x_log10()
+
+ggplot(aes(x = percent_exempt, y = ..count../sum(..count..)), data = vaccReported) +
+  geom_freqpoly(binwidth = .1, aes(color = school_year)) +
+  facet_wrap(~school_county, scales = "free_y") +
   scale_x_log10()
 
 ggplot(aes(x = percent_exempt, y = ..count../sum(..count..)), data = vaccReported) +
@@ -253,15 +263,18 @@ ggplot(aes(x = percent_exempt, y = ..count../sum(..count..)), data = vaccReporte
 ```{r }
 
 gg <- subset(vaccReported, school_county == "KING" | school_county ==  "PIERCE")
-ggplot(aes(x = percent_exempt, y = school_county), data = gg) +
-  geom_point(alpha = .5, position = position_jitter(width = 0.4), aes(color = percent_exempt_MMR, size = enrolled)) +
-facet_wrap(~school_year) +
+
+ggplot(aes(x = percent_exempt, y = school_county), data = vaccReported) +
+  geom_point(alpha = .5, position = position_jitter(width = 0.4), aes(color = total_exemptions, size = percent_exempt_MMR)) +
+  scale_color_gradientn(colours = c("white", "blue", "red"))
+
   #scale_x_log10() +
 
 
 
 ggplot(aes(y = percent_exempt, x = school_county), data = vaccReported) +
-  geom_point(alpha = .25, position = position_jitter(width = 0.4), aes(color = school_year))
+  geom_point(alpha = .25, position = position_jitter(width = 0.4), aes(color = school_year)) +
+  scale_color_brewer(palette = "set1")
 
 
 
