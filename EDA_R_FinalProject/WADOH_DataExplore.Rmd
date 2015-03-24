@@ -80,6 +80,8 @@ vaccReported <- subset(vacc, vacc$reported == "Yes")
 names(vaccReported)
 #create column for nonmedical_exempt
 vaccReported$nonmedical_exempt <- vaccReported$religious_exempt + vaccReported$personal_exempt
+#add percent_nonmedexempt
+vaccReported$percent_nonmedexempt <- (vaccReported$nonmedical_exempt/vaccReported$enrolled) *100
 #change all schools that are not public to not_Public
 vaccReported$school_type <- as.character(vaccReported$school_type)
 vaccReported$school_type[vaccReported$school_type != "Public"] <- "not_Public"
@@ -90,18 +92,82 @@ vaccReported$school_type <- as.factor(vaccReported$school_type)
 ```
 ```{r sandbox}
 #trying to normalize hist plots to number of observations per level (ie county, city etc)
-by(vaccReported$total_exemptions,vaccReported$school_county,length)
-vaccReported$total_exemptions/length(vaccReported$school_county)
 
 ggplot(aes(x = percent_exempt, y = ..count../sum(..count..)), data = vaccReported) +
   geom_freqpoly(binwidth = .5, aes(color = school_year)) +
   facet_wrap(~school_county) +
   scale_x_log10()
 
-## Look
-arrange(data.sub, desc(Exempt))[1:200,c("name", "county", "city","enrollment", "Exempt")]
-state.rate <- mean(data.sub$Exempt, na.rm=TRUE)
-summarize(data.sub, Mean.PBE = mean(Exempt, na.rm = TRUE))
+ggplot(aes(x = percent_exempt, y = ..density..), data = vaccReported) +
+  geom_freqpoly(binwidth = .5, aes(color = school_year)) +
+  facet_wrap(~school_county) +
+  scale_x_log10()
+
+#inspect
+top200_allyears_allpop <- arrange(vaccReported, desc(percent_exempt))[1:200,c("school_year","school_name", "school_county", "school_city","enrolled", "total_exemptions", "percent_exempt")]
+
+top200_allyears_NLT100 <- arrange(subset(vaccReported, vaccReported$enrolled >= 100), desc(percent_exempt))[1:200,c("school_year","school_name", "school_county", "school_city","enrolled", "total_exemptions", "percent_exempt")]
+
+#create subset of schools with populations of at least 100
+vaccReported_NLT100 <- subset(vaccReported,vaccReported$enrolled >= 100)
+
+
+
+
+state_rate <- mean(vaccReported$percent_exempt, na.rm=T)
+state_rate_NLT100 <- mean(vaccReported_NLT100$percent_exempt, na.rm = T)
+
+summarize(vaccReported_NLT100, Mean_percent_exempt = mean(percent_exempt, na.rm = TRUE))
+
+summarize(vaccReported_NLT100, Mean_percent_nonmedexempt = mean(percent_nonmedexempt, na.rm = TRUE))
+
+ggplot(vaccReported, aes(x = school_state, y = percent_exempt)) +
+  geom_boxplot(outlier.colour = "red") +
+  facet_wrap(~school_year)
+
+ggplot(vaccReported, aes(x = school_year, y = percent_exempt)) +
+  geom_boxplot(outlier.colour = "red") +
+  facet_wrap(~school_county)
+
+ggplot(vaccReported_NLT100, aes(x = school_state, y = percent_exempt)) +
+  geom_boxplot(outlier.colour = "red") +
+  facet_wrap(~school_year)
+
+ggplot(vaccReported_NLT100, aes(x = school_year, y = percent_exempt)) +
+  geom_boxplot(outlier.colour = "red") +
+  facet_wrap(~school_county)
+
+
+ggplot(vaccReported_NLT100, aes(x = school_state, y = percent_nonmedexempt)) +
+  geom_boxplot(outlier.colour = "red") +
+  facet_wrap(~school_year)
+
+ggplot(vaccReported_NLT100, aes(x = school_year, y = percent_nonmedexempt)) +
+  geom_boxplot(outlier.colour = "red") +
+  facet_wrap(~school_county)
+
+
+
+
+
+#what proportion of total exemptions are personal exemptions
+
+
+
+
+#should analyze to see if there is correlation between studdents enrolled and percent exempt
+
+ggplot(vaccReported,aes(x = enrolled, y = percent_exempt)) +
+  geom_point(alpha = .1, aes(color = school_year)) +
+  geom_smooth()
+
+ggplot(subset(vaccReported, vaccReported$enrolled <= 1000),aes(x = enrolled, y = percent_exempt)) +
+  geom_point(alpha = .25, aes(color = school_year)) +
+  geom_smooth()
+
+
+
+
 
 ### By Pub/Private
 by.type <- data.sub %>% group_by(Type) %>% summarize(Mean.PBE = round(mean(Exempt, na.rm=TRUE), 2), Students=sum(enrollment, na.rm = TRUE))
