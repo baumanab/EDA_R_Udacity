@@ -118,7 +118,7 @@ ggplot(aes(x = percent_exempt, y = ..density..), data = vaccReported) +
   facet_wrap(~school_county) +
   scale_x_log10()
 
-##inspect
+##top 200
 top200_allyears_allpop <- arrange(vaccReported, desc(percent_exempt))[1:200,c("school_year","school_name", "school_county", "school_city","enrolled", "total_exemptions", "percent_exempt")]
 
 top200_allyears_NLT100 <- arrange(subset(vaccReported, vaccReported$enrolled >= 100), desc(percent_exempt))[1:200,c("school_year","school_name", "school_county", "school_city","enrolled", "total_exemptions", "percent_exempt")]
@@ -132,35 +132,56 @@ summarize(vaccReported_NLT100, Mean_percent_exempt = mean(percent_exempt, na.rm 
 
 summarize(vaccReported_NLT100, Mean_percent_nonmedexempt = mean(percent_nonmedexempt, na.rm = TRUE))
 
-ggplot(vaccReported, aes(x = school_state, y = percent_exempt)) +
-  geom_boxplot(outlier.colour = "red") +
-  facet_wrap(~school_year)
+#boxplot to compare means/medians NLT100 vs reg
 
+
+
+##total percent exempt all schools
+
+##state level by year
+ggplot(vaccReported, aes(x = school_state, y = percent_exempt)) +
+  geom_boxplot() +
+  geom_jitter(alpha = .5, aes(size = enrolled, color = enrolled)) +
+  facet_wrap(~school_year) +
+  scale_color_gradientn(colours = c("red", "orange", "yellow")) #fix color scheme and do plots where outier pops are removed
+
+#year level by county
 ggplot(vaccReported, aes(x = school_year, y = percent_exempt)) +
   geom_boxplot(outlier.colour = "red") +
   facet_wrap(~school_county)
 
-ggplot(vaccReported_NLT100, aes(x = school_state, y = percent_exempt)) +
-  geom_boxplot(outlier.colour = "red") +
-  facet_wrap(~school_year)
+##total percent exempt all schools
 
+##state level by year
+ggplot(vaccReported_NLT100, aes(x = school_state, y = percent_exempt)) +
+  geom_boxplot() +
+  geom_jitter(alpha = .5, aes(size = enrolled, color = enrolled)) +
+  facet_wrap(~school_year) +
+  scale_color_gradientn(colours = c("red", "orange", "yellow")) #fix color scheme and do plots where outier pops are removed
+
+##year level by county
 ggplot(vaccReported_NLT100, aes(x = school_year, y = percent_exempt)) +
   geom_boxplot(outlier.colour = "red") +
   facet_wrap(~school_county)
 
+#nonmedical exempt
 
+#
 ggplot(vaccReported_NLT100, aes(x = school_state, y = percent_nonmedexempt)) +
   geom_boxplot(outlier.colour = "red") +
   facet_wrap(~school_year)
 
+#
 ggplot(vaccReported_NLT100, aes(x = school_year, y = percent_nonmedexempt)) +
   geom_boxplot(outlier.colour = "red") +
   facet_wrap(~school_county)
 
 
-gg2 <- arrange(vaccReported_NLT100,desc(percent_nonmedexempt))
+#does cutting school pops have much effect on the mean and median, if not, go with the NLT100
 
-#should probably add a filter to get rid of situations where total exemptions > enrolled or nonmedical exempitons > total exemptions
+#does setting an uppler limit on students have much effect on median (getting ride of huge school)
+
+#might actually want to take a look at the distribution of enrollment and form an approach
 
 
 #what proportion of total exemptions are personal exemptions
