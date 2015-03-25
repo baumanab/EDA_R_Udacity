@@ -98,8 +98,26 @@ vaccReported <- vaccReported[vaccReported$nonmedical_exempt  <= vaccReported$enr
 
 vaccReported <- vaccReported[vaccReported$enrolled != 0,]
 
+
+#noticed in my exploration that there was one very big school (10,700 students).  This seems unrealistic for a town the size of Kelson.  That would be ~2600 studens per class.  Some searching puts the number at 1819.  
+vaccReported[vaccReported$enrolled > 10000,][3]
+vaccReported[vaccReported$school_name == "Kelso High School",][13]
+
+#school digger data puts the 2013 enrollment at 1562
+
+http://www.schooldigger.com/go/WA/schools/0000300593/school.aspx
+
+#correct kelso high school enrollment
+vaccReported[vaccReported$school_name == "Kelso High School",][13][3,] <- 1562
+
+
 #create subset of schools with populations of at least 100
 vaccReported_NLT100 <- subset(vaccReported,vaccReported$enrolled >= 100)
+
+#see enrollment distributions below, the high enrollment data is suspect.  Creating a subset of enrollment from 100 to 2,500
+
+vaccReported_100To2500 <- subset(vaccReported_NLT100, vaccReported_NLT100$enrolled <=2500)
+
 
 
 
@@ -112,7 +130,34 @@ vaccReported_NLT100 <- subset(vaccReported,vaccReported$enrolled >= 100)
 
 #summary of enrollment
 summary(vaccReported$enrolled)
-by(vaccReported$total_exemptions, vaccReported$school_year,summary)
+by(vaccReported$enrolled, vaccReported$school_year,summary)
+
+#these numbers seem unrealistic to me, based on the grade levels the enrollment covers.  I'm going to proceed with the data analysis, but take the level of enrollment with a grain of salt.
+vaccReported[vaccReported$enrolled == 5076,][11]
+vaccReported[vaccReported$enrolled == 3383,][11]
+vaccReported[vaccReported$enrolled == 3416,][11]
+
+ggplot(aes(x = enrolled), data = vaccReported) + 
+  geom_histogram(binwidth = 30,  color = 'black',fill = '#F79420') +
+  scale_x_continuous(limits = c(0,5100), breaks = seq(0, 5100, 500))
+
+ggplot(aes(x = enrolled), data = vaccReported) + 
+  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  scale_x_log10()
+
+
+
+#decided to create subset of data with students from 100 to 2500
+summary(vaccReported_100To2500$enrolled)
+by(vaccReported_100To2500$enrolled, vaccReported_100To2500$school_year,summary)
+
+ggplot(aes(x = enrolled), data = vaccReported_100To2500) + 
+  geom_histogram(binwidth = 30,  color = 'black',fill = '#F79420') +
+  scale_x_continuous(limits = c(0,5100), breaks = seq(0, 5100, 500))
+
+ggplot(aes(x = enrolled), data = vaccReported_100To2500) + 
+  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  scale_x_log10()
 
 
 #summary of total exemptions
