@@ -153,7 +153,7 @@ by(vaccReported_100To2500$enrolled, vaccReported_100To2500$school_year,summary)
 
 ggplot(aes(x = enrolled), data = vaccReported_100To2500) + 
   geom_histogram(binwidth = 30,  color = 'black',fill = '#F79420') +
-  scale_x_continuous(limits = c(0,5100), breaks = seq(0, 5100, 500))
+  scale_x_continuous(limits = c(0,2500), breaks = seq(0, 2500, 500))
 
 ggplot(aes(x = enrolled), data = vaccReported_100To2500) + 
   geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
