@@ -1,21 +1,52 @@
-TITLE by YOUR_NAME_HERE
+Exploration of WA DOH School Exemption Data over 3 School Years by Andrew T. Bauman
 ========================================================
+#Introduction#
 
+Recent news media coverage and my own personal interest inspired me to explore a school vaccination data set for WA state.  WA DOH employees generously assembled 3 data sets for my project for school years 2011-2012, 2012-2013, and 2013-2014.  The 2011-2012 set is the most comprehensive in terms of school covered and relevant fields  Each data set contains an observation about a school.  The 3 data sets were bound into one data set, then explored.  
+
+The initial data and cleaning/assembly of the combined data frame can be found here:
+[githubrepo](https://github.com/baumanab/EDA_R_Udacity/tree/master/EDA_R_FinalProject)
+
+Additional cleaning and wrangling can be found here:
+
+[githubrepo](https://github.com/baumanab/EDA_R_Udacity/blob/master/EDA_R_FinalProject/EDA_R_FinalProject_WADOH_DataFrameWrangle.Rmd)
+
+An initial exploration wherein I make decisions about subsetting data for this RMD is here:
+
+[githubrepo](https://github.com/baumanab/EDA_R_Udacity/blob/master/EDA_R_FinalProject/WADOH_DataExplore.Rmd)
+
+
+The current state is a rough approach and far from perfect.  I plan to revisit this as I discover additional elements that need cleaning.  I am currently working on a more readable and organized version of the data wrangling which involves piping/chaining the code together, so that changes are easy to make and push to the .rds file called as data for this project.
+
+**Disclaimer:**
+While I am a trained scientist, I am not an expert statistician or programmer.  This is a student project.  My data cleaning and wrangling has room for improvement.  As such, please exercise caution and good judgement regarding my observations and conclusions.  **Feedback on any aspect of this project is encouraged and most welcome.**
+
+There are some aspects of vaccination and the spread of disease through populations that are best left to subject matter experts (SMEs).  I consulted CDC publications throughout this analysis and I encourage the reader to do the same.
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
-# Load all of the packages that you end up using
-# in your analysis in this code chunk.
+# Load libraries
 
-# Notice that the parameter "echo" was set to FALSE for this code chunk.
-# This prevents the code from displaying in the knitted HTML output.
-# You should set echo=FALSE for all code chunks in your file.
-
+library(dplyr)
+library(tidyr)
 library(ggplot2)
+library(gridExtra)
+library(GGally)
+library(reshape2)
+library(tidyr)
 ```
 
 ```{r echo=FALSE, Load_the_Data}
-# Load the Data
+# Load the Data, initial wrangle/clean with no enrollment restriction
+vacc <- readRDS('data/WA_DOH_Combined.rds')
 
+#reported only with additonal cleaning and enrollment corrections
+vaccReported <- readRDS("data/vaccReported")
+
+#temp convenience
+setwd("Udacity//dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/")
+#save.image("project_pause.RData")
+load("project_pause.RData")
 ```
+
 
 # Univariate Plots Section
 ```{r echo=FALSE, Univariate_Plots}
@@ -96,3 +127,6 @@ library(ggplot2)
 ------
 
 # Reflection
+
+
+# References
