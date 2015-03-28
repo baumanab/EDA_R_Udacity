@@ -59,10 +59,14 @@ vaccReported <- vaccReported[,select_fields]
 ```{r echo=FALSE, Univariate_Plots}
 p = ggplot(vaccReported, aes(x = enrolled, y = percent_exempt))
 
-p1 =  p + geom_point() +  geom_smooth()
+p1 =  p + geom_point(alpha = .1)
 
-p2 = p + geom_boxplot() + geom_jitter()
 
+p2 = p1 + geom_line(stat = 'summary',fun.y = mean, linetype = 1, color = "red")
+
+p3 = p2 + geom_line(stat = 'summary',fun.y = median, linetype = 3, color = "blue")
+
+p4 = p3 + facet_wrap(~school_year)
 
 
 
