@@ -41,8 +41,6 @@ vacc <- readRDS('data/WA_DOH_Combined.rds')
 #reported only with additonal cleaning and enrollment corrections
 vaccReported <- readRDS("data/vaccReported")
 
-#limit fields
-
 
 #temp convenience
 setwd("Udacity//dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/")
@@ -50,10 +48,24 @@ setwd("Udacity//dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/")
 load("project_pause.RData")
 ```
 
+``` {r echo = FALSE, alter data}
+#limit fields
+select_fields <- c("school_year", "school_code", "school_name", "school_type", "school_city","school_state", "school_zip", "school_county", "school_district", "district_code", "enrolled", "total_exemptions", "medical_exempt", "nonmedical_exempt", "exempt_MMR", "percent_exempt", "percent_medical_exempt","percent_nonmedexempt", "percent_exempt_MMR")
+
+vaccReported <- vaccReported[,select_fields]
+```
 
 # Univariate Plots Section
 ```{r echo=FALSE, Univariate_Plots}
-str
+p = ggplot(vaccReported, aes(x = enrolled, y = percent_exempt))
+
+p1 =  p + geom_point() +  geom_smooth()
+
+p2 = p + geom_boxplot() + geom_jitter()
+
+
+
+
 ```
 
 # Univariate Analysis
