@@ -113,8 +113,10 @@ vaccReported[vaccReported$school_name == "Kelso High School",][13][3,] <- 1562
 #add percent medical exempt
 vaccReported$percent_medical_exempt <- (vaccReported$medical_exempt/vaccReported$enrolled) *100
 
+
 #save vaccReported as RDS
 saveRDS(vaccReported, "data/vaccReported")
+
 
 
 #create subset of schools with populations of at least 100
