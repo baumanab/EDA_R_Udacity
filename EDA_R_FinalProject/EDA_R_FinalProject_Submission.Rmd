@@ -5,7 +5,7 @@ Exploration of WA DOH School Exemption Data over 3 School Years by Andrew T. Bau
 Recent news media coverage and my own personal interest inspired me to explore a school vaccination data set for WA state.  WA DOH employees generously assembled 3 data sets for my project for school years 2011-2012, 2012-2013, and 2013-2014.  The 2011-2012 set is the most comprehensive in terms of school covered and relevant fields  Each data set contains an observation about a school.  The 3 data sets were bound into one data set, then explored.  
 
 The initial data and cleaning/assembly of the combined data frame can be found here:
-[githubrepo](https://github.com/baumanab/EDA_R_Udacity/tree/master/EDA_R_FinalProject)
+[githubrepo](https://github.com/baumanab/EDA_R_Udacity/tree/master/EDA_R_FinalProject/EDA_R_FinalProject.Rmd)
 
 Additional cleaning and wrangling can be found here:
 
@@ -41,6 +41,9 @@ vacc <- readRDS('data/WA_DOH_Combined.rds')
 #reported only with additonal cleaning and enrollment corrections
 vaccReported <- readRDS("data/vaccReported")
 
+#limit fields
+
+
 #temp convenience
 setwd("Udacity//dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/")
 #save.image("project_pause.RData")
@@ -50,7 +53,7 @@ load("project_pause.RData")
 
 # Univariate Plots Section
 ```{r echo=FALSE, Univariate_Plots}
-
+str
 ```
 
 # Univariate Analysis

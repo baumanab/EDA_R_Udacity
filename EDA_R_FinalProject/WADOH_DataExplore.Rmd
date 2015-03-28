@@ -110,6 +110,9 @@ http://www.schooldigger.com/go/WA/schools/0000300593/school.aspx
 #correct kelso high school enrollment
 vaccReported[vaccReported$school_name == "Kelso High School",][13][3,] <- 1562
 
+#add percent medical exempt
+vaccReported$percent_medical_exempt <- (vaccReported$medical_exempt/vaccReported$enrolled) *100
+
 #save vaccReported as RDS
 saveRDS(vaccReported, "data/vaccReported")
 
@@ -120,10 +123,6 @@ vaccReported_NLT100 <- subset(vaccReported,vaccReported$enrolled >= 100)
 #see enrollment distributions below, the high enrollment data is suspect.  Creating a subset of enrollment from 100 to 2,500
 
 vaccReported_100To2500 <- subset(vaccReported_NLT100, vaccReported_NLT100$enrolled <=2500)
-
-
-
-
 
 
 
