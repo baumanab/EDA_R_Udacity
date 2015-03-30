@@ -45,12 +45,12 @@ vaccReported <- readRDS("data/vaccReported")
 
 
 #temp convenience
-setwd("Udacity//dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/")
+#setwd("Udacity//dataAnalysisR/EDA_R_Udacity/EDA_R_FinalProject/")
 #save.image("project_pause.RData")
 #load("project_pause.RData")
 ```
 
-``` {r echo = FALSE ,alter data}
+``` {r echo = FALSE ,alter_data}
 #limit fields
 fields <- c("school_year", "school_code", "school_name", "school_type", "school_city","school_state", "school_zip", "school_county", "school_district", "district_code", "enrolled", "total_exemptions", "medical_exempt", "nonmedical_exempt", "exempt_MMR", "percent_exempt", "percent_medical_exempt","percent_nonmedexempt", "percent_exempt_MMR")
 
@@ -76,6 +76,7 @@ ggplot(aes(x = enrolled), data = vaccReported) +
 #summary of total exemptions
 summary(vaccReported$total_exemptions)
 by(vaccReported$total_exemptions, vaccReported$school_year,summary)
+
 summary(vaccReported$percent_exempt)
 by(vaccReported$percent_exempt, vaccReported$school_year,summary)
 
@@ -115,62 +116,21 @@ ggplot(aes(x = total_exemptions), data = vaccReported) +
   geom_histogram(binwidth = .11,  color = 'black',fill = '#F79420') +
   scale_x_log10()
 
-#total exempt by year
-ggplot(aes(x = total_exemptions), data = vaccReported) + 
-  geom_histogram(binwidth = 5,  color = 'black',fill = '#F79420') +
-  facet_wrap(~school_year) +
-  scale_x_continuous(limits = c(0,250), breaks = seq(0, 250, 25))
+#percent total exemptions
+ggplot(aes(x = percent_exempt, y = ..count../sum(..count..)), data = vaccReported) +
+  geom_freqpoly(binwidth = 1, aes(color = school_year))
 
-ggplot(aes(x = total_exemptions), data = vaccReported) + 
-  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
-  scale_x_log10()
-
-#log scale (longtail data)
-ggplot(aes(x = total_exemptions), data = vaccReported) + 
-  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
-  facet_wrap(~school_year) +
-  scale_x_log10() +
-  xlab("Log10(Total Exemptions)")
-
-ggplot(aes(x = total_exemptions), data = subset(vaccReported, total_exemptions >0)) + 
-  geom_histogram(binwidth = .1,  color = 'black',fill = 'red') +
-  scale_x_log10() +
-  xlab("Log10(Total Exemptions)")
-
-#explore medical exemptions
-summary(vaccReported$medical_exempt)
-by(vaccReported$medical_exempt, vaccReported$school_year,summary)
-#medical exempt
-ggplot(aes(x = medical_exempt), data = vaccReported) + 
-  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
-  facet_wrap(~school_year) +
-  scale_x_log10() +
-  xlab("Log10(medical_exemptions)")
-
-#explore non-medical exemptions
-summary(vaccReported$nonmedical_exempt)
-by(vaccReported$nonmedical_exempt, vaccReported$school_year,summary)
-#non-medical exempt
-ggplot(aes(x = nonmedical_exempt), data = vaccReported) + 
-  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
-  facet_wrap(~school_year) +
-  scale_x_log10() +
-  xlab("Log10(nonMedical_exemptions)")
-
-
-
-
+ggplot(aes(x = percent_exempt, y = ..density..), data = vaccReported) +
+  geom_freqpoly(binwidth = 1, aes(color = school_year))
 
 ggplot(aes(x = percent_exempt, y = ..count../sum(..count..)), data = vaccReported) +
   geom_freqpoly(binwidth = .1, aes(color = school_year)) +
-  facet_wrap(~school_county) +
   scale_x_log10()
 
-ggplot(aes(x = percent_exempt, y = ..count../sum(..count..)), data = vaccReported) +
+ggplot(aes(x = percent_exempt, y = ..density..), data = vaccReported) +
   geom_freqpoly(binwidth = .1, aes(color = school_year)) +
-  facet_wrap(~school_county, scales = "free_y") +
   scale_x_log10()
-
+  
 ##freqpoly proportion of percent exempt, by county, color = year
 ggplot(aes(x = percent_exempt, y = ..count../sum(..count..)), data = vaccReported) +
   geom_freqpoly(binwidth = .5, aes(color = school_year)) +
@@ -183,19 +143,216 @@ ggplot(aes(x = percent_exempt, y = ..density..), data = vaccReported) +
   facet_wrap(~school_county) +
   scale_x_log10()
 
+
+#total exempt by year
+ggplot(aes(x = total_exemptions), data = vaccReported) + 
+  geom_histogram(binwidth = 5,  color = 'black',fill = '#F79420') +
+  facet_wrap(~school_year) +
+  scale_x_continuous(limits = c(0,250), breaks = seq(0, 250, 25))
+
+
+
+#log scale (longtail data)
+ggplot(aes(x = total_exemptions), data = vaccReported) + 
+  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  facet_wrap(~school_year) +
+  scale_x_log10() +
+  xlab("Log10(Total Exemptions)")
+
+ggplot(aes(x = total_exemptions), data = vaccReported) + 
+  geom_histogram(binwidth = .1,  color = 'black',fill = 'red') +
+  scale_x_log10() +
+  xlab("Log10(Total Exemptions)")
+
+
+
+
+#explore medical exemptions
+summary(vaccReported$medical_exempt)
+by(vaccReported$medical_exempt, vaccReported$school_year,summary)
+
+summary(vaccReported$percent_medical_exempt)
+by(vaccReported$percent_medical_exempt, vaccReported$school_year,summary)
+
+#medical exempt
+
+ggplot(aes(x = medical_exempt), data = vaccReported) + 
+  geom_histogram(binwidth = 1,  color = 'black',fill = '#F79420') +
+  scale_x_continuous()
+
+ggplot(aes(x = medical_exempt), data = vaccReported) + 
+  geom_histogram(binwidth = 1,  color = 'black',fill = '#F79420') +
+  facet_wrap(~school_year) +
+  scale_x_continuous()
+
+ggplot(aes(x = medical_exempt), data = vaccReported) + 
+  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  scale_x_log10() +
+  xlab("Log10(medical_exemptions)")
+
+ggplot(aes(x = medical_exempt), data = vaccReported) + 
+  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  facet_wrap(~school_year) +
+  scale_x_log10() +
+  xlab("Log10(medical_exemptions)")
+
+#percent medical exemptions
+ggplot(aes(x = percent_medical_exempt, y = ..count../sum(..count..)), data = vaccReported) +
+  geom_freqpoly(binwidth = 1, aes(color = school_year))
+
+ggplot(aes(x = percent_medical_exempt, y = ..density..), data = vaccReported) +
+  geom_freqpoly(binwidth = 1, aes(color = school_year))
+
+ggplot(aes(x = percent_medical_exempt, y = ..count../sum(..count..)), data = vaccReported) +
+  geom_freqpoly(binwidth = .1, aes(color = school_year)) +
+  scale_x_log10()
+
+ggplot(aes(x = percent_medical_exempt, y = ..density..), data = vaccReported) +
+  geom_freqpoly(binwidth = .1, aes(color = school_year)) +
+  scale_x_log10()
+  
+##freqpoly proportion of percent medical exempt, by county, color = year
+ggplot(aes(x = percent_medical_exempt, y = ..count../sum(..count..)), data = subset(vaccReported, vaccReported$percent_medical_exempt > 0)) +
+  geom_freqpoly(binwidth = .5, aes(color = school_year)) +
+  facet_wrap(~school_county) +
+  scale_x_log10()
+
+##freqpoly density of percent medical exempt, by county, color = year
+ggplot(aes(x = percent_medical_exempt, y = ..density..), data = vaccReported) +
+  geom_freqpoly(binwidth = .5, aes(color = school_year)) +
+  facet_wrap(~school_county) +
+  scale_x_log10()
+
+#explore non-medical exemptions
+summary(vaccReported$nonmedical_exempt)
+by(vaccReported$nonmedical_exempt, vaccReported$school_year,summary)
+
+summary(vaccReported$percent_nonmedexempt)
+by(vaccReported$percent_nonmedexempt, vaccReported$school_year,summary)
+
+#non-medical exempt
+
+ggplot(aes(x = nonmedical_exempt), data = vaccReported) + 
+  geom_histogram(binwidth = 1,  color = 'black',fill = '#F79420') +
+  scale_x_continuous()
+
+ggplot(aes(x = nonmedical_exempt), data = vaccReported) + 
+  geom_histogram(binwidth = 1,  color = 'black',fill = '#F79420') +
+  facet_wrap(~school_year) +
+  scale_x_continuous()
+
+ggplot(aes(x = nonmedical_exempt), data = vaccReported) + 
+  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  scale_x_log10() +
+  xlab("Log10(nonmedical_exemptions)")
+
+ggplot(aes(x = nonmedical_exempt), data = vaccReported) + 
+  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  facet_wrap(~school_year) +
+  scale_x_log10() +
+  xlab("Log10(nonmedical_exemptions)")
+
+
+#percent non-medical exemptions
+ggplot(aes(x = percent_nonmedexempt, y = ..count../sum(..count..)), data = vaccReported) +
+  geom_freqpoly(binwidth = 1, aes(color = school_year))
+
+ggplot(aes(x = percent_nonmedexempt, y = ..density..), data = vaccReported) +
+  geom_freqpoly(binwidth = 1, aes(color = school_year))
+
+ggplot(aes(x = percent_nonmedexempt, y = ..count../sum(..count..)), data = vaccReported) +
+  geom_freqpoly(binwidth = .1, aes(color = school_year)) +
+  scale_x_log10()
+
+ggplot(aes(x = percent_nonmedexempt, y = ..density..), data = vaccReported) +
+  geom_freqpoly(binwidth = .1, aes(color = school_year)) +
+  scale_x_log10()
+  
+##freqpoly proportion of percent nonmedical exempt, by county, color = year
+ggplot(aes(x = percent_nonmedexempt, y = ..count../sum(..count..)), data = vaccReported) +
+  geom_freqpoly(binwidth = .5, aes(color = school_year)) +
+  facet_wrap(~school_county) +
+  scale_x_log10()
+
+##freqpoly density of percent nonmedical exempt, by county, color = year
+ggplot(aes(x = percent_nonmedexempt, y = ..density..), data = vaccReported) +
+  geom_freqpoly(binwidth = .5, aes(color = school_year)) +
+  facet_wrap(~school_county) +
+  scale_x_log10()
+
+
+#MMR exemptions
+
+summary(vaccReported$exempt_MMR)
+by(vaccReported$exempt_MMR, vaccReported$school_year,summary)
+
+summary(vaccReported$percent_exempt_MMR)
+by(vaccReported$percent_exempt_MMR, vaccReported$school_year,summary)
+
+
+ggplot(aes(x = exempt_MMR ), data = vaccReported) + 
+  geom_histogram(binwidth = 1,  color = 'black',fill = '#F79420') +
+  scale_x_continuous()
+
+ggplot(aes(x = exempt_MMR), data = vaccReported) + 
+  geom_histogram(binwidth = 1,  color = 'black',fill = '#F79420') +
+  facet_wrap(~school_year) +
+  scale_x_continuous()
+
+ggplot(aes(x = exempt_MMR), data = vaccReported) + 
+  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  scale_x_log10() 
+
+
+ggplot(aes(x = exempt_MMR), data = vaccReported) + 
+  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  facet_wrap(~school_year) +
+  scale_x_log10() 
+  
+
+#percent exempt MMR
+ggplot(aes(x = percent_exempt_MMR, y = ..count../sum(..count..)), data = vaccReported) +
+  geom_freqpoly(binwidth = 1, aes(color = school_year))
+
+ggplot(aes(x = percent_exempt_MMR, y = ..density..), data = vaccReported) +
+  geom_freqpoly(binwidth = 1, aes(color = school_year))
+
+ggplot(aes(x = percent_exempt_MMR, y = ..count../sum(..count..)), data = vaccReported) +
+  geom_freqpoly(binwidth = .1, aes(color = school_year)) +
+  scale_x_log10()
+
+ggplot(aes(x = percent_exempt_MMR, y = ..density..), data = vaccReported) +
+  geom_freqpoly(binwidth = .1, aes(color = school_year)) +
+  scale_x_log10()
+  
+##freqpoly proportion of percent exempt MMR, by county, color = year
+ggplot(aes(x = percent_exempt_MMR, y = ..count../sum(..count..)), data = vaccReported) +
+  geom_freqpoly(binwidth = .5, aes(color = school_year)) +
+  facet_wrap(~school_county) +
+  scale_x_log10()
+
+##freqpoly density of percent exempt MMR, by county, color = year
+ggplot(aes(x = percent_exempt_MMR, y = ..density..), data = vaccReported) +
+  geom_freqpoly(binwidth = .5, aes(color = school_year)) +
+  facet_wrap(~school_county) +
+  scale_x_log10()
+
+
+```
+```{r temp sandbox}
 ##top 200
 top200_allyears_allpop <- arrange(vaccReported, desc(percent_exempt))[1:200,c("school_year","school_name", "school_county", "school_city","enrolled", "total_exemptions", "percent_exempt")]
 
-top200_allyears_NLT100 <- arrange(subset(vaccReported, vaccReported$enrolled >= 100), desc(percent_exempt))[1:200,c("school_year","school_name", "school_county", "school_city","enrolled", "total_exemptions", "percent_exempt")]
+#top200_allyears_NLT100 <- arrange(subset(vaccReported, vaccReported$enrolled >= 100), desc(percent_exempt))[1:200,c("school_year","school_name", "school_county", "school_city","enrolled", "total_exemptions", "percent_exempt")]
 
 
 
 state_rate <- mean(vaccReported$percent_exempt, na.rm=T)
-state_rate_NLT100 <- mean(vaccReported_NLT100$percent_exempt, na.rm = T)
+#state_rate_NLT100 <- mean(vaccReported_NLT100$percent_exempt, na.rm = T)
 
-summarize(vaccReported_NLT100, Mean_percent_exempt = mean(percent_exempt, na.rm = TRUE))
+#summarize(vaccReported_NLT100, Mean_percent_exempt = mean(percent_exempt, na.rm = TRUE))
 
-summarize(vaccReported_NLT100, Mean_percent_nonmedexempt = mean(percent_nonmedexempt, na.rm = TRUE))
+#summarize(vaccReported_NLT100, Mean_percent_nonmedexempt = mean(percent_nonmedexempt, na.rm = TRUE))
 
 #boxplot to compare means/medians NLT100 vs reg
 
@@ -218,16 +375,23 @@ ggplot(vaccReported, aes(x = school_year, y = percent_exempt)) +
 ##total percent exempt all schools
 
 ##state level by year
-ggplot(vaccReported_NLT100, aes(x = school_state, y = percent_exempt)) +
-  geom_boxplot() +
-  geom_jitter(alpha = .5, aes(size = enrolled, color = enrolled)) +
-  facet_wrap(~school_year) +
-  scale_color_gradientn(colours = c("red", "orange", "yellow")) #fix color scheme and do plots where outier pops are removed
+#ggplot(vaccReported_NLT100, aes(x = school_state, y = percent_exempt)) +
+ # geom_boxplot() +
+  #geom_jitter(alpha = .5, aes(size = enrolled, color = enrolled)) +
+  #facet_wrap(~school_year) +
+  #scale_color_gradientn(colours = c("red", "orange", "yellow")) #fix color scheme and do plots where outier pops are removed
 
 ##year level by county
-ggplot(vaccReported_NLT100, aes(x = school_year, y = percent_exempt)) +
-  geom_boxplot(outlier.colour = "red") +
-  facet_wrap(~school_county)
+#ggplot(vaccReported_NLT100, aes(x = school_year, y = percent_exempt)) +
+ # geom_boxplot(outlier.colour = "red") +
+  #facet_wrap(~school_county)
+
+
+ggplot(aes(x = percent_exempt, y = ..count../sum(..count..)), data = vaccReported) +
+  geom_freqpoly(binwidth = .1, aes(color = school_year)) +
+  facet_wrap(~school_county) +
+  scale_x_log10()
+
 
 
 #exemption rate vs enrollment
@@ -253,7 +417,6 @@ p2
 p3
 p4
 p5
-
 
 
 
