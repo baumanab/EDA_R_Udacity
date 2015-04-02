@@ -267,13 +267,59 @@ ggplot(aes(x = percent_exempt_MMR, y = ..density..), data = vaccReported) +
   facet_wrap(~school_county) +
   scale_x_log10()
 
+ggplot(aes(x = percent_exempt_MMR, y = ..density..), data = vaccReported) +
+  geom_freqpoly(binwidth = .5, aes(color = school_year)) +
+  facet_wrap(~school_county) +
+  scale_x_log10()
+
+
+t1 = ggplot(data = vaccReported, aes(x = percent_nonmedexempt, y = ..density..)) +
+  geom_freqpoly(aes(color = school_type)) +
+  scale_x_log10()
+
+names(vaccReported)
+
+test <- gather(vaccReported_NLT_10_NGT_2500,exemption_type,exemptions,medical_exempt, nonmedical_exempt)
+
+#add percent by exemption type
+test$percent_exemption_type <- round((test$exemptions/test$total_exemptions)*100,digits = 2)
+
+ggplot(data = test, aes(x = percent_exemption_type, y = ..density..)) +
+  geom_freqpoly(binwidth = log(1.25),aes(color = exemption_type)) +
+  facet_wrap(school_type ~ school_year) +
+  scale_x_log10()
+
+
+ggplot(data = subset(test, exemption_type == 'medical_exempt'), aes(x = percent_exemption_type, y = ..density..)) +
+  geom_freqpoly(binwidth = log(1.25),aes(color = school_type)) +
+  facet_wrap(~school_year) +
+  scale_x_log10()
+
+ggplot(data = subset(test, exemption_type == 'nonmedical_exempt'), aes(x = percent_exemption_type, y = ..density..)) +
+  geom_freqpoly(binwidth = log(1.25),aes(color = school_type)) +
+  facet_wrap(~school_year) +
+  scale_x_log10()
+
+ggplot(data = subset(test, exemption_type == 'nonmedical_exempt'), aes(x = percent_exemption_type, y = ..count../sum(..count..))) +
+  geom_freqpoly(binwidth = log(1.1),aes(color = school_year)) +
+  scale_x_log10()
+
+
 
 ```
 ```{r temp sandbox}
-##top 200
-top200_allyears_allpop <- arrange(vaccReported, desc(percent_exempt))[1:200,c("school_year","school_name", "school_county", "school_city","enrolled", "total_exemptions", "percent_exempt")]
 
-#top200_allyears_NLT100 <- arrange(subset(vaccReported, vaccReported$enrolled >= 100), desc(percent_exempt))[1:200,c("school_year","school_name", "school_county", "school_city","enrolled", "total_exemptions", "percent_exempt")]
+vaccReported_NLT_10_NGT_2500 <- subset(vaccReported,vaccReported$enrolled >= 10 & vaccReported$enrolled <= 2500) %>%
+  arrange(desc(percent_exempt))
+##top 20 percent exempt
+top20_allyears <- arrange(vaccReported_NLT_10_NGT_2500, desc(percent_exempt))[1:20,c("school_year","school_name", "school_county", "school_city","enrolled", "total_exemptions", "percent_exempt", "percent_medical_exempt","percent_nonmedexempt","percent_exempt_MMR")]
+
+
+
+
+
+
+
 
 
 
