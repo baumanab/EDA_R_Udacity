@@ -70,6 +70,12 @@ vaccReported_NLT_10_NGT_2500_2013 <- subset(vaccReported_NLT_10_NGT_2500, school
 vaccReported_NLT_100_NGT_2500 <- subset(vaccReported,vaccReported$enrolled >= 100 & vaccReported$enrolled <= 2500) %>%
   arrange(desc(percent_exempt))
 
+brks <- c(1, 5, 10, 50, 100, 500, 1000, 5000, 10000)
+
+brks2 <- c(.25,.5, 1, 2.5, 5, 10, 15, 25, 50, 75, 100)
+
+brks3 <- c(.1,.25,.5,1,5,10,50)
+
 ```
 
 # Univariate Plots Section
@@ -86,12 +92,11 @@ ggplot(aes(x = enrolled), data = vaccReported) +
   geom_histogram(binwidth = 30,  color = 'black',fill = '#F79420') +
   scale_x_continuous(limits = c(0,5100), breaks = seq(0, 5100, 500))
 ```
+
 This is a long tailed distribution, a feature exhibited by most distributions in this data set.  Log transformations are performed to visualize the data.
-```{r echo = False dist_enrollment_cont}
 
+```{r echo = FALSE, dist_enrollment_cont}
 
-
-brks <- c(1, 5, 10, 50, 100, 500, 1000, 5000, 10000)
 
 ggplot(aes(x = enrolled), data = vaccReported) + 
   geom_histogram(binwidth = log(1.25),  color = 'black',fill = '#F79420') +
@@ -99,8 +104,9 @@ ggplot(aes(x = enrolled), data = vaccReported) +
   xlab("Log10(enrolled)")
 
 ```
-Range:  1 - 5076
-Most of the data falls between ~ 100 - 1000 students per school
+
+* Range:  1 - 5076*
+* Most of the data falls between ~ 100 - 1000 students per school*
 
 ##Distribution of total exemptions##
 ```{r echo=FALSE, total_exemptions}
@@ -139,7 +145,6 @@ ggplot(aes(x = total_exemptions), data = vaccReported) +
 
 
 #percent total exemptions
-brks2 <- c(.25,.5, 1, 2.5, 5, 10, 15, 25, 50, 75, 100)
 
 ggplot(aes(x = percent_exempt, y = ..density..), data = vaccReported) +
   geom_freqpoly(binwidth = .1, aes(color = school_year)) +
@@ -166,6 +171,7 @@ ggplot(aes(x = percent_exempt, y = ..density..), data = subset(vaccReported, sch
   scale_x_log10()
 
 ```
+
 * Range: 0 - 436*
 * Rate:  0 - 100%, ~ 6.6% mean for all 3 school years*
 * The highest density data is from ~ 10 - 75 students per school*
@@ -179,17 +185,18 @@ ggplot(aes(x = percent_exempt, y = ..density..), data = subset(vaccReported, sch
 
 
 
-
+##Medical Exemptions##
 ```{r echo=FALSE, medical_exemptions}
-
-
 
 #explore medical exemptions
 summary(vaccReported$medical_exempt)
 by(vaccReported$medical_exempt, vaccReported$school_year,summary)
 
+#explore percent medical exempt
 summary(vaccReported$percent_medical_exempt)
 by(vaccReported$percent_medical_exempt, vaccReported$school_year,summary)
+
+
 
 #medical exempt
 
@@ -206,23 +213,44 @@ ggplot(aes(x = medical_exempt), data = vaccReported) +
 
 #percent medical exemptions
 
+ggplot(aes(x = percent_medical_exempt, y = ..density..), data = vaccReported) +
+  geom_freqpoly(binwidth = log(1.25)) +
+  scale_x_log10(breaks = brks3)
+
+
 
 ggplot(aes(x = percent_medical_exempt, y = ..density..), data = vaccReported) +
-  geom_freqpoly(binwidth = .1, aes(color = school_year)) +
-  scale_x_log10()
+  geom_freqpoly(binwidth = log(1.25), aes(color = school_year)) +
+  scale_x_log10(breaks = brks3)
   
 ##freqpoly proportion of percent medical exempt, by county, color = year
 ggplot(aes(x = percent_medical_exempt, y = ..count../sum(..count..)), data = subset(vaccReported, vaccReported$percent_medical_exempt > 0)) +
-  geom_freqpoly(binwidth = .5, aes(color = school_year)) +
+  geom_freqpoly(binwidth = log(1.25), aes(color = school_year)) +
   facet_wrap(~school_county) +
   scale_x_log10()
 
 ##freqpoly density of percent medical exempt, by county, color = year
 ggplot(aes(x = percent_medical_exempt, y = ..density..), data = vaccReported) +
-  geom_freqpoly(binwidth = .5, aes(color = school_year)) +
+  geom_freqpoly(binwidth = log(1.25), aes(color = school_year)) +
   facet_wrap(~school_county) +
   scale_x_log10()
 
+```
+
+* Range of 0-214 exemptions*
+* Substantial rate increase from 2012 -> 2013*
+* Most schools have 1-10 students with medical exemptions*
+* The rate range is ` 0 -33% with most schols falling between ~0.1 and 5%*
+* The mean rate rose from .55% to 1.08% from 2011 -> 2013*
+* Overall distribution of rate shifts towards higher rates from 2011 -> 2013*
+* King County*
+  * highest proportion*
+  * substantial shift to higer rates from 2011 -> 2013*
+  * there is a distinct spike at > 10%*
+* Columbia county has not reported any medical exemptions for any year*
+
+##Non-medical Exemptions##
+```{r echo=FALSE, nonmedical_exemptions}
 #explore non-medical exemptions
 summary(vaccReported$nonmedical_exempt)
 by(vaccReported$nonmedical_exempt, vaccReported$school_year,summary)
@@ -230,23 +258,15 @@ by(vaccReported$nonmedical_exempt, vaccReported$school_year,summary)
 summary(vaccReported$percent_nonmedexempt)
 by(vaccReported$percent_nonmedexempt, vaccReported$school_year,summary)
 
-
-```
-
-```{r echo=FALSE, nonmedical_exemptions}
-
-
 #non-medical exempt
 
-
-
 ggplot(aes(x = nonmedical_exempt), data = vaccReported) + 
-  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
-  scale_x_log10() +
+  geom_histogram(binwidth = log(1.25),  color = 'black',fill = '#F79420') +
+  scale_x_log10(breaks = brks2) +
   xlab("Log10(nonmedical_exemptions)")
 
 ggplot(aes(x = nonmedical_exempt), data = vaccReported) + 
-  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  geom_histogram(binwidth = log(1.25),  color = 'black',fill = '#F79420') +
   facet_wrap(~school_year) +
   scale_x_log10() +
   xlab("Log10(nonmedical_exemptions)")
@@ -254,10 +274,9 @@ ggplot(aes(x = nonmedical_exempt), data = vaccReported) +
 
 #percent non-medical exemptions
 
-
 ggplot(aes(x = percent_nonmedexempt, y = ..density..), data = vaccReported) +
   geom_freqpoly(binwidth = .1, aes(color = school_year)) +
-  scale_x_log10()
+  scale_x_log10(breaks = brks3)
   
 ##freqpoly proportion of percent nonmedical exempt, by county, color = year
 ggplot(aes(x = percent_nonmedexempt, y = ..count../sum(..count..)), data = vaccReported) +
@@ -273,6 +292,14 @@ ggplot(aes(x = percent_nonmedexempt, y = ..density..), data = vaccReported) +
 
 ```
 
+* Range 0 - 330 with most schools haveing ~8-75 nonmedical exempt students*
+* Mean fell by ~ 5 students per school 2011 -> 2013*
+* Rate of 0 -100% with most schools at ~ 1 - 20% nonmedical exempt*
+* No substantial change in mean rate (~6%) from 2011 -> 2013*
+* King County has the largest proportion of nonmedical exempt*
+* Ferry and San Juan counties distributiion is at a higher % than King County*
+
+##MMR Exemptions##
 ```{r echo=FALSE, MMR_exemptions}
 
 
@@ -285,25 +312,22 @@ summary(vaccReported$percent_exempt_MMR)
 by(vaccReported$percent_exempt_MMR, vaccReported$school_year,summary)
 
 
+ggplot(aes(x = exempt_MMR), data = vaccReported) + 
+  geom_histogram(binwidth = log(1.25),  color = 'black',fill = '#F79420') +
+  scale_x_log10(breaks = brks) 
 
 
 ggplot(aes(x = exempt_MMR), data = vaccReported) + 
-  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
-  scale_x_log10() 
-
-
-ggplot(aes(x = exempt_MMR), data = vaccReported) + 
-  geom_histogram(binwidth = .1,  color = 'black',fill = '#F79420') +
+  geom_histogram(binwidth = log(1.25),  color = 'black',fill = '#F79420') +
   facet_wrap(~school_year) +
   scale_x_log10() 
   
 
 #percent exempt MMR
 
-
 ggplot(aes(x = percent_exempt_MMR, y = ..density..), data = vaccReported) +
-  geom_freqpoly(binwidth = .1, aes(color = school_year)) +
-  scale_x_log10()
+  geom_freqpoly(binwidth = log(1.25), aes(color = school_year)) +
+  scale_x_log10(breaks = brks3)
   
 ##freqpoly proportion of percent exempt MMR, by county, color = year
 ggplot(aes(x = percent_exempt_MMR, y = ..count../sum(..count..)), data = vaccReported) +
@@ -326,8 +350,14 @@ ggplot(aes(x = percent_exempt_MMR, y = ..density..), data = vaccReported) +
 
 ```
 
-```{r echo=FALSE, exemption_types}
+* Range 0-269 with most schools haveing 3 - 40 MMR exempt students*
+* Rate 0 -100% with most schools falling between ~0.5 - 20%*
+* No substntial change in total mean or mean rate from 2011 -> 2013*
+* King County has the largest proportion of nonmedical exempt*
+* Ferry and San Juan counties distributiion is at a higher % than King County*
 
+##Explore Exemption Types##
+```{r echo=FALSE, exemption_types}
 
 melt <- gather(vaccReported_NLT_10_NGT_2500,exemption_type,exemptions,medical_exempt, nonmedical_exempt)
 
@@ -344,27 +374,9 @@ ggplot(data = melt, aes(x = percent_exemption_type, y = ..count../sum(..count..)
   facet_wrap(school_type ~ school_year) +
   scale_x_log10()
 
-
-ggplot(data = subset(melt, exemption_type == 'medical_exempt'), aes(x = percent_exemption_type, y = ..density..)) +
-  geom_freqpoly(binwidth = log(1.25),aes(color = school_type)) +
-  facet_wrap(~school_year) +
-  scale_x_log10()
-
-ggplot(data = subset(melt, exemption_type == 'nonmedical_exempt'), aes(x = percent_exemption_type, y = ..density..)) +
-  geom_freqpoly(binwidth = log(1.25),aes(color = school_type)) +
-  facet_wrap(~school_year) +
-  scale_x_log10()
-
-ggplot(data = subset(melt, exemption_type == 'nonmedical_exempt'), aes(x = percent_exemption_type, y = ..count../sum(..count..))) +
-  geom_freqpoly(binwidth = log(1.1),aes(color = school_year)) +
-  scale_x_log10()
-
-ggplot(data = subset(melt, exemption_type == 'nonmedical_exempt'), aes(x = percent_exemption_type, y = ..count../sum(..count..))) +
-  geom_freqpoly(binwidth = log(1.25),aes(color = school_type)) +
-  facet_wrap(~school_year) +
-  scale_x_log10()
 ```
 
+Public and private schools have similiar distributions and rates of both types of exemptions, for all three school years.  Public schools have a larger proportion of exempitons of both types.
 ```{r echo=FALSE, group_by_attribute}
 
 
@@ -436,11 +448,8 @@ by_zip_nonmedexempt <- vaccReported_NLT_10_NGT_2500_2013 %>%  group_by(school_zi
   filter(students >=500) %>%
   arrange(desc(mean_percent_nonmedexempt))
   
-
-
-
 ```
-```{r temp sandbox}
+```{r temp_sandbox}
 
 
 
@@ -448,16 +457,18 @@ by_zip_nonmedexempt <- vaccReported_NLT_10_NGT_2500_2013 %>%  group_by(school_zi
 
 
 ### by specific type
-by.mwc <- data.sub %>%  group_by(MWC) %>% summarize(Mean.PBE = round(mean(Exempt, na.rm=TRUE), 2), Median.PBE = round(median(Exempt, na.rm=TRUE), 2), Max.PBE = round(max(Exempt, na.rm=TRUE), 2), Min.PBE = round(min(Exempt, na.rm=TRUE), 2), Schools=n(), Students=sum(enrollment, na.rm=TRUE)) %>% na.omit() %>% arrange(desc(Mean.PBE))
+#by.mwc <- data.sub %>%  group_by(MWC) %>% summarize(Mean.PBE = round(mean(Exempt, na#.rm
+#=TRUE), 2), Median.PBE = round(median(Exempt, na.rm=TRUE), 2), Max.PBE = round(max
+#(Exempt, na.rm=TRUE), 2), Min.PBE = round(min(Exempt, na.rm=TRUE), 2), Schools=n(), #Students=sum(enrollment, na.rm=TRUE)) %>% na.omit() %>% arrange(desc(Mean.PBE))
 
 
 
-state_rate <- mean(vaccReported$percent_exempt, na.rm=T)
+#state_rate <- mean(vaccReported$percent_exempt, na.rm=T)
 #state_rate_NLT100 <- mean(vaccReported_NLT100$percent_exempt, na.rm = T)
 
 #summarize(vaccReported_NLT100, Mean_percent_exempt = mean(percent_exempt, na.rm = TRUE))
 
-#summarize(vaccReported_NLT100, Mean_percent_nonmedexempt = mean(percent_nonmedexempt, na.rm = TRUE))
+#summarize(vaccReported_NLT100, Mean_percent_nonmedexempt = mean(percent_nonmedexempt, na.rm #= TRUE))
 
 #boxplot to compare means/medians NLT100 vs reg
 
@@ -528,15 +539,19 @@ p5
 # Univariate Analysis
 
 ### What is the structure of your dataset?
-My data set contains 6696 observat
+My data set contains 6696 observations of 19 variables.
 
 ### What is/are the main feature(s) of interest in your dataset?
+Number of exemptions per school: total, by type (medical and non-medical), and MMR.
 
 ### What other features in the dataset do you think will help support your investigation into your feature(s) of interest?
+School enrollment and location grouping (country, district, city, zip code)
 
 ### Did you create any new variables from existing variables in the dataset?
+I created % of each total and each exemption using the number respective to the exemtion and enrollment, for each schools.
 
 ### Of the features you investigated, were there any unusual distributions? Did you perform any operations on the data to tidy, adjust, or change the form of the data? If so, why did you do this?
+I was suprised to see that two of the smaller counties, Ferry and San Juan had distributions shifted to higher percent of all exemptions than King County.  The narrative in the Seattle media led me to believe that the highest exemption rates would be observed in King County and the Seattle area in general.  I was also surprised to find the public and private schools have similiar distribuions, albeit different proportions, respective to exemption type.  This is the case on a proportion basis, but not for rate.  However, the schools in these counties tend to be much smaller so the rates shift dramatically per exempt student.  There was substantial tidying of the orignal data sets as per the github links in the introduction.  I extracted a subset of the data consisting of only schools that reported exemptions for the three schools years.  This elminated ~ 1200 observations but was necessary since non-reporting schools are missing all exemption values and typcially enrollment as well.
 
 
 
