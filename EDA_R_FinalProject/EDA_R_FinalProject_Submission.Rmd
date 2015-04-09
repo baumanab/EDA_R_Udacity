@@ -648,6 +648,8 @@ summary(county_group_type)
 str(county_group_type)
 
 #rm(by_county_exempt_type,by_county_medexempt_type,by_county_nonmedexempt_type,by_county_MMR_type)
+
+
   
 
 
@@ -879,7 +881,31 @@ ggplot(data = vaccReported, aes(x = school_type, y = percent_nonmedexempt)) +
 ggplot(data = vaccReported, aes(x = school_type, y = percent_exempt_MMR)) +
   geom_boxplot()
 
+#rate by rate
 
+ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
+  geom_line() +
+  geom_smooth()
+
+ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_medical_exempt)) +
+  geom_line() +
+  geom_smooth()
+
+ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_nonmedexempt)) +
+  geom_line() +
+  geom_smooth()
+
+ggplot(data = vaccReported, aes(x = percent_nonmedexempt, y = percent_medical_exempt)) +
+  geom_line() +
+  geom_smooth
+
+ggplot(data = vaccReported, aes(x = percent_medical_exempt, y = percent_exempt_MMR)) +
+  geom_line() +
+  geom_smooth()
+
+ggplot(data = vaccReported, aes(x = percent_nonmedexempt, y = percent_exempt_MMR)) +
+  geom_line() +
+  geom_smooth()
 
 
 namez
