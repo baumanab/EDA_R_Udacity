@@ -742,6 +742,12 @@ ggplot(data = vaccReported, aes(x = enrolled, y = percent_exempt_MMR)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
+```
+
+```{r}
+
+
+
 #exemption rates vs. total exemptions
 
 ##
@@ -798,6 +804,12 @@ ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_medical_exempt))
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
+```
+
+```{r}
+
+
+
 ##
 ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_nonmedexempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
@@ -807,6 +819,11 @@ ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_nonmedexempt)) +
 ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
+
+```
+```{r}
+
+
 
 #specific exemption rates vs. exemption rate for data subset enrolled NLT 100 NGT 2500
 ##
@@ -836,6 +853,10 @@ ggplot(data = vaccReported, aes(x = school_year, y = nonmedical_exempt)) +
 
 ggplot(data = vaccReported, aes(x = school_year, y = exempt_MMR)) +
   geom_boxplot()
+
+```
+
+```{r}
 
 
 
@@ -880,6 +901,10 @@ ggplot(data = vaccReported, aes(x = school_type, y = percent_nonmedexempt)) +
 
 ggplot(data = vaccReported, aes(x = school_type, y = percent_exempt_MMR)) +
   geom_boxplot()
+```
+
+```{r}
+
 
 #rate by rate
 
@@ -906,39 +931,6 @@ ggplot(data = vaccReported, aes(x = percent_medical_exempt, y = percent_exempt_M
 ggplot(data = vaccReported, aes(x = percent_nonmedexempt, y = percent_exempt_MMR)) +
   geom_line() +
   geom_smooth()
-
-
-namez
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ```
