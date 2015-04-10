@@ -697,151 +697,160 @@ by_zip_nonmedexempt <- vaccReported_NLT_10_NGT_2500_2013 %>%  group_by(school_zi
   arrange(desc(mean_percent_nonmedexempt))
 names(vaccReported) 
 ```
+
+##Total Exemptions vs. Enrollment##
 ```{r echo=FALSE, Bivariate_Plots}
 
 #total exemptions vs. enrollment
-##
+
 ggplot(data = vaccReported, aes(x = enrolled, y = total_exemptions)) +
   geom_line(alpha = .25,aes(color = school_year)) +
   geom_smooth()
 
-##
+
 ggplot(data = subset(vaccReported,enrolled <= 2500), aes(x = enrolled, y = total_exemptions)) +
   geom_line(alpha = .25,aes(color = school_year)) +
   geom_smooth()
 
-###
-ggplot(data = subset(vaccReported,enrolled <= 2000), aes(x = enrolled, y = total_exemptions)) +
-  geom_line(alpha = .25,aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
+```
 
-##
-ggplot(data = vaccReported_NLT_10_NGT_2500_2013, aes(x = enrolled, y = total_exemptions)) +
-  geom_line(alpha = .5) +
-  geom_smooth()
+For most of the data (enrollment up to ~1500) there is a linear relationship between total exemptions and number of students enrolled, this isn't surprising.  It would be more intersting to look at the rate, since it is normalized for population.
 
+##Exemption rate vs enrollment##
+```{r echo = FALSE}
 
-#exemption rate vs enrollment
-##
 ggplot(vaccReported, aes(x = enrolled, y = percent_exempt)) + 
   geom_point(alpha = .4, color = 'red')  +  
   geom_line(alpha = .5,stat = 'summary',fun.y = mean, linetype = 1, color = "black", size = 1) +
   scale_x_continuous(limits = c(0, 2000), breaks = seq(0,2000,250))
 
+```
+
+Mean percent exempt has high variance at low levels of enrollment.  This make sense, since a small change in exemptions represents a larger proportion of the population vs. schools with higher levels of enrollment.
+
+```{r echo = FALSE}
+
 ggplot(data = vaccReported, aes(x = enrolled, y = percent_medical_exempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
-##
+
 ggplot(data = vaccReported, aes(x = enrolled, y = percent_nonmedexempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
-##
 ggplot(data = vaccReported, aes(x = enrolled, y = percent_exempt_MMR)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
 ```
 
-```{r}
+Percent exemption both general and specifc is largely flat across enrollment.
 
+##Exemption rates vs. total exemptions##
 
+```{r echo =FALSE}
 
-#exemption rates vs. total exemptions
-
-##
 ggplot(data = vaccReported, aes(x = total_exemptions, y = percent_medical_exempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
-##
 ggplot(data = vaccReported, aes(x = total_exemptions, y = percent_nonmedexempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
-##
 ggplot(data = vaccReported, aes(x = total_exemptions, y = percent_exempt_MMR)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
+cor.test(vaccReported$total_exemptions,vaccReported$percent_exempt)
+cor.test(vaccReported$total_exemptions,vaccReported$percent_medical_exempt)
+cor.test(vaccReported$total_exemptions,vaccReported$percent_nonmedexempt)
+cor.test(vaccReported$total_exemptions,vaccReported$percent_exempt_MMR)
 
+```
 
-#specific exemptions vs. enrollment
-##
+Weak positive correlation between total exemptions and both total and specific exemption types.  Medical and non-medical exempt have ~ the same correlation to total exemptions.
+
+##Specific exemptions vs. enrollment##
+
+```{r echo=FALSE}
+
 ggplot(data = vaccReported, aes(x = enrolled, y = medical_exempt )) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
-##
+
 ggplot(data = vaccReported, aes(x = enrolled, y = nonmedical_exempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
-##
+
 ggplot(data = vaccReported, aes(x = enrolled, y = exempt_MMR)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
-#specific exemptions vs. total exemptions
-##
+cor.test(vaccReported$enrolled,vaccReported$nonmedical_exempt)
+cor.test(vaccReported$enrolled,vaccReported$nonmedical_exempt)
+
+```
+
+Strong correlation between number of students enrolled and both non-medical exempt and MMR exemptions.
+
+##Specific exemptions vs. total exemptions##
+
+```{r echo=FALSE}
+
+#not technically bivariate but nevertheless informative
 ggplot(data = vaccReported, aes(x = total_exemptions, y = medical_exempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
+  geom_point(alpha = .1, aes(size = enrolled)) +
   geom_smooth()
 
-##
+
 ggplot(data = vaccReported, aes(x = total_exemptions, y = nonmedical_exempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
-##
-ggplot(data = vaccReported, aes(x = total_exemptions, y = exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
 
-#specific exemption rates vs. total exemption rate
-##
-ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_medical_exempt)) +
+ggplot(data = vaccReported, aes(x = total_exemptions, y = exempt_MMR)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
 ```
 
-```{r}
+There is an interesting relationship between total exemptions and medical exemptions.  The correlation is weak up to about 150 exemptions and then takes off, becoming negative at about 300 exemptions.  Some of this is because there a very few schools beyond 150 exemptions, but note by the point size that this does not track strictly to school size (number of enrolled students).
 
+There is a strong positive correlation between total exemptions and non-medical exemptions.  The is also a strong positive correlation between total exemptions and MMR exemptions, but not as strong as non-medical exemptions.  
 
+##Specific exemption rates vs. total exemption rate##
 
-##
+```{r echo=FALSE}
+
+ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_medical_exempt)) +
+  geom_line(alpha = .5, aes(color = school_year)) +
+  geom_smooth()
+
 ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_nonmedexempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
-##
+
 ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
 ```
-```{r}
+
+Medical exemption rates show a weak positive correlation to total exemption rates.  Both non-medical and MMR exemptions show a strong positive correlation to total exemption rates.
+
+##Analyzing the grouped data##
+
+Grouped data per above used for the following sections.
+
+##Exemptions by school year##
+```{r echo=FALSE}
 
 
-
-#specific exemption rates vs. exemption rate for data subset enrolled NLT 100 NGT 2500
-##
-ggplot(data = vaccReported_NLT_100_NGT_2500, aes(x = percent_exempt, y = percent_nonmedexempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
-
-
-ggplot(data = vaccReported_NLT_100_NGT_2500, aes(x = percent_exempt, y = percent_exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
-
-ggplot(data = county_group, aes(x = students, y = mean_percent_exempt)) +
-  geom_line() +
-  geom_point() +
-  geom_smooth()
-
-#exemptions by school year
 ggplot(data = vaccReported, aes(x = school_year, y = total_exemptions)) +
   geom_boxplot()
 
@@ -854,27 +863,42 @@ ggplot(data = vaccReported, aes(x = school_year, y = nonmedical_exempt)) +
 ggplot(data = vaccReported, aes(x = school_year, y = exempt_MMR)) +
   geom_boxplot()
 
+ggplot(data = vaccReported, aes(x = school_year, y = total_exemptions)) +
+  geom_boxplot() +
+  geom_jitter(alpha = .1)
+
 ```
 
-```{r}
+Except for the astounding number of outliers, there is not much to see from year to year, please move along.
 
-
-
-#exemptions by school type
+##Exemptions by school type##
+```{r echo=FALSE}
 
 ggplot(data = vaccReported, aes(x = school_type, y = total_exemptions)) +
-  geom_boxplot()
+  geom_boxplot() +
+  geom_jitter(alpha = .1)
 
 ggplot(data = vaccReported, aes(x = school_type, y = medical_exempt)) +
-  geom_boxplot()
+  geom_boxplot() +
+  geom_jitter(alpha = .1)
+  
 
 ggplot(data = vaccReported, aes(x = school_type, y = nonmedical_exempt)) +
-  geom_boxplot()
+  geom_boxplot() +
+  geom_jitter(alpha = .1)
 
 ggplot(data = vaccReported, aes(x = school_type, y = exempt_MMR)) +
-  geom_boxplot()
+  geom_boxplot() +
+  geom_jitter(alpha = .1)
 
-#exemption rates by school year
+```
+
+Public shcools have a higher median and larger spread of total exemptions, non-medical exemptions, and MMR exemptions.  The spread is very tight for medical exemptions, with comparable medians.  Some of the variability in the public schools can be explained by the fact that public schools have a larger range of enrolled students.  However, this doesn't explain observations for medical exemptions.
+
+##Exemption rates by school year##
+
+```{r echo=FALSE}
+
 
 ggplot(data = vaccReported, aes(x = school_year, y = percent_exempt)) +
   geom_boxplot()
@@ -888,25 +912,38 @@ ggplot(data = vaccReported, aes(x = school_year, y = percent_nonmedexempt)) +
 ggplot(data = vaccReported, aes(x = school_year, y = percent_exempt_MMR)) +
   geom_boxplot()
 
-#exemption rates by school type
-
-ggplot(data = vaccReported, aes(x = school_type, y = percent_exempt)) +
-  geom_boxplot()
-
-ggplot(data = vaccReported, aes(x = school_type, y = percent_medical_exempt)) +
-  geom_boxplot()
-
-ggplot(data = vaccReported, aes(x = school_type, y = percent_nonmedexempt)) +
-  geom_boxplot()
-
-ggplot(data = vaccReported, aes(x = school_type, y = percent_exempt_MMR)) +
-  geom_boxplot()
 ```
 
-```{r}
+Second verse same as the first.
+
+##Exemption rates by school type##
+
+```{r echo=FALSE}
 
 
-#rate by rate
+ggplot(data = vaccReported, aes(x = school_type, y = percent_exempt)) +
+  geom_boxplot() +
+  geom_jitter(alpha = .1)
+
+ggplot(data = vaccReported, aes(x = school_type, y = percent_medical_exempt)) +
+  geom_boxplot() +
+  geom_jitter(alpha = .1)
+
+ggplot(data = vaccReported, aes(x = school_type, y = percent_nonmedexempt)) +
+  geom_boxplot() +
+  geom_jitter(alpha = .1)
+
+ggplot(data = vaccReported, aes(x = school_type, y = percent_exempt_MMR)) +
+  geom_boxplot() +
+  geom_jitter(alpha = .1)
+```
+
+This is intersting to me.  The median level is about the same for public vs. private (not-public) but the spread is much greater or private.  I've looked at analyses from other states that essentially show that not all private schools, even by type of private school (Waldorf, Montessori) are created equal in terms of vaccinations attitudes (tendency towards personal/non-medical exemptions).  I don't know if this is true of my data set, but there seems to be more variability in private vs. public schools.  These plots suggest this is ture of non-medical and MMR exemptions, but not medical exemptions.
+
+
+##Rate by Rate##
+
+```{r echo=FALSE}
 
 ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
   geom_line() +
@@ -920,9 +957,17 @@ ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_nonmedexempt)) +
   geom_line() +
   geom_smooth()
 
+```
+
+Total MMR and non-medical exemption rates show a strong positive correlation to the total exemption rate, but medical exemption rates do not.
+
+
+```{r echo =FALSE}
+
+
 ggplot(data = vaccReported, aes(x = percent_nonmedexempt, y = percent_medical_exempt)) +
   geom_line() +
-  geom_smooth
+  geom_smooth()
 
 ggplot(data = vaccReported, aes(x = percent_medical_exempt, y = percent_exempt_MMR)) +
   geom_line() +
@@ -934,6 +979,9 @@ ggplot(data = vaccReported, aes(x = percent_nonmedexempt, y = percent_exempt_MMR
 
 
 ```
+
+Medical and non-medical exemption rates or MMR exemption rates do not have a strong relationship.  Non-medical exemption rates and MMR exemption rates have strong positive relationship.
+
 
 # Bivariate Analysis
 
