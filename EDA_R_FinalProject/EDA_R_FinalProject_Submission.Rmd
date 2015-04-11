@@ -2,7 +2,7 @@ Exploration of WA DOH School Exemption Data over 3 School Years by Andrew T. Bau
 ========================================================
 #Introduction#
 
-Recent news media coverage and my own personal interest inspired me to explore a school vaccination data set for WA state.  WA DOH employees generously assembled 3 data sets for my project for school years 2011-2012, 2012-2013, and 2013-2014.  The 2011-2012 set is the most comprehensive in terms of school covered and relevant fields  Each data set contains an observation about a school.  The 3 data sets were bound into one data set, then explored.  
+Recent news media coverage and my own personal interest inspired me to explore a school vaccination data set for WA state.  WA DOH employees generously assembled 3 data sets for my project for school years 2011-2012, 2012-2013, and 2013-2014.  The 2011-2012 set is the most comprehensive in terms of school covered and relevant fields.  Each data set contains an observation about a school.  The 3 data sets were bound into one data set, then explored.  
 
 The initial data and cleaning/assembly of the combined data frame can be found here:
 [githubrepo](https://github.com/baumanab/EDA_R_Udacity/tree/master/EDA_R_FinalProject/EDA_R_FinalProject.Rmd)
@@ -10,14 +10,11 @@ The initial data and cleaning/assembly of the combined data frame can be found h
 Additional cleaning and wrangling can be found here:
 [githubrepo](https://github.com/baumanab/EDA_R_Udacity/blob/master/EDA_R_FinalProject/EDA_R_FinalProject_WADOH_DataFrameWrangle.Rmd)
 
-An initial exploration wherein I make decisions about subsetting data for this RMD is and some additoinal corrections for student enrollment, is here:
+An initial exploration and some additional corrections for student enrollment, is here:
 [githubrepo](https://github.com/baumanab/EDA_R_Udacity/blob/master/EDA_R_FinalProject/WADOH_DataExplore.Rmd)
 
 
-The current state is a rough approach and far from perfect.  I plan to revisit this as I discover additional elements that need cleaning.  I am currently working on a more readable and organized version of the data wrangling which involves piping/chaining the code together, so that changes are easy to make and push to the .rds file called as data for this project.
-
-**Disclaimer:**
-While I am a trained scientist, I am not an expert statistician or programmer.  This is a student project.  My data cleaning and wrangling has room for improvement.  As such, please exercise caution and good judgement regarding my observations and conclusions.  **Feedback on any aspect of this project is encouraged and most welcome.**
+The current state is a rough approach and far from perfect.  I plan to revisit this as I discover additional elements that need cleaning.  I am currently working on a more readable and organized version of the data wrangling using piping, so that changes are easy to make and push to the .rds file called as data for this project.
 
 There are some aspects of vaccination and the spread of disease through populations that are best left to subject matter experts (SMEs).  I consulted CDC publications throughout this analysis and I encourage the reader to do the same.
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
@@ -302,8 +299,6 @@ ggplot(aes(x = percent_nonmedexempt, y = ..density..), data = vaccReported) +
 
 ##MMR Exemptions##
 ```{r echo=FALSE, MMR_exemptions}
-
-
 #MMR exemptions
 
 summary(vaccReported$exempt_MMR)
@@ -389,97 +384,13 @@ ggplot(data = melt, aes(x = percent_exemption_type, y = ..count../sum(..count..)
 Public and private schools have similiar distributions and rates of both types of exemptions, for all three school years.  Public schools have a larger proportion of exempitons of both types.
 
 
-```{r temp_sandbox}
-
-
-
-
-
-
-### by specific type
-#by.mwc <- data.sub %>%  group_by(MWC) %>% summarize(Mean.PBE = round(mean(Exempt, na#.rm
-#=TRUE), 2), Median.PBE = round(median(Exempt, na.rm=TRUE), 2), Max.PBE = round(max
-#(Exempt, na.rm=TRUE), 2), Min.PBE = round(min(Exempt, na.rm=TRUE), 2), Schools=n(), #Students=sum(enrollment, na.rm=TRUE)) %>% na.omit() %>% arrange(desc(Mean.PBE))
-
-
-
-#state_rate <- mean(vaccReported$percent_exempt, na.rm=T)
-#state_rate_NLT100 <- mean(vaccReported_NLT100$percent_exempt, na.rm = T)
-
-#summarize(vaccReported_NLT100, Mean_percent_exempt = mean(percent_exempt, na.rm = TRUE))
-
-#summarize(vaccReported_NLT100, Mean_percent_nonmedexempt = mean(percent_nonmedexempt, na.rm #= TRUE))
-
-#boxplot to compare means/medians NLT100 vs reg
-
-
-
-##total percent exempt all schools
-
-##state level by year
-ggplot(vaccReported, aes(x = school_state, y = percent_exempt)) +
-  geom_boxplot() +
-  geom_jitter(alpha = .5, aes(size = enrolled, color = enrolled)) +
-  facet_wrap(~school_year) +
-  scale_color_gradientn(colours = c("red", "orange", "yellow")) #fix color scheme and do plots where outier pops are removed
-
-#year level by county
-ggplot(vaccReported, aes(x = school_year, y = percent_exempt)) +
-  geom_boxplot(outlier.colour = "red") +
-  facet_wrap(~school_county)
-
-##total percent exempt all schools
-
-##state level by year
-#ggplot(vaccReported_NLT100, aes(x = school_state, y = percent_exempt)) +
- # geom_boxplot() +
-  #geom_jitter(alpha = .5, aes(size = enrolled, color = enrolled)) +
-  #facet_wrap(~school_year) +
-  #scale_color_gradientn(colours = c("red", "orange", "yellow")) #fix color scheme and do plots where outier pops are removed
-
-##year level by county
-#ggplot(vaccReported_NLT100, aes(x = school_year, y = percent_exempt)) +
- # geom_boxplot(outlier.colour = "red") +
-  #facet_wrap(~school_county)
-
-
-
-
-
-
-#exemption rate vs enrollment
-p = ggplot(vaccReported, aes(x = enrolled, y = percent_exempt)) + 
-  geom_point(alpha = .4, aes(color = "red"))  
-  
-p1 = p +  geom_line(alpha = .5,stat = 'summary',fun.y = mean, linetype = 1, color = "black", size = 1) 
-
-p2 = p1 + facet_wrap(~school_year)
-
-p3 = p1 + geom_vline(xintercept = 2500, color="orange", size = 1) +
-     geom_vline(xintercept = 2000, color="orange", size = 1)  
-  
-
-p4 = p3 + scale_x_continuous(limits = c(0, 2000), breaks = seq(0,2000,50))
-
-p5 = p4 + geom_vline(xintercept = 100, color="orange", size = 1) +
-  geom_vline(xintercept = 25, color="orange", size = 1)
-  
-
-p1
-p2
-p3
-p4
-p5
-
-
-
-
-```
-
 # Univariate Analysis
 
 ### What is the structure of your dataset?
-My data set contains 6696 observations of 19 variables.
+My data set contains 6696 observations of 19 variables.  There are 2 categorical variables:
+school_year: 3 levels [2011, 2012, 2013]
+school_type: 2 levels [public, not public]
+
 
 ### What is/are the main feature(s) of interest in your dataset?
 Number of exemptions per school: total, by type (medical and non-medical), and MMR.
@@ -646,9 +557,6 @@ county_group_type <- inner_join(by_county_medexempt_type, by_county_MMR_type, by
 names(county_group_type)
 summary(county_group_type)
 str(county_group_type)
-
-#rm(by_county_exempt_type,by_county_medexempt_type,by_county_nonmedexempt_type,by_county_MMR_type)
-
 
   
 
@@ -1011,94 +919,54 @@ Public shcools have a higher median and larger spread of total exemptions, non-m
 # Multivariate Plots Section
 
 ```{r echo=FALSE, Multivariate_Plots}
-###
+#rates vs. total exemptions by year
 ggplot(data = vaccReported, aes(x = total_exemptions, y = percent_medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
+  geom_line(alpha = .5) +
   geom_smooth(aes(color = school_year))
 
-###
+
 ggplot(data = vaccReported, aes(x = total_exemptions, y = percent_nonmedexempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
+  geom_line(alpha = .5) +
   geom_smooth(aes(color = school_year))
 
-###
+
 ggplot(data = vaccReported, aes(x = total_exemptions, y = percent_exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
+  geom_line(alpha = .5) +
   geom_smooth(aes(color = school_year))
 
 
-ggplot(data = vaccReported, aes(x = enrolled, y = percent_medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
+#specific exemptions vs. total exemptions by year
 
-###
-ggplot(data = vaccReported, aes(x = enrolled, y = percent_nonmedexempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
-###
-ggplot(data = vaccReported, aes(x = enrolled, y = percent_exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
-###
-ggplot(data = vaccReported, aes(x = enrolled, y = medical_exempt )) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
-###
-ggplot(data = vaccReported, aes(x = enrolled, y = nonmedical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
-###
-ggplot(data = vaccReported, aes(x = enrolled, y = exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
-
-###
 ggplot(data = vaccReported, aes(x = total_exemptions, y = medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
+  geom_line(alpha = .5, aes(color = school_year) +
   geom_smooth(aes(color = school_year))
 
-###
+
 ggplot(data = vaccReported, aes(x = total_exemptions, y = nonmedical_exempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth(aes(color = school_year))
-###
+
 ggplot(data = vaccReported, aes(x = total_exemptions, y = exempt_MMR)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth(aes(color = school_year))
 
-###
+
 ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_medical_exempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth(aes(color = school_year))
 
-###
+#rate vs. rate by year
+
 ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_nonmedexempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth(aes(color = school_year))
 
-###
+
 ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth(aes(color = school_year))
-###
-ggplot(data = vaccReported_NLT_100_NGT_2500, aes(x = percent_exempt, y = percent_nonmedexempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
 
 
-ggplot(data = vaccReported_NLT_100_NGT_2500, aes(x = percent_exempt, y = percent_exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
-ggplot(data = county_group, aes(x = students, y = mean_percent_exempt)) +
-  geom_line() +
-  geom_point() +
-  geom_smooth()
 ```
 
 # Multivariate Analysis
