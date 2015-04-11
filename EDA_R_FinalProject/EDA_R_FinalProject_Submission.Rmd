@@ -730,6 +730,10 @@ Mean percent exempt has high variance at low levels of enrollment.  This make se
 
 ```{r echo = FALSE}
 
+ggplot(data = vaccReported, aes(x = enrolled, y = percent_exempt)) +
+  geom_line(alpha = .5, aes(color = school_year)) +
+  geom_smooth()
+
 ggplot(data = vaccReported, aes(x = enrolled, y = percent_medical_exempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
@@ -938,7 +942,7 @@ ggplot(data = vaccReported, aes(x = school_type, y = percent_exempt_MMR)) +
   geom_jitter(alpha = .1)
 ```
 
-This is intersting to me.  The median level is about the same for public vs. private (not-public) but the spread is much greater or private.  I've looked at analyses from other states that essentially show that not all private schools, even by type of private school (Waldorf, Montessori) are created equal in terms of vaccinations attitudes (tendency towards personal/non-medical exemptions).  I don't know if this is true of my data set, but there seems to be more variability in private vs. public schools.  These plots suggest this is ture of non-medical and MMR exemptions, but not medical exemptions.
+This is interesting to me.  The median level is about the same for public vs. private (not-public) but the spread is much greater or private.  I've looked at analyses from other states that essentially show that not all private schools, even by type of private school (Waldorf, Montessori) are created equal in terms of vaccination attitudes (tendency towards personal/non-medical exemptions).  I don't know if this is true of my data set, but there seems to be more variability in private vs. public schools.  These plots suggest this is true of non-medical and MMR exemptions, but not medical exemptions.
 
 
 ##Rate by Rate##
@@ -987,11 +991,21 @@ Medical and non-medical exemption rates or MMR exemption rates do not have a str
 
 ### Talk about some of the relationships you observed in this part of the investigation. How did the feature(s) of interest vary with other features in the dataset?
 
+* Total exemptions tracked with enrollment up to ~ 1500 students, but with high variance
+* Exemption rates both general and specific do not track with enrollment but there is a weak positive correlation between exemption rates and total exemptions (makes mathematical sense).
+* Non-medical and MMR exemption rates have a strong positive correlation with enrollment, but medical exemption rates do not.
+* A very striking relationship is that between non-medical and MMR exemption rates and total exemption rate, in sharp contrast to the relationship between medical exemption rates and total exemption rate.
+* Medical and non-medical exemption rates or MMR exemption rates do not have a strong relationship. Non-medical exemption rates and MMR exemption rates have strong positive relationship.
+
 ### Did you observe any interesting relationships between the other features (not the main feature(s) of interest)?
+
+The median level is about the same for public vs. private (not-public) but the spread is much greater for private. I've looked at analyses from other states that essentially show that not all private schools, even by type of private school (Waldorf, Montessori) are created equal in terms of vaccinations attitudes (tendency towards personal/non-medical exemptions). I don't know if this is true of my data set, but there seems to be more variability in private vs. public schools. Plots suggest this is true of non-medical and MMR exemptions, but not medical exemptions.
+
+Public shcools have a higher median and larger spread of total exemptions, non-medical exemptions, and MMR exemptions. The spread is very tight for medical exemptions, with comparable medians. Some of the variability in the public schools can be explained by the fact that public schools have a larger range of enrolled students. However, this doesn't explain observations for medical exemptions.
 
 ### What was the strongest relationship you found?
 
-
+* Non-medical exemption rates and total exemption rate and MMR exemption rates and non-medical exemption rates. 
 
 
 # Multivariate Plots Section
