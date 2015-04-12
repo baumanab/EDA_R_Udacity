@@ -24,14 +24,10 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(gridExtra)
-library(GGally)
 library(reshape2)
 library(tidyr)
 library(RColorBrewer)
 library(scales)
-cb.palette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442",
-                    "#0072B2", "#D55E00", "#CC79A7")
-
 ```
 
 ```{r echo=FALSE, Load_the_Data}
@@ -396,7 +392,7 @@ school_type: 2 levels [public, not public]
 Number of exemptions per school: total, by type (medical and non-medical), and MMR.
 
 ### What other features in the dataset do you think will help support your investigation into your feature(s) of interest?
-School enrollment and location grouping (country, district, city, zip code)
+School enrollment and school type.
 
 ### Did you create any new variables from existing variables in the dataset?
 I created % of each total and each exemption using the number respective to the exemtion and enrollment, for each schools.
@@ -414,10 +410,6 @@ Group observations by county, city, zip, etc. for the most recent school year, 2
 
 names(vaccReported_NLT_10_NGT_2500_2013)
 
-#explain any enrollment cutoffs and gie str, summ, and names for data
-
-#change nonmedical exempt to 20 and then resave .rds
-inspect <- vaccReported[vaccReported$school_name == "Tacoma Waldorf School",]
 
 #going to do for 2013 (most recent year) top 10 by mean nonmedical exempt for county, then withing that county, district, then city, then withing city the zip code.  Then get count of schools in each that are over 10% total exempt, and 5% MMR exempt.  Maybe save some of this for bivariate.  I'm thinking that in bivariate I can look at schools or zones over the MMR threshold and then determine what proportion of the total exemptions are from medical and which are from nonmedical in those zones.  that could be a final plot, the point being is taht choice is pushing it over.
 
@@ -480,6 +472,7 @@ by_county_MMR <- vaccReported_NLT_10_NGT_2500_2013 %>%  group_by(school_county) 
 
 county_group <- inner_join(by_county_medexempt, by_county_MMR, by = "school_county") %>%
   inner_join(by_county_exempt, by = "school_county") %>%
+  inner_join(by_county_nonmedexempt) %>%
   select(-c(students.x, schools.x, students.y, schools.y)) %>%
   arrange(desc(students))
 
@@ -513,7 +506,7 @@ by_county_nonmedexempt_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  group_by(s
   arrange(desc(mean_percent_nonmedexempt))
 
 
-by_county_medexempt_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  group_by(school_county, school_type) %>% 
+by_county_nonmedexempt_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  group_by(school_county, school_type) %>% 
   summarize(mean_percent_nonmedexempt = round(mean(percent_nonmedexempt, na.rm=TRUE), 2), 
             median_percent_nonmedexempt = round(median(percent_nonmedexempt, na.rm=TRUE), 2), 
             max_percent_nonmedexempt = round(max(percent_nonmedexempt, na.rm=TRUE), 2), 
@@ -547,9 +540,10 @@ by_county_MMR_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  group_by(school_cou
 
 #merge county/type groups and sort by students enrolled
 
-county_group_type <- inner_join(by_county_medexempt_type, by_county_MMR_type, by = c("school_county","school_type")) %>%
-  inner_join(by_county_exempt_type, by = c("school_county","school_type")) %>%
-  select(-c(students.x, schools.x, students.y, schools.y)) %>%
+county_group_type <- inner_join(by_county_medexempt_type, by_county_MMR_type, by = "school_county") %>%
+  inner_join(by_county_exempt_type, by = "school_county") %>%
+  inner_join(by_county_nonmedexempt_type) %>%
+  select(-c(students.x, schools.x, students.y, schools.y, school_type.y, school_type.x)) %>%
   arrange(desc(students))
 
 
@@ -651,9 +645,7 @@ ggplot(data = vaccReported, aes(x = enrolled, y = percent_nonmedexempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
-ggplot(data = vaccReported, aes(x = enrolled, y = percent_exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
+
 
 ```
 
@@ -853,25 +845,7 @@ ggplot(data = vaccReported, aes(x = school_type, y = percent_exempt_MMR)) +
 This is interesting to me.  The median level is about the same for public vs. private (not-public) but the spread is much greater or private.  I've looked at analyses from other states that essentially show that not all private schools, even by type of private school (Waldorf, Montessori) are created equal in terms of vaccination attitudes (tendency towards personal/non-medical exemptions).  I don't know if this is true of my data set, but there seems to be more variability in private vs. public schools.  These plots suggest this is true of non-medical and MMR exemptions, but not medical exemptions.
 
 
-##Rate by Rate##
 
-```{r echo=FALSE}
-
-ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
-  geom_line() +
-  geom_smooth()
-
-ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_medical_exempt)) +
-  geom_line() +
-  geom_smooth()
-
-ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_nonmedexempt)) +
-  geom_line() +
-  geom_smooth()
-
-```
-
-Total MMR and non-medical exemption rates show a strong positive correlation to the total exemption rate, but medical exemption rates do not.
 
 
 ```{r echo =FALSE}
@@ -918,6 +892,8 @@ Public shcools have a higher median and larger spread of total exemptions, non-m
 
 # Multivariate Plots Section
 
+Technically some of the bivariate plots could be considred multivariate since rates are derivative of more than once variable.  Below I try to understand whether relationships signifcantly as a function of year or school type.  I also include some other visualizatons to help foster an understanding of the data.
+
 ```{r echo=FALSE, Multivariate_Plots}
 #rates vs. total exemptions by year
 ggplot(data = vaccReported, aes(x = total_exemptions, y = percent_medical_exempt)) +
@@ -935,10 +911,10 @@ ggplot(data = vaccReported, aes(x = total_exemptions, y = percent_exempt_MMR)) +
   geom_smooth(aes(color = school_year))
 
 
-#specific exemptions vs. total exemptions by year
+#specific exemptions vs. total exemptions by school year and by school type
 
 ggplot(data = vaccReported, aes(x = total_exemptions, y = medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year) +
+  geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth(aes(color = school_year))
 
 
@@ -955,7 +931,28 @@ ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_medical_exempt))
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth(aes(color = school_year))
 
+
+ggplot(data = vaccReported, aes(x = total_exemptions, y = medical_exempt)) +
+  geom_line(alpha = .5, aes(color = school_year)) +
+  geom_smooth(aes(color = school_year))
+
+
+ggplot(data = vaccReported, aes(x = total_exemptions, y = nonmedical_exempt)) +
+  geom_line(alpha = .5)+
+  geom_smooth(aes(color = school_type))
+
+ggplot(data = vaccReported, aes(x = total_exemptions, y = exempt_MMR)) +
+  geom_line(alpha = .5) +
+  geom_smooth(aes(color = school_type))
+
+
+
+
 #rate vs. rate by year
+
+ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_medical_exempt)) +
+  geom_line(alpha = .5, aes(color = school_year)) +
+  geom_smooth(aes(color = school_year))
 
 ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_nonmedexempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
@@ -967,11 +964,96 @@ ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
   geom_smooth(aes(color = school_year))
 
 
+ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_medical_exempt)) +
+  geom_line(alpha = .5) +
+  geom_smooth(aes(color = school_type)) +
+  facet_wrap(~school_year, ncol = 1)
+
+ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_nonmedexempt)) +
+  geom_line(alpha = .5) +
+  geom_smooth(aes(color = school_type)) +
+  facet_wrap(~school_year, ncol = 1)
+
+
+ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
+  geom_line(alpha = .5) +
+  geom_smooth(aes(color = school_type)) +
+  facet_wrap(~school_year, ncol = 1)
+
+
+
+ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR))  +
+  geom_smooth(aes(color = school_type)) +
+  geom_line(alpha = .5,stat = 'summary',fun.y = mean, linetype = 1, color = "black", size = 1) +
+  geom_hline(y = 5) +
+  geom_vline(x = 10)
+
+ggplot(data = vaccReported_NLT_100_NGT_2500, aes(x = percent_exempt, y = percent_exempt_MMR))  +
+  geom_smooth(aes(color = school_type)) +
+  geom_point(alpha = .2, aes(size = enrolled)) +
+  geom_hline(y = 5, color = "red", size = 1.5) +
+  geom_vline(x = 10, color = "red", size = 1.5)
+
+ggplot(data = vaccReported_NLT_100_NGT_2500, aes(x = percent_exempt_MMR, y = school_county)) +
+  geom_point(alpha = .2) +
+  geom_jitter(alpha = .2, aes(size = total_exemptions, color = school_type)) +
+  geom_vline( x = 5, color = "red", size = 1)
+
+#bar plots
+
+
+#set up labels
+aux.info <- vaccReported_NLT_100_NGT_2500 %>%  group_by(school_county) %>% summarize(Schools=n(), Students=sum(enrolled, na.rm=TRUE)) %>% na.omit()
+aux.info$Summary <- paste(aux.info$Schools, " Schools enrolling\n", aux.info$Students, " Students", sep="")
+
+county_group_2 <- county_group
+as.factor(county_group_2$school_county)
+ggplot(data= county_group, aes(y=mean_percent_exempt_MMR, x=school_county)) +
+  geom_bar(position="dodge",stat="identity") + 
+  coord_flip() 
+  #annotate("text", x=seq(1, 38, 1), y=20, label=aux.info$Summary, size=2.1)
+
+ggplot(data= county_group_type, aes(y=mean_percent_exempt_MMR, x=school_county, fill = school_type)) +
+  geom_bar(position="dodge",stat="identity") + 
+  coord_flip() 
+  #annotate("text", x=seq(1, 38, 1), y=20, label=aux.info$Summary, size=2.1)
+
+ggplot(data= county_group_type, aes(y=mean_percent_exempt_MMR, x=school_county, fill = school_type)) +
+  geom_bar(position="stack",stat="identity") + 
+  coord_flip() 
+
+
+
+
+
+# melt county group to get mean percent exemption by type
+melt_county_group <- gather(county_group,exemption_type,mean_percent_exemption_type,mean_percent_medical_exempt, mean_percent_nonmedexempt )
+
+
+glimpse(county_group)
+glimpse(melt_county_group)
+
+ggplot(data= melt_county_group, aes(y=mean_percent_exemption_type, x=school_county, fill = exemption_type)) +
+  geom_bar(position="stack",stat="identity") + 
+  coord_flip()
+
+#split into quantiles
+
+#order by ?
+
+#label
+
+
+
+names(county_group_type)
+
 ```
 
 # Multivariate Analysis
 
 ### Talk about some of the relationships you observed in this part of the investigation. Were there features that strengthened each other in terms of looking at your feature(s) of interest?
+
+I didn't observe any relationships that stand out fromt the bivariate plots section.  
 
 ### Were there any interesting or surprising interactions between features?
 
