@@ -869,7 +869,7 @@ ggplot(data = vaccReported, aes(x = total_exemptions, y = percent_exempt_MMR)) +
 ```
 
 ##Specific exemptions vs. total exemptions by school year and by school type##
-```{r}
+```{r echo = FALSE}
 
 #specific exemptions vs. total exemptions by school year and by school type
 
@@ -908,7 +908,7 @@ ggplot(data = vaccReported, aes(x = total_exemptions, y = exempt_MMR)) +
 ```
 ##Rate vs. rate by year##
 
-```{r}
+```{r echo = FALSE}
 
 
 ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_medical_exempt)) +
@@ -945,7 +945,7 @@ ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
 
 ###Add 5 and 10% Vertical lines.###
 
-```{r}
+```{r echo = FALSE}
 
 #add 5 and 10% vertical lines
 
@@ -960,7 +960,7 @@ ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR))  +
 
 ###Repeat on subset of vaccreported with enrollment of >=100 and <= 2500.###
 
-```{r}
+```{r echo = FALSE}
 
 
 ggplot(data = vaccReported_NLT_100_NGT_2500, aes(x = percent_exempt, y = percent_exempt_MMR))  +
@@ -979,7 +979,7 @@ ggplot(data = vaccReported_NLT_100_NGT_2500, aes(x = percent_exempt_MMR, y = sch
 ##Bar Plots##
 Bar plots using the county_group and county_group_type data frames.
 
-```{r}
+```{r echo = FALSE}
 
 
 
@@ -1007,7 +1007,7 @@ ggplot(data= county_group_type, aes(y=mean_percent_exempt_MMR, x=school_county, 
 
 Melting the county_group dataframe for additional bar plot visualizatons.  Melt is achieved by using gather() [tidyr package], where mean_percent_medical_exempt and mean_percent_nonmedexempt are gathered into exemption type, with each individual mean captured in mean_percent_exemption_type.
 
-```{r}
+```{r echo = FALSE}
 
 
 
@@ -1027,7 +1027,7 @@ ggplot(data= melt_county_group, aes(y=mean_percent_exemption_type, x=school_coun
 
 Add a quartile field into melt_county_group, as a factor.
 
-```{r}
+```{r echo = FALSE}
 
 #add a quartile rank column to melt county group
 
@@ -1122,10 +1122,17 @@ I didn't observe any relationships that stand out fromt the bivariate plots sect
 
 # References
 * Udacity Forums and Coaches Lounge*
+
 * [Hadley Wikhams Tidy Data manuscript and associate vignette](https://github.com/hadley/tidy-data)*
+
 *[Quick R](http://www.statmethods.net/)*
+
 * R for Dummies*
+
 *[Cookbook for R](http://www.cookbook-r.com/)*
+
 * R Cookbook by Paul Teetor (O'Reilly)*
+
 * [Kieran Healy's Github Repo](https://github.com/kjhealy/vaccines-ca/blob/master/vaccines.r)*
+
 * Stack Overflow*
