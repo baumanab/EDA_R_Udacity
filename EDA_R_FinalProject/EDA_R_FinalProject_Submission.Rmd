@@ -16,7 +16,15 @@ An initial exploration and some additional corrections for student enrollment, i
 
 The current state is a rough approach and far from perfect.  I plan to revisit this as I discover additional elements that need cleaning.  I am currently working on a more readable and organized version of the data wrangling using piping, so that changes are easy to make and push to the .rds file called as data for this project.
 
-There are some aspects of vaccination and the spread of disease through populations that are best left to subject matter experts (SMEs).  I consulted CDC publications throughout this analysis and I encourage the reader to do the same.
+There are some aspects of vaccination and the spread of disease through populations that are best left to subject matter experts.  I consulted CDC publications throughout this analysis and I encourage the reader to do the same.
+
+For example, what is the vaccinatation rate threshold that should not be exceeded to maintain herd immunity?  This is complex question.  A typical answer is 10%.  There are assumptions made regarding mixing of populations and how fast a contagion spreads.  This is even more complex in the context of school data where there is a wide range of populations and students may come from a large geographical area.  The latter is particularly true of private schools where students may not necessarily live within a specific geographical region.
+
+In regards to spread of disease, some disease are more contagios than others and have  a range of opportunities for exposure.  For example, while Hep B is fairly contagious (~ 100 X times HIV), since it is blood-borne, the opportunity for exposure is less than something like the common cold.  Measles is particularly contagious with a high exposure opportunity and inforomation available from the CDC suggest that vaccination rates <= 95% pose a risk.  Bear is mind that this is factoring in that not all those vaccinated will actually be immune, so even at 100% exemption rate, 100% immunity would not be expected.
+
+For the purposes of this analysis, I set the outbreak risk thresholds at 90% for general vaccination rates and 95% for MMR.  That translates to 5% exempt for MMR and 10% exempt general.   
+
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
 # Load libraries
 
@@ -687,14 +695,46 @@ ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_medical_exempt))
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
 
+ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_medical_exempt)) +
+  geom_line(alpha = .5, aes(color = school_year)) +
+  geom_smooth(method = lm)
+
+linear_med_rate <- lm(percent_medical_exempt ~ percent_exempt, data = vaccReported)
+
 ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_nonmedexempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
+
+ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_nonmedexempt)) +
+  geom_line(alpha = .5, aes(color = school_year)) +
+  geom_smooth(method = lm)
+
+linear_nonmed_rate <- lm(percent_nonmedexempt ~ percent_exempt, data = vaccReported)
+
+linear_nonmed_rate
 
 
 ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth()
+
+ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
+  geom_line(alpha = .5, aes(color = school_year)) +
+  geom_smooth(method = lm)
+
+linear_MMR_rate <- lm(percent_exempt_MMR ~ percent_exempt, data = vaccReported)
+
+linear_MMR_rate
+
+# function to solve for y in y = mx + b, for a given x
+lm_y <- function(lin, x) {
+  return (coef(lin)[2] * x) + coef(lin)[1]
+  
+}
+
+lm_y(linear_MMR_rate,5)
+lm_y(linear_nonmed_rate,5)
+
 
 ```
 
@@ -981,27 +1021,27 @@ Bar plots using the county_group and county_group_type data frames.
 
 ```{r echo = FALSE}
 
-
-
 #set up labels
 
 #reference code, not used but keep for reference
 aux.info <- vaccReported_NLT_100_NGT_2500 %>%  group_by(school_county) %>% summarize(Schools=n(), Students=sum(enrolled, na.rm=TRUE)) %>% na.omit()
 aux.info$Summary <- paste(aux.info$Schools, " Schools enrolling\n", aux.info$Students, " Students", sep="")
 
-county_group_2 <- county_group
-as.factor(county_group_2$school_county)
-ggplot(data= county_group, aes(y=mean_percent_exempt_MMR, x=school_county)) +
+
+ggplot(data= county_group_type, aes(y=mean_percent_exempt_MMR, x=reorder(school_county, students), fill = school_type)) +
   geom_bar(position="dodge",stat="identity") + 
   coord_flip() 
 
-ggplot(data= county_group_type, aes(y=mean_percent_exempt_MMR, x=school_county, fill = school_type)) +
-  geom_bar(position="dodge",stat="identity") + 
-  coord_flip() 
-
-ggplot(data= county_group_type, aes(y=mean_percent_exempt_MMR, x=school_county, fill = school_type)) +
+ggplot(data= county_group_type, aes(y=mean_percent_exempt_MMR, x=reorder(school_county, students), fill = school_type)) +
   geom_bar(position="stack",stat="identity") + 
-  coord_flip() 
+  coord_flip()
+
+ggplot(data= county_group_type, aes(y=mean_percent_exempt, x=reorder(school_county, students), fill = school_type)) +
+  geom_bar(position="stack",stat="identity") + 
+  coord_flip()
+
+
+
 
 ```
 
@@ -1068,6 +1108,27 @@ grid.arrange(p1,p2,p3,p4,ncol=1)
 #order by ?
 
 
+ggplot(data= subset(melt_county_group, mean_percent_exempt_quartile == 4), aes(y=mean_percent_exemption_type, x= reorder(school_county, -students), fill = exemption_type)) +
+  geom_bar(position="stack",stat="identity") + 
+  coord_flip() +
+  annotate("text", x=seq(1, 10, 1), y=23, label=unique(melt_county_group$labels[melt_county_group$mean_percent_exempt_quartile == 4]), size=4) +
+  theme(legend.position = "top",legend.title=element_blank()) +
+  geom_hline(y = 10, color = "red", size = 2) +
+  geom_hline(y = 5, color = "red", size = 2)
+
+melt_county_group$students[melt_county_group$school_county == "WHATCOM"]
+
+melt_county_group$students[melt_county_group$school_county == "FERRY"]
+
+
+melt_county_group$students[melt_county_group$school_county == "SAN JUAN"]
+
+melt_county_group$students[melt_county_group$school_county == "STEVENS"]
+
+
+
+
+
 ggplot(data= subset(melt_county_group, mean_percent_exempt_quartile == 4), aes(y=mean_percent_exemption_type, x=school_county, fill = exemption_type)) +
   geom_bar(position="stack",stat="identity") + 
   coord_flip() +
@@ -1075,6 +1136,16 @@ ggplot(data= subset(melt_county_group, mean_percent_exempt_quartile == 4), aes(y
   theme(legend.position = "top",legend.title=element_blank()) +
   geom_hline(y = 10, color = "red", size = 2) +
   geom_hline(y = 5, color = "red", size = 2)
+
+test <- subset(melt_county_group, mean_percent_exempt_quartile == 4)
+
+
+
+unique(test$schools)
+unique(test$labels)
+
+geom_polygon(data = dat2, aes(y = bgl, 
+    group = group), alpha = 0.3) +facet_wrap(~id)
 
 ```
 
@@ -1125,11 +1196,11 @@ I didn't observe any relationships that stand out fromt the bivariate plots sect
 
 * [Hadley Wikhams Tidy Data manuscript and associate vignette](https://github.com/hadley/tidy-data)*
 
-*[Quick R](http://www.statmethods.net/)*
+* [Quick R](http://www.statmethods.net/)*
 
 * R for Dummies*
 
-*[Cookbook for R](http://www.cookbook-r.com/)*
+* [Cookbook for R](http://www.cookbook-r.com/)*
 
 * R Cookbook by Paul Teetor (O'Reilly)*
 
