@@ -726,6 +726,12 @@ linear_MMR_rate <- lm(percent_exempt_MMR ~ percent_exempt, data = vaccReported)
 
 linear_MMR_rate
 
+```
+
+Showing code here for sake of clarity.  Calculating predicted MMR rate and non-medical exempt rate using linear fit.
+
+```{r}
+
 # function to solve for y in y = mx + b, for a given x
 lm_y <- function(lin, x) {
   return (coef(lin)[2] * x) + coef(lin)[1]
@@ -908,6 +914,8 @@ ggplot(data = vaccReported, aes(x = total_exemptions, y = percent_exempt_MMR)) +
 
 ```
 
+* Observing year to year variation, particularly beyond 100 total exemptions*
+
 ##Specific exemptions vs. total exemptions by school year and by school type##
 ```{r echo = FALSE}
 
@@ -922,16 +930,29 @@ ggplot(data = vaccReported, aes(x = total_exemptions, y = nonmedical_exempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth(aes(color = school_year))
 
+```
+
+* Observing year to year variation, particularly beyond 100 total exemptions*
+
+
+```{r echo = FALSE}
+
+#school year
+ggplot(data = vaccReported, aes(x = total_exemptions, y = medical_exempt)) +
+  geom_line(alpha = .5, aes(color = school_year)) +
+  geom_smooth(aes(color = school_year))
+
+
+ggplot(data = vaccReported, aes(x = total_exemptions, y = nonmedical_exempt)) +
+  geom_line(alpha = .5, aes(color = school_year)) +
+  geom_smooth(aes(color = school_year))
+
+
 ggplot(data = vaccReported, aes(x = total_exemptions, y = exempt_MMR)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth(aes(color = school_year))
 
-
-ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
-
+#school type
 ggplot(data = vaccReported, aes(x = total_exemptions, y = medical_exempt)) +
   geom_line(alpha = .5, aes(color = school_year)) +
   geom_smooth(aes(color = school_year))
@@ -946,6 +967,13 @@ ggplot(data = vaccReported, aes(x = total_exemptions, y = exempt_MMR)) +
   geom_smooth(aes(color = school_type))
 
 ```
+
+* Observing year to year variation, particularly beyond 100 total exemptions*
+* observing little varition in non-medical exempt by type*
+* observing a divergence in rate between public and private schools for MMR exemptions*
+
+
+
 ##Rate vs. rate by year##
 
 ```{r echo = FALSE}
@@ -983,7 +1011,14 @@ ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
 
 ```
 
+* observing minimal variation for percent non-medical exempt by year and school type*
+* observing some variation for 2011 percent exempt MMR at ~ > 25% total exemptions by year*
+* observing some variation for 2011 percent exempt MMR at ~ > 40% total exemptions by school type*
+
+
 ###Add 5 and 10% Vertical lines.###
+
+Added in vertical lines at 5 and 10% which is an estimate of the safety threshold for MMR and total exemption rates, respectively (see intro for further detail).  This is for purposes of illustration.  
 
 ```{r echo = FALSE}
 
@@ -1005,16 +1040,18 @@ ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR))  +
 
 ggplot(data = vaccReported_NLT_100_NGT_2500, aes(x = percent_exempt, y = percent_exempt_MMR))  +
   geom_smooth(aes(color = school_type)) +
-  geom_point(alpha = .2, aes(size = enrolled)) +
+  geom_point(alpha = .25, aes(size = enrolled)) +
   geom_hline(y = 5, color = "red", size = 1.5) +
-  geom_vline(x = 10, color = "red", size = 1.5)
+  geom_vline(x = 10, color = "red", size = 1.5) +
+  theme(legend.position = "top",legend.title=element_blank())
 
-ggplot(data = vaccReported_NLT_100_NGT_2500, aes(x = percent_exempt_MMR, y = school_county)) +
-  geom_point(alpha = .2) +
-  geom_jitter(alpha = .2, aes(size = total_exemptions, color = school_type)) +
-  geom_vline( x = 5, color = "red", size = 1)
 
 ```
+
+* The majority of the data falls below both thresholds*
+* The school types start to diverge near the intersection of 5% MMR exemption rate and 10% total exemption rate*
+* There is a subset of data that is above the MMR rate threshold but below the total exemption rate threshold*
+* There is a subset of data that is below the MMR rate threshold but above the total exemption rate threshold*
 
 ##Bar Plots##
 Bar plots using the county_group and county_group_type data frames.
@@ -1024,8 +1061,9 @@ Bar plots using the county_group and county_group_type data frames.
 #set up labels
 
 #reference code, not used but keep for reference
-aux.info <- vaccReported_NLT_100_NGT_2500 %>%  group_by(school_county) %>% summarize(Schools=n(), Students=sum(enrolled, na.rm=TRUE)) %>% na.omit()
-aux.info$Summary <- paste(aux.info$Schools, " Schools enrolling\n", aux.info$Students, " Students", sep="")
+#aux.info <- vaccReported_NLT_100_NGT_2500 %>%  group_by(school_county) %>% summarize(Schools=n(), Students=sum(enrolled, na#.rm=TRUE)) %>% na.omit()
+#aux.info$Summary <- paste(aux.info$Schools, " Schools enrolling\n", aux.info$Students, " Students", sep="")
+
 
 
 ggplot(data= county_group_type, aes(y=mean_percent_exempt_MMR, x=reorder(school_county, students), fill = school_type)) +
