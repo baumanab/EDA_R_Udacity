@@ -742,19 +742,26 @@ Showing code here for sake of clarity.  Calculating predicted MMR rate and non-m
 
 # function to solve for y in y = mx + b, for a given x
 lm_y <- function(lin, x) {
-  return (coef(lin)[2] * x) + coef(lin)[1]
+  m = coef(lin)[2]
+  b = coef(lin)[1]
+  return((m*x) + b)
   
 }
 
-lm_y(linear_MMR_rate,5)
-lm_y(linear_nonmed_rate,5)
+
+lm_y(linear_MMR_rate,10)
+lm_y(linear_nonmed_rate,10)
 
 # function to solve for x in y = mx + b, for a given x
 lm_x <- function(lin, y) {
-  return (coef(lin)[2] * x) + coef(lin)[1]
+  m = coef(lin)[2]
+  b = coef(lin)[1]
+  return((y-b)/m)
   
 }
 
+#solve lm predicted total exemption rate for a 5% MMR exemption rate
+lm_x(linear_MMR_rate,5)
 
 ```
 
@@ -1078,6 +1085,21 @@ Bar plots using the county_group and county_group_type data frames.
 #aux.info <- vaccReported_NLT_100_NGT_2500 %>%  group_by(school_county) %>% summarize(Schools=n(), Students=sum(enrolled, na#.rm=TRUE)) %>% na.omit()
 #aux.info$Summary <- paste(aux.info$Schools, " Schools enrolling\n", aux.info$Students, " Students", sep="")
 
+ggplot(data= county_group, aes(y=mean_percent_exempt_MMR, x=reorder(school_county, students))) +
+  geom_bar(position="dodge",stat="identity", color = "green", fill = "blue") + 
+  coord_flip() +
+  xlab("County")
+
+
+ggplot(data= county_group, aes(y=mean_percent_exempt, x=reorder(school_county, students))) +
+  geom_bar(position="dodge",stat="identity", color = "green", fill = "blue") + 
+  coord_flip() +
+  xlab("County")
+
+
+
+
+
 ggplot(data= county_group_type, aes(y=mean_percent_exempt_MMR, x=reorder(school_county, students), fill = school_type)) +
   geom_bar(position="dodge",stat="identity") + 
   coord_flip() +
@@ -1104,9 +1126,12 @@ melt_county_group <- gather(county_group,exemption_type,mean_percent_exemption_t
 glimpse(county_group)
 glimpse(melt_county_group)
 
-ggplot(data= melt_county_group, aes(y=mean_percent_exemption_type, x=school_county, fill = exemption_type)) +
+ggplot(data= melt_county_group, aes(y=mean_percent_exemption_type, x=reorder(school_county, students), fill = exemption_type)) +
   geom_bar(position="stack",stat="identity") + 
-  coord_flip()
+  coord_flip() +
+  xlab("County") +
+  theme(legend.position = "top", legend.background = element_rect(color = "black", 
+    fill = "grey90", size = 1, linetype = "solid"), legend.direction = "horizontal", legend.title=element_blank())
 
 ```
 
@@ -1191,8 +1216,6 @@ ggplot(data= subset(melt_county_group, mean_percent_exempt_quartile == 4), aes(y
   theme(legend.position = "top",legend.title=element_blank()) +
   geom_hline(y = 10, color = "red", size = 2) +
   geom_hline(y = 5, color = "red", size = 2)
-
-
 
 
 
