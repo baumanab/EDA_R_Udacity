@@ -1086,13 +1086,13 @@ Bar plots using the county_group and county_group_type data frames.
 #aux.info$Summary <- paste(aux.info$Schools, " Schools enrolling\n", aux.info$Students, " Students", sep="")
 
 ggplot(data= county_group, aes(y=mean_percent_exempt_MMR, x=reorder(school_county, students))) +
-  geom_bar(position="dodge",stat="identity", color = "green", fill = "blue") + 
+  geom_bar(position="dodge",stat="identity", color = "red", fill = "orange") + 
   coord_flip() +
   xlab("County")
 
 
 ggplot(data= county_group, aes(y=mean_percent_exempt, x=reorder(school_county, students))) +
-  geom_bar(position="dodge",stat="identity", color = "green", fill = "blue") + 
+  geom_bar(position="dodge",stat="identity", color = "red", fill = "orange") + 
   coord_flip() +
   xlab("County")
 
@@ -1152,9 +1152,17 @@ glimpse(melt_county_group)
 
 melt_county_group$labels <- paste(melt_county_group$schools, " Schools enrolling\n", melt_county_group$students, " Students", sep="")
 
+melt_county_group$short_label <- paste(melt_county_group$students, " Students", sep="")
+
+
+
 
 fn_labels <- function(quartile){
-  return(unique(melt_county_group$labels[melt_county_group$mean_percent_exempt_quartile == quartile]))
+  return(melt_county_group$labels[melt_county_group$mean_percent_exempt_quartile == quartile])
+}
+
+fn_shortlabel <- function(quartile){
+  return(melt_county_group$short_label[melt_county_group$mean_percent_exempt_quartile == quartile])
 }
 
 #labels for each quartile
@@ -1163,6 +1171,11 @@ labels_4 <- fn_labels(4)
 labels_3 <- fn_labels(3)
 labels_2 <- fn_labels(2)
 labels_1 <- fn_labels(1)
+
+shortlabel_4 <- fn_shortlabel(4)
+shortlabel_3 <- fn_shortlabel(3)
+shortlabel_2 <- fn_shortlabel(2)
+shortlabel_1 <- fn_shortlabel(1)
 
 #subset the data
 
@@ -1212,10 +1225,13 @@ grid.arrange(p1,p2,p3,p4, ncol=2)
 ggplot(data= subset(melt_county_group, mean_percent_exempt_quartile == 4), aes(y=mean_percent_exemption_type, x= reorder(school_county, students), fill = exemption_type)) +
   geom_bar(position="stack",stat="identity") + 
   coord_flip() +
-  geom_text(aes(label = labels, y = 23)) +
   theme(legend.position = "top",legend.title=element_blank()) +
   geom_hline(y = 10, color = "red", size = 2) +
-  geom_hline(y = 5, color = "red", size = 2)
+  geom_hline(y = 5, color = "red", size = 2) +
+  geom_text(aes(label = shortlabel_4, y = 23)) 
+
+
+
 
 
 
