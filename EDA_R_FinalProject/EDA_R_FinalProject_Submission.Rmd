@@ -1222,13 +1222,44 @@ grid.arrange(p1,p2,p3,p4, ncol=2)
 #order by students enrolled, so essentially the student population of each county
 
 
-ggplot(data= subset(melt_county_group, mean_percent_exempt_quartile == 4), aes(y=mean_percent_exemption_type, x= reorder(school_county, students), fill = exemption_type)) +
+p5 = ggplot(data= data_4, aes(y=mean_percent_exemption_type, x= reorder(school_county, students), fill = exemption_type)) +
   geom_bar(position="stack",stat="identity") + 
   coord_flip() +
-  theme(legend.position = "top",legend.title=element_blank()) +
-  geom_hline(y = 10, color = "red", size = 2) +
-  geom_hline(y = 5, color = "red", size = 2) +
-  geom_text(aes(label = shortlabel_4, y = 23)) 
+  theme(legend.position = "none",legend.title=element_blank(),axis.title.x = element_blank()) +
+  geom_text(aes(label = shortlabel_4, y = max(data_4$mean_percent_exemption_type)), fontface = "bold") +
+  geom_rect(aes(xmin=0, xmax=10.5, ymin=8, ymax= max(data_4$mean_percent_exemption_type)), fill = "red", alpha=0.02) +
+  xlab("County(Quartile 4)") +
+  ylab("mean percent exempt quartile 4")
+
+p6 = ggplot(data= data_3, aes(y=mean_percent_exemption_type, x= reorder(school_county, students), fill = exemption_type)) +
+  geom_bar(position="stack",stat="identity") + 
+  coord_flip() +
+  theme(legend.position = "none",legend.title=element_blank(),axis.title.x = element_blank()) +
+  geom_text(aes(label = shortlabel_3, y = max(data_3$mean_percent_exemption_type)), fontface = "bold") +
+  geom_rect(aes(xmin=0, xmax=10.5, ymin=8, ymax= max(data_3$mean_percent_exemption_type)), fill = "red", alpha=0.02) +
+  xlab("County(Quartile 3)") +
+  ylab("mean percent exempt quartile 3")
+  
+
+p7 = ggplot(data= data_2, aes(y=mean_percent_exemption_type, x= reorder(school_county, students), fill = exemption_type)) +
+  geom_bar(position="stack",stat="identity") + 
+  coord_flip() +
+  theme(legend.position = "none",legend.title=element_blank(),axis.title.x = element_blank()) +
+  geom_text(aes(label = shortlabel_2, y = max(data_2$mean_percent_exemption_type)), fontface = "bold") +
+  xlab("County(Quartile 2)") +
+  ylab("mean percent exempt quartile 2")
+
+p8 = ggplot(data= data_1, aes(y=mean_percent_exemption_type, x= reorder(school_county, students), fill = exemption_type)) +
+  geom_bar(position="stack",stat="identity") + 
+  coord_flip() +
+  theme(legend.position = "none",legend.title=element_blank()) +
+  geom_text(aes(label = shortlabel_1, y = max(data_1$mean_percent_exemption_type)), fontface = "bold") +
+  xlab("County(Quartile 1)") +  
+  ylab("mean percent exempt")
+  
+
+  
+grid.arrange(p5,p6,p7,p8, ncol=1)
 
 
 
