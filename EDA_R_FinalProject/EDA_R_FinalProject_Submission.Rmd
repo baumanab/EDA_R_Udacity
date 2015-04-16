@@ -1361,66 +1361,6 @@ grid.arrange(p5,p6,p7,p8, ncol=1)
 
 ```
 
-Splitting by quartile but using just the mean exemption rate (not from each type).
-
-```{r echo=FALSE}
-
-
-names(melt_county_group)
-
-names(county_group)
-
-diagnostic <- county_group[county_group$school_county == "FERRY",]
-
-diagnostic2 <-melt_county_group[melt_county_group$school_county == "FERRY",]
-
-
-county_group$school_county
-p9 = ggplot(data= data_4, aes(y=mean_percent_exempt/2, x= reorder(school_county, students))) +
-  geom_bar(position="stack",stat="identity", aes(color = "black", fill = "blue")) + 
-  coord_flip() +
-  theme(legend.position = "none",legend.title=element_blank(),axis.title.x = element_blank()) +
-  geom_text(aes(label = shortlabel_4, y = max(data_4$mean_percent_exemption_type)), fontface = "bold") +
-  geom_rect(aes(xmin=0, xmax=10.5, ymin=8, ymax= max(data_4$mean_percent_exemption_type)), fill = "red", alpha=0.02) +
-  xlab("County(Quartile 4)") +
-  ylab("mean percent exempt quartile 4")
-
-p10 = ggplot(data= data_3, aes(y=mean_percent_exemption_type, x= reorder(school_county, students), fill = exemption_type)) +
-  geom_bar(position="stack",stat="identity") + 
-  coord_flip() +
-  theme(legend.position = "none",legend.title=element_blank(),axis.title.x = element_blank()) +
-  geom_text(aes(label = shortlabel_3, y = max(data_3$mean_percent_exemption_type)), fontface = "bold") +
-  geom_rect(aes(xmin=0, xmax=10.5, ymin=8, ymax= max(data_3$mean_percent_exemption_type)), fill = "red", alpha=0.02) +
-  xlab("County(Quartile 3)") +
-  ylab("mean percent exempt quartile 3")
-  
-
-p11 = ggplot(data= data_2, aes(y=mean_percent_exemption_type, x= reorder(school_county, students), fill = exemption_type)) +
-  geom_bar(position="stack",stat="identity") + 
-  coord_flip() +
-  theme(legend.position = "none",legend.title=element_blank(),axis.title.x = element_blank()) +
-  geom_text(aes(label = shortlabel_2, y = max(data_2$mean_percent_exemption_type)), fontface = "bold") +
-  xlab("County(Quartile 2)") +
-  ylab("mean percent exempt quartile 2")
-
-p12 = ggplot(data= data_1, aes(y=mean_percent_exemption_type, x= reorder(school_county, students), fill = exemption_type)) +
-  geom_bar(position="stack",stat="identity") + 
-  coord_flip() +
-  theme(legend.position = "none",legend.title=element_blank()) +
-  geom_text(aes(label = shortlabel_1, y = max(data_1$mean_percent_exemption_type)), fontface = "bold") +
-  xlab("County(Quartile 1)") +  
-  ylab("mean percent exempt")
-  
-
-  
-grid.arrange(p5,p6,p7,p8, ncol=1)
-
-```
-
-
-
-```
-
 # Multivariate Analysis
 
 ### Talk about some of the relationships you observed in this part of the investigation. Were there features that strengthened each other in terms of looking at your feature(s) of interest?
@@ -1440,6 +1380,43 @@ There were not suprising interactions.  However, it was intersting to see some o
 ### Plot One
 ```{r echo=FALSE, Plot_One}
 
+#subset the data
+
+vaccReported_NGT50_exemptrate <- subset(vaccReported, percent_exempt <= 50)
+#medical exempt rate vs. percent exempt, color by year
+
+plotone_1 <- ggplot(data = vaccReported_NGT50_exemptrate, aes(x = percent_exempt, y = percent_medical_exempt)) +
+  geom_point(alpha = .5, aes(color = school_type)) +
+  geom_smooth(aes(color = school_year)) +
+  theme(legend.position = "none",axis.title.x = element_blank()) +
+  xlab("") +
+  ggtitle("Specific Rates vs. Total Exemption Rate") +
+   theme(plot.title = element_text(face="bold")) +
+  ylab("% Medical Exempt") +
+  scale_fill_brewer(palette = "Blues")
+  
+  
+
+
+#non-medical exempt rate vs. percent exempt, color by year
+
+plotone_2 <- ggplot(data = vaccReported_NGT50_exemptrate, aes(x = percent_exempt, y = percent_nonmedexempt)) +
+  geom_point(alpha = .5, aes(color = school_type)) +
+  geom_smooth(aes(color = school_year)) +
+  theme(legend.position = "none",axis.title.x = element_blank()) +
+  xlab("") +
+  ylab("% Non-medical Exempt")
+
+#MMR exempt rate vs. percent exempt, color by year
+
+plotone_3 <- ggplot(data = vaccReported_NGT50_exemptrate, aes(x = percent_exempt, y = percent_exempt_MMR)) +
+  geom_point(alpha = .5, aes(color = school_type)) +
+  geom_smooth(aes(color = school_year)) +
+  theme(legend.position = "none") +
+  ylab("% Exempt")
+
+grid.arrange(plotone_1,plotone_2,plotone_3,ncol =1)
+
 ```
 
 ### Description One
@@ -1454,10 +1431,13 @@ ggplot(data= county_group, aes(y=mean_percent_exempt, x=reorder(school_county, s
   geom_bar(position="dodge",stat="identity") + 
   coord_flip() +
   xlab("County") +
-  theme(legend.position = c(.7,.8), legend.background = element_rect(color = "black", 
-    fill = "grey90", size = .5, linetype = "solid"), legend.direction = "vertical", legend.title = element_text("mean % exempt MMR"))
+  theme(legend.position = c(.7,.6), legend.background = element_rect(color = "black", 
+    fill = "grey90", size = .5, linetype = "solid"), legend.direction = "vertical",legend.title = element_text(size=12, face="bold")) +
+  scale_fill_gradientn(colours=heat.colors(2), name = "Mean % exempt MMR") +
+  ggtitle("Mean Exemption Rate Per County") +
+   theme(plot.title = element_text(face="bold"))
+  
 
-plottwo_1
 
 ```
 
@@ -1468,6 +1448,31 @@ plottwo_1
 ### Plot Three
 ```{r echo=FALSE, Plot_Three}
 
+#mean for quartile 4 ordered by number of students
+plotthree_1 <- ggplot(data= data_4, aes(y=mean_percent_exempt/2, x= reorder(school_county, students))) +
+  geom_bar(position="stack",stat="identity", fill = "blue", alpha = .4) + 
+  coord_flip() +
+  theme(legend.position = "none",legend.title=element_blank()) +
+  geom_text(aes(label = shortlabel_4, y = 5), fontface = "bold") +
+  geom_rect(aes(xmin=0, xmax=10.5, ymin=10, ymax= 23), fill = "red", alpha=0.02) +
+  xlab("County(Quartile 4)") +
+  ylab("mean percent exempt quartile 4") +
+  ggtitle("Mean % Exempt by County Quartile 4") +
+  theme(plot.title = element_text(face="bold")) 
+
+
+#proportion by exemption type (position = fill)
+plotthree_2 <- ggplot(data= data_4, aes(y=mean_percent_exemption_type, x= reorder(school_county, students), fill = exemption_type)) +
+  geom_bar(position="fill",stat="identity") + 
+  coord_flip() +
+  theme(legend.position = c(.7,.5),legend.title=element_blank(),axis.title.x = element_blank()) +
+  xlab("County(Quartile 4)") +
+  ylab("Proportion Mean Exempt") +
+  ggtitle("Proportion % Exempt by County Quartile 4") +
+  theme(plot.title = element_text(face="bold"))
+
+
+grid.arrange(plotthree_1,plotthree_2)
 ```
 
 ### Description Three
