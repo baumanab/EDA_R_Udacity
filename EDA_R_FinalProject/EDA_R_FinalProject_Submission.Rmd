@@ -447,35 +447,56 @@ consisting of only schools that reported exemptions for the three schools years.
 
 ```{r echo=FALSE bivariate_plot_functions}
 
-  bivar_line<- function(data_set = vaccReported, xvar,yvar, alpha_val = 1, color_factor = F) {
+
+plot_bivar <- function(data=vaccReported, xvar,yvar, alpha=1,add_color=TRUE,
+                       color_factor="school_year",add_smooth=FALSE,method="auto")
+{
+  
+    library(ggplot2)
     
-    line_color_plot = ggplot(data = data_set,aes(x = xvar, y = yvar)) +
-    geom_line(alpha = alpha,aes(color = color_factor))}
-    
-    line_plot = ggplot(data = data_set, aes(x = xvar, y = yvar)) +
-    geom_line(alpha = alpha_val)
-    
-    if (color != F) {
-      return(bivar_line_color)
+      
+    p <- ggplot(data, aes_string(x=xvar,y=yvar))
+      
+
+    if(add_color) {
+        p <- p + geom_line(alpha = alpha, aes_string(color = color_factor)) 
     } else {
-      return(bivar_line)
+        p <- p + geom_line(alpha = alpha)
+    }  
+    
+    if(add_smooth) {
+      p <- p + geom_smooth(method=method)
     }
-    }
+    
+    p
+}
+
+iter_plot <- function(names,data=vaccReported, xvar, alpha=1,add_color=TRUE,
+                       color_factor="school_year",add_smooth=FALSE,
+                      method="auto"){
+  for(name in names){
+    print(plot_bivar(data=vaccReported, xvar,yvar = name, alpha=1,add_color=TRUE,
+                       color_factor="school_year",add_smooth=FALSE,method="auto"))
+  }
+}
+
+
+exemptions <- c("medical_exempt","nonmedical_exempt","exempt_MMR")
+
+percent_exemptions <- c("percent_medical_exempt","percent_nonmedexempt",
+                        "percent_exempt_MMR")
+
 ```
 
 ```{r echo=FALSE, Bivariate_Plots}
 
 #total exemptions vs. enrollment
 
-ggplot(data = vaccReported, aes(x = enrolled, y = total_exemptions)) +
-  geom_line(alpha = .25,aes(color = school_year)) +
-  geom_smooth()
+plot_bivar(xvar="enrolled", yvar="total_exemptions",alpha=.25
+           ,add_smooth = TRUE)
 
-
-ggplot(data = subset(vaccReported,enrolled <= 2500), 
-       aes(x = enrolled, y =total_exemptions)) +
-  geom_line(alpha = .25,aes(color = school_year)) +
-  geom_smooth()
+plot_bivar(data = subset(vaccReported,enrolled <= 2500),xvar="enrolled", 
+           yvar="total_exemptions",alpha=.25,add_smooth = TRUE)
 
 ```
 
@@ -486,27 +507,20 @@ For most of the data (enrollment up to ~1500) there is a linear relationship bet
 
 ggplot(vaccReported, aes(x = enrolled, y = percent_exempt)) + 
   geom_point(alpha = .4, color = 'red')  +  
-  geom_line(alpha = .5,stat = 'summary',fun.y = mean, linetype = 1, color = "black", size = 1) +
+  geom_line(alpha = .5,stat = 'summary',fun.y = mean, linetype = 1, 
+            color = "black", size = 1) +
   scale_x_continuous(limits = c(0, 2000), breaks = seq(0,2000,250))
 
 ```
 
-Mean percent exempt has high variance at low levels of enrollment.  This make sense, since a small change in exemptions represents a larger proportion of the population vs. schools with higher levels of enrollment.
+Mean percent exempt has high variance at low levels of enrollment.  
+This make sense, since a small change in exemptions represents a larger 
+proportion of the population vs. schools with higher levels of enrollment.
 
 ```{r echo = FALSE}
 
-ggplot(data = vaccReported, aes(x = enrolled, y = percent_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
+iter_plot(percent_exemptions, xvar="enrolled",alpha=.5,add_smooth = TRUE)
 
-ggplot(data = vaccReported, aes(x = enrolled, y = percent_medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
-
-
-ggplot(data = vaccReported, aes(x = enrolled, y = percent_nonmedexempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
 
 
 
@@ -518,20 +532,10 @@ Percent exemption both general and specifc is largely flat across enrollment.
 
 ```{r echo =FALSE}
 
-ggplot(data = vaccReported, aes(x = total_exemptions, 
-                                y = percent_medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
 
-ggplot(data = vaccReported, aes(x = total_exemptions, 
-                                y = percent_nonmedexempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
 
-ggplot(data = vaccReported, aes(x = total_exemptions,
-                                y = percent_exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
+iter_plot(percent_exemptions, xvar="total_exemptions",alpha=.5,
+          add_smooth = TRUE)
 
 cor.test(vaccReported$total_exemptions,vaccReported$percent_exempt)
 cor.test(vaccReported$total_exemptions,vaccReported$percent_medical_exempt)
@@ -546,19 +550,8 @@ Weak positive correlation between total exemptions and both total and specific e
 
 ```{r echo=FALSE}
 
-ggplot(data = vaccReported, aes(x = enrolled, y = medical_exempt )) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
 
-
-ggplot(data = vaccReported, aes(x = enrolled, y = nonmedical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
-
-
-ggplot(data = vaccReported, aes(x = enrolled, y = exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
+iter_plot(exemptions, xvar="enrolled",alpha=.5,add_smooth = TRUE)
 
 cor.test(vaccReported$enrolled,vaccReported$nonmedical_exempt)
 cor.test(vaccReported$enrolled,vaccReported$nonmedical_exempt)
@@ -573,19 +566,12 @@ exempt and MMR exemptions.
 ```{r echo=FALSE}
 
 #not technically bivariate but nevertheless informative
-ggplot(data = vaccReported, aes(x = total_exemptions, y = medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_point(alpha = .1, aes(size = enrolled)) +
-  geom_smooth()
 
+plot_bivar(xvar="total_exemptions",y="medical_exempt",alpha=.5,
+           add_smooth=TRUE) + geom_point(alpha = .1, aes(size = enrolled))
 
-ggplot(data = vaccReported, aes(x = total_exemptions, y = nonmedical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
+iter_plot(exemptions[2:3], xvar="total_exemptions",alpha=.5,add_smooth = TRUE)
 
-ggplot(data = vaccReported, aes(x = total_exemptions, y = exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
 
 ```
 
@@ -599,40 +585,23 @@ There is a strong positive correlation between total exemptions and non-medical 
 
 ```{r echo=FALSE}
 
-ggplot(data = vaccReported, aes(x = percent_exempt, 
-                                y = percent_medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
+iter_plot(percent_exemptions, xvar="percent_exempt",alpha=.5,add_smooth = TRUE)
 
-ggplot(data = vaccReported, aes(x = percent_exempt, 
-                                y = percent_medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(method = lm)
+
+iter_plot(percent_exemptions, xvar="percent_exempt",alpha=.5,add_smoot=TRUE,
+          method="lm")
+
+
 
 linear_med_rate <- lm(percent_medical_exempt ~ percent_exempt, 
                       data = vaccReported)
 
-ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_nonmedexempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
-
-ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_nonmedexempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(method = lm)
 
 linear_nonmed_rate <- lm(percent_nonmedexempt ~ percent_exempt, 
                          data = vaccReported)
 
 linear_nonmed_rate
 
-
-ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth()
-
-ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(method = lm)
 
 linear_MMR_rate <- lm(percent_exempt_MMR ~ percent_exempt, data = vaccReported)
 
@@ -671,7 +640,9 @@ lm_x(linear_MMR_rate,5)
 
 Medical exemption rates show a weak positive correlation to total exemption 
 rates.  Both non-medical and MMR exemptions show a strong positive correlation 
-to total exemption rates.##Group by County and School Type##
+to total exemption rates.
+
+##Group by County and School Type##
 Group observations by county, and by county & school type (public, not public) 
 for the most recent school year, 2013-2014.  A data subset was used that 
 includes only schools with enrollment of 10 - 2500 students.  
