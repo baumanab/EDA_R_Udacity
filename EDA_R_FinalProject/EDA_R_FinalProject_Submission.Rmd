@@ -489,14 +489,12 @@ are missing all exemption values and typcially enrollment as well.
 
 plot_bivar <- function(data=vaccReported, xvar,yvar, alpha=1,add_color=TRUE,
                        color_factor="school_year",add_smooth=FALSE,
-                       method="auto")
+                       method="auto",smooth_color_factor="none")
 {
   
-    library(ggplot2)
-    
+    library(ggplot2)    
       
-    p <- ggplot(data, aes_string(x=xvar,y=yvar))
-      
+    p <- ggplot(data, aes_string(x=xvar,y=yvar))      
 
     if(add_color) {
         p <- p + geom_line(alpha = alpha, aes_string(color = color_factor)) 
@@ -504,7 +502,11 @@ plot_bivar <- function(data=vaccReported, xvar,yvar, alpha=1,add_color=TRUE,
         p <- p + geom_line(alpha = alpha)
     }  
     
-    if(add_smooth) {
+    if(smooth_color_factor !="none" & add_smooth) {
+      p <- p + geom_smooth(method=method, aes_string(color=smooth_color_factor))
+    }
+    
+    if(add_smooth){
       p <- p + geom_smooth(method=method)
     }
     
@@ -538,10 +540,10 @@ plot_bivar_box <- function(data=vaccReported, xvar,yvar, alpha=1,add_color=FALSE
 
 iter_plot <- function(names,data=vaccReported, xvar, alpha=1,add_color=TRUE,
                        color_factor="school_year",add_smooth=FALSE,
-                      method="auto"){
+                      method="auto",smooth_color_factor="none"){
   for(name in names){
     print(plot_bivar(data, xvar,yvar = name, alpha,add_color,
-                       color_factor,add_smooth,method))
+                       color_factor,add_smooth,method,smooth_color_factor))
   }
 }
 
@@ -1096,76 +1098,30 @@ include some other visualizatons to help foster an understanding of the data.
 ```{r echo=FALSE, Multivariate_Plots}
 
 #rates vs. total exemptions by year
-ggplot(data = vaccReported, aes(x = total_exemptions, 
-                                y = percent_medical_exempt)) +
-  geom_line(alpha = .5) +
-  geom_smooth(aes(color = school_year))
+iter_plot(names=percent_exemptions,xvar="total_exemptions",add_smooth=TRUE,
+          smooth_color_factor="school_year",alpha=.5)
 
 
-ggplot(data = vaccReported, aes(x = total_exemptions, 
-                                y = percent_nonmedexempt)) +
-  geom_line(alpha = .5) +
-  geom_smooth(aes(color = school_year))
 
-
-ggplot(data = vaccReported, aes(x = total_exemptions, 
-                                y = percent_exempt_MMR)) +
-  geom_line(alpha = .5) +
-  geom_smooth(aes(color = school_year))
 
 ```
 
 * Observing year to year variation, particularly beyond 100 total exemptions
 
 ##Specific exemptions vs. total exemptions by school year and by school type##
+
 ```{r echo = FALSE}
 
 #specific exemptions vs. total exemptions by school year and by school type
 
-ggplot(data = vaccReported, aes(x = total_exemptions, y = medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
-
-ggplot(data = vaccReported, aes(x = total_exemptions, y = nonmedical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
-```
-
-* Observing year to year variation, particularly beyond 100 total exemptions
-
-
-```{r echo = FALSE}
-
 #school year
-ggplot(data = vaccReported, aes(x = total_exemptions, y = medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
+iter_plot(names=exemptions,xvar="total_exemptions",alpha=.5,add_smooth=TRUE,
+          smooth_color_factor="school_year")
 
-
-ggplot(data = vaccReported, aes(x = total_exemptions, y = nonmedical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
-
-ggplot(data = vaccReported, aes(x = total_exemptions, y = exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
 
 #school type
-ggplot(data = vaccReported, aes(x = total_exemptions, y = medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
-
-ggplot(data = vaccReported, aes(x = total_exemptions, y = nonmedical_exempt)) +
-  geom_line(alpha = .5)+
-  geom_smooth(aes(color = school_type))
-
-ggplot(data = vaccReported, aes(x = total_exemptions, y = exempt_MMR)) +
-  geom_line(alpha = .5) +
-  geom_smooth(aes(color = school_type))
+iter_plot(names=exemptions,xvar="total_exemptions",alpha=.5,add_smooth=TRUE,
+          add_color=FALSE,smooth_color_factor="school_type")
 
 ```
 
@@ -1179,23 +1135,8 @@ ggplot(data = vaccReported, aes(x = total_exemptions, y = exempt_MMR)) +
 
 ```{r echo = FALSE}
 
-
-ggplot(data = vaccReported, aes(x = percent_exempt, 
-                                y = percent_medical_exempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
-ggplot(data = vaccReported, aes(x = percent_exempt, 
-                                y = percent_nonmedexempt)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
-
-ggplot(data = vaccReported, aes(x = percent_exempt, 
-                                y = percent_exempt_MMR)) +
-  geom_line(alpha = .5, aes(color = school_year)) +
-  geom_smooth(aes(color = school_year))
-
+iter_plot(names=percent_exemptions,xvar="percent_exempt",add_smooth=TRUE,
+          smooth_color_factor="school_year",alpha=.5)
 
 ggplot(data = vaccReported, aes(x = percent_exempt, 
                                 y = percent_medical_exempt)) +
@@ -1544,8 +1485,13 @@ grid.arrange(p1_prop,p2_prop,p3_prop,p4_prop, ncol=2)
 
 ```
 
-Below I use position = stack and add labels.  My intent was to show the total exemption rate, the contribution from each type of exemption, and the number of students in the county.  I then shade at 8% total exemption (corresponding to a roughly predicted 5% MMR exemption rate) to show danger zone.  HOwever, it looks like stack is just "stacking", rather than adjusting proportions.  The plots 
-also suffer from other short-comings.  I'm leaving them here just to illustrate the code and hoping that coaches will have some suggestions for improvements.
+Below I use position = stack and add labels.  My intent was to show the total 
+exemption rate, the contribution from each type of exemption, and the number of
+students in the county.  I then shade at 8% total exemption (corresponding to a
+roughly predicted 5% MMR exemption rate) to show danger zone.  HOwever, it looks
+like stack is just "stacking", rather than adjusting proportions.  The plots 
+also suffer from other short-comings.  I'm leaving them here just to illustrate 
+the code and hoping that coaches will have some suggestions for improvements.
 
 ```{r echo=FALSE}
 
@@ -1556,7 +1502,8 @@ p5 = ggplot(data= data_4, aes(y=mean_percent_exemption_type,
                               fill = exemption_type)) +
   geom_bar(position="stack",stat="identity") + 
   coord_flip() +
-  theme(legend.position = "none",legend.title=element_blank(),axis.title.x = element_blank()) +
+  theme(legend.position = "none",legend.title=element_blank(),
+        axis.title.x = element_blank()) +
   geom_text(aes(label = shortlabel_4, y = max(data_4$mean_percent_exemption_type)), fontface = "bold") +
   geom_rect(aes(xmin=0, xmax=10.5, ymin=8, 
                 ymax= max(data_4$mean_percent_exemption_type)), 
@@ -1569,7 +1516,8 @@ p6 = ggplot(data= data_3, aes(y=mean_percent_exemption_type,
                               fill = exemption_type)) +
   geom_bar(position="stack",stat="identity") + 
   coord_flip() +
-  theme(legend.position = "none",legend.title=element_blank(),axis.title.x = element_blank()) +
+  theme(legend.position = "none",legend.title=element_blank(),
+        axis.title.x = element_blank()) +
   geom_text(aes(label = shortlabel_3, y = max(data_3$mean_percent_exemption_type)), fontface = "bold") +
   geom_rect(aes(xmin=0, xmax=10.5, ymin=8, 
                 ymax= max(data_3$mean_percent_exemption_type)), 
@@ -1583,7 +1531,8 @@ p7 = ggplot(data= data_2, aes(y=mean_percent_exemption_type,
                               fill = exemption_type)) +
   geom_bar(position="stack",stat="identity") + 
   coord_flip() +
-  theme(legend.position = "none",legend.title=element_blank(),axis.title.x = element_blank()) +
+  theme(legend.position = "none",legend.title=element_blank(),
+        axis.title.x = element_blank()) +
   geom_text(aes(label = shortlabel_2,
                 y = max(data_2$mean_percent_exemption_type)), 
             fontface = "bold") +
@@ -1617,7 +1566,10 @@ I didn't observe any relationships that stand out fromt the bivariate plots sect
 ### Were there any interesting or surprising interactions between features?
 
 There were not suprising interactions.  However, it was intersting to see some 
-of the highest mean exemption rates were in smaller counties.  Previously I had noticed that there was a large variance in exemption rates on the smaller end of the enrollement spectrum, which is consitent with what I'm seeing at the county level.
+of the highest mean exemption rates were in smaller counties.  Previously I had 
+noticed that there was a large variance in exemption rates on the smaller end of
+the enrollement spectrum, which is consitent with what I'm seeing at the county 
+level.
 
 ### OPTIONAL: Did you create any models with your dataset? Discuss the strengths and limitations of your model.
 
@@ -1713,8 +1665,10 @@ ggplot(data= county_group, aes(y=mean_percent_exempt,
 
 ### Description Two
 
-Mean percent exemption rate per county, ordered by student population (# of students enrolled), for the school year 2013 and schools with 10-2500 total students.  The gradient color scale represents mean % exempt MMR for each 
-county.  Neither mean total or MMR exemption rates cut by student population.  Schools with higher total exemption rates tend to have higher MMR exemption 
+Mean percent exemption rate per county, ordered by student population (# of 
+students enrolled), for the school year 2013 and schools with 10-2500 total students.  The gradient color scale represents mean % exempt MMR for each 
+county.  Neither mean total or MMR exemption rates cut by student population.  
+Schools with higher total exemption rates tend to have higher MMR exemption 
 rates, consistent with plot one.  
 
 ### Plot Three
@@ -1741,7 +1695,8 @@ plotthree_2 <- ggplot(data= data_4, aes(y=mean_percent_exemption_type,
                                         fill = exemption_type)) +
   geom_bar(position="fill",stat="identity") + 
   coord_flip() +
-  theme(legend.position = c(.7,.5),legend.title=element_blank(),axis.title.x = element_blank(),legend.background=element_rect(fill = alpha("white",0.3))) +
+  theme(legend.position = c(.7,.5),legend.title=element_blank(),
+        axis.title.x = element_blank(),legend.background=element_rect(fill = alpha("white",0.3))) +
   xlab("County(Quartile 4)") +
   ylab("Proportion Mean Exempt") +
   ggtitle("Proportion % Exempt by County Quartile 4") +
@@ -1753,10 +1708,13 @@ grid.arrange(plotthree_1,plotthree_2)
 
 ### Description Three
 
-Mean % exemption rate and proportion % exempt by exemption type for counties in quartile four (top 25% of mean exemption rates), along with the affected student populaation.  A red shade is used to show the area at and beyond what is 
+Mean % exemption rate and proportion % exempt by exemption type for counties in 
+quartile four (top 25% of mean exemption rates), along with the affected student populaation.  A red shade is used to show the area at and beyond what is 
 generally considered the threshold for herd immunity
 
-All but two counties for quartile 4 are at or beyond the 10% herd immunity threshold.  The vast majority of exemptions for each county are non-medical exemptions, also known as personal belief exemptions.
+All but two counties for quartile 4 are at or beyond the 10% herd immunity 
+threshold.  The vast majority of exemptions for each county are non-medical 
+exemptions, also known as personal belief exemptions.
 
 **It is important to note that herd immunity thresholds are based on specific assumptions which include opportunity for exposure, how contageous a disease is, and population mixing.  These may not apply evenly for all schools.  Measeles in highly contagious with a large opporutnity for exposure relative to say Hep B.  Esitmates for measles put a safe level of exemption closer to 5%.**
 
@@ -1765,12 +1723,24 @@ All but two counties for quartile 4 are at or beyond the 10% herd immunity thres
 # Reflection 
 
 This has been an interesting project.  My original intent was to use the zip 
-code data and data from the US Census Bureau (economic and demographic data down to the tract level) and the WA state government (demographic data at the school level), to explore school vaccine exemptions and exemption rates.  Cleaning and tidying the data set for this purpose was daunting, but enjoyable.  As a step towards my original intent, I decided to start exploring the data to develop a better understanding of the set and how exemption rates varied by type, year, student population etc.  What I found was that I had a rich data set all on its own.  I was able to view the high level of variance in the data, particuarly associated with school size, as well as how types of exemptions and types of schools were contributing to exemption rates.  I made some surprising findings:
+code data and data from the US Census Bureau (economic and demographic data down
+to the tract level) and the WA state government (demographic data at the school 
+level), to explore school vaccine exemptions and exemption rates.  Cleaning and 
+tidying the data set for this purpose was daunting, but enjoyable.  As a step 
+towards my original intent, I decided to start exploring the data to develop a 
+better understanding of the set and how exemption rates varied by type, year, 
+student population etc.  What I found was that I had a rich data set all on its 
+own.  I was able to view the high level of variance in the data, particuarly 
+associated with school size, as well as how types of exemptions and types of 
+schools were contributing to exemption rates.  I made some surprising findings:
 
-* Populous counties with large urban centers do not have unusually high vaccine exemption rates at the county level.  This appears to be the domain of smaller, rural counties.
+* Populous counties with large urban centers do not have unusually high vaccine 
+exemption rates at the county level.  This appears to be the domain of smaller, 
+rural counties.
 * MMR vaccine exemption rates do not track 1:1 with total vaccine exemption 
 rates, it appears that people are choosy with vaccines.
-* There is some variation of exemptions by school type but not as dramatic as expected.  I think this is partially because I have lumped all private schools into one bin, but no tall private schools are alike.  Parsing the brand or types of private schools may be informative.
+* There is some variation of exemptions by school type but not as dramatic as 
+expected.  I think this is partially because I have lumped all private schools into one bin, but no tall private schools are alike.  Parsing the brand or types of private schools may be informative.
 * Exemption rates have low variability from year to year.
 
 and some less than surprising findings:
@@ -1782,20 +1752,26 @@ rates
 In general, the body of scientific evidence suggests that vaccine exemption 
 rates below 5-10% (depending on disease attributes) puts the non-immune 
 population (no natural immunity and low resitance and have not received vaccine 
-or the vaccine was not effective) at risk.  In WA state, the vast majority of exemptions are personal belief (non-medical) exemptions.  At the county level there are 6 counties with mean exemption rates exceeding 10% with even more exceeding the 5% MMR threshold. 
+or the vaccine was not effective) at risk.  In WA state, the vast majority of 
+exemptions are personal belief (non-medical) exemptions.  At the county level 
+there are 6 counties with mean exemption rates exceeding 10% with even more 
+exceeding the 5% MMR threshold. 
 
-Now that I have a solid understanding of the underlying data I would like to do the following as next steps.
+Now that I have a solid understanding of the underlying data I would like to do
+the following as next steps.
 
 * Audit the data set again to remove any errors, especially with regards to 
 number of students enrolled at a school
-* Explore the data at the district, city, and zip code level, to see how my observations at the county level compare.
+* Explore the data at the district, city, and zip code level, to see how my 
+observations at the county level compare.
 * Create economic and demographic data tables for later combination with a 
 subset of the vaccine exemption data (likely city and zip code level) to see 
 what relationships between and amongst variables with respect to exemption 
 rates.
 
 I also plan to revisit the data set containing other disease exemption data to 
-see how each of those varies with total exemption rate and get a better idea of what diesease people are not being vaccinated for at specific geographical 
+see how each of those varies with total exemption rate and get a better idea of 
+what diesease people are not being vaccinated for at specific geographical 
 levels.
 
 
