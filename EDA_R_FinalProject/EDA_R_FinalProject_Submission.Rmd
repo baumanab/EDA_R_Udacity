@@ -484,7 +484,7 @@ are missing all exemption values and typcially enrollment as well.
 
 ##Total Exemptions vs. Enrollment##
 
-```{r echo=FALSE bivariate_plot_functions}
+```{r echo=FALSE, bivariate_plot_functions}
 
 
 plot_bivar <- function(data=vaccReported, xvar,yvar, alpha=1,add_color=TRUE,
@@ -729,237 +729,6 @@ Medical exemption rates show a weak positive correlation to total exemption
 rates.  Both non-medical and MMR exemptions show a strong positive correlation 
 to total exemption rates.
 
-##Group by County and School Type##
-Group observations by county, and by county & school type (public, not public) 
-for the most recent school year, 2013-2014.  A data subset was used that 
-includes only schools with enrollment of 10 - 2500 students.  
-```{r echo=FALSE, group_by_attribute}
-
-#explain why you are doint this based on other analyses
-
-#* Subset by enrollement 10 - 2500 students all school years
-#* Subset by enrollment 10 - 2500 students most recent school year (2013)
-#* Subset by enrollment 100 - 2500 students
-
-vaccReported_NLT_10_NGT_2500 <- subset(vaccReported,vaccReported$enrolled >= 10
-                                       & vaccReported$enrolled <= 2500) %>%
-  arrange(desc(percent_exempt))
-
-vaccReported_NLT_10_NGT_2500_2013 <- subset(vaccReported_NLT_10_NGT_2500, 
-                                            school_year == "2013")
-
-vaccReported_NLT_100_NGT_2500 <- subset(vaccReported,
-                                        vaccReported$enrolled >= 100 & 
-                                          vaccReported$enrolled <= 2500) %>%
-  arrange(desc(percent_exempt))
-
-#group by county
-
-by_county_exempt <- vaccReported_NLT_10_NGT_2500_2013 %>%  
-  group_by(school_county) %>% 
-  summarize(mean_percent_exempt = round(mean(percent_exempt, na.rm=TRUE), 2), 
-            median_percent_exempt = round(median(percent_exempt, na.rm=TRUE),2), 
-            max_percent_exempt = round(max(percent_exempt, na.rm=TRUE), 2), 
-            min_percent_exempt = round(min(percent_exempt, na.rm=TRUE), 2), 
-            schools=n(), 
-            students=sum(enrolled, na.rm=TRUE)) %>%
-  na.omit() %>% 
-  arrange(desc(mean_percent_exempt))
-
-by_county_nonmedexempt <- vaccReported_NLT_10_NGT_2500_2013 %>%  
-  group_by(school_county) %>% 
-  summarize(mean_percent_nonmedexempt = round(mean(percent_nonmedexempt, 
-                                                   na.rm=TRUE), 2), 
-            median_percent_nonmedexempt = round(median(percent_nonmedexempt, 
-                                                       na.rm=TRUE), 2), 
-            max_percent_nonmedexempt = round(max(percent_nonmedexempt, 
-                                                 na.rm=TRUE), 2), 
-            min_percent_nonmedexempt = round(min(percent_nonmedexempt, 
-                                                 na.rm=TRUE), 2), 
-            schools=n(), 
-            students=sum(enrolled, na.rm=TRUE)) %>% 
-  na.omit() %>% 
-  arrange(desc(mean_percent_nonmedexempt))
-
-
-by_county_medexempt <- vaccReported_NLT_10_NGT_2500_2013 %>%  
-  group_by(school_county) %>% 
-  summarize(mean_percent_nonmedexempt = round(mean(percent_nonmedexempt, 
-                                                   na.rm=TRUE), 2), 
-            median_percent_nonmedexempt = round(median(percent_nonmedexempt, 
-                                                       na.rm=TRUE), 2), 
-            max_percent_nonmedexempt = round(max(percent_nonmedexempt, 
-                                                 na.rm=TRUE), 2), 
-            min_percent_nonmedexempt = round(min(percent_nonmedexempt, 
-                                                 na.rm=TRUE), 2), 
-            schools=n(), 
-            students=sum(enrolled, na.rm=TRUE)) %>% 
-  na.omit() %>% 
-  arrange(desc(mean_percent_nonmedexempt))
-
-
-by_county_medexempt <- vaccReported_NLT_10_NGT_2500_2013 %>%  
-  group_by(school_county) %>% 
-  summarize(mean_percent_medical_exempt = round(mean(percent_medical_exempt, 
-                                                     na.rm=TRUE), 2), 
-            median_percent_medical_exempt = round(median(percent_medical_exempt,
-                                                         na.rm=TRUE), 2), 
-            max_percent_medical_exempt = round(max(percent_medical_exempt, 
-                                                   na.rm=TRUE), 2), 
-            min_percent_medical_exempt = round(min(percent_medical_exempt, 
-                                                   na.rm=TRUE), 2), 
-            schools=n(), 
-            students=sum(enrolled, na.rm=TRUE)) %>% 
-  na.omit() %>% 
-  arrange(desc(mean_percent_medical_exempt))
-
-
-by_county_MMR <- vaccReported_NLT_10_NGT_2500_2013 %>%  
-  group_by(school_county) %>% 
-  summarize(mean_percent_exempt_MMR = round(mean(percent_exempt_MMR, 
-                                                 na.rm=TRUE), 2), 
-            median_percent_exempt_MMR = round(median(percent_exempt_MMR, 
-                                                     na.rm=TRUE), 2), 
-            max_percent_exempt_MMR = round(max(percent_exempt_MMR, 
-                                               na.rm=TRUE), 2), 
-            min_percent_exempt_MMR = round(min(percent_exempt_MMR, 
-                                               na.rm=TRUE), 2), 
-            schools=n(), 
-            students=sum(enrolled, na.rm=TRUE)) %>% 
-  na.omit() %>% 
-  arrange(desc(mean_percent_exempt_MMR))
-
-#merge county groups and sort by students enrolled
-
-county_group <- inner_join(by_county_medexempt, by_county_MMR, 
-                           by = "school_county") %>%
-  inner_join(by_county_exempt, by = "school_county") %>%
-  select(-c(students.x, schools.x, students.y, schools.y)) %>%
-  inner_join(by_county_nonmedexempt, "school_county") %>%
-  select(-c(students.x, schools.x)) %>%
-  rename(students= students.y) %>%
-  rename(schools = schools.y) %>%
-  arrange(desc(students))
-
-
-names(county_group)
-summary(county_group)
-str(county_group)
-glimpse(county_group)
-
-
-#group by county, school_type
-
-by_county_exempt_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  
-  group_by(school_county,school_type) %>% 
-  summarize(mean_percent_exempt = round(mean(percent_exempt, 
-                                             na.rm=TRUE), 2), 
-            median_percent_exempt = round(median(percent_exempt, 
-                                                 na.rm=TRUE), 2), 
-            max_percent_exempt = round(max(percent_exempt, 
-                                           na.rm=TRUE), 2), 
-            min_percent_exempt = round(min(percent_exempt, 
-                                           na.rm=TRUE), 2), 
-            schools=n(), 
-            students=sum(enrolled, na.rm=TRUE)) %>%
-  na.omit() %>% 
-  arrange(desc(mean_percent_exempt))
-
-by_county_nonmedexempt_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  
-  group_by(school_county, school_type) %>% 
-  summarize(mean_percent_nonmedexempt = round(mean(percent_nonmedexempt, 
-                                                   na.rm=TRUE), 2), 
-            median_percent_nonmedexempt = round(median(percent_nonmedexempt, 
-                                                       na.rm=TRUE), 2), 
-            max_percent_nonmedexempt = round(max(percent_nonmedexempt, 
-                                                 na.rm=TRUE), 2), 
-            min_percent_nonmedexempt = round(min(percent_nonmedexempt, 
-                                                 na.rm=TRUE), 2), 
-            schools=n(), 
-            students=sum(enrolled, na.rm=TRUE)) %>% 
-  na.omit() %>% 
-  arrange(desc(mean_percent_nonmedexempt))
-
-
-by_county_nonmedexempt_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  
-  group_by(school_county, school_type) %>% 
-  summarize(mean_percent_nonmedexempt = round(mean(percent_nonmedexempt, 
-                                                   na.rm=TRUE), 2), 
-            median_percent_nonmedexempt = round(median(percent_nonmedexempt, 
-                                                       na.rm=TRUE), 2), 
-            max_percent_nonmedexempt = round(max(percent_nonmedexempt, 
-                                                 na.rm=TRUE), 2), 
-            min_percent_nonmedexempt = round(min(percent_nonmedexempt, 
-                                                 na.rm=TRUE), 2), 
-            schools=n(), 
-            students=sum(enrolled, na.rm=TRUE)) %>% 
-  na.omit() %>% 
-  arrange(desc(mean_percent_nonmedexempt))
-
-
-by_county_medexempt_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  
-  group_by(school_county,school_type) %>% 
-  summarize(mean_percent_medical_exempt = round(mean(percent_medical_exempt, 
-                                                     na.rm=TRUE), 2), 
-            median_percent_medical_exempt = round(median(percent_medical_exempt,
-                                                         na.rm=TRUE), 2), 
-            max_percent_medical_exempt = round(max(percent_medical_exempt, 
-                                                   na.rm=TRUE), 2), 
-            min_percent_medical_exempt = round(min(percent_medical_exempt, 
-                                                   na.rm=TRUE), 2), 
-            schools=n(), 
-            students=sum(enrolled, na.rm=TRUE)) %>% 
-  na.omit() %>% 
-  arrange(desc(mean_percent_medical_exempt))
-
-
-by_county_MMR_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  
-  group_by(school_county, school_type) %>% 
-  summarize(mean_percent_exempt_MMR = round(mean(percent_exempt_MMR, 
-                                                 na.rm=TRUE), 2), 
-            median_percent_exempt_MMR = round(median(percent_exempt_MMR, 
-                                                     na.rm=TRUE), 2), 
-            max_percent_exempt_MMR = round(max(percent_exempt_MMR, 
-                                               na.rm=TRUE), 2), 
-            min_percent_exempt_MMR = round(min(percent_exempt_MMR, 
-                                               na.rm=TRUE), 2), 
-            schools=n(), 
-            students=sum(enrolled, na.rm=TRUE)) %>% 
-  na.omit() %>% 
-  arrange(desc(mean_percent_exempt_MMR))
-
-#merge county/type groups and sort by students enrolled
-
-county_group_type <- inner_join(by_county_medexempt_type, by_county_MMR_type, 
-                                by = c("school_county", "school_type")) %>%
-  inner_join(by_county_exempt_type, by = c("school_county","school_type")) %>%
-  select(-c(students.x, schools.x, students.y, schools.y)) %>%
-  inner_join(by_county_nonmedexempt_type, 
-             by = c("school_county", "school_type")) %>%
-  select(-c(students.x, schools.x)) %>%
-  rename(students= students.y) %>%
-  rename(schools = schools.y) %>%
-  arrange(desc(students))
-
-
-
-names(county_group_type)
-summary(county_group_type)
-str(county_group_type)
-glimpse(county_group_type)
-
-
-rm(by_county_exempt,by_county_exempt_type,by_county_medexempt,
-   by_county_medexempt_type,by_county_MMR,by_county_MMR_type,
-   by_county_nonmedexempt,by_county_nonmedexempt_type,by)
-
-
-
-```
-
-##Analyzing the grouped data##
-
-Grouped data per above used for the following sections.
 
 ##Exemptions by school year##
 ```{r echo=FALSE}
@@ -1205,6 +974,234 @@ ggplot(data = vaccReported_NLT_100_NGT_2500, aes(x = percent_exempt,
 * There is a subset of data that is above the MMR rate threshold but below the total exemption rate threshold
 * There is a subset of data that is below the MMR rate threshold but above the total exemption rate threshold
 
+##Group by County and School Type##
+Group observations by county, and by county & school type (public, not public) 
+for the most recent school year, 2013-2014.  A data subset was used that 
+includes only schools with enrollment of 10 - 2500 students.  
+
+```{r echo=FALSE, group_by_attribute}
+
+#explain why you are doint this based on other analyses
+
+#* Subset by enrollement 10 - 2500 students all school years
+#* Subset by enrollment 10 - 2500 students most recent school year (2013)
+#* Subset by enrollment 100 - 2500 students
+
+vaccReported_NLT_10_NGT_2500 <- subset(vaccReported,vaccReported$enrolled >= 10
+                                       & vaccReported$enrolled <= 2500) %>%
+  arrange(desc(percent_exempt))
+
+vaccReported_NLT_10_NGT_2500_2013 <- subset(vaccReported_NLT_10_NGT_2500, 
+                                            school_year == "2013")
+
+vaccReported_NLT_100_NGT_2500 <- subset(vaccReported,
+                                        vaccReported$enrolled >= 100 & 
+                                          vaccReported$enrolled <= 2500) %>%
+  arrange(desc(percent_exempt))
+
+#group by county
+
+by_county_exempt <- vaccReported_NLT_10_NGT_2500_2013 %>%  
+  group_by(school_county) %>% 
+  summarize(mean_percent_exempt = round(mean(percent_exempt, na.rm=TRUE), 2), 
+            median_percent_exempt = round(median(percent_exempt, na.rm=TRUE),2), 
+            max_percent_exempt = round(max(percent_exempt, na.rm=TRUE), 2), 
+            min_percent_exempt = round(min(percent_exempt, na.rm=TRUE), 2), 
+            schools=n(), 
+            students=sum(enrolled, na.rm=TRUE)) %>%
+  na.omit() %>% 
+  arrange(desc(mean_percent_exempt))
+
+by_county_nonmedexempt <- vaccReported_NLT_10_NGT_2500_2013 %>%  
+  group_by(school_county) %>% 
+  summarize(mean_percent_nonmedexempt = round(mean(percent_nonmedexempt, 
+                                                   na.rm=TRUE), 2), 
+            median_percent_nonmedexempt = round(median(percent_nonmedexempt, 
+                                                       na.rm=TRUE), 2), 
+            max_percent_nonmedexempt = round(max(percent_nonmedexempt, 
+                                                 na.rm=TRUE), 2), 
+            min_percent_nonmedexempt = round(min(percent_nonmedexempt, 
+                                                 na.rm=TRUE), 2), 
+            schools=n(), 
+            students=sum(enrolled, na.rm=TRUE)) %>% 
+  na.omit() %>% 
+  arrange(desc(mean_percent_nonmedexempt))
+
+
+by_county_medexempt <- vaccReported_NLT_10_NGT_2500_2013 %>%  
+  group_by(school_county) %>% 
+  summarize(mean_percent_nonmedexempt = round(mean(percent_nonmedexempt, 
+                                                   na.rm=TRUE), 2), 
+            median_percent_nonmedexempt = round(median(percent_nonmedexempt, 
+                                                       na.rm=TRUE), 2), 
+            max_percent_nonmedexempt = round(max(percent_nonmedexempt, 
+                                                 na.rm=TRUE), 2), 
+            min_percent_nonmedexempt = round(min(percent_nonmedexempt, 
+                                                 na.rm=TRUE), 2), 
+            schools=n(), 
+            students=sum(enrolled, na.rm=TRUE)) %>% 
+  na.omit() %>% 
+  arrange(desc(mean_percent_nonmedexempt))
+
+
+by_county_medexempt <- vaccReported_NLT_10_NGT_2500_2013 %>%  
+  group_by(school_county) %>% 
+  summarize(mean_percent_medical_exempt = round(mean(percent_medical_exempt, 
+                                                     na.rm=TRUE), 2), 
+            median_percent_medical_exempt = round(median(percent_medical_exempt,
+                                                         na.rm=TRUE), 2), 
+            max_percent_medical_exempt = round(max(percent_medical_exempt, 
+                                                   na.rm=TRUE), 2), 
+            min_percent_medical_exempt = round(min(percent_medical_exempt, 
+                                                   na.rm=TRUE), 2), 
+            schools=n(), 
+            students=sum(enrolled, na.rm=TRUE)) %>% 
+  na.omit() %>% 
+  arrange(desc(mean_percent_medical_exempt))
+
+
+by_county_MMR <- vaccReported_NLT_10_NGT_2500_2013 %>%  
+  group_by(school_county) %>% 
+  summarize(mean_percent_exempt_MMR = round(mean(percent_exempt_MMR, 
+                                                 na.rm=TRUE), 2), 
+            median_percent_exempt_MMR = round(median(percent_exempt_MMR, 
+                                                     na.rm=TRUE), 2), 
+            max_percent_exempt_MMR = round(max(percent_exempt_MMR, 
+                                               na.rm=TRUE), 2), 
+            min_percent_exempt_MMR = round(min(percent_exempt_MMR, 
+                                               na.rm=TRUE), 2), 
+            schools=n(), 
+            students=sum(enrolled, na.rm=TRUE)) %>% 
+  na.omit() %>% 
+  arrange(desc(mean_percent_exempt_MMR))
+
+#merge county groups and sort by students enrolled
+
+county_group <- inner_join(by_county_medexempt, by_county_MMR, 
+                           by = "school_county") %>%
+  inner_join(by_county_exempt, by = "school_county") %>%
+  select(-c(students.x, schools.x, students.y, schools.y)) %>%
+  inner_join(by_county_nonmedexempt, "school_county") %>%
+  select(-c(students.x, schools.x)) %>%
+  rename(students= students.y) %>%
+  rename(schools = schools.y) %>%
+  arrange(desc(students))
+
+
+names(county_group)
+summary(county_group)
+str(county_group)
+glimpse(county_group)
+
+
+#group by county, school_type
+
+by_county_exempt_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  
+  group_by(school_county,school_type) %>% 
+  summarize(mean_percent_exempt = round(mean(percent_exempt, 
+                                             na.rm=TRUE), 2), 
+            median_percent_exempt = round(median(percent_exempt, 
+                                                 na.rm=TRUE), 2), 
+            max_percent_exempt = round(max(percent_exempt, 
+                                           na.rm=TRUE), 2), 
+            min_percent_exempt = round(min(percent_exempt, 
+                                           na.rm=TRUE), 2), 
+            schools=n(), 
+            students=sum(enrolled, na.rm=TRUE)) %>%
+  na.omit() %>% 
+  arrange(desc(mean_percent_exempt))
+
+by_county_nonmedexempt_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  
+  group_by(school_county, school_type) %>% 
+  summarize(mean_percent_nonmedexempt = round(mean(percent_nonmedexempt, 
+                                                   na.rm=TRUE), 2), 
+            median_percent_nonmedexempt = round(median(percent_nonmedexempt, 
+                                                       na.rm=TRUE), 2), 
+            max_percent_nonmedexempt = round(max(percent_nonmedexempt, 
+                                                 na.rm=TRUE), 2), 
+            min_percent_nonmedexempt = round(min(percent_nonmedexempt, 
+                                                 na.rm=TRUE), 2), 
+            schools=n(), 
+            students=sum(enrolled, na.rm=TRUE)) %>% 
+  na.omit() %>% 
+  arrange(desc(mean_percent_nonmedexempt))
+
+
+by_county_nonmedexempt_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  
+  group_by(school_county, school_type) %>% 
+  summarize(mean_percent_nonmedexempt = round(mean(percent_nonmedexempt, 
+                                                   na.rm=TRUE), 2), 
+            median_percent_nonmedexempt = round(median(percent_nonmedexempt, 
+                                                       na.rm=TRUE), 2), 
+            max_percent_nonmedexempt = round(max(percent_nonmedexempt, 
+                                                 na.rm=TRUE), 2), 
+            min_percent_nonmedexempt = round(min(percent_nonmedexempt, 
+                                                 na.rm=TRUE), 2), 
+            schools=n(), 
+            students=sum(enrolled, na.rm=TRUE)) %>% 
+  na.omit() %>% 
+  arrange(desc(mean_percent_nonmedexempt))
+
+
+by_county_medexempt_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  
+  group_by(school_county,school_type) %>% 
+  summarize(mean_percent_medical_exempt = round(mean(percent_medical_exempt, 
+                                                     na.rm=TRUE), 2), 
+            median_percent_medical_exempt = round(median(percent_medical_exempt,
+                                                         na.rm=TRUE), 2), 
+            max_percent_medical_exempt = round(max(percent_medical_exempt, 
+                                                   na.rm=TRUE), 2), 
+            min_percent_medical_exempt = round(min(percent_medical_exempt, 
+                                                   na.rm=TRUE), 2), 
+            schools=n(), 
+            students=sum(enrolled, na.rm=TRUE)) %>% 
+  na.omit() %>% 
+  arrange(desc(mean_percent_medical_exempt))
+
+
+by_county_MMR_type <- vaccReported_NLT_10_NGT_2500_2013 %>%  
+  group_by(school_county, school_type) %>% 
+  summarize(mean_percent_exempt_MMR = round(mean(percent_exempt_MMR, 
+                                                 na.rm=TRUE), 2), 
+            median_percent_exempt_MMR = round(median(percent_exempt_MMR, 
+                                                     na.rm=TRUE), 2), 
+            max_percent_exempt_MMR = round(max(percent_exempt_MMR, 
+                                               na.rm=TRUE), 2), 
+            min_percent_exempt_MMR = round(min(percent_exempt_MMR, 
+                                               na.rm=TRUE), 2), 
+            schools=n(), 
+            students=sum(enrolled, na.rm=TRUE)) %>% 
+  na.omit() %>% 
+  arrange(desc(mean_percent_exempt_MMR))
+
+#merge county/type groups and sort by students enrolled
+
+county_group_type <- inner_join(by_county_medexempt_type, by_county_MMR_type, 
+                                by = c("school_county", "school_type")) %>%
+  inner_join(by_county_exempt_type, by = c("school_county","school_type")) %>%
+  select(-c(students.x, schools.x, students.y, schools.y)) %>%
+  inner_join(by_county_nonmedexempt_type, 
+             by = c("school_county", "school_type")) %>%
+  select(-c(students.x, schools.x)) %>%
+  rename(students= students.y) %>%
+  rename(schools = schools.y) %>%
+  arrange(desc(students))
+
+
+
+names(county_group_type)
+summary(county_group_type)
+str(county_group_type)
+glimpse(county_group_type)
+
+
+rm(by_county_exempt,by_county_exempt_type,by_county_medexempt,
+   by_county_medexempt_type,by_county_MMR,by_county_MMR_type,
+   by_county_nonmedexempt,by_county_nonmedexempt_type,by)
+
+
+
+```
 ##Bar Plots##
 Bar plots using the county_group and county_group_type data frames.
 
@@ -1628,15 +1625,28 @@ plotone_3 <- ggplot(data = vaccReported_NGT50_exemptrate,
 
 grid.arrange(plotone_1,plotone_2,plotone_3,ncol =1)
 
+
+cor.test(vaccReported_NGT50_exemptrate$percent_exempt,
+         vaccReported_NGT50_exemptrate$percent_medical_exempt)
+
+cor.test(vaccReported_NGT50_exemptrate$percent_exempt,
+         vaccReported_NGT50_exemptrate$percent_nonmedexempt)
+
+cor.test(vaccReported_NGT50_exemptrate$percent_exempt,
+         vaccReported_NGT50_exemptrate$percent_exempt_MMR)
+
+
 ```
 
 ### Description One
 
 Specific rates (% medical, nonmedical, and MMR exemption) vs. total percent 
-exempt for schools with <= 50% total exemption, with smoothing lines per school year.  Medical exemption rates do not have strong correlation with total 
-exemption rates whereas non-medical and MMR exemption rates do.  The correlation of non-medical exemption rates with the total exemption rate is stronger than 
-that of MMR rates.  There is very little change in the smoothing lines and 
-degree of correlation from year to year.
+exempt for schools with <= 50% total exemption, with smoothing lines per school 
+year.  Medical exemption rates do not have strong correlation (Pearson's ~.35) 
+with total exemption rates whereas non-medical(Pearson's ~.96) and MMR exemption
+rates (Pearson's ~.82) do.  The correlation of non-medical exemption rates with
+the total exemption rate is stronger than that of MMR rates.  There is very 
+little change in the smoothing lines and degree of correlation from year to year.
 
 ### Plot Two
 ```{r echo=FALSE, Plot_Two}
@@ -1648,7 +1658,7 @@ ggplot(data= county_group, aes(y=mean_percent_exempt,
                                fill = mean_percent_exempt_MMR)) +
   geom_bar(position="dodge",stat="identity") + 
   coord_flip() +
-  xlab("County") +
+  xlab("County (sorted by descending school population)") +
   ylab("Mean % Exempt") +
   theme(legend.position = c(.7,.6), legend.background = element_rect(color = "black", 
     fill = "grey90", size = .5, linetype = "solid"), 
@@ -1666,7 +1676,8 @@ ggplot(data= county_group, aes(y=mean_percent_exempt,
 ### Description Two
 
 Mean percent exemption rate per county, ordered by student population (# of 
-students enrolled), for the school year 2013 and schools with 10-2500 total students.  The gradient color scale represents mean % exempt MMR for each 
+students enrolled), for the school year 2013 and schools with 10-2500 total 
+students.  The gradient color scale represents mean % exempt MMR for each 
 county.  Neither mean total or MMR exemption rates cut by student population.  
 Schools with higher total exemption rates tend to have higher MMR exemption 
 rates, consistent with plot one.  
@@ -1683,7 +1694,7 @@ plotthree_1 <- ggplot(data= data_4, aes(y=mean_percent_exempt/2,
   geom_text(aes(label = shortlabel_4, y = 5), fontface = "bold") +
   geom_rect(aes(xmin=0, xmax=10.5, ymin=10, ymax= 23), 
             fill = "red", alpha=0.02) +
-  xlab("County(Quartile 4)") +
+  xlab("County(sorted by descending student populationC)") +
   ylab("mean percent exempt") +
   ggtitle("Mean % Exempt by County for Top Quartile") +
   theme(plot.title = element_text(face="bold")) 
@@ -1712,9 +1723,9 @@ Mean % exemption rate and proportion % exempt by exemption type for counties in
 quartile four (top 25% of mean exemption rates), along with the affected student populaation.  A red shade is used to show the area at and beyond what is 
 generally considered the threshold for herd immunity
 
-All but two counties for quartile 4 are at or beyond the 10% herd immunity 
-threshold.  The vast majority of exemptions for each county are non-medical 
-exemptions, also known as personal belief exemptions.
+6 counties for the top quartile are at or beyond the 10% herd immunity 
+threshold, while 4 are below it.  The vast majority of exemptions for each 
+county are non-medicalexemptions, also known as personal belief exemptions.
 
 **It is important to note that herd immunity thresholds are based on specific assumptions which include opportunity for exposure, how contageous a disease is, and population mixing.  These may not apply evenly for all schools.  Measeles in highly contagious with a large opporutnity for exposure relative to say Hep B.  Esitmates for measles put a safe level of exemption closer to 5%.**
 
