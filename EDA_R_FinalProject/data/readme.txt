@@ -1,6 +1,9 @@
 This document describes the data set used in my final project.
 The data originated as below:
 
+WA DOH employees generously assembled3 data sets for my project for school years 2011-2012, 2012-2013, and 2013-2014. The 2011-2012 set is the most comprehensive in terms of school covered and relevant fields. Each data set contains an observation about a school. The 3 data sets were bound into one data set, then explored.
+
+
 The initial data and cleaning/assembly of the combined data frame can be found here:
 [githubrepo](https://github.com/baumanab/EDA_R_Udacity/tree/master/EDA_R_FinalProject/EDA_R_FinalProject.Rmd)
 
@@ -9,6 +12,9 @@ Additional cleaning and wrangling can be found here:
 
 An initial exploration and some additional corrections for student enrollment, is here:
 [githubrepo](https://github.com/baumanab/EDA_R_Udacity/blob/master/EDA_R_FinalProject/WADOH_DataExplore.Rmd)
+
+
+
 
 
 Features:  Each row is an observation about a school, so each feature per row is respective of an individual school

@@ -401,7 +401,7 @@ ggplot(aes(x = percent_exempt_MMR, y = ..density..), data = vaccReported) +
 
 * Range 0-269 with most schools haveing 3 - 40 MMR exempt students
 * Rate 0 -100% with most schools falling between ~0.5 - 20%
-* No substntial change in total mean or mean rate from 2011 -> 2013
+* No substantial change in total mean or mean rate from 2011 -> 2013
 * King County has the largest proportion of nonmedical exempt
 * Ferry and San Juan counties distributiion is at a higher % than King County
 
@@ -412,7 +412,28 @@ total exemptions that are of a particular type (medical or non-medical)  While
 this is not a tidy data frame it is a convenient way to look at observations by 
 exemption type.  I am using this to develop a better understanding of the 
 propotion of exemptions that are non-medical.
+
+For purpsoses of this analysis I decided to subset the dataframe to 
+enrollment of 10-2500.  Previous enrollment disribution showed that most of the 
+student populaton fell between 100 and 1000 students.  However, there may still
+be valuable information for schools with lower or higher populations.
+There are very few schools with students beyond 2500.  During my data wrangling
+I did a spot check of schools at the high population extremes and found that 
+many of the schools at the fringe of the high population range were not accurately
+reported.  It was impracticalto scour and eliminate them all.For lower population
+schools one to a few exemptions creates large fluctuations in percent exemption.
+By making this subset I capture most of the data, limit erroneous data, and 
+mitigate large fluctuations in percent exemptions as a result of low population.
+
+
 ```{r echo=FALSE, exemption_types}
+
+vaccReported_NLT_10_NGT_2500 <- subset(vaccReported,vaccReported$enrolled >= 10
+                                       & vaccReported$enrolled <= 2500) %>%
+  arrange(desc(percent_exempt))
+
+
+
 
 melt <- gather(vaccReported_NLT_10_NGT_2500,exemption_type,exemptions,
                medical_exempt, nonmedical_exempt)
@@ -733,12 +754,12 @@ to total exemption rates.
 ##Exemptions by school year##
 ```{r echo=FALSE}
 
+
 box_exemptions = append(exemptions,"total_exemptions",0)
 
-iter_plot_box(box_exemptions,xvar="school_year",add_color=FALSE)
+iter_plot_box(box_exemptions,xvar="school_year",add_color=FALSE,
+              add_jitter=TRUE, jitter_alpha=.1)
 
-plot_bivar_box(xvar="school_year",yvar="total_exemptions",add_jitter=TRUE,
-               jitter_alpha=.1)
 
 ```
 
@@ -955,8 +976,14 @@ ggplot(data = vaccReported, aes(x = percent_exempt, y = percent_exempt_MMR))  +
 
 ###Repeat on subset of vaccreported with enrollment of >=100 and <= 2500.###
 
+
 ```{r echo = FALSE}
 
+# Subset by enrollment 100 - 2500 students
+vaccReported_NLT_100_NGT_2500 <- subset(vaccReported,
+                                        vaccReported$enrolled >= 100 & 
+                                          vaccReported$enrolled <= 2500) %>%
+  arrange(desc(percent_exempt))
 
 ggplot(data = vaccReported_NLT_100_NGT_2500, aes(x = percent_exempt,
                                                  y = percent_exempt_MMR))  +
@@ -977,27 +1004,19 @@ ggplot(data = vaccReported_NLT_100_NGT_2500, aes(x = percent_exempt,
 ##Group by County and School Type##
 Group observations by county, and by county & school type (public, not public) 
 for the most recent school year, 2013-2014.  A data subset was used that 
-includes only schools with enrollment of 10 - 2500 students.  
+includes only schools with enrollment of 10 - 2500 students for the year
+2013.  See previous explanations to the enrollment subset.  The year subset
+was made because there was very little variation from year to year and 2013
+is the most current data.
 
 ```{r echo=FALSE, group_by_attribute}
 
-#explain why you are doint this based on other analyses
+# Subset by enrollment 10 - 2500 students most recent school year (2013)
 
-#* Subset by enrollement 10 - 2500 students all school years
-#* Subset by enrollment 10 - 2500 students most recent school year (2013)
-#* Subset by enrollment 100 - 2500 students
-
-vaccReported_NLT_10_NGT_2500 <- subset(vaccReported,vaccReported$enrolled >= 10
-                                       & vaccReported$enrolled <= 2500) %>%
-  arrange(desc(percent_exempt))
 
 vaccReported_NLT_10_NGT_2500_2013 <- subset(vaccReported_NLT_10_NGT_2500, 
                                             school_year == "2013")
 
-vaccReported_NLT_100_NGT_2500 <- subset(vaccReported,
-                                        vaccReported$enrolled >= 100 & 
-                                          vaccReported$enrolled <= 2500) %>%
-  arrange(desc(percent_exempt))
 
 #group by county
 
