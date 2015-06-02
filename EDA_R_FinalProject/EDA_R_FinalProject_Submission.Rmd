@@ -260,8 +260,6 @@ populous counties in WA)
 levels of enrollment (< 100 students).  This will be investigated in the 
 bivariate section.
 
-
-
 ##Medical Exemptions##
 
 Summary of medicl exemptions
@@ -515,8 +513,6 @@ melt$percent_exemption_type <- round((melt$exemptions/melt$total_exemptions)*100
                                      digits = 2)
 
 str(melt)
-names(melt)
-summary(melt)
 
 ggplot(data = melt, aes(x = percent_exemption_type, y = ..density..)) +
   geom_freqpoly(binwidth = log(1.25),aes(color = exemption_type)) +
@@ -858,6 +854,7 @@ Medical exemption rates show a weak positive correlation to total exemption
 rates.  Both non-medical and MMR exemptions show a strong positive correlation 
 to total exemption rates.
 
+##Box Plots##
 
 
 ##Exemptions by school type##
@@ -976,9 +973,6 @@ include some other visualizatons to help foster an understanding of the data.
 #rates vs. total exemptions by year
 iter_plot_scatter(names=percent_exemptions,xvar="total_exemptions",add_smooth=TRUE,
           smooth_color_factor="school_year",alpha=.25)
-
-
-
 
 ```
 
@@ -1193,8 +1187,6 @@ county_group <- inner_join(by_county_medexempt, by_county_MMR,
   arrange(desc(students))
 
 
-names(county_group)
-summary(county_group)
 str(county_group)
 
 
@@ -1292,9 +1284,6 @@ county_group_type <- inner_join(by_county_medexempt_type, by_county_MMR_type,
   arrange(desc(students))
 
 
-
-names(county_group_type)
-summary(county_group_type)
 str(county_group_type)
 
 
