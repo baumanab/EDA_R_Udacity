@@ -52,6 +52,13 @@ at 100% exemption rate, 100% immunity would not be expected.
 For the purposes of this analysis, I set the outbreak risk thresholds at 90% 
 for general vaccination rates and 95% for MMR.  That translates to 5% exempt for
 MMR and 10% exempt general.  
+
+```{r global_options, include=FALSE}
+
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+
+```
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
 # Load libraries
 
@@ -725,6 +732,8 @@ Percent exemption drops sharply from low to higher levels of enrollment.
 
 ##Specific exemptions vs. enrollment##
 
+The intent of these plots it to inform how specific exemptions vary with enrollment
+levels.
 ```{r echo=FALSE}
 
 
@@ -736,9 +745,16 @@ cor.test(vaccReported$enrolled,vaccReported$nonmedical_exempt)
 ```
 
 Strong correlation between number of students enrolled and both non-medical 
-exempt and MMR exemptions.
+exempt and MMR exemption.  It is interesting to note that there are some schools
+that appear to have numbers of medical exempt well above what would be expected
+by the overall trend.  Getting a sense for these relationships underscores how
+much more useful exemption rates are over total exemptions.
 
 ##Specific exemptions vs. total exemptions##
+
+The intent of this section is to get a sense how specific exemptions vary as
+a funcion of total exemptions.  This is an attempt to get a sense for proportional
+contribution of exemption types overall exemptions.
 
 ```{r echo=FALSE}
 
@@ -746,9 +762,6 @@ exempt and MMR exemptions.
 
 plot_scatter(xvar="total_exemptions",y="medical_exempt",alpha=.5,
            add_smooth=TRUE) + geom_point(alpha = .1, aes(size = enrolled))
-
-iter_plot_scatter(exemptions[2:3], xvar="total_exemptions",alpha=.5,add_smooth = TRUE)
-
 
 ```
 
@@ -758,23 +771,53 @@ off, becoming negative at about 300 exemptions.  Some of this is because
 there a very few schools beyond 150 exemptions, but note by the point size 
 that this does not track strictly to school size (number of enrolled students).
 
+```{r echo=FALSE}
+
+
+iter_plot_scatter(exemptions[2:3], xvar="total_exemptions",alpha=.5,add_smooth = TRUE)
+
+
+```
+
 There is a strong positive correlation between total exemptions and non-medical 
 exemptions.  The is also a strong positive correlation between total exemptions 
 and MMR exemptions, but not as strong as non-medical exemptions.  
 
 ##Specific exemption rates vs. total exemption rate##
+This section provides a sense of the strength of the relationships between
+specific and total exemption rates.
+
+Default smooth:
 
 ```{r echo=FALSE}
 
 iter_plot_scatter(percent_exemptions, xvar="percent_exempt",
                   alpha=.5,add_smooth = TRUE)
 
+```
+
+Smooth with method = lm (attempt linear fit)
+
+```{r echo=FALSE}
+
+#attempt linear fit
 
 iter_plot_scatter(percent_exemptions, xvar="percent_exempt",
-                  alpha=.5,add_smoot=TRUE,
+                  alpha=.5,add_smooth=TRUE,
           method="lm")
 
+```
 
+Both sets of plots are informative and it is interesting to see how the smooth
+method choice affects the attempted fit.  The overall information gleaned here
+is not suprising at this point, which is that MMR and non-medical exemption rates
+have a stronger linear correlation with the overall exemption rate vs. the 
+medical exemption rate.
+
+What are thos rates for a linear fit?
+
+
+```{r echo=FALSE}
 
 linear_med_rate <- lm(percent_medical_exempt ~ percent_exempt, 
                       data = vaccReported)
@@ -792,8 +835,10 @@ linear_MMR_rate
 
 ```
 
-Showing code here for sake of clarity.  Calculating predicted MMR rate and 
-non-medical exempt rate using linear fit.
+I have strong interest in MMR exemptions, since the first M (measles) in MMR
+is highly contageous and easily spread.  The functions and code below, which
+I am showing for the the sake of clarity, calulate the predicted MMR rate
+and non-medical exemption rate using a linear fit.
 
 ```{r}
 
@@ -821,11 +866,24 @@ lm_x <- function(lin, y) {
 lm_x(linear_MMR_rate,5)
 
 ```
-Medical exemption rates show a weak positive correlation to total exemption 
-rates.  Both non-medical and MMR exemptions show a strong positive correlation 
-to total exemption rates.
+
+According to the power of basic math, it appears that if a school has an ~ 8%
+vaccine exemption rate, you can count on MMR exemptions being ~5%.  Some physcians
+and scientists consider this a a line in the sand that should not be crossed in 
+terms of risk to the immune suppressed and non-immune population (note that 
+some people who are vaccinated are resistant but not immune).  I had intended
+to use this later on in the analysis to a greater extent but decided not to
+because there is still too much variability to make a blanket statement like
+"if a school is at or above x% total exemptions then it is likely above x%
+threshold for MMR."  It was tempting and would be useful if I didn't have the
+actual MMR data, but I do.  There may be some model building opportunities here
+to make predictions elsewhere, where MMR or other vaccination records are less 
+complete but where total exemtpions are known.
 
 ##Box Plots##
+
+Would you could you with a fox, would you could you with box plots? You are
+welcome.
 
 
 ##Exemptions by school type##
@@ -863,6 +921,13 @@ I don't know if this is true of my data set, but there seems to be more
 variability in private vs. public schools.  These plots suggest this is true of 
 non-medical and MMR exemptions, but not medical exemptions.
 
+##Specfic Exemption Rates vs. Specific Exemption Rates##
+
+How do specific exemption rates stack up against eachother, based on my analysis
+thus far, I would expect a correlation between non-medical exemption rates
+and MMR exemption rates.  I would not expect a strong correlation between
+medical and non-medical or MMR exemption rates.
+
 ```{r echo =FALSE}
 
 
@@ -880,9 +945,9 @@ plot_scatter(xvar="percent_nonmedexempt",yvar="percent_exempt_MMR",
 
 ```
 
-Medical and non-medical exemption rates or MMR exemption rates do not have a 
-strong relationship.  Non-medical exemption rates and MMR exemption rates have 
-strong positive relationship.
+My expectations were met.Medical and non-medical exemption rates or MMR 
+exemption rates do not have a strong relationship.  Non-medical exemption rates 
+and MMR exemption rates have strong positive relationship.
 
 
 # Bivariate Analysis
