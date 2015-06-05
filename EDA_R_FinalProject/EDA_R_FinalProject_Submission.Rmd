@@ -721,25 +721,7 @@ iter_plot_scatter(percent_exemptions, xvar="enrolled",
 
 Percent exemption drops sharply from low to higher levels of enrollment.
 
-##Exemption rates vs. total exemptions##
 
-```{r echo =FALSE}
-
-
-
-iter_plot_scatter(percent_exemptions, xvar="total_exemptions",alpha=.2,
-          add_smooth = TRUE)
-
-cor.test(vaccReported$total_exemptions,vaccReported$percent_exempt)
-cor.test(vaccReported$total_exemptions,vaccReported$percent_medical_exempt)
-cor.test(vaccReported$total_exemptions,vaccReported$percent_nonmedexempt)
-cor.test(vaccReported$total_exemptions,vaccReported$percent_exempt_MMR)
-
-```
-
-Weak positive correlation between total exemptions and both total and specific 
-exemption types.  Medical and non-medical exempt have ~ the same correlation 
-to total exemptions.
 
 ##Specific exemptions vs. enrollment##
 
