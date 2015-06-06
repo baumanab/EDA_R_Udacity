@@ -52,6 +52,13 @@ at 100% exemption rate, 100% immunity would not be expected.
 For the purposes of this analysis, I set the outbreak risk thresholds at 90% 
 for general vaccination rates and 95% for MMR.  That translates to 5% exempt for
 MMR and 10% exempt general.  
+
+```{r global_options, include=FALSE}
+
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+
+```
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
 # Load libraries
 
@@ -721,28 +728,12 @@ iter_plot_scatter(percent_exemptions, xvar="enrolled",
 
 Percent exemption drops sharply from low to higher levels of enrollment.
 
-##Exemption rates vs. total exemptions##
 
-```{r echo =FALSE}
-
-
-
-iter_plot_scatter(percent_exemptions, xvar="total_exemptions",alpha=.2,
-          add_smooth = TRUE)
-
-cor.test(vaccReported$total_exemptions,vaccReported$percent_exempt)
-cor.test(vaccReported$total_exemptions,vaccReported$percent_medical_exempt)
-cor.test(vaccReported$total_exemptions,vaccReported$percent_nonmedexempt)
-cor.test(vaccReported$total_exemptions,vaccReported$percent_exempt_MMR)
-
-```
-
-Weak positive correlation between total exemptions and both total and specific 
-exemption types.  Medical and non-medical exempt have ~ the same correlation 
-to total exemptions.
 
 ##Specific exemptions vs. enrollment##
 
+The intent of these plots it to inform how specific exemptions vary with enrollment
+levels.
 ```{r echo=FALSE}
 
 
@@ -754,9 +745,16 @@ cor.test(vaccReported$enrolled,vaccReported$nonmedical_exempt)
 ```
 
 Strong correlation between number of students enrolled and both non-medical 
-exempt and MMR exemptions.
+exempt and MMR exemption.  It is interesting to note that there are some schools
+that appear to have numbers of medical exempt well above what would be expected
+by the overall trend.  Getting a sense for these relationships underscores how
+much more useful exemption rates are over total exemptions.
 
 ##Specific exemptions vs. total exemptions##
+
+The intent of this section is to get a sense how specific exemptions vary as
+a funcion of total exemptions.  This is an attempt to get a sense for proportional
+contribution of exemption types overall exemptions.
 
 ```{r echo=FALSE}
 
@@ -764,9 +762,6 @@ exempt and MMR exemptions.
 
 plot_scatter(xvar="total_exemptions",y="medical_exempt",alpha=.5,
            add_smooth=TRUE) + geom_point(alpha = .1, aes(size = enrolled))
-
-iter_plot_scatter(exemptions[2:3], xvar="total_exemptions",alpha=.5,add_smooth = TRUE)
-
 
 ```
 
@@ -776,23 +771,53 @@ off, becoming negative at about 300 exemptions.  Some of this is because
 there a very few schools beyond 150 exemptions, but note by the point size 
 that this does not track strictly to school size (number of enrolled students).
 
+```{r echo=FALSE}
+
+
+iter_plot_scatter(exemptions[2:3], xvar="total_exemptions",alpha=.5,add_smooth = TRUE)
+
+
+```
+
 There is a strong positive correlation between total exemptions and non-medical 
 exemptions.  The is also a strong positive correlation between total exemptions 
 and MMR exemptions, but not as strong as non-medical exemptions.  
 
 ##Specific exemption rates vs. total exemption rate##
+This section provides a sense of the strength of the relationships between
+specific and total exemption rates.
+
+Default smooth:
 
 ```{r echo=FALSE}
 
 iter_plot_scatter(percent_exemptions, xvar="percent_exempt",
                   alpha=.5,add_smooth = TRUE)
 
+```
+
+Smooth with method = lm (attempt linear fit)
+
+```{r echo=FALSE}
+
+#attempt linear fit
 
 iter_plot_scatter(percent_exemptions, xvar="percent_exempt",
-                  alpha=.5,add_smoot=TRUE,
+                  alpha=.5,add_smooth=TRUE,
           method="lm")
 
+```
 
+Both sets of plots are informative and it is interesting to see how the smooth
+method choice affects the attempted fit.  The overall information gleaned here
+is not suprising at this point, which is that MMR and non-medical exemption rates
+have a stronger linear correlation with the overall exemption rate vs. the 
+medical exemption rate.
+
+What are those rates for a linear fit?
+
+Non-medical:
+```{r echo=FALSE}
 
 linear_med_rate <- lm(percent_medical_exempt ~ percent_exempt, 
                       data = vaccReported)
@@ -802,7 +827,10 @@ linear_nonmed_rate <- lm(percent_nonmedexempt ~ percent_exempt,
                          data = vaccReported)
 
 linear_nonmed_rate
+```
 
+MMR Rate
+```{r echo=FALSE}
 
 linear_MMR_rate <- lm(percent_exempt_MMR ~ percent_exempt, data = vaccReported)
 
@@ -810,8 +838,10 @@ linear_MMR_rate
 
 ```
 
-Showing code here for sake of clarity.  Calculating predicted MMR rate and 
-non-medical exempt rate using linear fit.
+I have strong interest in MMR exemptions, since the first M (measles) in MMR
+is highly contageous and easily spread.  The functions and code below, which
+I am showing for the the sake of clarity, calulate the predicted MMR rate
+and non-medical exemption rate using a linear fit.
 
 ```{r}
 
@@ -839,11 +869,24 @@ lm_x <- function(lin, y) {
 lm_x(linear_MMR_rate,5)
 
 ```
-Medical exemption rates show a weak positive correlation to total exemption 
-rates.  Both non-medical and MMR exemptions show a strong positive correlation 
-to total exemption rates.
+
+According to the power of basic math, it appears that if a school has an ~ 8%
+vaccine exemption rate, you can count on MMR exemptions being ~5%.  Some physcians
+and scientists consider this a a line in the sand that should not be crossed in 
+terms of risk to the immune suppressed and non-immune population (note that 
+some people who are vaccinated are resistant but not immune).  I had intended
+to use this later on in the analysis to a greater extent but decided not to
+because there is still too much variability to make a blanket statement like
+"if a school is at or above x% total exemptions then it is likely above x%
+threshold for MMR."  It was tempting and would be useful if I didn't have the
+actual MMR data, but I do.  There may be some model building opportunities here
+to make predictions elsewhere, where MMR or other vaccination records are less 
+complete but where total exemtpions are known.
 
 ##Box Plots##
+
+Would you could you with a fox, would you could you with box plots? You are
+welcome.
 
 
 ##Exemptions by school type##
@@ -881,6 +924,13 @@ I don't know if this is true of my data set, but there seems to be more
 variability in private vs. public schools.  These plots suggest this is true of 
 non-medical and MMR exemptions, but not medical exemptions.
 
+##Specfic Exemption Rates vs. Specific Exemption Rates##
+
+How do specific exemption rates stack up against eachother, based on my analysis
+thus far, I would expect a correlation between non-medical exemption rates
+and MMR exemption rates.  I would not expect a strong correlation between
+medical and non-medical or MMR exemption rates.
+
 ```{r echo =FALSE}
 
 
@@ -898,9 +948,9 @@ plot_scatter(xvar="percent_nonmedexempt",yvar="percent_exempt_MMR",
 
 ```
 
-Medical and non-medical exemption rates or MMR exemption rates do not have a 
-strong relationship.  Non-medical exemption rates and MMR exemption rates have 
-strong positive relationship.
+My expectations were met.Medical and non-medical exemption rates or MMR 
+exemption rates do not have a strong relationship.  Non-medical exemption rates 
+and MMR exemption rates have strong positive relationship.
 
 
 # Bivariate Analysis
@@ -953,6 +1003,11 @@ include some other visualizatons to help foster an understanding of the data.
 
 ##Rates vs. total exemptions, by year##
 
+How are exemptions rates changing as a function of total exemptions, per year.
+For this and other sections in multivariate plots, I would like to know if there
+are any major differences from year to year that will help inform conclusions
+and plots.
+
 ```{r echo=FALSE, Multivariate_Plots}
 
 #rates vs. total exemptions by year
@@ -964,7 +1019,11 @@ iter_plot_scatter(names=percent_exemptions,xvar="total_exemptions",add_smooth=TR
 * Observing year to year variation, particularly beyond 100 total exemptions
 
 ##Specific exemptions vs. total exemptions by school year and by school type##
+Is the relationship between specific exemptions and overall exemptions varying
+markedly year to year or by school type?
 
+
+By school year: 
 ```{r echo = FALSE}
 
 #specific exemptions vs. total exemptions by school year and by school type
@@ -972,6 +1031,11 @@ iter_plot_scatter(names=percent_exemptions,xvar="total_exemptions",add_smooth=TR
 #school year
 iter_plot_scatter(names=exemptions,xvar="total_exemptions",alpha=.25,add_smooth=TRUE,
           smooth_color_factor="school_year")
+
+```
+
+By school type:
+```{r echo=FALSE}
 
 
 #school type
@@ -988,10 +1052,19 @@ iter_plot_scatter(names=exemptions,xvar="total_exemptions",alpha=.25,add_smooth=
 
 ##Rate vs. rate by year##
 
+How are specific exemption rates and total rate varying as by school year?
+
+First a general look:
 ```{r echo = FALSE}
 
 iter_plot_scatter(names=percent_exemptions,xvar="percent_exempt",add_smooth=TRUE,
           smooth_color_factor="school_year",alpha=.5)
+
+```
+
+Now a closer look faceted by year:
+```{r echo=FALSE}
+
 
 ggplot(data = vaccReported, aes(x = percent_exempt, 
                                 y = percent_medical_exempt)) +
@@ -1335,8 +1408,6 @@ It is very clear from these bar plots that there are many counties with mean tot
 #### By school type
 County level data for mean MMR and total exemption rates, by school type.  The y axis is ordered by number of students enrolled for each county.
 
-##write rebuttal regarding proportions here it is the percentage that matters
-more than total exemptions etc. etc. and keep plots as is
 
 ```{r echo=FALSE,fig.height = 7}
 
@@ -1670,7 +1741,8 @@ plotone_1 <- ggplot(data = vaccReported_NGT50_exemptrate,
   geom_smooth(aes(color = school_year), size = 1.2) +
   theme(legend.position = "none",axis.title.x = element_blank()) +
   xlab("") +
-  ggtitle("Specific Exemption Rates vs. Total Exemption Rate") +
+  ggtitle("Specific Exemption Rates vs. Total Exemption Rate for Counties in 
+          Washington State") +
    theme(plot.title = element_text(face="bold")) +
   ylab("% Medical") +
   scale_fill_brewer(palette = "Blues")
@@ -1721,11 +1793,16 @@ cor.test(vaccReported_NGT50_exemptrate$percent_exempt,
 
 ### Description One
 
+Summary of specific exemption rates vs total exemption rate for counties 
+in Washington State.  Total exemption rate is defined as the number of students 
+per county, exempt from any vaccine, per 100 students.  A specific exemption rate
+is the number of students exempt from a vaccine, per 100 students, respective of
+the vaccine type (MMR etc.) or the reason for exemption (medical, non-medical).
 Specific rates (% medical, nonmedical, and MMR exemption) vs. total percent 
-exempt for schools with <= 50% total exemption, with smoothing lines per school 
+exempt for schools with <= 50% total exemption, with smoothing lines per school
 year.  Medical exemption rates do not have strong correlation (Pearson's ~.35) 
-with total exemption rates whereas non-medical(Pearson's ~.96) and MMR exemption
-rates (Pearson's ~.82) do.  The correlation of non-medical exemption rates with
+with total exemption rateswhereas non-medical(Pearson's ~.96) and MMR exemption
+rates (Pearson's ~.82) do. The correlation of non-medical exemption rates with
 the total exemption rate is stronger than that of MMR rates.  There is very 
 little change in the smoothing lines and degree of correlation from year to year.
 
@@ -1746,7 +1823,7 @@ ggplot(data= county_group, aes(y=mean_percent_exempt,
     legend.direction = "vertical",
     legend.title = element_text(size=12, face="bold")) +
   scale_fill_gradientn(colours=heat.colors(2), name = "Mean % exempt MMR") +
-  ggtitle("Mean Exemption Rate Per County") +
+  ggtitle("Mean Exemption Rate Per Washington State County") +
    theme(plot.title = element_text(face="bold"))
   
 
@@ -1756,12 +1833,14 @@ ggplot(data= county_group, aes(y=mean_percent_exempt,
 
 ### Description Two
 
-Mean percent exemption rate per county, ordered by student population (# of 
-students enrolled), for the school year 2013 and schools with 10-2500 total 
-students.  The gradient color scale represents mean % exempt MMR for each 
-county.  Neither mean total or MMR exemption rates cut by student population.  
-Schools with higher total exemption rates tend to have higher MMR exemption 
-rates, consistent with plot one.  
+Summary of them mean exemption rate per Washington state county.
+The exemption rate is defined as the number of students per county, exempt from 
+any vaccine per 100 students.  Mean percent exemption rate per county, ordered by 
+student population (# of students enrolled), for the school year 2013 and schools
+with 10-2500 total students.  The gradient color scale represents mean % exempt 
+MMR for each county.  Neither mean total or MMR exemption rates cut by student
+population.  Schools with higher total exemption rates tend to have higher MMR 
+exemption rates, consistent with plot one.  
 
 ### Plot Three
 ```{r echo=FALSE, Plot_Three, fig.height = 10}
@@ -1777,7 +1856,7 @@ plotthree_1 <- ggplot(data= data_4, aes(y=mean_percent_exempt/2,
             fill = "red", alpha=0.02) +
   xlab("County(sorted by descending student population)") +
   ylab("mean percent exempt") +
-  ggtitle("Mean % Exempt by County for Top Quartile") +
+  ggtitle("Mean Exemption Rate by Washington State County for the Top Quartile") +
   theme(plot.title = element_text(face="bold")) 
 
 
@@ -1791,7 +1870,8 @@ plotthree_2 <- ggplot(data= data_4, aes(y=mean_percent_exemption_type,
         axis.title.x = element_blank(),legend.background=element_rect(fill = alpha("white",0.3))) +
   xlab("County(Quartile 4)") +
   ylab("Proportion Mean Exempt") +
-  ggtitle("Proportion % Exempt by County Quartile 4") +
+  ggtitle("Proportion of Exemption Rate by Exemption Type by Washington State
+          County for the Top Quartile") +
   theme(plot.title = element_text(face="bold"))
 
 
@@ -1800,13 +1880,17 @@ grid.arrange(plotthree_1,plotthree_2)
 
 ### Description Three
 
-Mean % exemption rate and proportion % exempt by exemption type for counties in 
-quartile four (top 25% of mean exemption rates), along with the affected student populaation.  A red shade is used to show the area at and beyond what is 
-generally considered the threshold for herd immunity
-
-6 counties for the top quartile are at or beyond the 10% herd immunity 
-threshold, while 4 are below it.  The vast majority of exemptions for each 
-county are non-medicalexemptions, also known as personal belief exemptions.
+Summary of the mean exempton rate for Washington state for the top quartile of
+mean vaccine exemption rates and the proportion of exemptions by type (medical
+or non-medical).  The exemption rate is defined as the number of students per 
+county, exempt from  any vaccine per 100 students.  Mean exemption rate and 
+proportion of percent exempt by exemption type for counties in quartile four 
+(top 25% of mean exemption rates), along with the affected student populaation.
+A red shade is used to show the area at and beyond what is generally considered 
+the threshold for herd immunity.  6 counties for the top quartile are at or 
+beyond the 10% herd immunity threshold, while 4 are below it.  The vast majority 
+of exemptions for each  county are non-medicalexemptions, also known as personal
+belief exemptions.
 
 **It is important to note that herd immunity thresholds are based on specific assumptions which include opportunity for exposure, how contageous a disease is, and population mixing.  These may not apply evenly for all schools.  Measeles in highly contagious with a large opporutnity for exposure relative to say Hep B.  Esitmates for measles put a safe level of exemption closer to 5%.**
 
