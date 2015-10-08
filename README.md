@@ -19,6 +19,7 @@ For the purposes of this analysis, I set the outbreak risk thresholds at 90% for
 **The knitted html file for my project EDA is here:** [final project html](http://seattalytics.com/EDA_R_FinalProject_Submission.html) and the source here:[final project rmd](https://github.com/baumanab/EDA_R_Udacity/blob/master/EDA_R_FinalProject/EDA_R_FinalProject_Submission.Rmd)
 
 Since the html file is large, I broke it into three sections:
+
 1. [Introduction and Univariate Analysis](seattalytics.com/EDA_R_FinalProject_Intro_UnivariatePlots.html)
 
 2. [Bivariate Analysis](http://seattalytics.com/EDA_R_FinalProject_BivariatePlots.html)
