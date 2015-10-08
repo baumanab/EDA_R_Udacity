@@ -143,7 +143,7 @@ I also plan to revisit the data set containing other disease exemption data to s
 
 *   Udacity Forums and Coaches Lounge
 
-*   [Hadley Wikhams Tidy Data manuscript and associate vignette](https://github.com/hadley/tidy-data)
+*   [Hadley Wikhams Tidy Data manuscript and associated vignette](https://github.com/hadley/tidy-data)
 
 *   [Quick R](http://www.statmethods.net/)
 
