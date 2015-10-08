@@ -14,7 +14,7 @@ For the purposes of this analysis, I set the outbreak risk thresholds at 90% for
 
 ### Reports ###
 
-**Source code and project reports can be found here:** [source]()
+**Source code and project reports can be found here:** [source](https://github.com/baumanab/EDA_R_Udacity/tree/master/EDA_R_FinalProject)
 
 **The knitted html file for my project EDA is here:** [final project html](http://seattalytics.com/EDA_R_FinalProject_Submission.html) and the source here:[final project rmd](https://github.com/baumanab/EDA_R_Udacity/blob/master/EDA_R_FinalProject/EDA_R_FinalProject_Submission.Rmd)
 
@@ -38,5 +38,4 @@ The current state is a rough approach and far from perfect. I plan to revisit th
 ## Final Plots and Summary ##
 
 ![Final Plots and Summary](http://seattalytics.com/EDA_R_FinalProject_FinalPlots_Summary.html)
-
 
