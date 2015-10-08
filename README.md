@@ -20,8 +20,11 @@ For the purposes of this analysis, I set the outbreak risk thresholds at 90% for
 
 Since the html file is large, I broke it into three sections:
 1. [Introduction and Univariate Analysis](seattalytics.com/EDA_R_FinalProject_Intro_UnivariatePlots.html)
+
 2. [Bivariate Analysis](http://seattalytics.com/EDA_R_FinalProject_BivariatePlots.html)
+
 3. [Multivariate Analysis](http://seattalytics.com/EDA_R_FinalProject_MultivariatePlots.html)
+
 4. [Final Plots and Summary](http://seattalytics.com/EDA_R_FinalProject_FinalPlots_Summary.html)
 
 
