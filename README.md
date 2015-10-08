@@ -108,19 +108,19 @@ Summary of them mean exemption rate per Washington state county. The exemption r
 
 ### Description Three
 
-Summary of the mean exempton rate for Washington state for the top quartile of mean vaccine exemption rates and the proportion of exemptions by type (medical or non-medical). The exemption rate is defined as the number of students per county, exempt from any vaccine per 100 students. Mean exemption rate and proportion of percent exempt by exemption type for counties in quartile four (top 25% of mean exemption rates), along with the affected student populaation. A red shade is used to show the area at and beyond what is generally considered the threshold for herd immunity. 6 counties for the top quartile are at or beyond the 10% herd immunity threshold, while 4 are below it. The vast majority of exemptions for each county are non-medicalexemptions, also known as personal belief exemptions.
+Summary of the mean exemption rate for Washington state for the top quartile of mean vaccine exemption rates and the proportion of exemptions by type (medical or non-medical). The exemption rate is defined as the number of students per county, exempt from any vaccine per 100 students. Mean exemption rate and proportion of percent exempt by exemption type for counties in quartile four (top 25% of mean exemption rates), along with the affected student population. A red shade is used to show the area at and beyond what is generally considered the threshold for herd immunity. 6 counties for the top quartile are at or beyond the 10% herd immunity threshold, while 4 are below it. The vast majority of exemptions for each county are non-medical exemptions, also known as personal belief exemptions.
 
-**It is important to note that herd immunity thresholds are based on specific assumptions which include opportunity for exposure, how contageous a disease is, and population mixing. These may not apply evenly for all schools. Measeles in highly contagious with a large opporutnity for exposure relative to say Hep B. Esitmates for measles put a safe level of exemption closer to 5%.**
+**It is important to note that herd immunity thresholds are based on specific assumptions which include opportunity for exposure, how contagious a disease is, and population mixing. These may not apply evenly for all schools. Measles is highly contagious with a large opportunity for exposure relative to say Hep B. Estimates for measles put a safe level of exemption closer to 5%.**
 
 * * *
 
 # Reflection
 
-This has been an interesting project. My original intent was to use the zip code data and data from the US Census Bureau (economic and demographic data down to the tract level) and the WA state government (demographic data at the school level), to explore school vaccine exemptions and exemption rates. Cleaning and tidying the data set for this purpose was daunting, but enjoyable. As a step towards my original intent, I decided to start exploring the data to develop a better understanding of the set and how exemption rates varied by type, year, student population etc. What I found was that I had a rich data set all on its own. I was able to view the high level of variance in the data, particuarly associated with school size, as well as how types of exemptions and types of schools were contributing to exemption rates. I made some surprising findings:
+This has been an interesting project. My original intent was to use the zip code data and data from the US Census Bureau (economic and demographic data down to the tract level) and the WA state government (demographic data at the school level), to explore school vaccine exemptions and exemption rates. Cleaning and tidying the data set for this purpose was daunting, but enjoyable. As a step towards my original intent, I decided to start exploring the data to develop a better understanding of the set and how exemption rates varied by type, year, student population etc. What I found was that I already had a rich data set. I was able to view the high level of variance in the data, particularly associated with school size, as well as how types of exemptions and types of schools were contributing to exemption rates. I made some surprising findings:
 
 *   Populous counties with large urban centers do not have unusually high vaccine exemption rates at the county level. This appears to be the domain of smaller, rural counties.
 *   MMR vaccine exemption rates do not track 1:1 with total vaccine exemption rates, it appears that people are choosy with vaccines.
-*   There is some variation of exemptions by school type but not as dramatic as expected. I think this is partially because I have lumped all private schools into one bin, but no tall private schools are alike. Parsing the brand or types of private schools may be informative.
+*   There is some variation of exemptions by school type but not as dramatic as expected. I think this is partially because I have lumped all private schools into one bin, but not all private schools are alike. Parsing the brand or types of private schools may be informative.
 *   Exemption rates have low variability from year to year.
 
 and some less than surprising findings:
@@ -128,15 +128,15 @@ and some less than surprising findings:
 *   Non-medical exemptions occur at a much higher rate than medical exemptions
 *   Non-medical exemption rates have a strong correlation with total exemption rates
 
-In general, the body of scientific evidence suggests that vaccine exemption rates below 5-10% (depending on disease attributes) puts the non-immune population (no natural immunity and low resitance and have not received vaccine or the vaccine was not effective) at risk. In WA state, the vast majority of exemptions are personal belief (non-medical) exemptions. At the county level there are 6 counties with mean exemption rates exceeding 10% with even more exceeding the 5% MMR threshold.
+In general, the body of scientific evidence suggests that vaccine exemption rates below 5-10% (depending on disease attributes) puts the non-immune population (no natural immunity and low resistance and have not received vaccine or the vaccine was not effective) at risk. In WA state, the vast majority of exemptions are personal belief (non-medical) exemptions. At the county level there are 6 counties with mean exemption rates exceeding 10% with even more exceeding the 5% MMR threshold.
 
 Now that I have a solid understanding of the underlying data I would like to do the following as next steps.
 
-*   Audit the data set again to remove any errors, especially with regards to number of students enrolled at a school
-*   Explore the data at the district, city, and zip code level, to see how my observations at the county level compare.
-*   Create economic and demographic data tables for later combination with a subset of the vaccine exemption data (likely city and zip code level) to see what relationships between and amongst variables with respect to exemption rates.
+*   Audit the data set again to remove any errors, especially with regards to number of students enrolled at each school
+*   Explore the data at the district, city, and zip code level and compare to the county level.
+*   Create economic and demographic data tables for later combination with a subset of the vaccine exemption data (likely city and zip code level) to determine what relationships exist between and amongst variables with respect to exemption rates.
 
-I also plan to revisit the data set containing other disease exemption data to see how each of those varies with total exemption rate and get a better idea of what diesease people are not being vaccinated for at specific geographical levels.
+I also plan to revisit the data set containing other disease exemption data to see how each of those varies with total exemption rate and get a better idea of what disease people are not being vaccinated for at specific geographical levels.
 
 
 # References
