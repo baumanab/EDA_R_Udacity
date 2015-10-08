@@ -37,15 +37,6 @@ The current state is a rough approach and far from perfect. I plan to revisit th
 
 ## Final Plots and Summary ##
 
-<style type="text/css">.main-container { max-width: 940px; margin-left: auto; margin-right: auto; }</style>
-
-<div class="container-fluid main-container">
-
-<div id="final-plots-and-summary" class="section level1">
-
-# Final Plots and Summary
-
-<div id="plot-one" class="section level3">
 
 ### Plot One
 
@@ -91,7 +82,7 @@ The current state is a rough approach and far from perfect. I plan to revisit th
 
 ### Description One
 
-Summary of specific exemption rates vs total exemption rate for counties in Washington State. Total exemption rate is defined as the number of students per county, exempt from any vaccine, per 100 students. A specific exemption rate is the number of students exempt from a vaccine, per 100 students, respective of the vaccine type (MMR etc.) or the reason for exemption (medical, non-medical). Specific rates (% medical, nonmedical, and MMR exemption) vs. total percent exempt for schools with <= 50% total exemption, with smoothing lines per school year. Medical exemption rates do not have strong correlation (Pearson’s ~.35) with total exemption rateswhereas non-medical(Pearson’s ~.96) and MMR exemption rates (Pearson’s ~.82) do. The correlation of non-medical exemption rates with the total exemption rate is stronger than that of MMR rates. There is very little change in the smoothing lines and degree of correlation from year to year.
+Summary of specific exemption rates vs total exemption rate for counties in Washington State. Total exemption rate is defined as the number of students per county, exempt from any vaccine, per 100 students. A specific exemption rate is the number of students exempt from a vaccine, per 100 students, respective of the vaccine type (MMR etc.) or the reason for exemption (medical, non-medical). Specific rates (% medical, non-medical, and MMR exemption) vs. total percent exempt for schools with <= 50% total exemption, with smoothing lines per school year. Medical exemption rates do not have strong correlation (Pearson’s ~.35) with total exemption rates whereas non-medical(Pearson’s ~.96) and MMR exemption rates (Pearson’s ~.82) do. The correlation of non-medical exemption rates with the total exemption rate is stronger than that of MMR rates. There is very little change in the smoothing lines and degree of correlation from year to year.
 
 
 ### Plot Two
@@ -138,9 +129,6 @@ Now that I have a solid understanding of the underlying data I would like to do 
 
 I also plan to revisit the data set containing other disease exemption data to see how each of those varies with total exemption rate and get a better idea of what diesease people are not being vaccinated for at specific geographical levels.
 
-</div>
-
-<div id="references" class="section level1">
 
 # References
 
@@ -163,9 +151,3 @@ I also plan to revisit the data set containing other disease exemption data to s
 *   [R Bloggers](http://www.r-bloggers.com)
 
 *   [R Studio Cheat Sheets](http://www.rstudio.com/resources/cheatsheets)
-
-</div>
-
-</div>
-
-<script>// add bootstrap table styles to pandoc tables $(document).ready(function () { $('tr.header').parent('thead').parent('table').addClass('table table-condensed'); });</script> <script>(function () { var script = document.createElement("script"); script.type = "text/javascript"; script.src = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"; document.getElementsByTagName("head")[0].appendChild(script); })();</script>
