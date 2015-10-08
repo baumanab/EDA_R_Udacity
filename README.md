@@ -40,6 +40,8 @@ The current state is a rough approach and far from perfect. I plan to revisit th
 
 ### Plot One
 
+![](https://github.com/baumanab/EDA_R_Udacity/blob/master/EDA_R_FinalProject/img/final_plot_one.png)
+
 
 
     ## 
@@ -87,7 +89,7 @@ Summary of specific exemption rates vs total exemption rate for counties in Wash
 
 ### Plot Two
 
-
+![](https://github.com/baumanab/EDA_R_Udacity/blob/master/EDA_R_FinalProject/img/final_plot_two.png)
 
 
 
@@ -95,6 +97,9 @@ Summary of specific exemption rates vs total exemption rate for counties in Wash
 
 Summary of them mean exemption rate per Washington state county. The exemption rate is defined as the number of students per county, exempt from any vaccine per 100 students. Mean percent exemption rate per county, ordered by student population (# of students enrolled), for the school year 2013 and schools with 10-2500 total students. The gradient color scale represents mean % exempt MMR for each county. Neither mean total or MMR exemption rates cut by student population. Schools with higher total exemption rates tend to have higher MMR exemption rates, consistent with plot one.
 
+## Plot Three ##
+
+![](https://github.com/baumanab/EDA_R_Udacity/blob/master/EDA_R_FinalProject/img/final_plot_three.png)
 
 
 ### Description Three
